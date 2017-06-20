@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D92070DD1EF98FDC0095B9FA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92070DC1EF98FDC0095B9FA /* LoginViewController.swift */; };
 		D9FDE6121EC2263C009D5BE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FDE6111EC2263C009D5BE3 /* AppDelegate.swift */; };
 		D9FDE6171EC2263C009D5BE3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9FDE6151EC2263C009D5BE3 /* Main.storyboard */; };
 		D9FDE6191EC2263C009D5BE3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9FDE6181EC2263C009D5BE3 /* Assets.xcassets */; };
@@ -33,6 +34,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D92070DC1EF98FDC0095B9FA /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D9FDE60E1EC2263C009D5BE3 /* Turnstr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Turnstr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9FDE6111EC2263C009D5BE3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D9FDE6161EC2263C009D5BE3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -76,6 +78,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D92070D81EF98F720095B9FA /* SignIn_Up */ = {
+			isa = PBXGroup;
+			children = (
+				D92070DC1EF98FDC0095B9FA /* LoginViewController.swift */,
+			);
+			path = SignIn_Up;
+			sourceTree = "<group>";
+		};
 		D9FDE6051EC2263C009D5BE3 = {
 			isa = PBXGroup;
 			children = (
@@ -122,6 +132,7 @@
 		D9FDE6281EC22714009D5BE3 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				D92070D81EF98F720095B9FA /* SignIn_Up */,
 				D9FDE6351EC22A4B009D5BE3 /* HomeScreen */,
 			);
 			path = Controllers;
@@ -289,6 +300,7 @@
 				D9FDE63C1EC22C55009D5BE3 /* Enums.swift in Sources */,
 				D9FDE6121EC2263C009D5BE3 /* AppDelegate.swift in Sources */,
 				D9FDE63D1EC22C55009D5BE3 /* Header.swift in Sources */,
+				D92070DD1EF98FDC0095B9FA /* LoginViewController.swift in Sources */,
 				D9FDE6311EC22950009D5BE3 /* Trackball.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -460,6 +472,7 @@
 				D9FDE6221EC2263C009D5BE3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
