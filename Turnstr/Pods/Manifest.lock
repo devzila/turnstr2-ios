@@ -1,0 +1,25 @@
+PODS:
+  - Alamofire (4.4.0)
+  - AlamofireImage (3.2.0):
+    - Alamofire (~> 4.1)
+  - NVActivityIndicatorView (3.5.1)
+  - RMMapper (1.1.5)
+  - SwiftyJSON (3.1.4)
+
+DEPENDENCIES:
+  - Alamofire (~> 4.3)
+  - AlamofireImage (~> 3.0)
+  - NVActivityIndicatorView
+  - RMMapper
+  - SwiftyJSON
+
+SPEC CHECKSUMS:
+  Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
+  AlamofireImage: 157ed682cc81d3b9db4fb90c1f12180ac552d93b
+  NVActivityIndicatorView: 075563b3547445ebcff840e3297ce9dd4a23731f
+  RMMapper: 21122d753c736d975f6c61e674afce8db73579af
+  SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
+
+PODFILE CHECKSUM: 9d2ca312a115ed45af740d14ffbda5dab9536cd4
+
+COCOAPODS: 1.3.0.beta.2

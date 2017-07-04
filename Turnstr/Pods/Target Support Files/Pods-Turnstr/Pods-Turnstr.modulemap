@@ -1,0 +1,6 @@
+framework module Pods_Turnstr {
+  umbrella header "Pods-Turnstr-umbrella.h"
+
+  export *
+  module * { export * }
+}
