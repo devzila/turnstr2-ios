@@ -22,6 +22,8 @@ let kImageBaseUrl = "https://fathomless-retreat-45620.herokuapp.com"
 let kAPILogin = "sessions"
 let kAPISignUp = "signup"
 let kAPIUpdateProfile = "user/profile"
+let kAPIGetStories = "user/stories"
+
 
 
 
@@ -61,6 +63,8 @@ let kCenterH = kHeight/2
 
 
 let kNavBarHeight: CGFloat = 50
+let kNavBarHeightWithLogo: CGFloat = 60
+
 
 
 let kAppDelegate = (UIApplication.shared.delegate as! AppDelegate)

@@ -13,8 +13,10 @@ class MenuBar: UIView {
     var btnBack: UIButton = UIButton()
     var btnRightMenu: UIButton = UIButton()
     var lblTitle: UILabel = UILabel()
-    var btnMore: UIButton = UIButton()
     var uvBottomBorder: UIView = UIView()
+    var imgBg: UIImageView = UIImageView()
+    var imgLogoTitle:UIImageView = UIImageView()
+    
     
     
     override init(frame: CGRect) {
@@ -27,11 +29,37 @@ class MenuBar: UIView {
         
     }
     
+    init(frame: CGRect, logoTitle: Bool) {
+        super.init(frame: CGRect.init(x: 0, y: 0, width: kWidth, height: kNavBarHeightWithLogo))
+        BackgroundIMage()
+        self.addSubview(imgBg)
+        self.layer.masksToBounds = true
+        self.addSubview(LogoTitle())
+        
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
+    func BackgroundIMage() -> Void {
+        imgBg.frame = self.frame
+        imgBg.image = #imageLiteral(resourceName: "bg_norm")
+    }
     
+    func LogoTitle() -> UIImageView {
+        imgLogoTitle.frame = CGRect.init(x: kCenterW-34, y: self.frame.height-30, width: 68, height: 18)
+        imgLogoTitle.image = #imageLiteral(resourceName: "logo_nav")
+        imgLogoTitle.contentMode = .scaleAspectFit
+        
+        return imgLogoTitle
+    }
+    
+    func ProfileIconButton() -> UIButton {
+        btnRightMenu = Utility.sharedInstance.createButton(xCo: kWidth - 40, forY: self.frame.height-25, forW: 30, forH: 25, forText: "", textColor: UIColor.white, wifthFont: UIFont.systemFont(ofSize: 12), backColor: krgbClear)
+        btnRightMenu.setImage(#imageLiteral(resourceName: "user_icon"), for: .normal)
+        return btnRightMenu
+    }
     func navTitle(title: String, inView: UIView) -> Void {
         lblTitle = UILabel.init(frame: CGRect.init(x: 50, y: 00, width: kWidth-100, height: kNavBarHeight))
         lblTitle.text = title
@@ -55,9 +83,10 @@ class MenuBar: UIView {
     }
     
     func RightButonIcon() -> UIButton {
-        btnMore = Utility.sharedInstance.createButton(xCo: kWidth - 45, forY: 0, forW: 40, forH: kNavBarHeight, forText: "", textColor: UIColor.white, wifthFont: UIFont.systemFont(ofSize: 12), backColor: krgbClear)
-        btnMore.setImage(UIImage(named: "toggle"), for: .normal)
-        return btnMore
+        btnRightMenu = Utility.sharedInstance.createButton(xCo: kWidth - 45, forY: 0, forW: 40, forH: self.frame.height, forText: "", textColor: UIColor.white, wifthFont: UIFont.systemFont(ofSize: 12), backColor: krgbClear)
+        btnRightMenu.setImage(#imageLiteral(resourceName: "user_icon"), for: .normal)
+        btnRightMenu.backgroundColor = UIColor.red
+        return btnRightMenu
     }
     
     func LeftMenuButonIcon() -> UIButton {

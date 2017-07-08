@@ -15,7 +15,16 @@ class LoginViewController: ParentViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        /*
+         * CHeck if user already logged in
+         */
+        if objDataS.isLoginData() == true {
+            LoadMyStories()
+            return
+        }
         
+        txtUsername.text = "a@gmail.com"
+        txtPassword.text = "12345678"
     }
 
     override func didReceiveMemoryWarning() {
@@ -36,7 +45,9 @@ class LoginViewController: ParentViewController {
             return
         }
         
-        kAppDelegate.loadingIndicationCreationMSG(msg: "Login..")
+        //self.LoadMyStories()
+        
+        kAppDelegate.loadingIndicationCreationMSG(msg: "Login")
         APIRequest(sType: kAPILogin, data: [:])
         
         //LoadEditProfile()
@@ -79,7 +90,8 @@ class LoginViewController: ParentViewController {
                             
                             self.objDataS.saveLoginData(data: arrResponse)
                             if self.objDataS.isLoginData() == true {
-                                self.LoadEditProfile()
+                                //self.LoadEditProfile()
+                                self.LoadMyStories()
                             }
                         }
                         

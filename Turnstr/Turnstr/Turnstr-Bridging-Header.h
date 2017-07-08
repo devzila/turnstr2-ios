@@ -14,6 +14,6 @@
 #import "MBProgressHUD.h"
 #import "UIButton+WebCache.h"
 #import "UIImageView+WebCache.h"
-
+#import "CubePageView.h"
 
 #endif /* Turnstr_Bridging_Header_h */

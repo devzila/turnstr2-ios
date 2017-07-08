@@ -61,7 +61,7 @@ class DataServiceModal: NSObject {
     
     //MARK:- GET METHODS
     
-    func getDataFromServerWithGETMethod(dictAction:NSDictionary) -> Dictionary<String,AnyObject>  {
+    func GetRequestToServer(dictAction:NSDictionary) -> Dictionary<String,AnyObject>  {
         self.allSharedInstance()
         
         
@@ -72,12 +72,12 @@ class DataServiceModal: NSObject {
         
         let action: String = dictAction["action"] as! String
         
-//        if action == kAPIRenewSession {
-//            
-//            strRequest = String(format: "?renewalKey=%@", (objSingl?.strUserRenewalKey)!)
-//            strPostUrl = kAPIRenewSession
-//            strParType = ""
-//        }
+        if action == kAPIGetStories {
+            
+            strRequest = String(format: "?page=%d", dictAction["page"] as! Int)
+            strPostUrl = kAPIGetStories
+            strParType = ""
+        }
         
         print("API Request")
         print(strRequest)
@@ -331,7 +331,7 @@ class DataServiceModal: NSObject {
                         objSingl?.strUserContactMe = "\(str)"
                     }
                     
-                    if let str = objUser["contact_me"] as? Bool {
+                    if let str = objUser["online"] as? Bool {
                         objSingl?.strUserOnline = str
                     }
                     

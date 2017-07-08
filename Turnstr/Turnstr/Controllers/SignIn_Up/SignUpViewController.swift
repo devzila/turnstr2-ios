@@ -91,7 +91,8 @@ class SignUpViewController: ParentViewController {
                         
                         self.objDataS.saveLoginData(data: arrResponse)
                         if self.objDataS.isLoginData() == true {
-                            self.LoadEditProfile()
+                            //self.LoadEditProfile()
+                            self.LoadMyStories()
                         }
                         kAppDelegate.hideLoadingIndicator()
                     }
