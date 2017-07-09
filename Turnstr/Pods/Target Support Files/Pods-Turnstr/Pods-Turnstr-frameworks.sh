@@ -24,8 +24,8 @@ install_framework()
   fi
 
   # use filter instead of exclude so missing patterns dont' throw errors
-  echo "rsync --delete -av --filter \"- CVS/\" --filter \"- .svn/\" --filter \"- .git/\" --filter \"- .hg/\" --filter \"- Headers\" --filter \"- PrivateHeaders\" --filter \"- Modules\" \"${source}\" \"${destination}\""
-  rsync --delete -av --filter "- CVS/" --filter "- .svn/" --filter "- .git/" --filter "- .hg/" --filter "- Headers" --filter "- PrivateHeaders" --filter "- Modules" "${source}" "${destination}"
+  echo "rsync -av --filter \"- CVS/\" --filter \"- .svn/\" --filter \"- .git/\" --filter \"- .hg/\" --filter \"- Headers\" --filter \"- PrivateHeaders\" --filter \"- Modules\" \"${source}\" \"${destination}\""
+  rsync -av --filter "- CVS/" --filter "- .svn/" --filter "- .git/" --filter "- .hg/" --filter "- Headers" --filter "- PrivateHeaders" --filter "- Modules" "${source}" "${destination}"
 
   local basename
   basename="$(basename -s .framework "$1")"
@@ -54,27 +54,13 @@ install_framework()
   fi
 }
 
-# Copies the dSYM of a vendored framework
-install_dsym() {
-  local source="$1"
-  if [ -r "$source" ]; then
-    echo "rsync --delete -av --filter \"- CVS/\" --filter \"- .svn/\" --filter \"- .git/\" --filter \"- .hg/\" --filter \"- Headers\" --filter \"- PrivateHeaders\" --filter \"- Modules\" \"${source}\" \"${DWARF_DSYM_FOLDER_PATH}\""
-    rsync --delete -av --filter "- CVS/" --filter "- .svn/" --filter "- .git/" --filter "- .hg/" --filter "- Headers" --filter "- PrivateHeaders" --filter "- Modules" "${source}" "${DWARF_DSYM_FOLDER_PATH}"
-  fi
-}
-
 # Signs a framework with the provided identity
 code_sign_if_enabled() {
   if [ -n "${EXPANDED_CODE_SIGN_IDENTITY}" -a "${CODE_SIGNING_REQUIRED}" != "NO" -a "${CODE_SIGNING_ALLOWED}" != "NO" ]; then
     # Use the current code_sign_identitiy
     echo "Code Signing $1 with Identity ${EXPANDED_CODE_SIGN_IDENTITY_NAME}"
-    local code_sign_cmd="/usr/bin/codesign --force --sign ${EXPANDED_CODE_SIGN_IDENTITY} ${OTHER_CODE_SIGN_FLAGS} --preserve-metadata=identifier,entitlements '$1'"
-
-    if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
-      code_sign_cmd="$code_sign_cmd &"
-    fi
-    echo "$code_sign_cmd"
-    eval "$code_sign_cmd"
+    echo "/usr/bin/codesign --force --sign ${EXPANDED_CODE_SIGN_IDENTITY} ${OTHER_CODE_SIGN_FLAGS} --preserve-metadata=identifier,entitlements \"$1\""
+    /usr/bin/codesign --force --sign ${EXPANDED_CODE_SIGN_IDENTITY} ${OTHER_CODE_SIGN_FLAGS} --preserve-metadata=identifier,entitlements "$1"
   fi
 }
 
@@ -85,7 +71,7 @@ strip_invalid_archs() {
   archs="$(lipo -info "$binary" | rev | cut -d ':' -f1 | rev)"
   stripped=""
   for arch in $archs; do
-    if ! [[ "${ARCHS}" == *"$arch"* ]]; then
+    if ! [[ "${VALID_ARCHS}" == *"$arch"* ]]; then
       # Strip non-valid architectures in-place
       lipo -remove "$arch" -output "$binary" "$binary" || exit 1
       stripped="$stripped $arch"
@@ -98,19 +84,30 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_framework "${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/RMMapper/RMMapper.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Alamofire/Alamofire.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/AlamofireImage/AlamofireImage.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Bolts/Bolts.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/FBSDKCoreKit/FBSDKCoreKit.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/FBSDKLoginKit/FBSDKLoginKit.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/FBSDKShareKit/FBSDKShareKit.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/FacebookCore/FacebookCore.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/FacebookLogin/FacebookLogin.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/FacebookShare/FacebookShare.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/NVActivityIndicatorView/NVActivityIndicatorView.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/RMMapper/RMMapper.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/SwiftyJSON/SwiftyJSON.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_framework "${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/RMMapper/RMMapper.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework"
-fi
-if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
-  wait
+  install_framework "$BUILT_PRODUCTS_DIR/Alamofire/Alamofire.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/AlamofireImage/AlamofireImage.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Bolts/Bolts.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/FBSDKCoreKit/FBSDKCoreKit.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/FBSDKLoginKit/FBSDKLoginKit.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/FBSDKShareKit/FBSDKShareKit.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/FacebookCore/FacebookCore.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/FacebookLogin/FacebookLogin.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/FacebookShare/FacebookShare.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/NVActivityIndicatorView/NVActivityIndicatorView.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/RMMapper/RMMapper.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/SwiftyJSON/SwiftyJSON.framework"
 fi

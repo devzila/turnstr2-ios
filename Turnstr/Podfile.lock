@@ -2,6 +2,31 @@ PODS:
   - Alamofire (4.4.0)
   - AlamofireImage (3.2.0):
     - Alamofire (~> 4.1)
+  - Bolts (1.8.4):
+    - Bolts/AppLinks (= 1.8.4)
+    - Bolts/Tasks (= 1.8.4)
+  - Bolts/AppLinks (1.8.4):
+    - Bolts/Tasks
+  - Bolts/Tasks (1.8.4)
+  - FacebookCore (0.2.0):
+    - Bolts (~> 1.8)
+    - FBSDKCoreKit (~> 4.15)
+  - FacebookLogin (0.2.0):
+    - Bolts (~> 1.8)
+    - FacebookCore (~> 0.2)
+    - FBSDKCoreKit (~> 4.15)
+    - FBSDKLoginKit (~> 4.15)
+  - FacebookShare (0.2.0):
+    - Bolts (~> 1.8)
+    - FacebookCore (~> 0.2)
+    - FBSDKCoreKit (~> 4.15)
+    - FBSDKShareKit (~> 4.15)
+  - FBSDKCoreKit (4.22.1):
+    - Bolts (~> 1.7)
+  - FBSDKLoginKit (4.22.1):
+    - FBSDKCoreKit
+  - FBSDKShareKit (4.22.1):
+    - FBSDKCoreKit
   - NVActivityIndicatorView (3.5.1)
   - RMMapper (1.1.5)
   - SwiftyJSON (3.1.4)
@@ -9,6 +34,12 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 4.3)
   - AlamofireImage (~> 3.0)
+  - FacebookCore (~> 0.2)
+  - FacebookLogin (~> 0.2)
+  - FacebookShare (~> 0.2)
+  - FBSDKCoreKit (~> 4.22.1)
+  - FBSDKLoginKit (~> 4.22.1)
+  - FBSDKShareKit (~> 4.22.1)
   - NVActivityIndicatorView
   - RMMapper
   - SwiftyJSON
@@ -16,10 +47,17 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
   AlamofireImage: 157ed682cc81d3b9db4fb90c1f12180ac552d93b
+  Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
+  FacebookCore: 2cb3f0fbff218e9d3119cec84bae983b232412de
+  FacebookLogin: c9d606504735780a9e3002465a615512e0a691a5
+  FacebookShare: 8e9ee8ea06505e6a1d3d719b0cc63e840fb8aaeb
+  FBSDKCoreKit: 9c2daf0162214d6d2e21cf8208a9c6c2a2e42b9c
+  FBSDKLoginKit: 00cf28916b9f0169763a3d61985d745b579fe304
+  FBSDKShareKit: 1cbd0fdc2bb3277dd3522512855dcf1f4088f734
   NVActivityIndicatorView: 075563b3547445ebcff840e3297ce9dd4a23731f
   RMMapper: 21122d753c736d975f6c61e674afce8db73579af
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: 9d2ca312a115ed45af740d14ffbda5dab9536cd4
+PODFILE CHECKSUM: ca7763cb5576955323737001e86d48ee4b6a500c
 
-COCOAPODS: 1.3.0.beta.2
+COCOAPODS: 1.1.1

@@ -9,6 +9,9 @@
 #ifndef Turnstr_Bridging_Header_h
 #define Turnstr_Bridging_Header_h
 
+@import UIKit;
+@import Foundation;
+
 #import "TrackBall.h"
 #import "AITransformView.h"
 #import "MBProgressHUD.h"

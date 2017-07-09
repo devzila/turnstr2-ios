@@ -23,6 +23,7 @@ let kAPILogin = "sessions"
 let kAPISignUp = "signup"
 let kAPIUpdateProfile = "user/profile"
 let kAPIGetStories = "user/stories"
+let kAPIFacebookLogin = "facebook/login"
 
 
 

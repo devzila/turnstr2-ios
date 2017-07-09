@@ -25,6 +25,26 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>fb127060311228136</string>
+            </array>
+        </dict>
+    </array>
+    <key>FacebookAppID</key>
+    <string>127060311228136</string>
+    <key>FacebookDisplayName</key>
+    <string>Turnstr-dev</string>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+        <string>fbapi</string>
+        <string>fb-messenger-api</string>
+        <string>fbauth2</string>
+        <string>fbshareextension</string>
+    </array>
 	<key>NSAppleMusicUsageDescription</key>
 	<string>For Profile and Stories</string>
 	<key>NSCameraUsageDescription</key>

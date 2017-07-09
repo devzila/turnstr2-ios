@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FacebookCore
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     static var shared: AppDelegate? {
         guard let delegate = UIApplication.shared.delegate as? AppDelegate else { return nil }
+        
         return delegate
     }
     
@@ -32,7 +34,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(networkStatusChanged(_:)), name: NSNotification.Name(rawValue: ReachabilityStatusChangedNotification), object: nil)
         Reach().monitorReachabilityChanges()
         
-        
+        // Facebook Initilization
+        SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         
         return true
     }
@@ -104,6 +107,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return false
         }
         
+    }
+    
+    // MARK:- Open url callback
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        let appId = SDKSettings.appId
+        if url.scheme != nil && url.scheme!.hasPrefix("fb\(appId)") && url.host ==  "authorize" { // facebook
+            return SDKApplicationDelegate.shared.application(app, open: url, options: options)
+        }
+        return false
     }
     
 

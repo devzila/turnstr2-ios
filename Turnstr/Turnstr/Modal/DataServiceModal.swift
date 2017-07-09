@@ -47,6 +47,11 @@ class DataServiceModal: NSObject {
             strRequest = String(format: "{\"email\":\"%@\", \"password\":\"%@\", \"first_name\":\"%@\", \"last_name\":\"%@\", \"username\":\"%@\"}", dictAction["email"] as! String, dictAction["password"] as! String, dictAction["first_name"] as! String, dictAction["last_name"] as! String, dictAction["username"] as! String )
             strPostUrl = kAPISignUp
         }
+        else if action == kAPIFacebookLogin {
+            
+            strRequest = String(format: "{\"user_id\":\"%@\", \"access_token\":\"%@\"}", dictAction["user_id"] as! String, dictAction["access_token"] as! String)
+            strPostUrl = kAPIFacebookLogin
+        }
         
         
         print("API Request")

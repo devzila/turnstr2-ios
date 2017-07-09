@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FacebookCore
+import FacebookLogin
 
 class LoginViewController: ParentViewController {
     @IBOutlet weak var txtUsername: KBTextField!
@@ -57,6 +59,21 @@ class LoginViewController: ParentViewController {
     }
     
     @IBAction func FbLogin(_ sender: Any) {
+        // Facebook login **Ketan**
+        let loginManager = LoginManager()
+        loginManager.loginBehavior = .native
+        if AccessToken.current != nil {
+            kAppDelegate.loadingIndicationCreationMSG(msg: "Login")
+            self.APIRequest(sType: kAPIFacebookLogin, data: ["user_id":AccessToken.current?.userId ?? "", "access_token":AccessToken.current?.authenticationToken ?? ""])
+            return
+        }
+        loginManager.logIn([ .publicProfile, .userFriends, .email ], viewController: self) { (LoginResult) in
+            print("LoginResult---\(LoginResult)")
+            if let currentUser = AccessToken.current {
+                kAppDelegate.loadingIndicationCreationMSG(msg: "Login")
+                self.APIRequest(sType: kAPIFacebookLogin, data: ["user_id":currentUser.userId ?? "", "access_token":currentUser.authenticationToken ])
+            }
+        }
     }
     
     @IBAction func GoogleLogin(_ sender: Any) {
@@ -98,12 +115,33 @@ class LoginViewController: ParentViewController {
                         kAppDelegate.hideLoadingIndicator()
                     }
                 }
+            } else if sType == kAPIFacebookLogin {
+                let dictAction: NSDictionary = [
+                    "action": kAPIFacebookLogin,
+                    "user_id": data["user_id"] ?? "",
+                    "access_token": data["access_token"] ?? "",
+                    ]
+                
+                let arrResponse = self.objDataS.PostRequestToServer(dictAction: dictAction)
+                
+                if (arrResponse.count) > 0 {
+                    DispatchQueue.main.async {
+                        
+                        if self.objDataS.saveLoginSession(data: arrResponse) == true {
+                            
+                            self.objDataS.saveLoginData(data: arrResponse)
+                            if self.objDataS.isLoginData() == true {
+                                //self.LoadEditProfile()
+                                self.LoadMyStories()
+                            }
+                        }
+                        
+                        kAppDelegate.hideLoadingIndicator()
+                    }
+                }
             }
             
         }
-        
-        
     }
-    
     
 }
