@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Rxi-zi-6EK">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="ado-g6-LR7">
+            <objects>
+                <viewController id="wR6-vm-r7D" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="kWi-iA-qUq"/>
+                        <viewControllerLayoutGuide type="bottom" id="9yy-ru-QGh"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="IMF-bX-VoA">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="chat" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Us0-Og-aKI">
+                                <rect key="frame" x="170.5" y="323" width="34" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Us0-Og-aKI" firstAttribute="centerY" secondItem="IMF-bX-VoA" secondAttribute="centerY" id="WVd-ZC-qXB"/>
+                            <constraint firstItem="Us0-Og-aKI" firstAttribute="centerX" secondItem="IMF-bX-VoA" secondAttribute="centerX" id="hGn-90-TNS"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="ZZS-BU-98p"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5fZ-8Q-Ksq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="903" y="-86"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="zQl-PI-heN">
+            <objects>
+                <navigationController navigationBarHidden="YES" id="Rxi-zi-6EK" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="qI6-ao-s1x">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="wR6-vm-r7D" kind="relationship" relationship="rootViewController" id="eS3-P6-iDU"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OeT-6S-g8z" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="121" y="-87"/>
+        </scene>
+    </scenes>
+</document>

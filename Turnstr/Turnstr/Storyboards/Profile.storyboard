@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="dz1-EQ-jEq">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="nNs-Ee-Kvf">
+            <objects>
+                <navigationController navigationBarHidden="YES" id="dz1-EQ-jEq" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="une-Hq-OAc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="RUq-Zg-ecW" kind="relationship" relationship="rootViewController" id="nFK-nU-9Di"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4dj-dp-3c9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="121" y="-87"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="2Co-27-8pi">
+            <objects>
+                <viewController id="RUq-Zg-ecW" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="eHI-yS-JUu"/>
+                        <viewControllerLayoutGuide type="bottom" id="QLh-l2-JKb"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="543-0M-Wkh">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="profile" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eDI-WX-Efi">
+                                <rect key="frame" x="163.5" y="323" width="48.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="eDI-WX-Efi" firstAttribute="centerX" secondItem="543-0M-Wkh" secondAttribute="centerX" id="miH-nl-wPo"/>
+                            <constraint firstItem="eDI-WX-Efi" firstAttribute="centerY" secondItem="543-0M-Wkh" secondAttribute="centerY" id="sxf-z1-ggS"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="x5c-Ac-l1X"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="H3S-ed-71k" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="903" y="-86"/>
+        </scene>
+    </scenes>
+</document>

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Bf0-Ic-hbe">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Tabbar Controller-->
+        <scene sceneID="l5e-mw-4f7">
+            <objects>
+                <viewController storyboardIdentifier="TabbarController" id="Bf0-Ic-hbe" customClass="TabbarController" customModule="Turnstr" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="wgk-IX-aqb"/>
+                        <viewControllerLayoutGuide type="bottom" id="w7A-Gh-icm"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="yQT-Cs-eGv">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bAW-YA-hWQ">
+                                <rect key="frame" x="0.0" y="607" width="375" height="60"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="yvy-2Q-vk7">
+                                        <rect key="frame" x="30.5" y="9" width="314" height="42"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nsi-PF-wMi">
+                                                <rect key="frame" x="0.0" y="0.0" width="46" height="42"/>
+                                                <inset key="contentEdgeInsets" minX="0.0" minY="12" maxX="0.0" maxY="12"/>
+                                                <state key="normal" title="Button"/>
+                                                <connections>
+                                                    <action selector="btnSelectAction:" destination="Bf0-Ic-hbe" eventType="touchUpInside" id="XEg-Lj-9vH"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pA5-2O-gpY">
+                                                <rect key="frame" x="51" y="0.0" width="62" height="42"/>
+                                                <inset key="contentEdgeInsets" minX="8" minY="12" maxX="8" maxY="12"/>
+                                                <state key="normal" title="Button"/>
+                                                <connections>
+                                                    <action selector="btnSelectAction:" destination="Bf0-Ic-hbe" eventType="touchUpInside" id="jce-yg-f0g"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P2C-yk-wty">
+                                                <rect key="frame" x="118" y="0.0" width="62" height="42"/>
+                                                <inset key="contentEdgeInsets" minX="8" minY="12" maxX="8" maxY="12"/>
+                                                <state key="normal" title="Button"/>
+                                                <connections>
+                                                    <action selector="btnSelectAction:" destination="Bf0-Ic-hbe" eventType="touchUpInside" id="L3k-1R-WM0"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="49j-An-3nQ">
+                                                <rect key="frame" x="185" y="0.0" width="62" height="42"/>
+                                                <inset key="contentEdgeInsets" minX="8" minY="12" maxX="8" maxY="12"/>
+                                                <state key="normal" title="Button"/>
+                                                <connections>
+                                                    <action selector="btnSelectAction:" destination="Bf0-Ic-hbe" eventType="touchUpInside" id="Jgr-9g-q5u"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ays-sN-2x0">
+                                                <rect key="frame" x="252" y="0.0" width="62" height="42"/>
+                                                <inset key="contentEdgeInsets" minX="8" minY="12" maxX="8" maxY="12"/>
+                                                <state key="normal" title="Button"/>
+                                                <connections>
+                                                    <action selector="btnSelectAction:" destination="Bf0-Ic-hbe" eventType="touchUpInside" id="I0A-6X-vBw"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="bAW-YA-hWQ" secondAttribute="height" multiplier="375:60" id="C3h-Gs-Cpp"/>
+                                    <constraint firstItem="yvy-2Q-vk7" firstAttribute="centerX" secondItem="bAW-YA-hWQ" secondAttribute="centerX" id="sIy-WK-j1a"/>
+                                    <constraint firstItem="yvy-2Q-vk7" firstAttribute="centerY" secondItem="bAW-YA-hWQ" secondAttribute="centerY" id="zdN-Zb-bgT"/>
+                                </constraints>
+                            </view>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MJR-NU-OxX">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="607"/>
+                                <connections>
+                                    <segue destination="o4j-Lb-WA0" kind="embed" id="bBS-Mw-Mpy"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="MJR-NU-OxX" firstAttribute="top" secondItem="yQT-Cs-eGv" secondAttribute="top" id="8WQ-MU-IHq"/>
+                            <constraint firstAttribute="trailing" secondItem="MJR-NU-OxX" secondAttribute="trailing" id="NU4-J3-p7D"/>
+                            <constraint firstItem="bAW-YA-hWQ" firstAttribute="leading" secondItem="yQT-Cs-eGv" secondAttribute="leading" id="W4H-Nm-CT7"/>
+                            <constraint firstItem="bAW-YA-hWQ" firstAttribute="top" secondItem="MJR-NU-OxX" secondAttribute="bottom" id="ibt-4G-JNF"/>
+                            <constraint firstItem="w7A-Gh-icm" firstAttribute="top" secondItem="bAW-YA-hWQ" secondAttribute="bottom" id="puz-To-CRe"/>
+                            <constraint firstItem="MJR-NU-OxX" firstAttribute="leading" secondItem="yQT-Cs-eGv" secondAttribute="leading" id="upt-RB-6qi"/>
+                            <constraint firstAttribute="trailing" secondItem="bAW-YA-hWQ" secondAttribute="trailing" id="zKl-rJ-xmD"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="btnChat" destination="49j-An-3nQ" id="o8l-Vc-cqG"/>
+                        <outlet property="btnLiveFeed" destination="nsi-PF-wMi" id="wgK-ma-Haq"/>
+                        <outlet property="btnPhotoAlbum" destination="ays-sN-2x0" id="gp6-Bp-vC3"/>
+                        <outlet property="btnProfile" destination="pA5-2O-gpY" id="L0W-zd-0mj"/>
+                        <outlet property="btnStory" destination="P2C-yk-wty" id="c85-RZ-Ioi"/>
+                        <outlet property="contentView" destination="MJR-NU-OxX" id="4ST-Ej-Bpq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lod-3v-Pqe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-642" y="-172"/>
+        </scene>
+        <!--Profile-->
+        <scene sceneID="DRz-T1-eAz">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="ProfileStoryboard" storyboardName="Profile" id="tBa-Yv-j0K" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9Xt-vI-X8T" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-26" y="-351"/>
+        </scene>
+        <!--Chat-->
+        <scene sceneID="dmC-NM-oTZ">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="ChatStoryboard" storyboardName="Chat" id="Ft9-IT-Tot" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BfD-3D-ead" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-24" y="-219"/>
+        </scene>
+        <!--LiveFeed-->
+        <scene sceneID="kqq-Z7-5ke">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="LiveStoryboard" storyboardName="LiveFeed" id="Lhp-Qn-Oul" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QvK-Tw-T1t" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-26" y="-94"/>
+        </scene>
+        <!--PhotoAlbum-->
+        <scene sceneID="xp5-Gf-Tc4">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="PhotoStoryboard" storyboardName="PhotoAlbum" id="jfe-AP-r5X" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tiI-4u-GNy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-26" y="4"/>
+        </scene>
+        <!--Stories-->
+        <scene sceneID="4mQ-kP-Wpv">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="StoryStoryboard" storyboardName="Stories" id="o4j-Lb-WA0" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FOa-F3-17L" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-25" y="99"/>
+        </scene>
+    </scenes>
+</document>
