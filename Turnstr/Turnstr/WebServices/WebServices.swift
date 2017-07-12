@@ -227,8 +227,8 @@ class WebServices: NSObject {
         
         let boundaryConstant  = "----------V2y2HFg03eptjbaKO0j1"
         
-        var requestUrl = NSURL(string:kBaseURL.appending(PostURL))
-        
+        let requestUrl = NSURL(string:kBaseURL.appending(PostURL))
+        print(requestUrl!)
         let request = NSMutableURLRequest()
         
         request.cachePolicy = NSURLRequest.CachePolicy.reloadIgnoringLocalCacheData
@@ -271,6 +271,29 @@ class WebServices: NSObject {
             }
             
         }
+        else if strData["action"] == kAPIPOSTStories {
+            
+            request.httpMethod = "POST"
+            
+            var j = 1
+            
+            for image in arrImages {
+                let contentType: String = "image/jpeg"
+                //image begin
+                body.append("--\(boundaryConstant)\r\n".data(using: String.Encoding.utf8)!)
+                
+                body.append("Content-Disposition: form-data; name=\"story[face\(j as Int)_media]\"; filename=\"user[avatar_face\(j as Int)]\"\r\n".data(using: String.Encoding.utf8)!)
+                
+                
+                body.append("Content-Type: \(contentType)\r\n\r\n".data(using: String.Encoding.utf8)!)
+                body.append(UIImageJPEGRepresentation(image , 0.3)!)
+                body.append("\r\n".data(using: String.Encoding.utf8)!)
+                // image end
+                
+                j = j+1
+            }
+            
+        }
         
         for (key, value) in strData {
             
@@ -281,7 +304,7 @@ class WebServices: NSObject {
             print("\(key) : \(value)")
             // parameters
             body.append("--\(boundaryConstant)\r\n" .data(using: String.Encoding.utf8)! )
-            body.append("Content-Disposition: form-data; name=\"user[\(key)]\"\r\n\r\n" .data(using: String.Encoding.utf8)!)
+            body.append("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n" .data(using: String.Encoding.utf8)!)
             body.append("\(value)\r\n" .data(using: String.Encoding.utf8)!)
             
         }

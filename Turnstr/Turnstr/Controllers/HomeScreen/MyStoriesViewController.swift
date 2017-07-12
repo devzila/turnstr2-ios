@@ -9,11 +9,13 @@
 import UIKit
 
 class MyStoriesViewController: ParentViewController, UITableViewDataSource, UITableViewDelegate, CubePageView_Delegate {
-
+    
     let objStory = Story.sharedInstance
     
     var tblMainTable: UITableView?
     var arrList: NSMutableArray = NSMutableArray()
+    var current_page: Int = 0
+    var isLoading: Bool = true
     
     
     override func viewDidLoad() {
@@ -26,19 +28,27 @@ class MyStoriesViewController: ParentViewController, UITableViewDataSource, UITa
          */
         LoadNavBar()
         objNav.btnBack.isHidden = true
-        
+        //objNav.btnRightMenu.isHidden = true
+        objNav.btnRightMenu.addTarget(self, action: #selector(LoadEProfile), for: .touchUpInside)
         createTableView()
         
         kAppDelegate.loadingIndicationCreation()
         APIRequest(sType: kAPIGetStories, data: [:])
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
+    //MARK:- Navigation Methods
+    
+    func LoadEProfile() -> Void {
+        let mvc = EditProfileViewController()
+        mvc.showBack = .yes
+        self.navigationController?.pushViewController(mvc, animated: true)
+    }
+    
     //MARK:- Table View
     
     func createTableView() -> Void {
@@ -86,7 +96,7 @@ class MyStoriesViewController: ParentViewController, UITableViewDataSource, UITa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         
-        let identifier = "Cell"
+        let identifier = "Cell\(indexPath.row+1)"
         var cell: StoriesTableViewCell! = tableView.dequeueReusableCell(withIdentifier: identifier) as? StoriesTableViewCell
         if cell == nil {
             tableView.register(UINib(nibName: "StoriesTableViewCell", bundle: nil), forCellReuseIdentifier: identifier)
@@ -102,7 +112,7 @@ class MyStoriesViewController: ParentViewController, UITableViewDataSource, UITa
         for item in arrMedia {
             objStory.ParseMedia(media: item)
             let imgImage: UIImageView = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: kWidth, height: cell.uvCubeBg.frame.height))
-            imgImage.sd_setImage(with: URL.init(string: objStory.thumb_url))
+            imgImage.sd_setImage(with: URL.init(string: objStory.thumb_url), placeholderImage: #imageLiteral(resourceName: "thumb"))
             imgImage.contentMode = .scaleAspectFill
             arrImages.append(imgImage)
         }
@@ -151,7 +161,20 @@ class MyStoriesViewController: ParentViewController, UITableViewDataSource, UITa
         
     }
     
-    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        // calculates where the user is in the y-axis
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        
+        if offsetY > contentHeight - scrollView.frame.size.height {
+            if isLoading == false {
+                isLoading = true
+                APIRequest(sType: kAPIGetStories, data: [:])
+            }
+            
+        }
+    }
     
     //MARK:- Cube Delegates
     
@@ -179,8 +202,8 @@ class MyStoriesViewController: ParentViewController, UITableViewDataSource, UITa
             if sType == kAPIGetStories {
                 let dictAction: NSDictionary = [
                     "action": kAPIGetStories,
-                    "page": 1
-                    ]
+                    "page": self.current_page+1
+                ]
                 
                 let arrResponse = self.objDataS.GetRequestToServer(dictAction: dictAction)
                 
@@ -188,9 +211,33 @@ class MyStoriesViewController: ParentViewController, UITableViewDataSource, UITa
                     DispatchQueue.main.async {
                         
                         if let stories = arrResponse["stories"] as? NSArray {
-                            self.arrList = NSMutableArray.init(array: stories)
+                            
+                            if stories.count > 0 {
+                                if let currentpage = arrResponse["current_page"] as? Int {
+                                    self.current_page = currentpage
+                                }
+                                
+                                let j = self.arrList.count
+                                var k = 0
+                                for var i in (j..<j+stories.count) {
+                                    self.arrList.add(stories[k])
+                                    k = k+1
+                                    
+                                    self.tblMainTable?.beginUpdates()
+                                    
+                                    let indexPath:IndexPath = IndexPath(row:i, section:0)
+                                    
+                                    self.tblMainTable?.insertRows(at: [indexPath], with: .bottom)
+                                    
+                                    self.tblMainTable?.endUpdates()
+                                    
+                                }
+                            }
+                            
+                            //self.arrList = NSMutableArray.init(array: stories)
                         }
-                        self.tblMainTable?.reloadData()
+                        self.isLoading = false
+                        //self.tblMainTable?.reloadData()
                         kAppDelegate.hideLoadingIndicator()
                     }
                 }
@@ -198,5 +245,5 @@ class MyStoriesViewController: ParentViewController, UITableViewDataSource, UITa
             
         }
     }
-
+    
 }

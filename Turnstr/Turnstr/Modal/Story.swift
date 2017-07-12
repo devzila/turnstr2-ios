@@ -9,7 +9,7 @@
 import UIKit
 
 class Story: NSObject {
-
+    
     //
     // Story Object
     //
@@ -58,6 +58,7 @@ class Story: NSObject {
     
     func ParseStoryData(dict: Dictionary<String, Any>) {
         
+        clearData()
         if let obj = dict["id"] as? Int {
             storyID = obj
         }
@@ -148,6 +149,10 @@ class Story: NSObject {
     
     func ParseMedia(media: [String:String]) -> Void {
         
+        media_url = ""
+        thumb_url = ""
+        media_type = ""
+        
         if let obj = media["media_url"] {
             media_url = obj
         }
@@ -159,6 +164,41 @@ class Story: NSObject {
         if let obj = media["media_type"] {
             media_type = obj
         }
+    }
+    
+    func clearData() -> Void {
+        storyID = 0
+        strCaption = ""
+        media = [[ : ]]
+        
+        
+        //
+        // Media Object
+        //
+        media_url = ""
+        thumb_url = ""
+        media_type = ""
+        
+        //
+        // User Object
+        //
+        strUserID = ""
+        strUserEmail = ""
+        strUserName = ""
+        strUserFname = ""
+        strUserLName = ""
+        strUserPhone = ""
+        strUserWebsite = ""
+        strUserBio = ""
+        strUserContactMe = ""
+        strUserOnline = false
+        
+        strUserPic1 = ""
+        strUserPic2 = ""
+        strUserPic3 = ""
+        strUserPic4 = ""
+        strUserPic5 = ""
+        strUserPic6 = ""
     }
     
 }

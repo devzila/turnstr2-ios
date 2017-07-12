@@ -9,9 +9,11 @@
 import UIKit
 
 class EditProfileViewController: ParentViewController, UITableViewDelegate, UITableViewDataSource, EditProfileHeaderDelegate {
-
+    
     var tblMainTable: UITableView?
     var objHeader: EditProfileHeader?
+    var showBack: showBack = .no
+    
     
     var txtName = UITextField()
     var txtUserName = UITextField()
@@ -31,7 +33,7 @@ class EditProfileViewController: ParentViewController, UITableViewDelegate, UITa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.view.backgroundColor = kLightGray
         
         /*
@@ -43,12 +45,19 @@ class EditProfileViewController: ParentViewController, UITableViewDelegate, UITa
         objNav.lblTitle.textColor = kBlueColor
         uvNavBar.addSubview(objNav.rightButton(title: "Done"))
         objNav.btnRightMenu.setTitleColor(kBlueColor, for: .normal)
-        objNav.btnBack.addTarget(self, action: #selector(goBack), for: .touchUpInside)
+        
         objNav.btnRightMenu.addTarget(self, action: #selector(DoneClicked(sender:)), for: .touchUpInside)
         
+        if showBack == .yes {
+            uvNavBar.addSubview(objNav.backButonMenu())
+            objNav.btnBack.setTitle("Cancel", for: .normal)
+            objNav.btnBack.setTitleColor(kBlueColor, for: .normal)
+            objNav.btnBack.addTarget(self, action: #selector(goBack), for: .touchUpInside)
+            
+        }
         createTableView()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -73,12 +82,14 @@ class EditProfileViewController: ParentViewController, UITableViewDelegate, UITa
             btnContactMe.setTitle("\(objSing.strUserContactMe)", for: .normal)
         }
         
+        
         objHeader?.arrImageUrls.append(objSing.strUserPic1)
         objHeader?.arrImageUrls.append(objSing.strUserPic2)
         objHeader?.arrImageUrls.append(objSing.strUserPic3)
         objHeader?.arrImageUrls.append(objSing.strUserPic4)
         objHeader?.arrImageUrls.append(objSing.strUserPic5)
         objHeader?.arrImageUrls.append(objSing.strUserPic6)
+        
         
         objHeader?.uvCollectionView.reloadData()
     }
@@ -385,7 +396,7 @@ class EditProfileViewController: ParentViewController, UITableViewDelegate, UITa
         }
         
     }
-
+    
     func UvCollectionViewDidSelectRow(collectionView: UICollectionView, selectedINdex: Int) {
         
         IQKeyboardDismiss()
@@ -446,14 +457,14 @@ class EditProfileViewController: ParentViewController, UITableViewDelegate, UITa
             if sType == kAPIUpdateProfile {
                 let dictAction: NSDictionary = [
                     "action": kAPIUpdateProfile,
-                    "username": "\(self.txtUserName.text!)",
-                    "first_name": "\(self.txtName.text!)",
-                    "website" : "\(self.txtWeb.text!)",
-                    "bio" : "\(self.txtBio.text!)",
-                    "email" : "\(self.txtMail.text!)",
-                    "online" : self.swtOnline.isOn == true ? "true" : "false",
-                    "phone" : "\(self.txtPhone.text!)",
-                    "contact_me" : "All"
+                    "user[username]": "\(self.txtUserName.text!)",
+                    "user[first_name]": "\(self.txtName.text!)",
+                    "user[website]" : "\(self.txtWeb.text!)",
+                    "user[bio]" : "\(self.txtBio.text!)",
+                    "user[email]" : "\(self.txtMail.text!)",
+                    "user[online]" : self.swtOnline.isOn == true ? "true" : "false",
+                    "user[phone]" : "\(self.txtPhone.text!)",
+                    "user[contact_me]" : "All"
                     
                 ]
                 
@@ -480,5 +491,5 @@ class EditProfileViewController: ParentViewController, UITableViewDelegate, UITa
         
     }
     
-
+    
 }
