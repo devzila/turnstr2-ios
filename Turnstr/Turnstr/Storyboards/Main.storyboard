@@ -79,6 +79,7 @@
                             </view>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MJR-NU-OxX">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="607"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <segue destination="o4j-Lb-WA0" kind="embed" id="bBS-Mw-Mpy"/>
                                 </connections>
