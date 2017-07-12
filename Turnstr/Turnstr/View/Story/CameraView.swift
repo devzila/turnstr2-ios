@@ -15,8 +15,13 @@ enum Camera{
     case RearCamera
 }
 
+protocol CameraViewDelegates {
+    func CameraImageClicked(view: UIView, image: UIImage)
+}
 class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate {
 
+    var delegate: CameraViewDelegates?
+    
     //var captureDevice : AVCaptureDevice?
     //var stillImageOutput : AVCaptureStillImageOutput?
     
@@ -223,12 +228,19 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate {
         
     }
 
+    func StopSession() -> Void {
+        cameraSession?.stopRunning()
+    }
+    
+    func StartSession() -> Void {
+        cameraSession?.startRunning()
+    }
+    
     func CameraCaptureClicked(sender: UIButton) -> Void {
         
         self.captureStillImage { (image) -> Void in
             if image != nil{
-                let img = image
-                
+                self.delegate?.CameraImageClicked(view: self, image: image!)
             }
         }
     }

@@ -104,6 +104,7 @@ class ParentViewController: UIViewController, PickerDelegate, CustomAlertViewDel
         
         
         //UITabBar.appearance().tintColor = UIColor.black
+        //tabBarController.tabBar.backgroundColor = UIColor.white
         tabBarController.tabBar.backgroundImage = #imageLiteral(resourceName: "navBg")
         //tabBarController.tabBar.layer.borderWidth = 0.50
         //tabBarController.tabBar.layer.borderColor = UIColor.lightGray.cgColor

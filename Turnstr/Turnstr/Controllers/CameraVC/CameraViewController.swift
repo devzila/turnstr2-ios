@@ -10,7 +10,7 @@ import UIKit
 import Photos
 
 
-class CameraViewController: ParentViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class CameraViewController: ParentViewController, UICollectionViewDelegate, UICollectionViewDataSource, CameraViewDelegates {
 
     
     var uvContent = UIView()
@@ -72,7 +72,7 @@ class CameraViewController: ParentViewController, UICollectionViewDelegate, UICo
         //
         //Content View Center
         //
-        uvContent.frame = CGRect.init(x: 0, y: kNavBarHeightWithLogo, width: kWidth, height: kHeight-kNavBarHeightWithLogo-40-75)
+        uvContent.frame = CGRect.init(x: 0, y: kNavBarHeightWithLogo, width: kWidth, height: kHeight-kNavBarHeightWithLogo-40-75-60)
         uvContent.backgroundColor = UIColor.black
         self.view.addSubview(uvContent)
         
@@ -95,16 +95,18 @@ class CameraViewController: ParentViewController, UICollectionViewDelegate, UICo
         
         if uvCamera == nil {
             uvCamera = CameraView.init(frame: uvContent.frame)
+            uvCamera?.delegate = self
         }
         uvCamera?.isHidden = true
         uvContent.addSubview(uvCamera!)
+        uvCamera?.StopSession()
         
-        
-        //if uvVideo == nil {
-            //uvVideo = VideoView.init(frame: uvContent.frame)
-        //}
-        //uvVideo?.isHidden = true
-        //uvContent.addSubview(uvVideo!)
+        if uvVideo == nil {
+            uvVideo = VideoView.init(frame: uvContent.frame)
+        }
+        uvVideo?.isHidden = true
+        uvContent.addSubview(uvVideo!)
+        uvVideo?.StopSession()
     }
     //MARK:- Set selected Images
     
@@ -235,11 +237,18 @@ class CameraViewController: ParentViewController, UICollectionViewDelegate, UICo
         
         uvCamera?.isHidden = true
         uvVideo?.isHidden = true
+        
+        uvCamera?.StopSession()
+        uvVideo?.StopSession()
     }
     @IBAction func PhotosClicked(_ sender: UIButton) {
         selectedTab = 2
         TabHandling()
         uvCollectionView?.isHidden = true
+        
+        uvVideo?.StopSession()
+        uvCamera?.StartSession()
+        
         
         uvCamera?.isHidden = false
         uvVideo?.isHidden = true
@@ -249,7 +258,8 @@ class CameraViewController: ParentViewController, UICollectionViewDelegate, UICo
         selectedTab = 3
         TabHandling()
         uvCollectionView?.isHidden = true
-        
+        uvCamera?.StopSession()
+        uvVideo?.StartSession()
         uvCamera?.isHidden = true
         uvVideo?.isHidden = false
     }
@@ -404,6 +414,18 @@ class CameraViewController: ParentViewController, UICollectionViewDelegate, UICo
             thumbnail = result!
         })
         return thumbnail
+    }
+    
+    //MARK:- Camera Delegates
+    
+    func CameraImageClicked(view: UIView, image: UIImage) {
+        if arrSelectedImages.count == 4 {
+            objUtil.showToast(strMsg: "You can select maximum four files")
+            return
+        }
+        
+        arrSelectedImages.append(image)
+        reloadSelectedImages()
     }
 
     

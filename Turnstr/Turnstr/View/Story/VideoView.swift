@@ -161,6 +161,15 @@ class VideoView: UIView, AVCaptureFileOutputRecordingDelegate {
         
     }
     
+    func StopSession() -> Void {
+        cameraSession?.stopRunning()
+    }
+    
+    func StartSession() -> Void {
+        cameraSession?.startRunning()
+    }
+    
+    
     func VideoCaptureClicked(sender: UIButton) -> Void {
         
         var videoConnection: AVCaptureConnection?

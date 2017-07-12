@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8AEC2C6F1F168662008DF3BB /* PhotoAlbum.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AEC2C6E1F168662008DF3BB /* PhotoAlbum.storyboard */; };
+		8AEC2C711F168687008DF3BB /* LiveFeed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AEC2C701F168687008DF3BB /* LiveFeed.storyboard */; };
+		8AEC2C731F1686B0008DF3BB /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AEC2C721F1686B0008DF3BB /* Chat.storyboard */; };
 		D90A0F881F01F32E00BFCE90 /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90A0F871F01F32E00BFCE90 /* MenuBar.swift */; };
 		D90BF05E1F0D6752003B5F4D /* MyStoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90BF05D1F0D6752003B5F4D /* MyStoriesViewController.swift */; };
 		D90BF0621F0D7DF5003B5F4D /* StoriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90BF0601F0D7DF5003B5F4D /* StoriesTableViewCell.swift */; };
@@ -119,6 +122,9 @@
 		1E49C4DB758F6E2256172E66 /* Pods_Turnstr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Turnstr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AC6FD96D7C11DE3F0F2CCC3 /* Pods-Turnstr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Turnstr.release.xcconfig"; path = "Pods/Target Support Files/Pods-Turnstr/Pods-Turnstr.release.xcconfig"; sourceTree = "<group>"; };
 		4C47722425C11F466B24548F /* Pods-Turnstr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Turnstr.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Turnstr/Pods-Turnstr.debug.xcconfig"; sourceTree = "<group>"; };
+		8AEC2C6E1F168662008DF3BB /* PhotoAlbum.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PhotoAlbum.storyboard; sourceTree = "<group>"; };
+		8AEC2C701F168687008DF3BB /* LiveFeed.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LiveFeed.storyboard; sourceTree = "<group>"; };
+		8AEC2C721F1686B0008DF3BB /* Chat.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Chat.storyboard; sourceTree = "<group>"; };
 		D90A0F871F01F32E00BFCE90 /* MenuBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
 		D90BF05D1F0D6752003B5F4D /* MyStoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyStoriesViewController.swift; sourceTree = "<group>"; };
 		D90BF0601F0D7DF5003B5F4D /* StoriesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoriesTableViewCell.swift; sourceTree = "<group>"; };
@@ -552,6 +558,9 @@
 		D9FDE6051EC2263C009D5BE3 = {
 			isa = PBXGroup;
 			children = (
+				8AEC2C721F1686B0008DF3BB /* Chat.storyboard */,
+				8AEC2C701F168687008DF3BB /* LiveFeed.storyboard */,
+				8AEC2C6E1F168662008DF3BB /* PhotoAlbum.storyboard */,
 				D9FDE6101EC2263C009D5BE3 /* Turnstr */,
 				D9FDE60F1EC2263C009D5BE3 /* Products */,
 				D9FDE6231EC226B2009D5BE3 /* Frameworks */,
@@ -735,7 +744,7 @@
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = XXPSXL3JLY;
 						LastSwiftMigration = 0820;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -766,6 +775,7 @@
 				D9FDE6601EC2586E009D5BE3 /* img4.png in Resources */,
 				D9D3DF501F1130E100173FFD /* CameraViewController.xib in Resources */,
 				D91C3B051F001D78005F945C /* IQKeyboardManager.bundle in Resources */,
+				8AEC2C711F168687008DF3BB /* LiveFeed.storyboard in Resources */,
 				D9AC62E51F01917A0055ED3D /* workloader.gif in Resources */,
 				D9FDE61C1EC2263C009D5BE3 /* LaunchScreen.storyboard in Resources */,
 				D9FDE6621EC2586E009D5BE3 /* img6.png in Resources */,
@@ -773,11 +783,13 @@
 				D9FDE6191EC2263C009D5BE3 /* Assets.xcassets in Resources */,
 				D9AC62B61F018F470055ED3D /* EditProfileHeader.xib in Resources */,
 				D90BF0631F0D7DF5003B5F4D /* StoriesTableViewCell.xib in Resources */,
+				8AEC2C6F1F168662008DF3BB /* PhotoAlbum.storyboard in Resources */,
 				D9FDE6171EC2263C009D5BE3 /* Main.storyboard in Resources */,
 				D9FDE6611EC2586E009D5BE3 /* img5.png in Resources */,
 				D9FDE6581EC25821009D5BE3 /* img.png in Resources */,
 				D91C3ADA1F000760005F945C /* Login.storyboard in Resources */,
 				D9FDE65F1EC2586E009D5BE3 /* img3.png in Resources */,
+				8AEC2C731F1686B0008DF3BB /* Chat.storyboard in Resources */,
 				D96366371F02FCBC00784A58 /* EditProfileCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1059,14 +1071,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = XXPSXL3JLY;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Turnstr/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.app.Turnstr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "ab262514-5c1b-43c6-ba47-924a245e70bb";
-				PROVISIONING_PROFILE_SPECIFIER = Turnstr_dev;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Turnstr/Turnstr-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -1079,12 +1092,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Turnstr/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.app.Turnstr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Turnstr/Turnstr-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
