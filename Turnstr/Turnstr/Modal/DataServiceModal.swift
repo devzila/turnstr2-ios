@@ -111,6 +111,11 @@ class DataServiceModal: NSObject {
             strPostUrl = kAPIUpdateProfile
             
         }
+        else if action == kAPIPOSTStories {
+            dictRequest = dictAction as! [String : String]
+            strPostUrl = kAPIPOSTStories
+            
+        }
         
         
         let dictResponse = WebServices.sharedInstance.uploadMedia(PostURL: strPostUrl, strData: dictRequest, parType: strParType, arrImages: arrImages)

@@ -17,9 +17,10 @@ enum showMsgs: String {
 
 
 enum enumPopUPType: Int {
-    case date  = -121
-    case time  = -122
-    case Pwd  = -123
+    case date
+    case time
+    case pwd
+    case newStory
 }
 
 enum enumDropDownType: Int {
@@ -42,7 +43,11 @@ enum storyboardType: String {
     case login = "Login"
 }
 
+enum showBack {
+    case yes
+    case no
+}
 
 class Enums: NSObject {
-
+    
 }

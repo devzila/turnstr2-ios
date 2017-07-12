@@ -8,11 +8,13 @@
 
 import UIKit
 
-class ParentViewController: UIViewController, PickerDelegate {
+class ParentViewController: UIViewController, PickerDelegate, CustomAlertViewDelegate {
 
     var objUtil:Utility = Utility.sharedInstance
     var objDataS: DataServiceModal = DataServiceModal.sharedInstance
     var objSing: Singleton = Singleton.sharedInstance
+    var objLoader = Loader.sharedInstance
+    
     
     let objNav: MenuBar = MenuBar()
     var uvNavBar: MenuBar?
@@ -72,70 +74,58 @@ class ParentViewController: UIViewController, PickerDelegate {
         self.navigationController?.pushViewController(mvc, animated: true)
     }
     
+    func LoadProfile() -> Void {
+        let storyboard = UIStoryboard(name: "Login", bundle: nil)
+        let homeVC: HomeViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
+        self.navigationController?.pushViewController(homeVC, animated: true)
+        
+    }
+    
     func LoadMyStories() -> Void {
         
-        /*let tabBarController = UITabBarController()
+        let tabBarController = UITabBarController()
+        
+        let homeVC = MyStoriesViewController()
+        
+        let searchVC = MyStoriesViewController()
+        
+        let camVC = CameraViewController(nibName: "CameraViewController", bundle: nil)
+        
+        let favVC = MyStoriesViewController()
         
         let profileVC = MyStoriesViewController()
         
-        let messageVC = MyStoriesViewController()
         
-        let friendsVC = MyStoriesViewController()
-        
-        let moreVC = MyStoriesViewController()
-        
-        let moreVC5 = MyStoriesViewController()
-        
-        
-        let firstImage = UIImage(named: "tab_feed")
-        let secondImage = UIImage(named: "tab_forum")
-        let thirdImage = UIImage(named: "tab_magazine")
-        let fourthImage = UIImage(named: "tab_inbox")
+        let firstImage = UIImage(named: "tab_home")
+        let secondImage = UIImage(named: "tab_search")
+        let thirdImage = UIImage(named: "tab_cam")
+        let fourthImage = UIImage(named: "tab_fav")
         let fifthImage = UIImage(named: "tab_profile")
         
         
-        UITabBar.appearance().tintColor = UIColor.black
-        
-        tabBarController.tabBar.layer.borderWidth = 0.50
-        tabBarController.tabBar.layer.borderColor = UIColor.lightGray.cgColor
+        //UITabBar.appearance().tintColor = UIColor.black
+        tabBarController.tabBar.backgroundImage = #imageLiteral(resourceName: "navBg")
+        //tabBarController.tabBar.layer.borderWidth = 0.50
+        //tabBarController.tabBar.layer.borderColor = UIColor.lightGray.cgColor
         tabBarController.tabBar.clipsToBounds = true
         
-        profileVC.tabBarItem = UITabBarItem(
-            title: "FEED",
-            image: firstImage,
-            tag: 1)
-        
-        messageVC.tabBarItem = UITabBarItem(
-            title: "FORUM",
-            image: secondImage,
-            tag:2)
-        
-        friendsVC.tabBarItem = UITabBarItem(
-            title: "MEGAZINE",
-            image: thirdImage,
-            tag:3)
-        
-        moreVC.tabBarItem = UITabBarItem(
-            title: "INBOX",
-            image: fourthImage,
-            tag:4)
-        
-        moreVC5.tabBarItem = UITabBarItem(
-            title: "PROFILE",
-            image: fifthImage,
-            tag:5)
+        homeVC.tabBarItem = UITabBarItem.init(title: nil, image: firstImage, selectedImage: #imageLiteral(resourceName: "tab_home_sel"))
+        searchVC.tabBarItem = UITabBarItem.init(title: nil, image: secondImage, selectedImage: #imageLiteral(resourceName: "tab_search_sel"))
+        camVC.tabBarItem = UITabBarItem.init(title: nil, image: thirdImage, selectedImage: #imageLiteral(resourceName: "tab_cam_sel"))
+        favVC.tabBarItem = UITabBarItem.init(title: nil, image: fourthImage, selectedImage: #imageLiteral(resourceName: "tab_fav_sel"))
+        profileVC.tabBarItem = UITabBarItem.init(title: nil, image: fifthImage, selectedImage: #imageLiteral(resourceName: "tab_profile_sel"))
         
         
         
         
-        let controllers = [profileVC, messageVC, friendsVC, moreVC, moreVC5]
+        let controllers = [homeVC, searchVC, camVC, favVC, profileVC]
         tabBarController.viewControllers = controllers
         self.navigationController!.pushViewController(tabBarController, animated: true)
 
-        */
-        let myVC = MyStoriesViewController()
+        
+        //let myVC = MyStoriesViewController()
         //let myVC = CameraViewController(nibName: "CameraViewController", bundle: nil)
-        self.navigationController?.pushViewController(myVC, animated: true)
+        //self.navigationController?.pushViewController(myVC, animated: true)
     }
     
     func LoadHomeScreen() -> Void {
@@ -147,6 +137,44 @@ class ParentViewController: UIViewController, PickerDelegate {
     
     func IQKeyboardDismiss() -> Void {
         IQKeyboardManager.sharedManager().resignFirstResponder()
+    }
+    
+    //MARK:- Create Custom AlertView
+    
+    func showCustomAlertView(type:enumPopUPType, uvContainer:UIView!, dictData:NSDictionary) -> Void {
+        // Create a new AlertView instance
+        let objCustomAlert:CustomAlertView? = CustomAlertView()
+        
+        // Set a custom container view
+        if uvContainer != nil {
+            objCustomAlert!.containerView = uvContainer
+        }
+        // Set self as the delegate
+        objCustomAlert!.delegate = self
+        
+        // Or, use a closure
+        //alertView.onButtonTouchUpInside = { (alertView: CustomAlertView, buttonIndex: Int) -> Void in
+        //}
+        objCustomAlert!.alertBGColor = ["#FFFFFF", "#FFFFFF"]
+        objCustomAlert!.alertDismiss = onTouchDismiss.touchDismissYES
+        
+        objCustomAlert?.tag = type.rawValue
+        
+        if type == .newStory {
+            objCustomAlert?.showCloseButton = false
+        }
+        
+        
+        
+        objCustomAlert!.show()
+    }
+    
+    //MARK:- Delegate Methods
+    
+    // Handle CustomAlertView button touches
+    func customAlertViewButtonTouchUpInside(alertView alertView1: CustomAlertView, buttonIndex: Int) {
+        
+        alertView1.close()
     }
     
 }
