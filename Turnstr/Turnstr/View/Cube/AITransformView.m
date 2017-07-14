@@ -7,6 +7,7 @@
 //
 
 #import "AITransformView.h"
+#import "UIImageView+WebCache.h"
 
 @implementation AITransformView
 
@@ -17,7 +18,7 @@
 
 #define Border_Width 1.0;
 #define Corner_Radius 2.0 //75.0;
-#define Layer_Size 250.0
+//#define Layer_Size 250.0
 
 
 #pragma mark -
@@ -30,20 +31,94 @@ CGFloat DegreesToRadians(CGFloat degrees)
 #pragma mark -
 #pragma mark Setup
 
-- (id)initWithFrame:(CGRect)frame {
+- (id)initWithFrame:(CGRect)frame cube_size:(CGFloat)layerSize {
     if (self = [super initWithFrame:frame]) {
 //		self.multipleTouchEnabled = YES;
-        [self setupLayers];		
-		self.backgroundColor = [UIColor whiteColor];
+        Layer_Size = layerSize;
+        [self createImageViews];
     }
     return self;
+}
+
+/*- (void)setupWithUrls:(NSString *)url, ...
+{
+    @try {
+        
+        arrURLs = [[NSMutableArray alloc] init];
+        [arrURLs addObject:url];
+        va_list args;
+        va_start(args, url);
+        
+        id arg = nil;
+        while ((arg = va_arg(args,id))) {
+            [arrURLs addObject:arg];
+        }
+        
+        va_end(args);
+        
+        NSLog(@"%@", arrURLs);
+        
+        if (arrURLs.count == 0) {
+            return;
+        }
+        
+        if (arrURLs.count < 6) {
+            int i = 0;
+            do {
+                [arrURLs addObject:arrURLs[i]];
+                i++;
+            } while (arrURLs.count<6);
+        }
+        
+        NSLog(@"%@", arrURLs);
+        
+        [self setupLayers];
+        
+        
+    } @catch (NSException *exception) {
+        NSLog(@"Exception cube: %@", exception.description);
+    } @finally {
+        
+    }
+    
+}*/
+
+- (void)setupWithUrls:(NSArray *)urls
+{
+    @try {
+        
+        arrURLs = [[NSMutableArray alloc] initWithArray:urls];
+        
+        if (arrURLs.count == 0) {
+            NSLog(@"There should be atleast one media url");
+            return;
+        }
+        
+        if (arrURLs.count < 6) {
+            int i = 0;
+            do {
+                [arrURLs addObject:arrURLs[i]];
+                i++;
+            } while (arrURLs.count<6);
+        }
+        
+        NSLog(@"%@", arrURLs);
+        
+        [self setupLayers];
+        
+        
+    } @catch (NSException *exception) {
+        NSLog(@"Exception cube: %@", exception.description);
+    } @finally {
+        
+    }
 }
 
 - (void)setupLayers {
 	
 	//Root Layer
 	rootLayer = [CALayer layer];
-	rootLayer.frame = self.bounds;
+    rootLayer.frame = self.bounds;
 	[self.layer addSublayer:rootLayer];
 	
 	CGFloat layerSize = Layer_Size;
@@ -52,9 +127,15 @@ CGFloat DegreesToRadians(CGFloat degrees)
 	
 	//Side One_Front_Blue
 	CALayer *sideOne = [CALayer layer];
-    sideOne.contents = (__bridge id _Nullable)([[UIImage imageNamed:@"img.png"] CGImage]);
-	//sideOne.borderColor = [UIColor colorWithHue:0.6 saturation:1.0 brightness:1.0 alpha:1.0].CGColor;
-	//sideOne.backgroundColor = [UIColor colorWithHue:0.6 saturation:1.0 brightness:1.0 alpha:1.4].CGColor;
+    
+    [imgSide1 sd_setImageWithURL:[NSURL URLWithString:arrURLs[0]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        if (error == nil && image != nil) {
+            sideOne.contents = (__bridge id _Nullable)([image CGImage]);
+        }
+    }];
+    
+    
+    //sideOne.contents = (__bridge id _Nullable)([imgSide1.image CGImage]); //(__bridge id _Nullable)([[UIImage imageNamed:@"img.png"] CGImage]);
 	sideOne.borderWidth = Border_Width;
 	sideOne.cornerRadius = Corner_Radius;
 	sideOne.frame = layerRect;
@@ -63,9 +144,12 @@ CGFloat DegreesToRadians(CGFloat degrees)
 	
 	//Side Two_Right_Green
 	CALayer *sideTwo = [CALayer layer];
-    sideTwo.contents = (__bridge id _Nullable)([[UIImage imageNamed:@"img2.png"] CGImage]);
-	//sideTwo.borderColor = [UIColor colorWithHue:0.25 saturation:1.0 brightness:1.0 alpha:1.0].CGColor;
-	//sideTwo.backgroundColor = [UIColor colorWithHue:0.25 saturation:1.0 brightness:1.0 alpha:1.4].CGColor;
+    [imgSide2 sd_setImageWithURL:[NSURL URLWithString:arrURLs[1]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        if (error == nil && image != nil) {
+            sideTwo.contents = (__bridge id _Nullable)([image CGImage]);
+        }
+    }];
+    //sideTwo.contents = (__bridge id _Nullable)([[UIImage imageNamed:@"img2.png"] CGImage]);
 	sideTwo.borderWidth = Border_Width;
 	sideTwo.cornerRadius = Corner_Radius;
 
@@ -82,9 +166,12 @@ CGFloat DegreesToRadians(CGFloat degrees)
 
 	//Side Three_Back_Red
 	CALayer *sideThree = [CALayer layer];
-    sideThree.contents = (__bridge id _Nullable)([[UIImage imageNamed:@"img3.png"] CGImage]);
-	//sideThree.borderColor = [UIColor colorWithHue:0.0 saturation:1.0 brightness:1.0 alpha:1.0].CGColor;
-	//sideThree.backgroundColor = [UIColor colorWithHue:0.0 saturation:1.0 brightness:1.0 alpha:1.4].CGColor;
+    [imgSide3 sd_setImageWithURL:[NSURL URLWithString:arrURLs[3]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        if (error == nil && image != nil) {
+            sideThree.contents = (__bridge id _Nullable)([image CGImage]);
+        }
+    }];
+    //sideThree.contents = (__bridge id _Nullable)([[UIImage imageNamed:@"img3.png"] CGImage]);
 	sideThree.borderWidth = Border_Width;
 	sideThree.cornerRadius = Corner_Radius;
 	sideThree.frame = layerRect;
@@ -96,9 +183,12 @@ CGFloat DegreesToRadians(CGFloat degrees)
 	
 	//Side Four_Left_Yellow
 	CALayer *sideFour = [CALayer layer];
-    sideFour.contents = (__bridge id _Nullable)([[UIImage imageNamed:@"img4.png"] CGImage]);
-	//sideFour.borderColor = [UIColor colorWithHue:0.2 saturation:1.0 brightness:1.0 alpha:1.0].CGColor;
-	//sideFour.backgroundColor = [UIColor colorWithHue:0.2 saturation:1.0 brightness:1.0 alpha:1.4].CGColor;
+    [imgSide4 sd_setImageWithURL:[NSURL URLWithString:arrURLs[3]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        if (error == nil && image != nil) {
+            sideFour.contents = (__bridge id _Nullable)([image CGImage]);
+        }
+    }];
+    //sideFour.contents = (__bridge id _Nullable)([[UIImage imageNamed:@"img4.png"] CGImage]);
 	sideFour.borderWidth = Border_Width;
 	sideFour.cornerRadius = Corner_Radius;
 	sideFour.frame = layerRect;
@@ -111,9 +201,12 @@ CGFloat DegreesToRadians(CGFloat degrees)
 
 	//Side Five_Top_Purple
 	CALayer *sideFive = [CALayer layer];
-    sideFive.contents = (__bridge id _Nullable)([[UIImage imageNamed:@"img5.png"] CGImage]);
-	//sideFive.borderColor = [UIColor colorWithHue:0.8 saturation:1.0 brightness:1.0 alpha:1.0].CGColor;
-	//sideFive.backgroundColor = [UIColor colorWithHue:0.8 saturation:1.0 brightness:1.0 alpha:1.4].CGColor;
+    [imgSide5 sd_setImageWithURL:[NSURL URLWithString:arrURLs[4]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        if (error == nil && image != nil) {
+            sideFive.contents = (__bridge id _Nullable)([image CGImage]);
+        }
+    }];
+    //sideFive.contents = (__bridge id _Nullable)([[UIImage imageNamed:@"img5.png"] CGImage]);
 	sideFive.borderWidth = Border_Width;
 	sideFive.cornerRadius = Corner_Radius;
 	sideFive.frame = layerRect;
@@ -126,9 +219,12 @@ CGFloat DegreesToRadians(CGFloat degrees)
 	
 	//Side Six_Bottom_Orange
 	CALayer *sideSix = [CALayer layer];
-    sideSix.contents = (__bridge id _Nullable)([[UIImage imageNamed:@"img6.png"] CGImage]);
-	//sideSix.borderColor = [UIColor colorWithHue:0.0845 saturation:1.0 brightness:1.0 alpha:1.0].CGColor;
-	//sideSix.backgroundColor = [UIColor colorWithHue:0.0845 saturation:1.0 brightness:1.0 alpha:1.4].CGColor;
+    [imgSide6 sd_setImageWithURL:[NSURL URLWithString:arrURLs[5]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        if (error == nil && image != nil) {
+            sideSix.contents = (__bridge id _Nullable)([image CGImage]);
+        }
+    }];
+    //sideSix.contents = (__bridge id _Nullable)([[UIImage imageNamed:@"img6.png"] CGImage]);
 	sideSix.borderWidth = Border_Width;
 	sideSix.cornerRadius = Corner_Radius;
 	sideSix.frame = layerRect;
@@ -154,6 +250,18 @@ CGFloat DegreesToRadians(CGFloat degrees)
 	[rootLayer addSublayer:transformLayer];
 }
 
+-(void)createImageViews
+{
+    CGRect rect = CGRectMake(0, 0, Layer_Size, Layer_Size);
+    imgSide1 = [[UIImageView alloc] initWithFrame:rect];
+    
+    //imgSide1.image = [UIImage imageNamed:@"img.png"];
+    imgSide2 = [[UIImageView alloc] initWithFrame:rect];
+    imgSide3 = [[UIImageView alloc] initWithFrame:rect];
+    imgSide4 = [[UIImageView alloc] initWithFrame:rect];
+    imgSide5 = [[UIImageView alloc] initWithFrame:rect];
+    imgSide6 = [[UIImageView alloc] initWithFrame:rect];
+}
 
 #pragma mark -
 #pragma mark Touch Handling

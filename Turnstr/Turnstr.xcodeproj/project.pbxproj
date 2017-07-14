@@ -10,10 +10,8 @@
 		8AEC2C751F1693E9008DF3BB /* TabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEC2C741F1693E9008DF3BB /* TabbarController.swift */; };
 		8AEC2C831F169C23008DF3BB /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AEC2C7B1F169C23008DF3BB /* Chat.storyboard */; };
 		8AEC2C841F169C23008DF3BB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AEC2C7C1F169C23008DF3BB /* LaunchScreen.storyboard */; };
-		8AEC2C851F169C23008DF3BB /* LiveFeed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AEC2C7D1F169C23008DF3BB /* LiveFeed.storyboard */; };
 		8AEC2C861F169C23008DF3BB /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AEC2C7E1F169C23008DF3BB /* Login.storyboard */; };
 		8AEC2C871F169C23008DF3BB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AEC2C7F1F169C23008DF3BB /* Main.storyboard */; };
-		8AEC2C881F169C23008DF3BB /* PhotoAlbum.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AEC2C801F169C23008DF3BB /* PhotoAlbum.storyboard */; };
 		8AEC2C891F169C23008DF3BB /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AEC2C811F169C23008DF3BB /* Profile.storyboard */; };
 		8AEC2C8A1F169C23008DF3BB /* Stories.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AEC2C821F169C23008DF3BB /* Stories.storyboard */; };
 		8AEC2C8C1F169DFE008DF3BB /* Storyboards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEC2C8B1F169DFE008DF3BB /* Storyboards.swift */; };
@@ -44,6 +42,9 @@
 		D91C3B071F003986005F945C /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91C3B061F003986005F945C /* SignUpViewController.swift */; };
 		D91C3B0A1F003DB5005F945C /* ParentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91C3B091F003DB5005F945C /* ParentViewController.swift */; };
 		D92070DD1EF98FDC0095B9FA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92070DC1EF98FDC0095B9FA /* LoginViewController.swift */; };
+		D95181A61F180776008595CC /* LiveFeed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D95181A51F180776008595CC /* LiveFeed.storyboard */; };
+		D95181A81F180ADE008595CC /* PhotoAlbum.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D95181A71F180ADE008595CC /* PhotoAlbum.storyboard */; };
+		D95181AA1F180C37008595CC /* LiveFeedsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95181A91F180C37008595CC /* LiveFeedsViewController.swift */; };
 		D96366271F02D15D00784A58 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = D96366261F02D15D00784A58 /* MBProgressHUD.m */; };
 		D963662B1F02D33900784A58 /* Reach.swift in Sources */ = {isa = PBXBuildFile; fileRef = D963662A1F02D33900784A58 /* Reach.swift */; };
 		D963662D1F02D62600784A58 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D963662C1F02D62600784A58 /* APIManager.swift */; };
@@ -129,10 +130,8 @@
 		8AEC2C741F1693E9008DF3BB /* TabbarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabbarController.swift; sourceTree = "<group>"; };
 		8AEC2C7B1F169C23008DF3BB /* Chat.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Chat.storyboard; sourceTree = "<group>"; };
 		8AEC2C7C1F169C23008DF3BB /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
-		8AEC2C7D1F169C23008DF3BB /* LiveFeed.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LiveFeed.storyboard; sourceTree = "<group>"; };
 		8AEC2C7E1F169C23008DF3BB /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		8AEC2C7F1F169C23008DF3BB /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		8AEC2C801F169C23008DF3BB /* PhotoAlbum.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PhotoAlbum.storyboard; sourceTree = "<group>"; };
 		8AEC2C811F169C23008DF3BB /* Profile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		8AEC2C821F169C23008DF3BB /* Stories.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Stories.storyboard; sourceTree = "<group>"; };
 		8AEC2C8B1F169DFE008DF3BB /* Storyboards.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storyboards.swift; sourceTree = "<group>"; };
@@ -163,6 +162,9 @@
 		D91C3B061F003986005F945C /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		D91C3B091F003DB5005F945C /* ParentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParentViewController.swift; sourceTree = "<group>"; };
 		D92070DC1EF98FDC0095B9FA /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		D95181A51F180776008595CC /* LiveFeed.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LiveFeed.storyboard; sourceTree = "<group>"; };
+		D95181A71F180ADE008595CC /* PhotoAlbum.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PhotoAlbum.storyboard; sourceTree = "<group>"; };
+		D95181A91F180C37008595CC /* LiveFeedsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveFeedsViewController.swift; sourceTree = "<group>"; };
 		D96366251F02D15400784A58 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		D96366261F02D15D00784A58 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		D96366281F02D21B00784A58 /* Turnstr-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Turnstr-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -290,12 +292,12 @@
 		8AEC2C7A1F169C23008DF3BB /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
+				D95181A71F180ADE008595CC /* PhotoAlbum.storyboard */,
+				D95181A51F180776008595CC /* LiveFeed.storyboard */,
 				8AEC2C7B1F169C23008DF3BB /* Chat.storyboard */,
 				8AEC2C7C1F169C23008DF3BB /* LaunchScreen.storyboard */,
-				8AEC2C7D1F169C23008DF3BB /* LiveFeed.storyboard */,
 				8AEC2C7E1F169C23008DF3BB /* Login.storyboard */,
 				8AEC2C7F1F169C23008DF3BB /* Main.storyboard */,
-				8AEC2C801F169C23008DF3BB /* PhotoAlbum.storyboard */,
 				8AEC2C811F169C23008DF3BB /* Profile.storyboard */,
 				8AEC2C821F169C23008DF3BB /* Stories.storyboard */,
 			);
@@ -683,6 +685,7 @@
 				D9FDE6361EC22A76009D5BE3 /* HomeViewController.swift */,
 				D90BF05D1F0D6752003B5F4D /* MyStoriesViewController.swift */,
 				D9FA59DB1F0F3365001A38B6 /* StoryPreviewViewController.swift */,
+				D95181A91F180C37008595CC /* LiveFeedsViewController.swift */,
 			);
 			path = HomeScreen;
 			sourceTree = "<group>";
@@ -795,6 +798,7 @@
 				D9FDE6601EC2586E009D5BE3 /* img4.png in Resources */,
 				D9D3DF501F1130E100173FFD /* CameraViewController.xib in Resources */,
 				8AEC2C831F169C23008DF3BB /* Chat.storyboard in Resources */,
+				D95181A61F180776008595CC /* LiveFeed.storyboard in Resources */,
 				D91C3B051F001D78005F945C /* IQKeyboardManager.bundle in Resources */,
 				D9AC62E51F01917A0055ED3D /* workloader.gif in Resources */,
 				D9FDE6621EC2586E009D5BE3 /* img6.png in Resources */,
@@ -802,13 +806,12 @@
 				8AEC2C861F169C23008DF3BB /* Login.storyboard in Resources */,
 				D9FDE6191EC2263C009D5BE3 /* Assets.xcassets in Resources */,
 				8AEC2C8A1F169C23008DF3BB /* Stories.storyboard in Resources */,
-				8AEC2C851F169C23008DF3BB /* LiveFeed.storyboard in Resources */,
 				8AEC2C841F169C23008DF3BB /* LaunchScreen.storyboard in Resources */,
+				D95181A81F180ADE008595CC /* PhotoAlbum.storyboard in Resources */,
 				8AEC2C891F169C23008DF3BB /* Profile.storyboard in Resources */,
 				D9AC62B61F018F470055ED3D /* EditProfileHeader.xib in Resources */,
 				D90BF0631F0D7DF5003B5F4D /* StoriesTableViewCell.xib in Resources */,
 				D9FDE6611EC2586E009D5BE3 /* img5.png in Resources */,
-				8AEC2C881F169C23008DF3BB /* PhotoAlbum.storyboard in Resources */,
 				D9FDE6581EC25821009D5BE3 /* img.png in Resources */,
 				D9FDE65F1EC2586E009D5BE3 /* img3.png in Resources */,
 				8AEC2C871F169C23008DF3BB /* Main.storyboard in Resources */,
@@ -915,6 +918,7 @@
 				D91C3B021F001D78005F945C /* IQTitleBarButtonItem.swift in Sources */,
 				D9FDE6481EC236F5009D5BE3 /* textField.swift in Sources */,
 				D9AC62D51F0191100055ED3D /* DateExtension.swift in Sources */,
+				D95181AA1F180C37008595CC /* LiveFeedsViewController.swift in Sources */,
 				D9FDE6471EC236F5009D5BE3 /* scroll.swift in Sources */,
 				D96366271F02D15D00784A58 /* MBProgressHUD.m in Sources */,
 				D91C3B071F003986005F945C /* SignUpViewController.swift in Sources */,

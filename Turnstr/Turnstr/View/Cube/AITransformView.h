@@ -16,11 +16,20 @@
 	CALayer						*rootLayer;
 	CATransformLayer		*transformLayer;
 	Trackball						*trackball;
+    
+    CGFloat Layer_Size;
+    
+    UIImageView *imgSide1, *imgSide2, *imgSide3, *imgSide4, *imgSide5, *imgSide6;
+    NSMutableArray *arrURLs;
 
 }
 
+- (id)initWithFrame:(CGRect)frame cube_size:(CGFloat)layerSize;
+//- (void)setupWithUrls:(NSString *)url, ...;
+- (void)setupWithUrls:(NSArray *)urls;
+
 @property(nonatomic, retain) Trackball *trackball;
 
-- (void)setupLayers;
+//- (void)setupLayers;
 
 @end
