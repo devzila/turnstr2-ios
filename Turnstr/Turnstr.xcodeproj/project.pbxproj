@@ -10,10 +10,8 @@
 		8AEC2C751F1693E9008DF3BB /* TabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEC2C741F1693E9008DF3BB /* TabbarController.swift */; };
 		8AEC2C831F169C23008DF3BB /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AEC2C7B1F169C23008DF3BB /* Chat.storyboard */; };
 		8AEC2C841F169C23008DF3BB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AEC2C7C1F169C23008DF3BB /* LaunchScreen.storyboard */; };
-		8AEC2C851F169C23008DF3BB /* LiveFeed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AEC2C7D1F169C23008DF3BB /* LiveFeed.storyboard */; };
 		8AEC2C861F169C23008DF3BB /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AEC2C7E1F169C23008DF3BB /* Login.storyboard */; };
 		8AEC2C871F169C23008DF3BB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AEC2C7F1F169C23008DF3BB /* Main.storyboard */; };
-		8AEC2C881F169C23008DF3BB /* PhotoAlbum.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AEC2C801F169C23008DF3BB /* PhotoAlbum.storyboard */; };
 		8AEC2C891F169C23008DF3BB /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AEC2C811F169C23008DF3BB /* Profile.storyboard */; };
 		8AEC2C8A1F169C23008DF3BB /* Stories.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AEC2C821F169C23008DF3BB /* Stories.storyboard */; };
 		8AEC2C8C1F169DFE008DF3BB /* Storyboards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEC2C8B1F169DFE008DF3BB /* Storyboards.swift */; };
@@ -129,10 +127,8 @@
 		8AEC2C741F1693E9008DF3BB /* TabbarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabbarController.swift; sourceTree = "<group>"; };
 		8AEC2C7B1F169C23008DF3BB /* Chat.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Chat.storyboard; sourceTree = "<group>"; };
 		8AEC2C7C1F169C23008DF3BB /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
-		8AEC2C7D1F169C23008DF3BB /* LiveFeed.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LiveFeed.storyboard; sourceTree = "<group>"; };
 		8AEC2C7E1F169C23008DF3BB /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		8AEC2C7F1F169C23008DF3BB /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		8AEC2C801F169C23008DF3BB /* PhotoAlbum.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PhotoAlbum.storyboard; sourceTree = "<group>"; };
 		8AEC2C811F169C23008DF3BB /* Profile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		8AEC2C821F169C23008DF3BB /* Stories.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Stories.storyboard; sourceTree = "<group>"; };
 		8AEC2C8B1F169DFE008DF3BB /* Storyboards.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storyboards.swift; sourceTree = "<group>"; };
@@ -292,10 +288,8 @@
 			children = (
 				8AEC2C7B1F169C23008DF3BB /* Chat.storyboard */,
 				8AEC2C7C1F169C23008DF3BB /* LaunchScreen.storyboard */,
-				8AEC2C7D1F169C23008DF3BB /* LiveFeed.storyboard */,
 				8AEC2C7E1F169C23008DF3BB /* Login.storyboard */,
 				8AEC2C7F1F169C23008DF3BB /* Main.storyboard */,
-				8AEC2C801F169C23008DF3BB /* PhotoAlbum.storyboard */,
 				8AEC2C811F169C23008DF3BB /* Profile.storyboard */,
 				8AEC2C821F169C23008DF3BB /* Stories.storyboard */,
 			);
@@ -802,13 +796,11 @@
 				8AEC2C861F169C23008DF3BB /* Login.storyboard in Resources */,
 				D9FDE6191EC2263C009D5BE3 /* Assets.xcassets in Resources */,
 				8AEC2C8A1F169C23008DF3BB /* Stories.storyboard in Resources */,
-				8AEC2C851F169C23008DF3BB /* LiveFeed.storyboard in Resources */,
 				8AEC2C841F169C23008DF3BB /* LaunchScreen.storyboard in Resources */,
 				8AEC2C891F169C23008DF3BB /* Profile.storyboard in Resources */,
 				D9AC62B61F018F470055ED3D /* EditProfileHeader.xib in Resources */,
 				D90BF0631F0D7DF5003B5F4D /* StoriesTableViewCell.xib in Resources */,
 				D9FDE6611EC2586E009D5BE3 /* img5.png in Resources */,
-				8AEC2C881F169C23008DF3BB /* PhotoAlbum.storyboard in Resources */,
 				D9FDE6581EC25821009D5BE3 /* img.png in Resources */,
 				D9FDE65F1EC2586E009D5BE3 /* img3.png in Resources */,
 				8AEC2C871F169C23008DF3BB /* Main.storyboard in Resources */,
