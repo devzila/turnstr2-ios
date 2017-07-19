@@ -25,6 +25,8 @@ let kAPIUpdateProfile = "user/profile"
 let kAPIGetStories = "user/stories"
 let kAPIPOSTStories = "user/stories"
 let kAPIFacebookLogin = "facebook/login"
+let kAPIPhotoAlbum = "user/albums"
+let kAPIUserPhotoUpload = "user/photos"
 
 
 

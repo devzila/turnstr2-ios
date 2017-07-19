@@ -82,7 +82,7 @@ class ParentViewController: UIViewController, PickerDelegate, CustomAlertViewDel
     }
     
     func LoadMyStories() -> Void {
-        
+        /*
         let tabBarController = UITabBarController()
         
         let homeVC = MyStoriesViewController()
@@ -122,11 +122,16 @@ class ParentViewController: UIViewController, PickerDelegate, CustomAlertViewDel
         let controllers = [homeVC, searchVC, camVC, favVC, profileVC]
         tabBarController.viewControllers = controllers
         self.navigationController!.pushViewController(tabBarController, animated: true)
-
+         */
         
         //let myVC = MyStoriesViewController()
         //let myVC = CameraViewController(nibName: "CameraViewController", bundle: nil)
         //self.navigationController?.pushViewController(myVC, animated: true)
+        
+        let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        if let viewController = mainStoryboard.instantiateViewController(withIdentifier: "MainNavigationController") as? UINavigationController {
+            UIApplication.shared.keyWindow?.rootViewController = viewController
+        }
     }
     
     func LoadHomeScreen() -> Void {
