@@ -16,12 +16,14 @@ class EditProfileHeader: UIView, UICollectionViewDataSource, UICollectionViewDel
     
     var delegateEditHeader: EditProfileHeaderDelegate?
     
+    @IBOutlet weak var imgCube: UIImageView!
+    @IBOutlet weak var uvCube: UIView!
     @IBOutlet weak var btnChangePhoto: UIButton!
     @IBOutlet weak var uvCollectionView: UICollectionView!
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     
     var arrImage: Array = [UIImage]()
-    var arrImageUrls: Array = [String]()
+    var arrImageUrls: [String] = []
     
     
     
@@ -63,7 +65,7 @@ class EditProfileHeader: UIView, UICollectionViewDataSource, UICollectionViewDel
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath)
-
+        
         cell.backgroundColor = UIColor.init("F3F3F3")
         
         let frame: CGRect = CGRect.init(x: 0, y: 0, width: 75, height: 75)
@@ -82,10 +84,11 @@ class EditProfileHeader: UIView, UICollectionViewDataSource, UICollectionViewDel
         
         var imgSmallImage = cell.contentView.viewWithTag(-112) as? UIImageView
         if imgSmallImage == nil {
-            imgSmallImage = UIImageView.init(frame: CGRect.init(x: 5, y: frame.height-30, width: 31, height: 21))
+            imgSmallImage = UIImageView.init(frame: CGRect.init(x: 5, y: frame.height-26, width: 31, height: 21))
             imgSmallImage?.tag = -112
-            imgSmallImage?.contentMode = .scaleAspectFit
+            
         }
+        imgSmallImage?.contentMode = .scaleAspectFit
         imgSmallImage?.image = #imageLiteral(resourceName: "img_small")
         cell.contentView.addSubview(imgSmallImage!)
         
@@ -93,27 +96,25 @@ class EditProfileHeader: UIView, UICollectionViewDataSource, UICollectionViewDel
         if arrImage.count > indexPath.item {
             imgBigImage?.image = arrImage[indexPath.item]
         }
-        
-        if arrImage.count == 0 {
-            print(arrImageUrls)
-            if arrImageUrls.count > indexPath.item {
+        else if arrImageUrls.count > 0 {
+            print(arrImageUrls[0])
+            imgBigImage?.sd_setImage(with: URL.init(string: arrImageUrls[0]), completed: { (imagec, errr, cachee, urll) in
+                if imagec != nil {
+                    self.arrImage.append(imagec!)
+                }
                 
-                print(arrImageUrls[indexPath.item])
-                imgBigImage?.sd_setImage(with: URL.init(string: arrImageUrls[indexPath.item]), completed: { (imagec, errr, cachee, urll) in
-                    
-                })
-                
-                
-            }
+            })
+            arrImageUrls.remove(at: 0)
         }
+        
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if arrImage.count > indexPath.item{
-            delegateEditHeader?.UvCollectionViewDidSelectRow!(collectionView: collectionView, selectedINdex: indexPath.item)
-        }
+        delegateEditHeader?.UvCollectionViewDidSelectRow!(collectionView: collectionView, selectedINdex: indexPath.item)
+        //if arrImage.count > indexPath.item{
+        //}
     }
-
+    
 }

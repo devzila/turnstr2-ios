@@ -28,6 +28,7 @@ PODS:
   - FBSDKShareKit (4.22.1):
     - FBSDKCoreKit
   - NVActivityIndicatorView (3.5.1)
+  - ObjectMapper (2.2.7)
   - RMMapper (1.1.5)
   - SwiftyJSON (3.1.4)
 
@@ -41,6 +42,7 @@ DEPENDENCIES:
   - FBSDKLoginKit (~> 4.22.1)
   - FBSDKShareKit (~> 4.22.1)
   - NVActivityIndicatorView
+  - ObjectMapper
   - RMMapper
   - SwiftyJSON
 
@@ -55,9 +57,10 @@ SPEC CHECKSUMS:
   FBSDKLoginKit: 00cf28916b9f0169763a3d61985d745b579fe304
   FBSDKShareKit: 1cbd0fdc2bb3277dd3522512855dcf1f4088f734
   NVActivityIndicatorView: 075563b3547445ebcff840e3297ce9dd4a23731f
+  ObjectMapper: 65abcfd9a61cf7396cbd14a4fb22fddfcc46577e
   RMMapper: 21122d753c736d975f6c61e674afce8db73579af
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: ca7763cb5576955323737001e86d48ee4b6a500c
+PODFILE CHECKSUM: 18f970201c8f54771dfc8879d879d18a56711637
 
 COCOAPODS: 1.1.1

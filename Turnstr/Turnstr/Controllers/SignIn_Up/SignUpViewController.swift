@@ -9,7 +9,7 @@
 import UIKit
 
 class SignUpViewController: ParentViewController {
-
+    
     @IBOutlet weak var txtFirstName: KBTextField!
     @IBOutlet weak var txtLastName: KBTextField!
     @IBOutlet weak var txtEmail: KBTextField!
@@ -20,23 +20,24 @@ class SignUpViewController: ParentViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
+    
     //MARK:- Action Methods
     
     @IBAction func BackToLogin(_ sender: UIButton) {
         popVC()
     }
     
-    @IBAction func SignUpClicked(_ sender: Any) {
+    @IBAction func NextClicked(_ sender: UIButton) {
+        
         IQKeyboardDismiss()
         
         let (status, field) = objUtil.validationsWithField(fields: [txtFirstName, txtLastName, txtEmail, txtUsername, txtPwd, txtConfirmPwd])
@@ -52,14 +53,23 @@ class SignUpViewController: ParentViewController {
             return
         }
         
+        if (txtPwd.text?.length)! < 8 {
+            objUtil.showToast(strMsg: "Password is too short (minimum is 8 characters).")
+            return
+        }
+        
         if txtPwd.text != txtConfirmPwd.text {
             objUtil.showToast(strMsg: "Password and confirm pssword not matched.")
             return
         }
         
         
-        kAppDelegate.loadingIndicationCreationMSG(msg: "SignUp...")
+        kAppDelegate.loadingIndicationCreationMSG(msg: "SignUp")
         APIRequest(sType: kAPISignUp, data: [:])
+    }
+    
+    @IBAction func SignUpClicked(_ sender: Any) {
+        
     }
     
     
@@ -82,17 +92,21 @@ class SignUpViewController: ParentViewController {
                     "username" : self.txtUsername.text!,
                     "email" : self.txtEmail.text!,
                     "password" : self.txtPwd.text!
-                    ]
+                ]
                 
                 let arrResponse = self.objDataS.PostRequestToServer(dictAction: dictAction)
                 
                 if (arrResponse.count) > 0 {
                     DispatchQueue.main.async {
                         
-                        self.objDataS.saveLoginData(data: arrResponse)
-                        if self.objDataS.isLoginData() == true {
-                            //self.LoadEditProfile()
-                            self.LoadMyStories()
+                        if self.objDataS.saveLoginSession(data: arrResponse) == true {
+                            
+                            self.objDataS.saveLoginData(data: arrResponse)
+                            if self.objDataS.isLoginData() == true {
+                                self.LoadHomeScreen()
+                                //self.LoadEditProfile()
+                                //self.LoadMyStories()
+                            }
                         }
                         kAppDelegate.hideLoadingIndicator()
                     }
@@ -103,5 +117,5 @@ class SignUpViewController: ParentViewController {
         
         
     }
-
+    
 }

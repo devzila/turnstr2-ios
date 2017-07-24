@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7E4E575A1F1FC16400FCD758 /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4E57561F1FC16400FCD758 /* CommentsViewController.swift */; };
+		7E4E575B1F1FC16400FCD758 /* PhotoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4E57571F1FC16400FCD758 /* PhotoDetailViewController.swift */; };
+		7E4E575C1F1FC16400FCD758 /* PhotoLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4E57581F1FC16400FCD758 /* PhotoLibraryViewController.swift */; };
+		7E4E575D1F1FC16400FCD758 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4E57591F1FC16400FCD758 /* PhotosViewController.swift */; };
+		7E4E57621F1FC1DE00FCD758 /* ServiceUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4E575E1F1FC1DE00FCD758 /* ServiceUtility.swift */; };
+		7E4E57631F1FC1DE00FCD758 /* PhotoAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4E575F1F1FC1DE00FCD758 /* PhotoAlbum.swift */; };
+		7E4E57641F1FC1DE00FCD758 /* Photos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4E57601F1FC1DE00FCD758 /* Photos.swift */; };
+		7E4E57651F1FC1DE00FCD758 /* KSResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4E57611F1FC1DE00FCD758 /* KSResponse.swift */; };
 		8AEC2C751F1693E9008DF3BB /* TabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEC2C741F1693E9008DF3BB /* TabbarController.swift */; };
 		8AEC2C831F169C23008DF3BB /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AEC2C7B1F169C23008DF3BB /* Chat.storyboard */; };
 		8AEC2C841F169C23008DF3BB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AEC2C7C1F169C23008DF3BB /* LaunchScreen.storyboard */; };
@@ -42,6 +50,7 @@
 		D91C3B071F003986005F945C /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91C3B061F003986005F945C /* SignUpViewController.swift */; };
 		D91C3B0A1F003DB5005F945C /* ParentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91C3B091F003DB5005F945C /* ParentViewController.swift */; };
 		D92070DD1EF98FDC0095B9FA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92070DC1EF98FDC0095B9FA /* LoginViewController.swift */; };
+		D926C8971F23E8940090B621 /* StoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D926C8961F23E8940090B621 /* StoriesViewController.swift */; };
 		D95181A61F180776008595CC /* LiveFeed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D95181A51F180776008595CC /* LiveFeed.storyboard */; };
 		D95181A81F180ADE008595CC /* PhotoAlbum.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D95181A71F180ADE008595CC /* PhotoAlbum.storyboard */; };
 		D95181AA1F180C37008595CC /* LiveFeedsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95181A91F180C37008595CC /* LiveFeedsViewController.swift */; };
@@ -127,6 +136,14 @@
 		1E49C4DB758F6E2256172E66 /* Pods_Turnstr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Turnstr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AC6FD96D7C11DE3F0F2CCC3 /* Pods-Turnstr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Turnstr.release.xcconfig"; path = "Pods/Target Support Files/Pods-Turnstr/Pods-Turnstr.release.xcconfig"; sourceTree = "<group>"; };
 		4C47722425C11F466B24548F /* Pods-Turnstr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Turnstr.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Turnstr/Pods-Turnstr.debug.xcconfig"; sourceTree = "<group>"; };
+		7E4E57561F1FC16400FCD758 /* CommentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
+		7E4E57571F1FC16400FCD758 /* PhotoDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoDetailViewController.swift; sourceTree = "<group>"; };
+		7E4E57581F1FC16400FCD758 /* PhotoLibraryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLibraryViewController.swift; sourceTree = "<group>"; };
+		7E4E57591F1FC16400FCD758 /* PhotosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
+		7E4E575E1F1FC1DE00FCD758 /* ServiceUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceUtility.swift; sourceTree = "<group>"; };
+		7E4E575F1F1FC1DE00FCD758 /* PhotoAlbum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoAlbum.swift; sourceTree = "<group>"; };
+		7E4E57601F1FC1DE00FCD758 /* Photos.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Photos.swift; sourceTree = "<group>"; };
+		7E4E57611F1FC1DE00FCD758 /* KSResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KSResponse.swift; sourceTree = "<group>"; };
 		8AEC2C741F1693E9008DF3BB /* TabbarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabbarController.swift; sourceTree = "<group>"; };
 		8AEC2C7B1F169C23008DF3BB /* Chat.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Chat.storyboard; sourceTree = "<group>"; };
 		8AEC2C7C1F169C23008DF3BB /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -162,6 +179,7 @@
 		D91C3B061F003986005F945C /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		D91C3B091F003DB5005F945C /* ParentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParentViewController.swift; sourceTree = "<group>"; };
 		D92070DC1EF98FDC0095B9FA /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		D926C8961F23E8940090B621 /* StoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoriesViewController.swift; sourceTree = "<group>"; };
 		D95181A51F180776008595CC /* LiveFeed.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LiveFeed.storyboard; sourceTree = "<group>"; };
 		D95181A71F180ADE008595CC /* PhotoAlbum.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PhotoAlbum.storyboard; sourceTree = "<group>"; };
 		D95181A91F180C37008595CC /* LiveFeedsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveFeedsViewController.swift; sourceTree = "<group>"; };
@@ -287,6 +305,17 @@
 				4AC6FD96D7C11DE3F0F2CCC3 /* Pods-Turnstr.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		7E4E57551F1FC16400FCD758 /* PhotoAlbum */ = {
+			isa = PBXGroup;
+			children = (
+				7E4E57561F1FC16400FCD758 /* CommentsViewController.swift */,
+				7E4E57571F1FC16400FCD758 /* PhotoDetailViewController.swift */,
+				7E4E57581F1FC16400FCD758 /* PhotoLibraryViewController.swift */,
+				7E4E57591F1FC16400FCD758 /* PhotosViewController.swift */,
+			);
+			path = PhotoAlbum;
 			sourceTree = "<group>";
 		};
 		8AEC2C7A1F169C23008DF3BB /* Storyboards */ = {
@@ -633,6 +662,7 @@
 		D9FDE6281EC22714009D5BE3 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				7E4E57551F1FC16400FCD758 /* PhotoAlbum */,
 				D91C3B081F003DA4005F945C /* ParentVC */,
 				D92070D81EF98F720095B9FA /* SignIn_Up */,
 				D9FDE6351EC22A4B009D5BE3 /* HomeScreen */,
@@ -648,6 +678,10 @@
 				D96366321F02D78500784A58 /* Singleton.swift */,
 				D96366301F02D77E00784A58 /* DataServiceModal.swift */,
 				D9D36B5E1F110B6D000C66CD /* Story.swift */,
+				7E4E575E1F1FC1DE00FCD758 /* ServiceUtility.swift */,
+				7E4E575F1F1FC1DE00FCD758 /* PhotoAlbum.swift */,
+				7E4E57601F1FC1DE00FCD758 /* Photos.swift */,
+				7E4E57611F1FC1DE00FCD758 /* KSResponse.swift */,
 			);
 			path = Modal;
 			sourceTree = "<group>";
@@ -686,6 +720,7 @@
 				D90BF05D1F0D6752003B5F4D /* MyStoriesViewController.swift */,
 				D9FA59DB1F0F3365001A38B6 /* StoryPreviewViewController.swift */,
 				D95181A91F180C37008595CC /* LiveFeedsViewController.swift */,
+				D926C8961F23E8940090B621 /* StoriesViewController.swift */,
 			);
 			path = HomeScreen;
 			sourceTree = "<group>";
@@ -767,7 +802,7 @@
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = XXPSXL3JLY;
 						LastSwiftMigration = 0820;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -896,6 +931,7 @@
 				D91C3AFE1F001D78005F945C /* IQKeyboardReturnKeyHandler.swift in Sources */,
 				D9FDE6461EC236F5009D5BE3 /* Image.swift in Sources */,
 				D90A0F881F01F32E00BFCE90 /* MenuBar.swift in Sources */,
+				7E4E575A1F1FC16400FCD758 /* CommentsViewController.swift in Sources */,
 				D96366661F035BD100784A58 /* UIButton+WebCache.m in Sources */,
 				D96366631F035BD100784A58 /* SDWebImageDownloaderOperation.m in Sources */,
 				D9AC62DA1F0191100055ED3D /* UIWindowExtension.swift in Sources */,
@@ -913,19 +949,23 @@
 				D9AC62DB1F0191100055ED3D /* VCExtensions.swift in Sources */,
 				D91C3AF71F001D78005F945C /* IQUITextFieldView+Additions.swift in Sources */,
 				D963662B1F02D33900784A58 /* Reach.swift in Sources */,
+				7E4E575C1F1FC16400FCD758 /* PhotoLibraryViewController.swift in Sources */,
 				D963666C1F035BD100784A58 /* UIView+WebCacheOperation.m in Sources */,
 				D9AC62C41F018FC90055ED3D /* Device.swift in Sources */,
 				D91C3B021F001D78005F945C /* IQTitleBarButtonItem.swift in Sources */,
 				D9FDE6481EC236F5009D5BE3 /* textField.swift in Sources */,
 				D9AC62D51F0191100055ED3D /* DateExtension.swift in Sources */,
+				7E4E575B1F1FC16400FCD758 /* PhotoDetailViewController.swift in Sources */,
 				D95181AA1F180C37008595CC /* LiveFeedsViewController.swift in Sources */,
 				D9FDE6471EC236F5009D5BE3 /* scroll.swift in Sources */,
 				D96366271F02D15D00784A58 /* MBProgressHUD.m in Sources */,
+				7E4E57641F1FC1DE00FCD758 /* Photos.swift in Sources */,
 				D91C3B071F003986005F945C /* SignUpViewController.swift in Sources */,
 				D963665E1F035BD100784A58 /* NSData+ImageContentType.m in Sources */,
 				D963666B1F035BD100784A58 /* UIImageView+WebCache.m in Sources */,
 				D9AC62D41F0191100055ED3D /* ColorExtension.swift in Sources */,
 				D963665D1F035BD100784A58 /* MKAnnotationView+WebCache.m in Sources */,
+				7E4E57631F1FC1DE00FCD758 /* PhotoAlbum.swift in Sources */,
 				D9AC62FE1F01995C0055ED3D /* LocalizedStrings.swift in Sources */,
 				D9FDE6451EC236F5009D5BE3 /* button.swift in Sources */,
 				D963662F1F02D74E00784A58 /* WebServices.swift in Sources */,
@@ -936,6 +976,7 @@
 				D96366641F035BD100784A58 /* SDWebImageManager.m in Sources */,
 				D91C3B041F001D78005F945C /* IQUIView+IQKeyboardToolbar.swift in Sources */,
 				D91C3ADC1F001584005F945C /* KBTextField.swift in Sources */,
+				7E4E575D1F1FC16400FCD758 /* PhotosViewController.swift in Sources */,
 				D9AC63001F019A050055ED3D /* NSObjectExtensions.swift in Sources */,
 				8AEC2C8C1F169DFE008DF3BB /* Storyboards.swift in Sources */,
 				D91C3AF91F001D78005F945C /* IQUIViewController+Additions.swift in Sources */,
@@ -943,6 +984,7 @@
 				D96366331F02D78500784A58 /* Singleton.swift in Sources */,
 				D96366601F035BD100784A58 /* SDWebImageCompat.m in Sources */,
 				D9AC62C31F018FC90055ED3D /* CommonEnums.swift in Sources */,
+				7E4E57651F1FC1DE00FCD758 /* KSResponse.swift in Sources */,
 				D9FA59DA1F0F26FC001A38B6 /* CubePageView.m in Sources */,
 				D9FA59DC1F0F3365001A38B6 /* StoryPreviewViewController.swift in Sources */,
 				D963662D1F02D62600784A58 /* APIManager.swift in Sources */,
@@ -954,6 +996,8 @@
 				D9AC62DE1F01913C0055ED3D /* CaptureImage.swift in Sources */,
 				D91C3AFA1F001D78005F945C /* IQUIWindow+Hierarchy.swift in Sources */,
 				D91C3AF51F001D78005F945C /* IQNSArray+Sort.swift in Sources */,
+				7E4E57621F1FC1DE00FCD758 /* ServiceUtility.swift in Sources */,
+				D926C8971F23E8940090B621 /* StoriesViewController.swift in Sources */,
 				D90DF8431F156A97002DD501 /* CameraView.swift in Sources */,
 				D9AC62C71F018FC90055ED3D /* UDData.swift in Sources */,
 				D96366611F035BD100784A58 /* SDWebImageDecoder.m in Sources */,
@@ -1081,14 +1125,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = XXPSXL3JLY;
 				INFOPLIST_FILE = Turnstr/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.app.Turnstr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "ab262514-5c1b-43c6-ba47-924a245e70bb";
+				PROVISIONING_PROFILE_SPECIFIER = Turnstr_dev;
 				SWIFT_OBJC_BRIDGING_HEADER = "Turnstr/Turnstr-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;

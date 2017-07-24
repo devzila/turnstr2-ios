@@ -23,8 +23,11 @@ let kAPILogin = "sessions"
 let kAPISignUp = "signup"
 let kAPIUpdateProfile = "user/profile"
 let kAPIGetStories = "user/stories"
+let kAPIGetAllStories = "stories"
 let kAPIPOSTStories = "user/stories"
 let kAPIFacebookLogin = "facebook/login"
+let kAPIPhotoAlbum = "user/albums"
+let kAPIUserPhotoUpload = "user/photos"
 
 
 
@@ -59,12 +62,12 @@ let kNotiSessionExpired = "noti_SessionExpired"
  */
 
 let kWidth = UIScreen.main.bounds.size.width
-let kHeight = UIScreen.main.bounds.size.height
+let kHeight = UIScreen.main.bounds.size.height-60
 let kCenterW = kWidth/2
 let kCenterH = kHeight/2
 
 
-let kNavBarHeight: CGFloat = 50
+let kNavBarHeight: CGFloat = 60
 let kNavBarHeightWithLogo: CGFloat = 60
 
 

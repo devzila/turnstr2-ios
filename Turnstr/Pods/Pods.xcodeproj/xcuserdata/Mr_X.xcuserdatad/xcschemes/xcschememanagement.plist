@@ -60,6 +60,11 @@
 			<key>orderHint</key>
 			<integer>3</integer>
 		</dict>
+		<key>ObjectMapper.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>7</integer>
+		</dict>
 		<key>Pods-Turnstr.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -129,6 +134,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>78B4367BCA5D364903D4B239AE8E93C7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>88E9EC28B8B46C3631E6B242B50F4442</key>
 		<dict>
 			<key>primary</key>
@@ -149,7 +159,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>B5813E33CF560D8EBBAB957E6092A280</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>C53C914E6844A247E5BCB6A7DBDE71CD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CD6C9FB6B052E1CF663F8A56041EA163</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -160,6 +180,11 @@
 			<true/>
 		</dict>
 		<key>F575F16B083F06175CC180E1B8F7657C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FE05600F71547F9B6C06125BF78402EF</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -16,7 +16,7 @@ class Story: NSObject {
     
     var storyID: Int = 0
     var strCaption: String = ""
-    var media: [[String:String]] = [[ : ]]
+    var media: [[String:Any]] = [[ : ]]
     
     
     //
@@ -69,7 +69,7 @@ class Story: NSObject {
         }
         
         if let obj = dict["media"] as? NSArray {
-            media = obj as! [[String : String]]
+            media = obj as! [[String : Any]]
         }
         
         ParseUser(data: dict)
@@ -147,21 +147,21 @@ class Story: NSObject {
         }
     }
     
-    func ParseMedia(media: [String:String]) -> Void {
+    func ParseMedia(media: [String:Any]) -> Void {
         
         media_url = ""
         thumb_url = ""
         media_type = ""
         
-        if let obj = media["media_url"] {
-            media_url = obj
+        if let obj = media["media_url"] as? String {
+            media_url = obj 
         }
         
-        if let obj = media["thumb_url"] {
+        if let obj = media["thumb_url"] as? String {
             thumb_url = obj
         }
         
-        if let obj = media["media_type"] {
+        if let obj = media["media_type"] as? String {
             media_type = obj
         }
     }

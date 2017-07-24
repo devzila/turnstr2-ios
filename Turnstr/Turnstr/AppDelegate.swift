@@ -119,5 +119,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
 
+    //MARK:- Logout 
+    
+    func LogoutFromApp() -> Void {
+        
+        
+        guard let navC = self.window?.rootViewController as? UINavigationController else { return }
+        Utility.sharedInstance.removeUserDefaults(key: kUDLoginData)
+        Utility.sharedInstance.removeUserDefaults(key: kUDSessionData)
+        Singleton.sharedInstance.clearData()
+        
+        navC.popToRootViewController(animated: true)
+        //let navigationController = UINavigationController(rootViewController: Storyboards.loginStoryboard.initialVC()!)
+        //navigationController.isNavigationBarHidden = true
+        //self.window?.swapRootViewControllerWithAnimation(newViewController: navigationController, animationType: .present)
+    }
 }
 

@@ -77,10 +77,10 @@ class DataServiceModal: NSObject {
         
         let action: String = dictAction["action"] as! String
         
-        if action == kAPIGetStories {
+        if action == kAPIGetAllStories {
             
             strRequest = String(format: "?page=%d", dictAction["page"] as! Int)
-            strPostUrl = kAPIGetStories
+            strPostUrl = kAPIGetAllStories
             strParType = ""
         }
         
@@ -306,27 +306,27 @@ class DataServiceModal: NSObject {
                     }
                     
                     if let str = objUser["avatar_face1"] as? String {
-                        objSingl?.strUserPic1 = kImageBaseUrl+"\(str)"
+                        objSingl?.strUserPic1 = "\(str)"
                     }
                     
                     if let str = objUser["avatar_face2"] as? String {
-                        objSingl?.strUserPic2 = kImageBaseUrl+"\(str)"
+                        objSingl?.strUserPic2 = "\(str)"
                     }
                     
                     if let str = objUser["avatar_face3"] as? String {
-                        objSingl?.strUserPic3 = kImageBaseUrl+"\(str)"
+                        objSingl?.strUserPic3 = "\(str)"
                     }
                     
                     if let str = objUser["avatar_face4"] as? String {
-                        objSingl?.strUserPic4 = kImageBaseUrl+"\(str)"
+                        objSingl?.strUserPic4 = "\(str)"
                     }
                     
                     if let str = objUser["avatar_face5"] as? String {
-                        objSingl?.strUserPic5 = kImageBaseUrl+"\(str)"
+                        objSingl?.strUserPic5 = "\(str)"
                     }
                     
                     if let str = objUser["avatar_face6"] as? String {
-                        objSingl?.strUserPic6 = kImageBaseUrl+"\(str)"
+                        objSingl?.strUserPic6 = "\(str)"
                     }
                     
                     if let str = objUser["website"] as? String {

@@ -66,6 +66,7 @@ class CameraViewController: ParentViewController, UICollectionViewDelegate, UICo
         objNav.btnRightMenu.setImage(nil, for: .normal)
         objNav.btnRightMenu.setTitle("NEXT", for: .normal)
         objUtil.setFrames(xCo: kWidth-50, yCo: kNavBarHeightWithLogo-40, width: 45, height: 40, view: objNav.btnRightMenu)
+        objNav.btnBack.addTarget(self, action: #selector(goBack), for: .touchUpInside)
         objNav.btnRightMenu.addTarget(self, action: #selector(nextClicked), for: .touchUpInside)
         
         
@@ -443,7 +444,7 @@ class CameraViewController: ParentViewController, UICollectionViewDelegate, UICo
             if sType == kAPIPOSTStories {
                 let dictAction: NSDictionary = [
                     "action": kAPIPOSTStories,
-                    "story[caption]": "\(self.uvPopUP?.ttxtCaption.text)",
+                    "story[caption]": self.uvPopUP?.ttxtCaption.text ?? "",
                     "story[likes_count]" : "0"
                     
                 ]
@@ -455,7 +456,7 @@ class CameraViewController: ParentViewController, UICollectionViewDelegate, UICo
                         
                         self.objUtil.showToast(strMsg: "Story created successfully")
                         self.uvPopUP = nil
-                        
+                        self.goBack()
                         kAppDelegate.hideLoadingIndicator()
                     }
                 }

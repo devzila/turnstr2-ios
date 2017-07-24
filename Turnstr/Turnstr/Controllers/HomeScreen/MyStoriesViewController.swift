@@ -110,7 +110,7 @@ class MyStoriesViewController: ParentViewController, UITableViewDataSource, UITa
         var arrImages: [UIImageView] = []
         
         for item in arrMedia {
-            objStory.ParseMedia(media: item)
+            objStory.ParseMedia(media: item as! [String : String])
             let imgImage: UIImageView = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: kWidth, height: cell.uvCubeBg.frame.height))
             imgImage.sd_setImage(with: URL.init(string: objStory.thumb_url), placeholderImage: #imageLiteral(resourceName: "thumb"))
             imgImage.contentMode = .scaleAspectFill

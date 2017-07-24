@@ -9,7 +9,7 @@
 import UIKit
 
 class MenuBar: UIView {
-
+    
     var btnBack: UIButton = UIButton()
     var btnRightMenu: UIButton = UIButton()
     var lblTitle: UILabel = UILabel()
@@ -41,7 +41,7 @@ class MenuBar: UIView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     func BackgroundIMage() -> Void {
         imgBg.frame = self.frame
         imgBg.image = #imageLiteral(resourceName: "bg_norm")
@@ -61,7 +61,7 @@ class MenuBar: UIView {
         return btnRightMenu
     }
     func navTitle(title: String, inView: UIView) -> Void {
-        lblTitle = UILabel.init(frame: CGRect.init(x: 50, y: 00, width: kWidth-100, height: kNavBarHeight))
+        lblTitle = UILabel.init(frame: CGRect.init(x: 50, y: 10, width: kWidth-100, height: kNavBarHeight-10))
         lblTitle.text = title
         lblTitle.textColor = UIColor.white
         lblTitle.textAlignment = .center
@@ -72,7 +72,7 @@ class MenuBar: UIView {
     
     
     func backButonMenu() -> UIButton {
-        btnBack = Utility.sharedInstance.createButton(xCo: 0, forY: 0, forW: 40, forH: kNavBarHeight, forText: "Back", textColor: UIColor.white, wifthFont: UIFont.systemFont(ofSize: 12), backColor: krgbClear)
+        btnBack = Utility.sharedInstance.createButton(xCo: 10, forY: 10, forW: 50, forH: kNavBarHeight-10, forText: "Back", textColor: UIColor.white, wifthFont: UIFont.systemFont(ofSize: 14), backColor: krgbClear)
         return btnBack
     }
     
@@ -108,7 +108,7 @@ class MenuBar: UIView {
     }
     
     func rightButton(title: String) -> UIButton {
-        btnRightMenu = Utility.sharedInstance.createButton(xCo: kWidth - 70, forY: 0, forW: 60, forH: kNavBarHeight, forText: title, textColor: UIColor.white, wifthFont: UIFont.systemFont(ofSize: 14), backColor: krgbClear)
+        btnRightMenu = Utility.sharedInstance.createButton(xCo: kWidth - 70, forY: 10, forW: 60, forH: kNavBarHeight-10, forText: title, textColor: UIColor.white, wifthFont: UIFont.systemFont(ofSize: 14), backColor: krgbClear)
         
         return btnRightMenu
     }
