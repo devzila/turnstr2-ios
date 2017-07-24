@@ -50,6 +50,7 @@
 		D91C3B071F003986005F945C /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91C3B061F003986005F945C /* SignUpViewController.swift */; };
 		D91C3B0A1F003DB5005F945C /* ParentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91C3B091F003DB5005F945C /* ParentViewController.swift */; };
 		D92070DD1EF98FDC0095B9FA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92070DC1EF98FDC0095B9FA /* LoginViewController.swift */; };
+		D926C8971F23E8940090B621 /* StoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D926C8961F23E8940090B621 /* StoriesViewController.swift */; };
 		D95181A61F180776008595CC /* LiveFeed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D95181A51F180776008595CC /* LiveFeed.storyboard */; };
 		D95181A81F180ADE008595CC /* PhotoAlbum.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D95181A71F180ADE008595CC /* PhotoAlbum.storyboard */; };
 		D95181AA1F180C37008595CC /* LiveFeedsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95181A91F180C37008595CC /* LiveFeedsViewController.swift */; };
@@ -178,6 +179,7 @@
 		D91C3B061F003986005F945C /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		D91C3B091F003DB5005F945C /* ParentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParentViewController.swift; sourceTree = "<group>"; };
 		D92070DC1EF98FDC0095B9FA /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		D926C8961F23E8940090B621 /* StoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoriesViewController.swift; sourceTree = "<group>"; };
 		D95181A51F180776008595CC /* LiveFeed.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LiveFeed.storyboard; sourceTree = "<group>"; };
 		D95181A71F180ADE008595CC /* PhotoAlbum.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PhotoAlbum.storyboard; sourceTree = "<group>"; };
 		D95181A91F180C37008595CC /* LiveFeedsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveFeedsViewController.swift; sourceTree = "<group>"; };
@@ -718,6 +720,7 @@
 				D90BF05D1F0D6752003B5F4D /* MyStoriesViewController.swift */,
 				D9FA59DB1F0F3365001A38B6 /* StoryPreviewViewController.swift */,
 				D95181A91F180C37008595CC /* LiveFeedsViewController.swift */,
+				D926C8961F23E8940090B621 /* StoriesViewController.swift */,
 			);
 			path = HomeScreen;
 			sourceTree = "<group>";
@@ -799,7 +802,7 @@
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = XXPSXL3JLY;
 						LastSwiftMigration = 0820;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -994,6 +997,7 @@
 				D91C3AFA1F001D78005F945C /* IQUIWindow+Hierarchy.swift in Sources */,
 				D91C3AF51F001D78005F945C /* IQNSArray+Sort.swift in Sources */,
 				7E4E57621F1FC1DE00FCD758 /* ServiceUtility.swift in Sources */,
+				D926C8971F23E8940090B621 /* StoriesViewController.swift in Sources */,
 				D90DF8431F156A97002DD501 /* CameraView.swift in Sources */,
 				D9AC62C71F018FC90055ED3D /* UDData.swift in Sources */,
 				D96366611F035BD100784A58 /* SDWebImageDecoder.m in Sources */,
@@ -1121,14 +1125,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = XXPSXL3JLY;
 				INFOPLIST_FILE = Turnstr/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.app.Turnstr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "ab262514-5c1b-43c6-ba47-924a245e70bb";
+				PROVISIONING_PROFILE_SPECIFIER = Turnstr_dev;
 				SWIFT_OBJC_BRIDGING_HEADER = "Turnstr/Turnstr-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;

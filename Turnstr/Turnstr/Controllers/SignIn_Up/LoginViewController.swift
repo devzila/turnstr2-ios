@@ -13,22 +13,22 @@ import FacebookLogin
 class LoginViewController: ParentViewController {
     @IBOutlet weak var txtUsername: KBTextField!
     @IBOutlet weak var txtPassword: KBTextField!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         /*
          * CHeck if user already logged in
          */
         if objDataS.isLoginData() == true {
-            LoadMyStories()
+            LoadHomeScreen()
             return
         }
         
         txtUsername.text = "a@gmail.com"
         txtPassword.text = "12345678"
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -37,7 +37,8 @@ class LoginViewController: ParentViewController {
     //MARK:- Action Methods
     
     @IBAction func LoginClicked(_ sender: Any) {
-        
+        //LoadHomeScreen()
+        //return
         IQKeyboardDismiss()
         
         let (status, field) = objUtil.validationsWithField(fields: [txtUsername, txtPassword])
@@ -54,7 +55,7 @@ class LoginViewController: ParentViewController {
         
         //LoadEditProfile()
     }
-
+    
     @IBAction func ForgotPwd(_ sender: Any) {
     }
     
@@ -107,8 +108,8 @@ class LoginViewController: ParentViewController {
                             
                             self.objDataS.saveLoginData(data: arrResponse)
                             if self.objDataS.isLoginData() == true {
-                                //self.LoadEditProfile()
-                                self.LoadMyStories()
+                                self.LoadHomeScreen()
+                                //self.LoadMyStories()
                             }
                         }
                         
@@ -132,7 +133,7 @@ class LoginViewController: ParentViewController {
                             self.objDataS.saveLoginData(data: arrResponse)
                             if self.objDataS.isLoginData() == true {
                                 //self.LoadEditProfile()
-                                self.LoadMyStories()
+                                self.LoadHomeScreen()
                             }
                         }
                         

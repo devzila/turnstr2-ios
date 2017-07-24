@@ -16,6 +16,7 @@ enum Storyboards: String {
     case liveStoryboard = "LiveFeed"
     case photoStoryboard = "PhotoAlbum"
     case storyStoryboard = "Stories"
+    case loginStoryboard = "Login"
     
     func initialVC() -> UIViewController? {
         let storyboard = UIStoryboard(name: self.rawValue, bundle: nil)

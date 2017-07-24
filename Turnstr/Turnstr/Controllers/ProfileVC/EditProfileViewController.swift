@@ -15,7 +15,8 @@ class EditProfileViewController: ParentViewController, UITableViewDelegate, UITa
     var showBack: showBack = .no
     
     
-    var txtName = UITextField()
+    var txtFName = UITextField()
+    var txtLName = UITextField()
     var txtUserName = UITextField()
     var txtWeb = UITextField()
     var txtBio = IQTextView()
@@ -66,7 +67,8 @@ class EditProfileViewController: ParentViewController, UITableViewDelegate, UITa
     //MARK:- Prefill DATA
     
     func PrefillData() -> Void {
-        txtName.text = objSing.strUserName
+        txtFName.text = objSing.strUserFname
+        txtLName.text = objSing.strUserLName
         txtUserName.text = objSing.strUserName
         txtWeb.text = objSing.strUserWebsite
         txtBio.text = objSing.strUserBio
@@ -82,18 +84,82 @@ class EditProfileViewController: ParentViewController, UITableViewDelegate, UITa
             btnContactMe.setTitle("\(objSing.strUserContactMe)", for: .normal)
         }
         
+        PrefillImages()
         
-        objHeader?.arrImageUrls.append(objSing.strUserPic1)
-        objHeader?.arrImageUrls.append(objSing.strUserPic2)
-        objHeader?.arrImageUrls.append(objSing.strUserPic3)
-        objHeader?.arrImageUrls.append(objSing.strUserPic4)
-        objHeader?.arrImageUrls.append(objSing.strUserPic5)
-        objHeader?.arrImageUrls.append(objSing.strUserPic6)
+    }
+    
+    func PrefillImages() {
         
+        if objHeader != nil {
+            let arrImgs = [objSing.strUserPic1, objSing.strUserPic2, objSing.strUserPic3, objSing.strUserPic4, objSing.strUserPic5, objSing.strUserPic6]
+            
+            for url in arrImgs {
+                if url.isEmpty == false {
+                    objHeader?.arrImageUrls.append(url)
+                }
+            }
+            
+            let transformView = AITransformView.init(frame: CGRect.init(x: 0, y: 0, width: 110, height: 88), cube_size: 70)
+            transformView?.backgroundColor = UIColor.clear
+            
+            if (objHeader?.arrImageUrls.count)! > 0 {
+                transformView?.setup(withUrls: objHeader?.arrImageUrls)
+                
+            }
+            else{
+                transformView?.setup(withUrls: ["", "", "", "", "", ""])
+            }
+            
+            objHeader?.uvCube.addSubview(transformView!)
+            transformView?.setScroll(CGPoint.init(x: 0, y: 88/2), end: CGPoint.init(x: 20, y: 88/2))
+            transformView?.setScroll(CGPoint.init(x: 110/2, y: 0), end: CGPoint.init(x: 110/2, y: 10))
+            
+            objHeader?.uvCube.backgroundColor = UIColor.clear
+            objHeader?.imgCube.isHidden = true
+            
+        }
         
         objHeader?.uvCollectionView.reloadData()
     }
     
+    func SetFieldsSetting() -> Void {
+        let font = UIFont.systemFont(ofSize: 14.0)
+        
+        txtFName.placeholder = "First Name"
+        txtFName.textColor = kOrangeColor
+        txtFName.font = font
+        
+        txtLName.placeholder = "Last Name"
+        txtLName.textColor = kOrangeColor
+        txtLName.font = font
+        
+        txtUserName.placeholder = "User Name"
+        txtUserName.textColor = kOrangeColor
+        txtUserName.font = font
+        
+        txtWeb.placeholder = "Website"
+        txtWeb.textColor = kBlueColor
+        txtWeb.font = font
+        
+        txtBio.placeholder = "About you"
+        txtBio.textColor = kOrangeColor
+        txtBio.font = font
+        
+        let font1 = UIFont.boldSystemFont(ofSize: 13.0)
+        
+        lblContactMe.text = "Contact Me"
+        lblContactMe.textColor = kBlueColor
+        lblContactMe.font = font1
+        
+        txtMail.placeholder = "Email"
+        txtMail.textColor = kOrangeColor
+        txtMail.font = font
+        
+        txtPhone.placeholder = "Phone Number"
+        txtPhone.textColor = kOrangeColor
+        txtPhone.font = font
+        
+    }
     //MARK:- Table View
     func createTableView() -> Void {
         
@@ -105,6 +171,8 @@ class EditProfileViewController: ParentViewController, UITableViewDelegate, UITa
         tblMainTable?.backgroundColor = kLightGray
         tblMainTable?.separatorColor = krgbClear
         self.view.addSubview(tblMainTable!)
+        
+        SetFieldsSetting()
         
         PrefillData()
     }
@@ -122,7 +190,7 @@ class EditProfileViewController: ParentViewController, UITableViewDelegate, UITa
     {
         switch section {
         case 0:
-            return 4
+            return 5
         default:
             break
         }
@@ -165,8 +233,8 @@ class EditProfileViewController: ParentViewController, UITableViewDelegate, UITa
     {
         switch indexPath.section {
         case 0:
-            if indexPath.row == 3 {
-                return 120
+            if indexPath.row == 4 {
+                return 90
             }
         default:
             break
@@ -185,7 +253,6 @@ class EditProfileViewController: ParentViewController, UITableViewDelegate, UITa
         }
         
         let frame: CGRect = CGRect.init(x: 5, y: 5, width: kWidth-60, height: rowHeight(indexPath: indexPath as NSIndexPath)-10)
-        let font = UIFont.systemFont(ofSize: 14.0)
         
         cell.imgPic.isHidden = false
         cell.uvSeparator.isHidden = false
@@ -194,31 +261,24 @@ class EditProfileViewController: ParentViewController, UITableViewDelegate, UITa
             switch indexPath.row {
             case 0:
                 cell?.imgPic?.image = #imageLiteral(resourceName: "ic_id")
-                txtName.frame = frame
-                txtName.placeholder = "Full Name"
-                txtName.textColor = kOrangeColor
-                txtName.font = font
-                cell.uvContent.addSubview(txtName)
+                txtFName.frame = frame
+                cell.uvContent.addSubview(txtFName)
             case 1:
+                cell?.imgPic?.image = #imageLiteral(resourceName: "ic_id")
+                txtLName.frame = frame
+                cell.uvContent.addSubview(txtLName)
+            case 2:
                 cell?.imgPic?.image = #imageLiteral(resourceName: "ic_user")
                 txtUserName.frame = frame
-                txtUserName.placeholder = "User Name"
-                txtUserName.textColor = kOrangeColor
-                txtUserName.font = font
                 cell.uvContent.addSubview(txtUserName)
-            case 2:
+            case 3:
                 cell?.imgPic?.image = #imageLiteral(resourceName: "ic_web")
                 txtWeb.frame = frame
-                txtWeb.placeholder = "Website"
-                txtWeb.textColor = kBlueColor
-                txtWeb.font = font
+                txtWeb.autocapitalizationType = .none
                 cell.uvContent.addSubview(txtWeb)
-            case 3:
+            case 4:
                 cell?.imgPic?.image = #imageLiteral(resourceName: "ic_info")
                 txtBio.frame = frame
-                txtBio.placeholder = "About you"
-                txtBio.textColor = kOrangeColor
-                txtBio.font = font
                 cell.uvContent.addSubview(txtBio)
                 cell.contentView.addSubview(objUtil.createView(xCo: 0, forY: rowHeight(indexPath: indexPath as NSIndexPath)-2, forW: kWidth, forH: 2, backColor: kSeperatorColor))
             default:
@@ -229,7 +289,6 @@ class EditProfileViewController: ParentViewController, UITableViewDelegate, UITa
         else if indexPath.section == 1 {
             cell.uvSeparator.isHidden = true
             let font1 = UIFont.boldSystemFont(ofSize: 13.0)
-            
             switch indexPath.row {
             case 0:
                 cell.imgPic.isHidden = true
@@ -252,9 +311,6 @@ class EditProfileViewController: ParentViewController, UITableViewDelegate, UITa
             case 1:
                 cell.imgPic.isHidden = true
                 lblContactMe.frame = CGRect.init(x: 8, y: 0, width: 80, height: rowHeight(indexPath: indexPath as NSIndexPath))
-                lblContactMe.text = "Contact Me"
-                lblContactMe.textColor = kBlueColor
-                lblContactMe.font = font1
                 cell.contentView.addSubview(lblContactMe)
                 
                 //
@@ -280,17 +336,11 @@ class EditProfileViewController: ParentViewController, UITableViewDelegate, UITa
             case 0:
                 cell?.imgPic?.image = #imageLiteral(resourceName: "ic_mail")
                 txtMail.frame = frame
-                txtMail.placeholder = "Email"
-                txtMail.textColor = kOrangeColor
-                txtMail.font = font
                 txtMail.keyboardType = .emailAddress
                 cell.uvContent.addSubview(txtMail)
             case 1:
                 cell?.imgPic?.image = #imageLiteral(resourceName: "ic_phone")
                 txtPhone.frame = frame
-                txtPhone.placeholder = "Phone Number"
-                txtPhone.textColor = kOrangeColor
-                txtPhone.font = font
                 txtPhone.keyboardType = .phonePad
                 cell.uvContent.addSubview(txtPhone)
                 cell.contentView.addSubview(objUtil.createView(xCo: 0, forY: rowHeight(indexPath: indexPath as NSIndexPath)-2, forW: kWidth, forH: 2, backColor: kSeperatorColor))
@@ -318,6 +368,8 @@ class EditProfileViewController: ParentViewController, UITableViewDelegate, UITa
                 objHeader = EditProfileHeader.init(frame: CGRect.init(x: 0, y: 0, width: kWidth, height: sectionHeight(section: section)))
                 objHeader?.delegateEditHeader = self
                 objHeader?.btnChangePhoto.addTarget(self, action: #selector(ChangeProfilePhoto(sender:)), for: .touchUpInside)
+                
+                PrefillImages()
             }
             
             return objHeader
@@ -359,7 +411,7 @@ class EditProfileViewController: ParentViewController, UITableViewDelegate, UITa
         
         IQKeyboardDismiss()
         
-        let (status, field) = objUtil.validationsWithField(fields: [txtName, txtUserName, txtWeb, txtMail, txtPhone])
+        let (status, field) = objUtil.validationsWithField(fields: [txtFName, txtLName, txtUserName, txtWeb, txtMail])
         
         if status == false {
             objUtil.showToast(strMsg: "Please enter "+field)
@@ -371,12 +423,12 @@ class EditProfileViewController: ParentViewController, UITableViewDelegate, UITa
             return
         }
         
-        if (objHeader?.arrImage.count)! < 6 {
-            objUtil.showToast(strMsg: "Please choose six profile Images.")
-            return
-        }
-        
-        kAppDelegate.loadingIndicationCreationMSG(msg: "Saving...")
+        //        if ((objHeader?.arrImage.count)! < 6) && ((objHeader?.arrImageUrls.count)! < 6) {
+        //            objUtil.showToast(strMsg: "Please choose six profile Images.")
+        //            return
+        //        }
+        //
+        kAppDelegate.loadingIndicationCreationMSG(msg: "Saving")
         APIRequest(sType: kAPIUpdateProfile, data: [:])
     }
     
@@ -384,6 +436,10 @@ class EditProfileViewController: ParentViewController, UITableViewDelegate, UITa
         
         IQKeyboardDismiss()
         
+        if (objHeader?.arrImage.count)! > 5 {
+            objUtil.showToast(strMsg: "You can upload maximum six Images.")
+            return
+        }
         CameraImage.shared.captureImage(from: self, captureOptions: [.camera, .photoLibrary], allowEditting: true, fromView: sender) {[weak self] (image) in
             if image != nil {
                 
@@ -401,37 +457,58 @@ class EditProfileViewController: ParentViewController, UITableViewDelegate, UITa
         
         IQKeyboardDismiss()
         
-        let alertController = UIAlertController(title: "Choose Action", message: "", preferredStyle: .actionSheet)
-        
-        let sendButton = UIAlertAction(title: "Edit", style: .default, handler: { (action) -> Void in
+        if selectedINdex < (objHeader?.arrImage.count)! {
+            //
+            // Edit Old
+            //
             
+            let alertController = UIAlertController(title: "Choose Action", message: "", preferredStyle: .actionSheet)
+            
+            let sendButton = UIAlertAction(title: "Edit", style: .default, handler: { (action) -> Void in
+                
+                CameraImage.shared.captureImage(from: self, captureOptions: [.camera, .photoLibrary], allowEditting: true, fromView: self.objHeader?.btnChangePhoto) {[weak self] (image) in
+                    if image != nil {
+                        
+                        self?.objHeader?.arrImage.remove(at: selectedINdex)
+                        self?.objHeader?.arrImage.insert(image!, at: selectedINdex)
+                        self?.objHeader?.uvCollectionView.reloadData()
+                        
+                    }
+                }
+                
+            })
+            
+            let  deleteButton = UIAlertAction(title: "Delete", style: .destructive, handler: { (action) -> Void in
+                self.objHeader?.arrImage.remove(at: selectedINdex)
+                self.objHeader?.uvCollectionView.reloadData()
+            })
+            
+            let cancelButton = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) -> Void in
+                print("Cancel button tapped")
+            })
+            
+            
+            alertController.addAction(sendButton)
+            alertController.addAction(deleteButton)
+            alertController.addAction(cancelButton)
+            
+            self.navigationController!.present(alertController, animated: true, completion: nil)
+        }
+        else{
+            //
+            // Insert new
+            //
             CameraImage.shared.captureImage(from: self, captureOptions: [.camera, .photoLibrary], allowEditting: true, fromView: self.objHeader?.btnChangePhoto) {[weak self] (image) in
                 if image != nil {
                     
-                    self?.objHeader?.arrImage.remove(at: selectedINdex)
-                    self?.objHeader?.arrImage.insert(image!, at: selectedINdex)
+                    self?.objHeader?.arrImage.append(image!)
                     self?.objHeader?.uvCollectionView.reloadData()
                     
                 }
             }
-            
-        })
-        
-        let  deleteButton = UIAlertAction(title: "Delete", style: .destructive, handler: { (action) -> Void in
-            self.objHeader?.arrImage.remove(at: selectedINdex)
-            self.objHeader?.uvCollectionView.reloadData()
-        })
-        
-        let cancelButton = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) -> Void in
-            print("Cancel button tapped")
-        })
+        }
         
         
-        alertController.addAction(sendButton)
-        alertController.addAction(deleteButton)
-        alertController.addAction(cancelButton)
-        
-        self.navigationController!.present(alertController, animated: true, completion: nil)
     }
     
     //
@@ -458,7 +535,8 @@ class EditProfileViewController: ParentViewController, UITableViewDelegate, UITa
                 let dictAction: NSDictionary = [
                     "action": kAPIUpdateProfile,
                     "user[username]": "\(self.txtUserName.text!)",
-                    "user[first_name]": "\(self.txtName.text!)",
+                    "user[first_name]": "\(self.txtFName.text!)",
+                    "user[last_name]": "\(self.txtLName.text!)",
                     "user[website]" : "\(self.txtWeb.text!)",
                     "user[bio]" : "\(self.txtBio.text!)",
                     "user[email]" : "\(self.txtMail.text!)",
@@ -475,7 +553,7 @@ class EditProfileViewController: ParentViewController, UITableViewDelegate, UITa
                         
                         self.objDataS.saveLoginData(data: arrResponse)
                         if self.objDataS.isLoginData() == true {
-                            self.LoadHomeScreen()
+                            self.goBack()
                         }
                         
                         self.objUtil.showToast(strMsg: "User updated successfully")

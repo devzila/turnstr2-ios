@@ -46,4 +46,12 @@ extension String {
         guard let double = Double(self) else { return 0}
         return double
     }
+    
+    var urlWithThumb: String {
+        if self.isEmpty == true {
+            return "thumb"
+        }
+        return self
+    }
+    
 }

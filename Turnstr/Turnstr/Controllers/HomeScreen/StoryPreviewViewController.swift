@@ -19,6 +19,29 @@ class StoryPreviewViewController: ParentViewController, CubePageView_Delegate {
         
         self.view.backgroundColor = UIColor.black
         
+        
+        objStory.ParseStoryData(dict: dictInfo)
+        
+        var arrMedia: [String] = []
+        
+        for item in objStory.media {
+            
+            objStory.ParseMedia(media: item)
+            arrMedia.append(objStory.thumb_url)
+        }
+        
+        let w: CGFloat = kWidth
+        let h: CGFloat = kHeight-kNavBarHeight // uvCenterCube.frame.size.height-10
+        
+        let transformView = AITransformView.init(frame: CGRect.init(x: 0, y: 0, width: w, height: h), cube_size: 220)//w > h ?h-100:w-100
+        
+        transformView?.backgroundColor = UIColor.clear
+        transformView?.setup(withUrls: arrMedia)
+        self.view.addSubview(transformView!)
+        transformView?.setScroll(CGPoint.init(x: 0, y: h/2), end: CGPoint.init(x: 85, y: h/2))
+        transformView?.setScroll(CGPoint.init(x: w/2, y: 0), end: CGPoint.init(x: w/2, y: 10))
+        
+
         /*
          * Navigation Bar
          */
@@ -26,32 +49,6 @@ class StoryPreviewViewController: ParentViewController, CubePageView_Delegate {
         objNav.btnRightMenu.isHidden = true
         objNav.btnBack.addTarget(self, action: #selector(goBack), for: .touchUpInside)
         
-        objStory.ParseStoryData(dict: dictInfo)
-        
-        let arrMedia = objStory.media
-        
-        var arrImages: [UIImageView] = []
-        
-        for item in arrMedia {
-            
-            objStory.ParseMedia(media: item)
-            
-            let imgImage: UIImageView = UIImageView.init(frame: CGRect.init(x: 0, y: 60, width: kWidth, height: 280))
-            imgImage.sd_setImage(with: URL.init(string: objStory.thumb_url))
-            imgImage.contentMode = .scaleAspectFill
-            imgImage.layer.masksToBounds = true
-            arrImages.append(imgImage)
-        }
-        
-        let cube: CubePageView = CubePageView.init(frame: CGRect.init(x: 0, y: 60, width: kWidth, height: 280))
-        cube.delegate = self
-        
-        self.view.addSubview(cube)
-        cube.setPages(arrImages)
-        cube.accessibilityElements = [arrMedia]
-        cube.selectPage((cube.currentPage()), withAnim: false)
-        
-
     }
 
     override func didReceiveMemoryWarning() {

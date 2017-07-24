@@ -28,6 +28,10 @@ class Singleton: NSObject {
     var strUserPic5: String = ""
     var strUserPic6: String = ""
     
+    var follower_count: Int = 0
+    var post_count: Int = 0
+    var family_count: Int = 0
+    
     
     
     var strDeviceToken = String()
@@ -43,4 +47,31 @@ class Singleton: NSObject {
         return instance
     }()
     
+    func clearData() -> Void {
+        strUserID = ""
+        strUserEmail = ""
+        strUserName = ""
+        strUserFname = ""
+        strUserLName = ""
+        strUserPhone = ""
+        strUserWebsite = ""
+        strUserBio = ""
+        strUserContactMe = ""
+        strUserOnline = false
+        
+        strUserPic1 = ""
+        strUserPic2 = ""
+        strUserPic3 = ""
+        strUserPic4 = ""
+        strUserPic5 = ""
+        strUserPic6 = ""
+        
+        follower_count = 0
+        post_count = 0
+        family_count = 0
+        
+        strIsLogin = "no"
+        
+        strUserSessionId = ""
+    }
 }

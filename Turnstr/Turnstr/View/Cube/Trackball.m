@@ -6,7 +6,7 @@
 //  Copyright 2008 Gala Factory. All rights reserved.
 //
 
-#import "TrackBall.h"
+#import "Trackball.h"
 
 #include <math.h>
 

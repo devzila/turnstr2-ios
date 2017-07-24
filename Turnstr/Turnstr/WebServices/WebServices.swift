@@ -117,7 +117,7 @@ class WebServices: NSObject {
     //MARK: ------ GET DATA FROM SERVER WITH GET METHOD -------
     func GetMethodServerData(strRequest:String, GetURL:String, parType: String) -> Dictionary<String,AnyObject>{
         
-        print(kBaseURL)
+        
         
         // Send HTTP GET Request
         // Define server side script URL
