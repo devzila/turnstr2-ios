@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7E2C2DFC1F26757A0055D309 /* CommentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E2C2DFA1F26757A0055D309 /* CommentModel.swift */; };
+		7E2C2DFD1F26757A0055D309 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E2C2DFB1F26757A0055D309 /* UserModel.swift */; };
+		7E2C2DFF1F2675C40055D309 /* loaderImage.gif in Resources */ = {isa = PBXBuildFile; fileRef = 7E2C2DFE1F2675C40055D309 /* loaderImage.gif */; };
 		7E4E575A1F1FC16400FCD758 /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4E57561F1FC16400FCD758 /* CommentsViewController.swift */; };
 		7E4E575B1F1FC16400FCD758 /* PhotoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4E57571F1FC16400FCD758 /* PhotoDetailViewController.swift */; };
 		7E4E575C1F1FC16400FCD758 /* PhotoLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4E57581F1FC16400FCD758 /* PhotoLibraryViewController.swift */; };
@@ -136,6 +139,9 @@
 		1E49C4DB758F6E2256172E66 /* Pods_Turnstr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Turnstr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AC6FD96D7C11DE3F0F2CCC3 /* Pods-Turnstr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Turnstr.release.xcconfig"; path = "Pods/Target Support Files/Pods-Turnstr/Pods-Turnstr.release.xcconfig"; sourceTree = "<group>"; };
 		4C47722425C11F466B24548F /* Pods-Turnstr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Turnstr.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Turnstr/Pods-Turnstr.debug.xcconfig"; sourceTree = "<group>"; };
+		7E2C2DFA1F26757A0055D309 /* CommentModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentModel.swift; sourceTree = "<group>"; };
+		7E2C2DFB1F26757A0055D309 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		7E2C2DFE1F2675C40055D309 /* loaderImage.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = loaderImage.gif; path = ../../Controllers/PhotoAlbum/loaderImage.gif; sourceTree = "<group>"; };
 		7E4E57561F1FC16400FCD758 /* CommentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
 		7E4E57571F1FC16400FCD758 /* PhotoDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoDetailViewController.swift; sourceTree = "<group>"; };
 		7E4E57581F1FC16400FCD758 /* PhotoLibraryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLibraryViewController.swift; sourceTree = "<group>"; };
@@ -588,6 +594,7 @@
 			children = (
 				D9AC62E01F01917A0055ED3D /* KBLoader.swift */,
 				D9AC62E11F01917A0055ED3D /* KBLog.swift */,
+				7E2C2DFE1F2675C40055D309 /* loaderImage.gif */,
 				D9AC62E21F01917A0055ED3D /* workloader.gif */,
 			);
 			path = MISC;
@@ -681,6 +688,8 @@
 				7E4E575E1F1FC1DE00FCD758 /* ServiceUtility.swift */,
 				7E4E575F1F1FC1DE00FCD758 /* PhotoAlbum.swift */,
 				7E4E57601F1FC1DE00FCD758 /* Photos.swift */,
+				7E2C2DFA1F26757A0055D309 /* CommentModel.swift */,
+				7E2C2DFB1F26757A0055D309 /* UserModel.swift */,
 				7E4E57611F1FC1DE00FCD758 /* KSResponse.swift */,
 			);
 			path = Modal;
@@ -841,6 +850,7 @@
 				8AEC2C861F169C23008DF3BB /* Login.storyboard in Resources */,
 				D9FDE6191EC2263C009D5BE3 /* Assets.xcassets in Resources */,
 				8AEC2C8A1F169C23008DF3BB /* Stories.storyboard in Resources */,
+				7E2C2DFF1F2675C40055D309 /* loaderImage.gif in Resources */,
 				8AEC2C841F169C23008DF3BB /* LaunchScreen.storyboard in Resources */,
 				D95181A81F180ADE008595CC /* PhotoAlbum.storyboard in Resources */,
 				8AEC2C891F169C23008DF3BB /* Profile.storyboard in Resources */,
@@ -930,6 +940,7 @@
 				D91C3AFB1F001D78005F945C /* IQKeyboardManagerConstants.swift in Sources */,
 				D91C3AFE1F001D78005F945C /* IQKeyboardReturnKeyHandler.swift in Sources */,
 				D9FDE6461EC236F5009D5BE3 /* Image.swift in Sources */,
+				7E2C2DFC1F26757A0055D309 /* CommentModel.swift in Sources */,
 				D90A0F881F01F32E00BFCE90 /* MenuBar.swift in Sources */,
 				7E4E575A1F1FC16400FCD758 /* CommentsViewController.swift in Sources */,
 				D96366661F035BD100784A58 /* UIButton+WebCache.m in Sources */,
@@ -980,6 +991,7 @@
 				D9AC63001F019A050055ED3D /* NSObjectExtensions.swift in Sources */,
 				8AEC2C8C1F169DFE008DF3BB /* Storyboards.swift in Sources */,
 				D91C3AF91F001D78005F945C /* IQUIViewController+Additions.swift in Sources */,
+				7E2C2DFD1F26757A0055D309 /* UserModel.swift in Sources */,
 				D96366671F035BD100784A58 /* UIImage+GIF.m in Sources */,
 				D96366331F02D78500784A58 /* Singleton.swift in Sources */,
 				D96366601F035BD100784A58 /* SDWebImageCompat.m in Sources */,

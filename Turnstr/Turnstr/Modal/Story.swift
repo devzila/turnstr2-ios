@@ -63,7 +63,6 @@ class Story: NSObject {
             storyID = obj
         }
         
-        
         if let obj = dict["caption"] as? String {
             strCaption = obj
         }

@@ -7,40 +7,98 @@
 //
 
 import UIKit
+import Kingfisher
 
-class PhotoDetailViewController: ParentViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate {
+let appThemeColor: UIColor = UIColor(red: 227.0 / 255.0, green: 100.0 / 255.0, blue: 32.0 / 255.0, alpha: 1.0)
 
+class PhotoDetailViewController: ParentViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate, ServiceUtility {
+    
     @IBOutlet weak var collViewPhotoDetail: UICollectionView!
     var objPhotos: [Photos]?
     var selectedIndex: Int?
+    var albumId: Int?
+    var isFromPublicPhoto: Bool?
+    
+    @IBOutlet weak var btnLike: UIButton!
+    @IBOutlet weak var lblLikeCount: UILabel!
+    @IBOutlet weak var lblCommentCount: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         LoadNavBar()
         objNav.btnRightMenu.isHidden = true
         objNav.btnBack.addTarget(self, action: #selector(goBack), for: .touchUpInside)
+        
+        if let photos = objPhotos {
+            if selectedIndex != nil {
+                kAppDelegate.loadingIndicationCreationMSG(msg: "Loading...")
+                let photo = photos[(selectedIndex)!]
+                if let isPublic = isFromPublicPhoto {
+                    getPhotoDetail(idAlbum: albumId, idPhoto: photo.id!, isPublic: isPublic, withHandler: { (response) in
+                        if let photoDetail = response?.response {
+                            self.lblLikeCount.text = (photoDetail.likes_count ?? 0) > 0 ? "\(photoDetail.likes_count ?? 0) Likes" : "\(photoDetail.likes_count ?? 0) Like"
+                            self.lblCommentCount.text = (photoDetail.comments_count ?? 0) > 0 ? "\(photoDetail.comments_count ?? 0) Comments" : "\(photoDetail.comments_count ?? 0) Comment"
+                            if let liked = photoDetail.has_liked, liked == 1 {
+                                self.btnLike.setTitleColor(appThemeColor, for: .normal)
+                            } else {
+                                self.btnLike.setTitleColor(UIColor.white, for: .normal)
+                            }
+                        }
+                    })
+                }
+            }
+        }
     }
     
     override func viewDidLayoutSubviews() {
-        guard let index = selectedIndex else { return }
-        collViewPhotoDetail.setContentOffset(CGPoint(x: index * Int(collViewPhotoDetail.frame.size.width), y: 0), animated: false)
+        //guard let index = selectedIndex else { return }
+        //collViewPhotoDetail.setContentOffset(CGPoint(x: index * Int(collViewPhotoDetail.frame.size.width), y: 0), animated: false)
     }
-
-
+    
+    override func viewWillLayoutSubviews() {
+        guard let index = selectedIndex else { return }
+        collViewPhotoDetail.setContentOffset(CGPoint(x: index * Int(collViewPhotoDetail.frame.size.width), y: Int(collViewPhotoDetail.contentOffset.y)), animated: false)
+    }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     @IBAction func btnTappedLike(_ sender: Any) {
+        if let photos = objPhotos {
+            if self.collViewPhotoDetail.indexPathsForVisibleItems.last != nil {
+                kAppDelegate.loadingIndicationCreationMSG(msg: "Loading...")
+                var photo = photos[(self.collViewPhotoDetail.indexPathsForVisibleItems.last?.row)!]
+                self.likeUnlikePhoto(id: (photo.id)!, withHandler: { (response) in
+                    if let likeDetail = response["message"] as? String, likeDetail == "Like created successfully" {
+                        photo.has_liked = 1
+                        photo.likes_count = (photo.likes_count ?? 0) + 1
+                        self.objPhotos?[(self.collViewPhotoDetail.indexPathsForVisibleItems.last?.row)!] = photo
+                        self.updateLikeCommentCount(photoDetail: photo)
+                    } else {
+                        photo.has_liked = 0
+                        photo.likes_count = (photo.likes_count ?? 0) - 1
+                        self.objPhotos?[(self.collViewPhotoDetail.indexPathsForVisibleItems.last?.row)!] = photo
+                        self.updateLikeCommentCount(photoDetail: photo)
+                    }
+                })
+            }
+        }
     }
     
     @IBAction func btnTappedComment(_ sender: Any) {
-        //performSegue(withIdentifier: "commentViewSegue", sender: self)
+        if let photos = objPhotos {
+            if self.collViewPhotoDetail.indexPathsForVisibleItems.last != nil {
+                let photo = photos[(self.collViewPhotoDetail.indexPathsForVisibleItems.last?.row)!]
+                performSegue(withIdentifier: "commentViewSegue", sender: photo)
+            }
+        }
     }
-
+    
     @IBAction func btnTappedShare(_ sender: Any) {
         if let photos = objPhotos {
             if self.collViewPhotoDetail.indexPathsForVisibleItems.last != nil {
@@ -61,13 +119,18 @@ class PhotoDetailViewController: ParentViewController, UICollectionViewDelegate,
     }
     
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "commentViewSegue" {
+            if let vc = segue.destination as? CommentsViewController {
+                vc.objPhoto = (sender as? Photos) ?? nil
+            }
+        }
     }
-
+    
 }
 
 extension PhotoDetailViewController {
@@ -84,7 +147,10 @@ extension PhotoDetailViewController {
         // Use the outlet in our custom class to get a reference to the UILabel in the cell
         if let imgVwPic = cell.viewWithTag(1001) as? UIImageView {
             if let photos = objPhotos, photos.count > indexPath.row {
-                imgVwPic.sd_setImage(with: URL(string: (photos[indexPath.row].image_medium)!), placeholderImage: #imageLiteral(resourceName: "placeholder"))
+                let p = Bundle.main.path(forResource: "loaderImage", ofType: "gif")!
+                let data = try! Data(contentsOf: URL(fileURLWithPath: p))
+                imgVwPic.kf.indicatorType = .image(imageData: data)
+                imgVwPic.kf.setImage(with: URL(string: (photos[indexPath.row].image_medium)!))
             }
         }
         return cell
@@ -104,7 +170,31 @@ extension PhotoDetailViewController {
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-
+        if let photos = objPhotos {
+            if let indxPath = self.collViewPhotoDetail.indexPathsForVisibleItems.last, indxPath.row != selectedIndex {
+                //kAppDelegate.loadingIndicationCreationMSG(msg: "Loading...")
+                self.selectedIndex = indxPath.row
+                let photo = photos[indxPath.row]
+                self.updateLikeCommentCount(photoDetail: photo)
+                if let isPublic = isFromPublicPhoto {
+                    getPhotoDetail(idAlbum: albumId, idPhoto: photo.id!, isPublic: isPublic, withHandler: { (response) in
+                        if let photoDetail = response?.response {
+                            self.updateLikeCommentCount(photoDetail: photoDetail)
+                        }
+                    })
+                }
+            }
+        }
+    }
+    
+    func updateLikeCommentCount(photoDetail: Photos) {
+        self.lblLikeCount.text = (photoDetail.likes_count ?? 0) > 1 ? "\(photoDetail.likes_count ?? 0) Likes" : "\(photoDetail.likes_count ?? 0) Like"
+        self.lblCommentCount.text = (photoDetail.comments_count ?? 0) > 1 ? "\(photoDetail.comments_count ?? 0) Comments" : "\(photoDetail.comments_count ?? 0) Comment"
+        if let liked = photoDetail.has_liked, liked == 1 {
+            self.btnLike.setTitleColor(appThemeColor, for: .normal)
+        } else {
+            self.btnLike.setTitleColor(UIColor.white, for: .normal)
+        }
     }
 }
 

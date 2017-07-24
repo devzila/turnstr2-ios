@@ -12,6 +12,7 @@ pod 'AlamofireImage', '~> 3.0’
 pod 'RMMapper'
 pod 'NVActivityIndicatorView'
 pod 'ObjectMapper'
+pod 'Kingfisher', '~> 3.0'
 
 # Facebook SDK
 pod 'FacebookCore', '~> 0.2'

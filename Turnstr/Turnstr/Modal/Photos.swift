@@ -23,6 +23,12 @@ struct Photos: Mappable {
     /** image_thumb */
     var image_thumb: String?
     
+    var has_liked: Int?
+    
+    var comments_count: Int?
+    
+    var likes_count: Int?
+    
     init() {
     }
     
@@ -35,6 +41,9 @@ struct Photos: Mappable {
         image_medium <- map["image_medium"]
         image_original <- map["image_original"]
         image_thumb <- map["image_thumb"]
+        has_liked <- map["has_liked"]
+        comments_count <- map["comments_count"]
+        likes_count <- map["likes_count"]
     }
     
     func encodeToJSON() -> [String : Any] {
