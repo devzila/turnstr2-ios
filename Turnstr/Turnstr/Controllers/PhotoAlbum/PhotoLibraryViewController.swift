@@ -18,6 +18,11 @@ class PhotoLibraryViewController: ParentViewController, UICollectionViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        LoadPhotoLibNavBar()
+        objNav.btnBack.isHidden = false
+        objNav.btnBack.addTarget(self, action: #selector(goBack), for: .touchUpInside)
+        objNav.btnRightMenu.setTitle("Upload Photo", for: .normal)
+        objNav.btnRightMenu.addTarget(self, action: #selector(btnTappedPhotoLibrary), for: .touchUpInside)
         kAppDelegate.loadingIndicationCreationMSG(msg: "Loading...")
         self.photoAlbum { (response) in
             if let arrAlbums = response?.response {

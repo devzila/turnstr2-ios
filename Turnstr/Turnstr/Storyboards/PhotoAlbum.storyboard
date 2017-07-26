@@ -420,7 +420,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="1001" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f9B-Xo-Ptz">
-                                                    <rect key="frame" x="14" y="10" width="224" height="21"/>
+                                                    <rect key="frame" x="60" y="10" width="178" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="yVg-s5-rw7"/>
                                                     </constraints>
@@ -429,7 +429,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="1003" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comment" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KJe-q9-8xk">
-                                                    <rect key="frame" x="14" y="34" width="304" height="36"/>
+                                                    <rect key="frame" x="60" y="34" width="258" height="26"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -449,10 +449,10 @@
                                                 <constraint firstItem="f9B-Xo-Ptz" firstAttribute="top" secondItem="HIs-MM-Xd8" secondAttribute="topMargin" constant="2" id="0fU-M7-yMn"/>
                                                 <constraint firstItem="KJe-q9-8xk" firstAttribute="top" secondItem="LDY-xp-yAJ" secondAttribute="bottom" constant="3" id="5dx-QM-xxZ"/>
                                                 <constraint firstAttribute="trailing" secondItem="KJe-q9-8xk" secondAttribute="trailing" constant="11" id="79E-dx-daD"/>
-                                                <constraint firstItem="KJe-q9-8xk" firstAttribute="leading" secondItem="HIs-MM-Xd8" secondAttribute="leading" constant="14" id="Aul-RR-nt1"/>
+                                                <constraint firstItem="KJe-q9-8xk" firstAttribute="leading" secondItem="HIs-MM-Xd8" secondAttribute="leading" constant="60" id="Aul-RR-nt1"/>
                                                 <constraint firstItem="LDY-xp-yAJ" firstAttribute="top" secondItem="HIs-MM-Xd8" secondAttribute="topMargin" constant="2" id="D0P-HW-MfU"/>
-                                                <constraint firstAttribute="bottom" secondItem="KJe-q9-8xk" secondAttribute="bottom" constant="8" id="EMp-mc-fKT"/>
-                                                <constraint firstItem="f9B-Xo-Ptz" firstAttribute="leading" secondItem="HIs-MM-Xd8" secondAttribute="leadingMargin" constant="6" id="TiB-De-dLJ"/>
+                                                <constraint firstAttribute="bottom" secondItem="KJe-q9-8xk" secondAttribute="bottom" constant="18" id="EMp-mc-fKT"/>
+                                                <constraint firstItem="f9B-Xo-Ptz" firstAttribute="leading" secondItem="HIs-MM-Xd8" secondAttribute="leadingMargin" constant="52" id="TiB-De-dLJ"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="LDY-xp-yAJ" secondAttribute="trailing" constant="3" id="nwX-XQ-IgO"/>
                                                 <constraint firstItem="LDY-xp-yAJ" firstAttribute="leading" secondItem="f9B-Xo-Ptz" secondAttribute="trailing" constant="12" id="o4l-8l-vbB"/>
                                             </constraints>

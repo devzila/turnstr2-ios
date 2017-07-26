@@ -295,6 +295,28 @@ class WebServices: NSObject {
             
         }
         
+        else if strData["action"] == kAPIUserPhotoUpload {
+            request.httpMethod = "POST"
+            
+            var j = 1
+            
+            for image in arrImages {
+                let contentType: String = "image/jpeg"
+                //image begin
+                body.append("--\(boundaryConstant)\r\n".data(using: String.Encoding.utf8)!)
+                
+                body.append("Content-Disposition: form-data; name=\"photo[image]\"; filename=\"photo\"\r\n".data(using: String.Encoding.utf8)!)
+                
+                
+                body.append("Content-Type: \(contentType)\r\n\r\n".data(using: String.Encoding.utf8)!)
+                body.append(UIImageJPEGRepresentation(image , 0.3)!)
+                body.append("\r\n".data(using: String.Encoding.utf8)!)
+                // image end
+                
+                j = j+1
+            }
+        }
+        
         for (key, value) in strData {
             
             if key == "action" {

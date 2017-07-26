@@ -24,8 +24,12 @@ class PhotosViewController: ParentViewController, UICollectionViewDataSource, UI
         
         // Do any additional setup after loading the view.
         LoadNavBar()
-        
-        objNav.btnBack.isHidden = true
+        if isFromPublicPhoto {
+            objNav.btnBack.isHidden = true
+        } else {
+            objNav.btnBack.isHidden = false
+            objNav.btnBack.addTarget(self, action: #selector(goBack), for: .touchUpInside)
+        }
         objNav.btnRightMenu.isHidden = true
         //objNav.btnBack.addTarget(self, action: #selector(goBack), for: .touchUpInside)
         if isFromPublicPhoto {

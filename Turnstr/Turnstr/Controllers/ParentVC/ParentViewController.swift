@@ -45,6 +45,17 @@ class ParentViewController: UIViewController, PickerDelegate, CustomAlertViewDel
         uvNavBar?.addSubview(objNav.ProfileIconButton())
     }
     
+    func LoadPhotoLibNavBar() -> Void {
+        /*
+         * Navigation Bar
+         */
+        uvNavBar = MenuBar.init(frame: self.view.frame, logoTitle: true)
+        self.view.addSubview(uvNavBar!)
+        uvNavBar?.addSubview(objNav.backButonIcon())
+        Utility.sharedInstance.setFrames(xCo: 0, yCo: 10, width: 0, height: kNavBarHeightWithLogo, view: objNav.btnBack)
+        uvNavBar?.addSubview(objNav.rightPhotoButton())
+    }
+    
     //MARK:- Load PickerView
     
     func LoadPickerView() -> Void {

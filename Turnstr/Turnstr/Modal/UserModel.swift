@@ -53,6 +53,12 @@ struct UserModel: Mappable {
         username <- map["username"]
         first_name <- map["first_name"]
         last_name <- map["last_name"]
+        avatar_face1 <- map["avatar_face1"]
+        avatar_face2 <- map["avatar_face2"]
+        avatar_face3 <- map["avatar_face3"]
+        avatar_face4 <- map["avatar_face4"]
+        avatar_face5 <- map["avatar_face5"]
+        avatar_face6 <- map["avatar_face6"]
     }
     
     func encodeToJSON() -> [String : Any] {

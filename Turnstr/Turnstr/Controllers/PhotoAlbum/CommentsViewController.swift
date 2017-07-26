@@ -136,6 +136,21 @@ extension CommentsViewController: UITableViewDelegate, UITableViewDataSource {
             lblTime.text = self.convertStringToDate(dateString: arrComments[indexPath.row].created_at!)?.timeAgoDisplay()
         }
         
+        var cube = cell.contentView.viewWithTag(indexPath.item) as? AITransformView
+        if cube == nil {
+            
+            cube = AITransformView.init(frame: CGRect.init(x: 8, y: 8, width: 48, height: 48), cube_size: 30)
+            cube?.tag = indexPath.item
+            cube?.backgroundColor = UIColor.clear
+            cube?.isUserInteractionEnabled = false
+            let objComment = arrComments[indexPath.row].user
+            let arrFaces = [objComment?.avatar_face1 ?? "thumb", objComment?.avatar_face2 ?? "thumb", objComment?.avatar_face3 ?? "thumb", objComment?.avatar_face4 ?? "thumb", objComment?.avatar_face5 ?? "thumb", objComment?.avatar_face6 ?? "thumb"]
+            cube?.setup(withUrls: arrFaces)
+            cell.contentView.addSubview(cube!)
+            cube?.setScroll(CGPoint.init(x: 0, y: 30/2), end: CGPoint.init(x: 20, y: 30/2))
+            cube?.setScroll(CGPoint.init(x: 30/2, y: 0), end: CGPoint.init(x: 30/2, y: 10))
+        }
+        
         return cell
     }
     

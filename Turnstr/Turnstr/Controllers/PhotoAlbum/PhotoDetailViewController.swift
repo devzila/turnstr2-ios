@@ -33,7 +33,7 @@ class PhotoDetailViewController: ParentViewController, UICollectionViewDelegate,
         
         if let photos = objPhotos {
             if selectedIndex != nil {
-                kAppDelegate.loadingIndicationCreationMSG(msg: "Loading...")
+                //kAppDelegate.loadingIndicationCreationMSG(msg: "Loading...")
                 let photo = photos[(selectedIndex)!]
                 if let isPublic = isFromPublicPhoto {
                     getPhotoDetail(idAlbum: albumId, idPhoto: photo.id!, isPublic: isPublic, withHandler: { (response) in

@@ -122,6 +122,13 @@ class HomeViewController: ParentViewController {
         LogoutClicked()
     }
     
+    @IBAction func btnTappedMyPhotos(_ sender: UIButton) {
+        let mainStoryboard: UIStoryboard = UIStoryboard(name: "PhotoAlbum", bundle: nil)
+        if let viewController = mainStoryboard.instantiateViewController(withIdentifier: "PhotoLibraryViewController") as? PhotoLibraryViewController {
+            self.navigationController?.pushViewController(viewController, animated: true)
+        }
+    }
+    
     /*
      // MARK: - Navigation
      
