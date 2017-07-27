@@ -511,8 +511,6 @@ class Utility: NSObject {
     func getDictFromDefaults(key: String) -> Dictionary<String, Any> {
         let defaultsView: UserDefaults = UserDefaults.standard
         
-        
-        
         if defaultsView.object(forKey: key) != nil {
             let placesData = defaultsView.object(forKey: key) as? NSData
             let placesArray = NSKeyedUnarchiver.unarchiveObject(with: placesData as! Data) as? Dictionary<String, Any>

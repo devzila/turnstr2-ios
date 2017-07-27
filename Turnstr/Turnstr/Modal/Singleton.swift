@@ -47,6 +47,7 @@ class Singleton: NSObject {
         return instance
     }()
     
+    
     func clearData() -> Void {
         strUserID = ""
         strUserEmail = ""

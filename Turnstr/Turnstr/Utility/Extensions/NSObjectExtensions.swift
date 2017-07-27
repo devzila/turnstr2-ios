@@ -22,8 +22,15 @@ extension NSObject {
     }
     
     var isLoggedIn: Bool {
-        guard let _ = UDKeys.user.fetch() else { return false }
-        return true
+        let sharedInstance = DataServiceModal.sharedInstance
+        if sharedInstance.isLoginData() {
+            return true
+        }
+        return false
+    }
+    
+    var loginUser: User {
+        return User()
     }
     
     var developmentMode: Bool {

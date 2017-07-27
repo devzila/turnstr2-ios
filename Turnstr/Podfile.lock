@@ -1,5 +1,5 @@
 PODS:
-  - Alamofire (4.4.0)
+  - Alamofire (4.5.0)
   - AlamofireImage (3.2.0):
     - Alamofire (~> 4.1)
   - Bolts (1.8.4):
@@ -27,9 +27,12 @@ PODS:
     - FBSDKCoreKit
   - FBSDKShareKit (4.22.1):
     - FBSDKCoreKit
-  - NVActivityIndicatorView (3.5.1)
-  - ObjectMapper (2.2.7)
+  - NVActivityIndicatorView (3.7.0):
+    - NVActivityIndicatorView/Presenter (= 3.7.0)
+  - NVActivityIndicatorView/Presenter (3.7.0)
+  - ObjectMapper (2.2.8)
   - RMMapper (1.1.5)
+  - SendBirdSDK (3.0.61)
   - SwiftyJSON (3.1.4)
 
 DEPENDENCIES:
@@ -44,10 +47,11 @@ DEPENDENCIES:
   - NVActivityIndicatorView
   - ObjectMapper
   - RMMapper
+  - SendBirdSDK
   - SwiftyJSON
 
 SPEC CHECKSUMS:
-  Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
+  Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
   AlamofireImage: 157ed682cc81d3b9db4fb90c1f12180ac552d93b
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
   FacebookCore: 2cb3f0fbff218e9d3119cec84bae983b232412de
@@ -56,11 +60,12 @@ SPEC CHECKSUMS:
   FBSDKCoreKit: 9c2daf0162214d6d2e21cf8208a9c6c2a2e42b9c
   FBSDKLoginKit: 00cf28916b9f0169763a3d61985d745b579fe304
   FBSDKShareKit: 1cbd0fdc2bb3277dd3522512855dcf1f4088f734
-  NVActivityIndicatorView: 075563b3547445ebcff840e3297ce9dd4a23731f
-  ObjectMapper: 65abcfd9a61cf7396cbd14a4fb22fddfcc46577e
+  NVActivityIndicatorView: d3738df7e2e476aca0ba6bf32a8c9fbcfc33d64b
+  ObjectMapper: 3d571bb5af471c779e1160828cd9ad5c4ef90958
   RMMapper: 21122d753c736d975f6c61e674afce8db73579af
+  SendBirdSDK: 4d85ce995f41a0d518f81d15ae8b69e3439b2a15
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: 18f970201c8f54771dfc8879d879d18a56711637
+PODFILE CHECKSUM: 2f1d476c56a5d87ad16b1262d3b4ad3a02200230
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.2.1

@@ -8,6 +8,7 @@
 
 import UIKit
 import FacebookCore
+import SendBirdSDK
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -29,13 +30,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         /*
-         * INternet Reachability
+         * Internet Reachability
          */
         NotificationCenter.default.addObserver(self, selector: #selector(networkStatusChanged(_:)), name: NSNotification.Name(rawValue: ReachabilityStatusChangedNotification), object: nil)
         Reach().monitorReachabilityChanges()
         
         // Facebook Initilization
         SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
+        
+        //SandBird Integration 
+        SBDMain.initWithApplicationId(kSendBirdAppId)
+        connectSendBirdSession()
         
         return true
     }
@@ -48,9 +53,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        
+        disconnect()
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
+        
+        connectSendBirdSession()
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
     }
 
@@ -60,6 +69,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        
+        disconnect()
     }
 
 
@@ -130,9 +141,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Singleton.sharedInstance.clearData()
         
         navC.popToRootViewController(animated: true)
-        //let navigationController = UINavigationController(rootViewController: Storyboards.loginStoryboard.initialVC()!)
-        //navigationController.isNavigationBarHidden = true
-        //self.window?.swapRootViewControllerWithAnimation(newViewController: navigationController, animationType: .present)
+        disconnect()
     }
 }
 
+
+extension AppDelegate {
+    
+    
+    func connectSendBirdSession() {
+        if isLoggedIn == true, let id = loginUser.id {
+            SBDMain.connect(withUserId: id, completionHandler: { (user, error) in
+                if error == nil {
+                    KBLog.log(message: "Send bird login user", object: user)
+                }
+            })
+        }
+    }
+    
+    func disconnect() {
+        SBDMain.disconnect { 
+            KBLog.log("Disconnected")
+        }
+    }
+}

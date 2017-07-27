@@ -141,7 +141,7 @@ class LoginViewController: ParentViewController {
                     }
                 }
             }
-            
+            AppDelegate.shared?.connectSendBirdSession()
         }
     }
     
