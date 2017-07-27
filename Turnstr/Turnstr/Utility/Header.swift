@@ -28,7 +28,8 @@ let kAPIPOSTStories = "user/stories"
 let kAPIFacebookLogin = "facebook/login"
 let kAPIPhotoAlbum = "user/albums"
 let kAPIUserPhotoUpload = "user/photos"
-
+let kAPIPhotoDetail = "photos"
+let kAPIGetAllPhotos = "photos"
 
 
 

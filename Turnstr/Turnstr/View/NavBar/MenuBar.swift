@@ -113,6 +113,11 @@ class MenuBar: UIView {
         return btnRightMenu
     }
     
+    func rightPhotoButton() -> UIButton {
+        btnRightMenu = Utility.sharedInstance.createButton(xCo: kWidth - 110, forY: 5, forW: 100, forH: kNavBarHeight, forText: "", textColor: UIColor.white, wifthFont: UIFont.boldSystemFont(ofSize: 13), backColor: krgbClear)
+        return btnRightMenu
+    }
+    
     func getBottomBorder(color: UIColor) -> UIView {
         uvBottomBorder = Utility.sharedInstance.createView(xCo: 0, forY: kNavBarHeight-0.6, forW: kWidth, forH: 0.6, backColor: color)
         return uvBottomBorder

@@ -295,6 +295,28 @@ class WebServices: NSObject {
             
         }
         
+        else if strData["action"] == kAPIUserPhotoUpload {
+            request.httpMethod = "POST"
+            
+            var j = 1
+            
+            for image in arrImages {
+                let contentType: String = "image/jpeg"
+                //image begin
+                body.append("--\(boundaryConstant)\r\n".data(using: String.Encoding.utf8)!)
+                
+                body.append("Content-Disposition: form-data; name=\"photo[image]\"; filename=\"photo\"\r\n".data(using: String.Encoding.utf8)!)
+                
+                
+                body.append("Content-Type: \(contentType)\r\n\r\n".data(using: String.Encoding.utf8)!)
+                body.append(UIImageJPEGRepresentation(image , 0.3)!)
+                body.append("\r\n".data(using: String.Encoding.utf8)!)
+                // image end
+                
+                j = j+1
+            }
+        }
+        
         for (key, value) in strData {
             
             if key == "action" {
@@ -383,4 +405,207 @@ class WebServices: NSObject {
         return jsonResponse
     }
     
+    //Upload Media
+    func putPostMultipartDataToServer(PutPostURL:String, type:String, strData: Dictionary<String, String>, parType: String) -> Dictionary<String,AnyObject> {
+        
+        print(kBaseURL)
+        
+        
+        let boundaryConstant  = "----------V2y2HFg03eptjbaKO0j1"
+        
+        let requestUrl = NSURL(string:kBaseURL.appending(PutPostURL))
+        print(requestUrl!)
+        let request = NSMutableURLRequest()
+        
+        request.cachePolicy = NSURLRequest.CachePolicy.reloadIgnoringLocalCacheData
+        request.httpShouldHandleCookies=false
+        request.timeoutInterval = 60.0
+        request.httpMethod = type
+        
+        let contentType = "multipart/form-data; boundary=\(boundaryConstant)"
+        
+        request.addValue(contentType, forHTTPHeaderField: "Content-Type")
+        
+        if Singleton.sharedInstance.strUserSessionId != "" {
+            request .setValue(Singleton.sharedInstance.strUserSessionId, forHTTPHeaderField: "Authorization")
+            request .setValue(Singleton.sharedInstance.strUserSessionId, forHTTPHeaderField: "auth_token")
+        }
+        print(Singleton.sharedInstance.strUserSessionId)
+        
+        let body = NSMutableData()
+        
+        for (key, value) in strData {
+            
+            if key == "action" {
+                continue
+            }
+            
+            print("\(key) : \(value)")
+            // parameters
+            body.append("--\(boundaryConstant)\r\n" .data(using: String.Encoding.utf8)! )
+            body.append("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n" .data(using: String.Encoding.utf8)!)
+            body.append("\(value)\r\n" .data(using: String.Encoding.utf8)!)
+            
+        }
+        
+        
+        body.append("--\(boundaryConstant)--\r\n".data(using: String.Encoding.utf8)!)
+        
+        request.httpBody  = body as Data
+        // let postLength = "\(body.length)"
+        // request.setValue(postLength, forHTTPHeaderField: "Content-Length")
+        request.url = requestUrl as URL?
+        
+        let semaphore = DispatchSemaphore(value: 0)
+        var ResponseData: NSData = NSData()
+        var statusCode: Int = 403
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest) {
+            data, response, error in
+            
+            guard error == nil && data != nil else {  // check for fundamental networking error
+                print("error=\(error)")
+                DispatchQueue.main.async {
+                    kAppDelegate.hideLoadingIndicator()
+                }
+                return
+            }
+            
+            if let httpStatus = response as? HTTPURLResponse {// check for http errors
+                
+                statusCode = httpStatus.statusCode
+                print(statusCode)
+                
+                if statusCode != 200 {
+                    print("statusCode should be 200, but is \(httpStatus.statusCode)")
+                    //print("response = \(response)")
+                }
+                
+            }
+            
+            let httpStatus = response as? HTTPURLResponse
+            print(httpStatus?.allHeaderFields ?? "Error defaults")
+            
+            
+            
+            ResponseData = data! as NSData
+            semaphore.signal()
+        }
+        task.resume()
+        semaphore.wait()
+        
+        let reply = String(data: ResponseData as Data, encoding: String.Encoding.utf8)
+        //print(strData)
+        print(reply)
+        
+        var json:Dictionary = [String: AnyObject]()
+        
+        do {
+            json = try JSONSerialization.jsonObject(with: ResponseData as Data, options: []) as! [String: AnyObject]
+            //print(json)
+            
+        } catch let error as NSError {
+            
+            print("Failed to load: \(error.localizedDescription)")
+            DispatchQueue.main.async {
+                kAppDelegate.hideLoadingIndicator()
+            }
+            
+        }
+        
+        var jsonResponse:Dictionary = [String: AnyObject]()
+        
+        jsonResponse = [
+            "data" : json as AnyObject,
+            "statusCode" : statusCode as AnyObject
+        ]
+        return jsonResponse
+    }
+    
+    
+    func putDataToserver(JSONString:String, PutURL:String, parType: String) -> Dictionary<String,AnyObject>{
+        
+        
+        
+        let request = NSMutableURLRequest(url: NSURL.init(string: kBaseURL.appending(PutURL)) as! URL)
+        
+        print("\(request.url! as URL)")
+        
+        
+        request.httpMethod = "PUT"
+        
+        request.httpBody = JSONString .data(using: String.Encoding.utf8)
+        
+        
+        request.timeoutInterval = 60.0
+        request .setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        if Singleton.sharedInstance.strUserSessionId != "" {
+            request .setValue(Singleton.sharedInstance.strUserSessionId, forHTTPHeaderField: "auth_token")
+        }
+        
+        
+        let semaphore = DispatchSemaphore(value: 0)
+        var ResponseData: NSData = NSData()
+        var statusCode: Int = 403
+        
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest) { data, response, error in
+            guard error == nil && data != nil else {  // check for fundamental networking error
+                print("error=\(error)")
+                DispatchQueue.main.async {
+                    Utility.sharedInstance.showAlert(title: "Error", forMsg: "Server Error")
+                    kAppDelegate.hideLoadingIndicator()
+                    //Loader.sharedInstance.stop()
+                    return
+                }
+                return
+            }
+            
+            if let httpStatus = response as? HTTPURLResponse {// check for http errors
+                
+                statusCode = httpStatus.statusCode
+                print(statusCode)
+                
+                if statusCode != 200 {
+                    print("statusCode should be 200, but is \(httpStatus.statusCode)")
+                    //print("response = \(response)")
+                }
+                
+            }
+            
+            ResponseData = data! as NSData
+            semaphore.signal()
+        }
+        task.resume()
+        
+        semaphore.wait()
+        
+        let reply = String(data: ResponseData as Data, encoding: String.Encoding.utf8)
+        
+        
+        var json:Dictionary = [String: AnyObject]()
+        
+        
+        do {
+            json = try JSONSerialization.jsonObject(with: ResponseData as Data, options: []) as! [String: AnyObject]
+            //print(json)
+            
+        } catch let error as NSError {
+            print(reply!)
+            print("Failed to load: \(error.localizedDescription)")
+            DispatchQueue.main.async {
+                kAppDelegate.hideLoadingIndicator()
+            }
+        }
+        
+        var jsonResponse:Dictionary = [String: AnyObject]()
+        
+        jsonResponse = [
+            "data" : json as AnyObject,
+            "statusCode" : statusCode as AnyObject
+        ]
+        return jsonResponse
+        
+    }
 }

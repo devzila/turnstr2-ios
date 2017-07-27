@@ -563,19 +563,19 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		0C15F1B98E11ED2308403C37367F35EA /* PBXContainerItemProxy */ = {
+		0ED49E6898B03010E3B3A60F9A7B97B1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = B5813E33CF560D8EBBAB957E6092A280;
-			remoteInfo = RMMapper;
+			remoteGlobalIDString = 9EFE4C70245EE2857D336B8B9FA4E825;
+			remoteInfo = AlamofireImage;
 		};
-		0FAD49551285FAA722CE757951704A38 /* PBXContainerItemProxy */ = {
+		143894B58AE4468D33DBBADD22D3C15A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = A7FEAA14E89971698ACA148F7F7202F2;
-			remoteInfo = FacebookShare;
+			remoteGlobalIDString = 44CAD6CE523055ED339E87154473A254;
+			remoteInfo = Bolts;
 		};
 		1707295455DE4AF37E9B157E5859EB8F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -591,12 +591,19 @@
 			remoteGlobalIDString = 593E9479C06FB200807D11AB29EB50BD;
 			remoteInfo = FBSDKCoreKit;
 		};
-		3BEFFDCD8023684E1495FF5C026D0F50 /* PBXContainerItemProxy */ = {
+		34E4270DD7112C34D07FE98A089F2ADD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 332F91393FB1DE033D370B4CEDDD5FCF;
-			remoteInfo = FBSDKShareKit;
+			remoteGlobalIDString = 5B5AC3C06B783F8674FDB4C0F900B56A;
+			remoteInfo = FBSDKLoginKit;
+		};
+		3B3949EFDF12B08E8D18D3FB1028033C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 593E9479C06FB200807D11AB29EB50BD;
+			remoteInfo = FBSDKCoreKit;
 		};
 		3CC86B89628C4FAD9D64973B13407AF5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -604,6 +611,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 44CAD6CE523055ED339E87154473A254;
 			remoteInfo = Bolts;
+		};
+		3E575A22615041AAD89E224E802012D9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2F0C0F810568D3E82219429D9D870F04;
+			remoteInfo = Kingfisher;
 		};
 		402AA05CC5AB803EE626CB485DD54053 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -619,19 +633,12 @@
 			remoteGlobalIDString = DDBCFDE490CDFDABF6F16A26F346932D;
 			remoteInfo = FacebookCore;
 		};
-		46B313672D38FFBB391D1808DBF45CE0 /* PBXContainerItemProxy */ = {
+		4C54277F1492A0BEA612C2FDCB3065ED /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 593E9479C06FB200807D11AB29EB50BD;
-			remoteInfo = FBSDKCoreKit;
-		};
-		497317A5C8F6B041344A84BDC89F6D20 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 88E9EC28B8B46C3631E6B242B50F4442;
-			remoteInfo = Alamofire;
+			remoteGlobalIDString = 3EDFE4052B5DE7D509935AC0774CB135;
+			remoteInfo = NVActivityIndicatorView;
 		};
 		537247B91960D4634870F66DD3117AEA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -640,20 +647,6 @@
 			remoteGlobalIDString = 593E9479C06FB200807D11AB29EB50BD;
 			remoteInfo = FBSDKCoreKit;
 		};
-		6157B40D3531BB2763203930E0789D51 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3EDFE4052B5DE7D509935AC0774CB135;
-			remoteInfo = NVActivityIndicatorView;
-		};
-		6AB3E2940A015B22E665D3B0DB6FDEC2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 5B5AC3C06B783F8674FDB4C0F900B56A;
-			remoteInfo = FBSDKLoginKit;
-		};
 		709123FA3378063036E76800A835D78D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
@@ -661,12 +654,12 @@
 			remoteGlobalIDString = 593E9479C06FB200807D11AB29EB50BD;
 			remoteInfo = FBSDKCoreKit;
 		};
-		77EA8608DA168827BBB7CE14F8A74395 /* PBXContainerItemProxy */ = {
+		76CFAEF55EF965D2C9453A091F38C6F1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 7335E9C9689F3B8A16F063A884748533;
-			remoteInfo = FacebookLogin;
+			remoteGlobalIDString = 88E9EC28B8B46C3631E6B242B50F4442;
+			remoteInfo = Alamofire;
 		};
 		79C653BF28A85A4416BD1419B8C5BFA3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -675,19 +668,19 @@
 			remoteGlobalIDString = 44CAD6CE523055ED339E87154473A254;
 			remoteInfo = Bolts;
 		};
-		82955058801D92FBCA6777580B460A3A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DDBCFDE490CDFDABF6F16A26F346932D;
-			remoteInfo = FacebookCore;
-		};
 		8C8608F2C87A6D91FCD86F90E5604514 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 44CAD6CE523055ED339E87154473A254;
 			remoteInfo = Bolts;
+		};
+		91E3EBF03883E372A1BD0637BB3C65A3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C02E444F9715B3504851F8B9D94D485D;
+			remoteInfo = RMMapper;
 		};
 		97793D355FB11B086CBE31CF7BC58008 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -696,12 +689,12 @@
 			remoteGlobalIDString = 44CAD6CE523055ED339E87154473A254;
 			remoteInfo = Bolts;
 		};
-		9CA6766DD44C67FC611065A29CB6D320 /* PBXContainerItemProxy */ = {
+		98E8FBCCF14A0F24CA5BF00D5EA37D92 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 78B4367BCA5D364903D4B239AE8E93C7;
-			remoteInfo = SwiftyJSON;
+			remoteGlobalIDString = 332F91393FB1DE033D370B4CEDDD5FCF;
+			remoteInfo = FBSDKShareKit;
 		};
 		A1758AA696D56310AA192B587162169A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -710,12 +703,12 @@
 			remoteGlobalIDString = 88E9EC28B8B46C3631E6B242B50F4442;
 			remoteInfo = Alamofire;
 		};
-		A687E487F1B01211CE9E1BEB8407C434 /* PBXContainerItemProxy */ = {
+		A46241746309AED59194A7C3FAECE8C4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 9EFE4C70245EE2857D336B8B9FA4E825;
-			remoteInfo = AlamofireImage;
+			remoteGlobalIDString = CD6C9FB6B052E1CF663F8A56041EA163;
+			remoteInfo = ObjectMapper;
 		};
 		A88DAB774826E14D761152DC0DF2A8BC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -724,12 +717,19 @@
 			remoteGlobalIDString = 44CAD6CE523055ED339E87154473A254;
 			remoteInfo = Bolts;
 		};
-		BEE5195A7428258035FCFBE11FBC67AE /* PBXContainerItemProxy */ = {
+		B8548E636507AD36C5068361F40ECEB5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 44CAD6CE523055ED339E87154473A254;
-			remoteInfo = Bolts;
+			remoteGlobalIDString = 7335E9C9689F3B8A16F063A884748533;
+			remoteInfo = FacebookLogin;
+		};
+		BEBC2A7766E9031254DD1360021625D1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DDBCFDE490CDFDABF6F16A26F346932D;
+			remoteInfo = FacebookCore;
 		};
 		C3FFEA789286A7C6269EA34FAD9634CA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -752,12 +752,19 @@
 			remoteGlobalIDString = 44CAD6CE523055ED339E87154473A254;
 			remoteInfo = Bolts;
 		};
-		D6AA72E923F265BCBFB93079401AFDA4 /* PBXContainerItemProxy */ = {
+		D7A7ADF6B8D9B0ABDBD1F3A1DF652E03 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = CD6C9FB6B052E1CF663F8A56041EA163;
-			remoteInfo = ObjectMapper;
+			remoteGlobalIDString = A7FEAA14E89971698ACA148F7F7202F2;
+			remoteInfo = FacebookShare;
+		};
+		EC40DC198C9CEF2F5E51DF08C43312E7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C6028EB35115C7B23FA58FA571BD6873;
+			remoteInfo = SwiftyJSON;
 		};
 		FA292E856D14F23EA8F2CFEE5343A139 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1388,7 +1395,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		258F4C1F8E6A962B28A31534D6E05C1C /* Frameworks */ = {
+		1D4D8ADB875A495E1A14DC76A33A6D4F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1398,7 +1405,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		29EBFF9BB5B09105EC83B47433E57A29 /* Frameworks */ = {
+		258F4C1F8E6A962B28A31534D6E05C1C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1418,7 +1425,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		35B1B7E3AE9BEAE9F1394CCD2BC41542 /* Frameworks */ = {
+		46E05AA2AFF7B4D8C23FBD0ECA38ED4D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1464,6 +1471,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B9FDF6DE1E5D9AA05F14B33C427FB5C2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1CD62C972F530494212D7650F6C5EB37 /* CFNetwork.framework in Frameworks */,
+				B8A53855B8DCDE9AA775F0E0341317F3 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BF98FBBDC964E0CC738F6B323B4C1BB8 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1481,7 +1497,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CAA471BA8562C2C559C03DE5D0781947 /* Frameworks */ = {
+		D1AF25F8E0C97EBD1D352412A10B3D43 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1489,7 +1505,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D1AF25F8E0C97EBD1D352412A10B3D43 /* Frameworks */ = {
+		E07802518CCEF546C6146CC945781BF8 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1525,22 +1541,47 @@
 		070D480DF86B7BCC7B1C93417F268297 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D570A329AA34EEE37E3A5F6FE31804AC /* Alamofire.framework */,
-				1B71D1E5012E24BDE21D0E4DFD8AD571 /* AlamofireImage.framework */,
-				4FFFB494277DDF2FDE3B8EDFBF36E662 /* Bolts.framework */,
-				EAA577C05C741F37F56A60D1FB90AB2C /* FacebookCore.framework */,
-				51B5DDA6CBCB227E77CD8AC09CB912AD /* FacebookLogin.framework */,
-				A887DD40FEC99E5ECC33E5A934B5E4ED /* FacebookShare.framework */,
-				F47464584B05AFD1F27F017DFA508ACC /* FBSDKCoreKit.framework */,
-				8A8A425DAC2BDF201B05D88A4D01E6B7 /* FBSDKLoginKit.framework */,
-				3B60A54CE8EC2E8BB0707870947F8F15 /* FBSDKShareKit.framework */,
-				A65A84E3B72EE3B4729141BEBFA7C33B /* NVActivityIndicatorView.framework */,
-				6C601E89D0B896372FC3F901DC230A19 /* ObjectMapper.framework */,
-				8E8924AE0D93CC9269AE3A6DBC972699 /* Pods_Turnstr.framework */,
-				198EEF700E4CD4B5574D1AAFEF490D9F /* RMMapper.framework */,
-				7F6D3DAF1E4348981CE4152F3641F11A /* SwiftyJSON.framework */,
+				9C50942A3D9BF6B19A6B1A02E8ED4D48 /* NVActivityIndicatorAnimationAudioEqualizer.swift */,
+				74AB37057E56EFEFB4C83327D2108487 /* NVActivityIndicatorAnimationBallBeat.swift */,
+				62DDB3ACCDD31C17897FF2CFF1F4D0D6 /* NVActivityIndicatorAnimationBallClipRotate.swift */,
+				BAD14756BFB75CA866BA96C986269846 /* NVActivityIndicatorAnimationBallClipRotateMultiple.swift */,
+				7EAE61DDADC773776FE59D29F9155B98 /* NVActivityIndicatorAnimationBallClipRotatePulse.swift */,
+				4E1FFAB00FEC7B26A33231D59AE9C232 /* NVActivityIndicatorAnimationBallGridBeat.swift */,
+				367B04DBCBA18250B1D99BFBB823F8ED /* NVActivityIndicatorAnimationBallGridPulse.swift */,
+				B22D6369CF4D06CFB14F696349DEB83D /* NVActivityIndicatorAnimationBallPulse.swift */,
+				75274DC90FA06F4413F3A1D39B08CD53 /* NVActivityIndicatorAnimationBallPulseRise.swift */,
+				7551E1B6BC2A8E097FBA0A40AF2D9CA9 /* NVActivityIndicatorAnimationBallPulseSync.swift */,
+				1487AD5109BCFE68171CAEDD205FC9DA /* NVActivityIndicatorAnimationBallRotate.swift */,
+				3AC83B7306E12507D4AF03F78AFBD59C /* NVActivityIndicatorAnimationBallRotateChase.swift */,
+				28D904EC279FDE73D4C10185F661CAE8 /* NVActivityIndicatorAnimationBallScale.swift */,
+				EB201D8B5165328A6DC31DAC5CA10F44 /* NVActivityIndicatorAnimationBallScaleMultiple.swift */,
+				4FAE1A64A44A5F2931957BE3B8F2D49D /* NVActivityIndicatorAnimationBallScaleRipple.swift */,
+				900037B89755AE07ACA04AAD5BA66872 /* NVActivityIndicatorAnimationBallScaleRippleMultiple.swift */,
+				06CDD7D60E067ACDE4D24A3506E9F263 /* NVActivityIndicatorAnimationBallSpinFadeLoader.swift */,
+				AC1F2A0DF0FE692A7BB7D7D397426D77 /* NVActivityIndicatorAnimationBallTrianglePath.swift */,
+				1A14CC554CEA53F8A3FFBE8C3CA4929E /* NVActivityIndicatorAnimationBallZigZag.swift */,
+				D2472DC4C52C64CAA31FA4BFEA01B3A8 /* NVActivityIndicatorAnimationBallZigZagDeflect.swift */,
+				621AB9E516BACB4AC194B04E41889995 /* NVActivityIndicatorAnimationBlank.swift */,
+				B185AD4BAE530C4A15ABE5F36DC86200 /* NVActivityIndicatorAnimationCubeTransition.swift */,
+				8CDD45AD7EE31B4CF8DF7FAFC79CE727 /* NVActivityIndicatorAnimationDelegate.swift */,
+				9AE9B3F5813B1C2597877BD6C6996D01 /* NVActivityIndicatorAnimationLineScale.swift */,
+				3A16286C86E2FA62A66199B3822A2A2B /* NVActivityIndicatorAnimationLineScaleParty.swift */,
+				7D35CD28B99F742760B5EBDED4A2A0F0 /* NVActivityIndicatorAnimationLineScalePulseOut.swift */,
+				9204B2161B856A3D8F2361CBAE8140E3 /* NVActivityIndicatorAnimationLineScalePulseOutRapid.swift */,
+				189C09601A0E79ADAA40C5144D9FAEB6 /* NVActivityIndicatorAnimationLineSpinFadeLoader.swift */,
+				169DDBCF2F1CB861C7ECFEF44816146E /* NVActivityIndicatorAnimationOrbit.swift */,
+				839278BA0FF94B3F6D4808C27DA5B720 /* NVActivityIndicatorAnimationPacman.swift */,
+				3DB2DCA28520ECEFCDD72293BCEE3A41 /* NVActivityIndicatorAnimationSemiCircleSpin.swift */,
+				5FDF455321E3CB7E061049985E8F89F4 /* NVActivityIndicatorAnimationSquareSpin.swift */,
+				BE6300E6BB009498DA610D146E84A9C4 /* NVActivityIndicatorAnimationTriangleSkewSpin.swift */,
+				2DBF883122E1A38D1B18D3CA963337AC /* NVActivityIndicatorPresenter.swift */,
+				E081A46E8E53C97B0C02F118A3BC15B3 /* NVActivityIndicatorShape.swift */,
+				C43C096772BA06A917F9D0DE85420CE2 /* NVActivityIndicatorView.swift */,
+				6F50C5AD338CB18BC0F6B3EBA4688E63 /* NVActivityIndicatorViewable.swift */,
+				B6D792FD9F2298A467AA65A6448B9372 /* Support Files */,
 			);
-			name = Products;
+			name = NVActivityIndicatorView;
+			path = NVActivityIndicatorView;
 			sourceTree = "<group>";
 		};
 		098DE9B73A7D9EB98E7B6CF5AC96C2BE /* Presenter */ = {
@@ -1850,8 +1891,7 @@
 				A75822373D783E39280330A2EB852930 /* LoginResult.swift */,
 				68841E19A959C86F38CE1CC11A5E5C2F /* Support Files */,
 			);
-			name = FacebookLogin;
-			path = FacebookLogin;
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		3BB281D2A2BB4C86CDF10C0952656B1E /* Pods */ = {
@@ -2253,8 +2293,8 @@
 				D11C0862310DFB0493B0A50958B9D2DD /* FBSDKVideoUploader.m */,
 				185A1CF60347A8B64C11AAD13B300EB6 /* Support Files */,
 			);
-			name = FBSDKShareKit;
-			path = FBSDKShareKit;
+			name = "Support Files";
+			path = "../Target Support Files/FBSDKLoginKit";
 			sourceTree = "<group>";
 		};
 		C46A0E923C48A31416A156ED15681707 /* FacebookShare */ = {
@@ -2458,6 +2498,15 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		00AD0E6565819EDD9DC2E9295657E2BD /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				607D176F8620CE53D3711429C510D5E5 /* Kingfisher-umbrella.h in Headers */,
+				D535F967F08593E5B52B238DE0793E6F /* Kingfisher.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0A5EEDFE98B0C2AE0C9DA3DE95F609CA /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -2624,23 +2673,31 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2FD0D63415E8138B954F80F1C3760D9B /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4E242DE31BD4947396A96401CEA740D9 /* SwiftyJSON-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3DA6F558BC4E954C9819F48F980D8E10 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1DE55CF5A13AF9547707C7535F41F18 /* NSObject+RMArchivable.h in Headers */,
+				6D9800F53F9E8363C5A34C1CBFB13CE7 /* NSObject+RMCopyable.h in Headers */,
+				E9C984DDAB6C72F646512A37342CB2E2 /* NSUserDefaults+RMSaveCustomObject.h in Headers */,
+				45E0291C0C6FBFC65AEDD4483D853522 /* RMMapper-umbrella.h in Headers */,
+				A4181BA00D08A0A134F4836B9ABE1703 /* RMMapper.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5E4C96FA0F57FD0161E8DC07B70A24BB /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				CADACE233EDFF7177706ED22AAA1FF87 /* FacebookCore-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		632F1149958BBA0DA427DF760BB96A99 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				956BD583F95737D4457B4919E948312F /* NSObject+RMArchivable.h in Headers */,
-				59AEBD92AE3D5170F72BC00776237C9A /* NSObject+RMCopyable.h in Headers */,
-				3BA48E56F0793CEF186A8B568A68FDED /* NSUserDefaults+RMSaveCustomObject.h in Headers */,
-				E336FB62E5AE84F66D71B6D3B4584486 /* RMMapper-umbrella.h in Headers */,
-				AF1CABCC4FB93EE071B11C036A85EC5C /* RMMapper.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2673,11 +2730,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		93E0BD5044FFA9C4F3848FC1AD8C478B /* Headers */ = {
+		9A408B5FEA679A8A113C24BBFEF0B6A9 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7B2433CDAC472A6BD7F1E21545712E39 /* Pods-Turnstr-umbrella.h in Headers */,
+				71010A2B73E83FA11AE4E8FA49F15C37 /* Pods-Turnstr-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2694,14 +2751,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1B9EDEDC964E6B08F78920B4F4B9DB84 /* Alamofire-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		DEE8FD924B7B40DA2A5A330E28304ED5 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				BB955AB7C6C8602E82BFB819D27B3037 /* SwiftyJSON-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2756,6 +2805,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		2F0C0F810568D3E82219429D9D870F04 /* Kingfisher */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 66819D22A1CF928AEE67FD15232570E9 /* Build configuration list for PBXNativeTarget "Kingfisher" */;
+			buildPhases = (
+				6B38BCE9AC53CB2E4B610BC80768B056 /* Sources */,
+				B9FDF6DE1E5D9AA05F14B33C427FB5C2 /* Frameworks */,
+				00AD0E6565819EDD9DC2E9295657E2BD /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Kingfisher;
+			productName = Kingfisher;
+			productReference = 9F09E77FC3C8E0C800B8BD637BC0254E /* Kingfisher.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		332F91393FB1DE033D370B4CEDDD5FCF /* FBSDKShareKit */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0F78B4868885D9E36AFE233BBB23EAD5 /* Build configuration list for PBXNativeTarget "FBSDKShareKit" */;
@@ -2772,7 +2838,7 @@
 			);
 			name = FBSDKShareKit;
 			productName = FBSDKShareKit;
-			productReference = 3B60A54CE8EC2E8BB0707870947F8F15 /* FBSDKShareKit.framework */;
+			productReference = 499B4CB06B6ABA96858A4E1722850390 /* FBSDKShareKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		3EDFE4052B5DE7D509935AC0774CB135 /* NVActivityIndicatorView */ = {
@@ -2789,7 +2855,7 @@
 			);
 			name = NVActivityIndicatorView;
 			productName = NVActivityIndicatorView;
-			productReference = A65A84E3B72EE3B4729141BEBFA7C33B /* NVActivityIndicatorView.framework */;
+			productReference = 85AA0D4D441F170CB712A6A8F53307A5 /* NVActivityIndicatorView.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		44CAD6CE523055ED339E87154473A254 /* Bolts */ = {
@@ -2806,7 +2872,7 @@
 			);
 			name = Bolts;
 			productName = Bolts;
-			productReference = 4FFFB494277DDF2FDE3B8EDFBF36E662 /* Bolts.framework */;
+			productReference = DFB876A6A0D7467F17EF8675CC24AE76 /* Bolts.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		593E9479C06FB200807D11AB29EB50BD /* FBSDKCoreKit */ = {
@@ -2825,7 +2891,7 @@
 			);
 			name = FBSDKCoreKit;
 			productName = FBSDKCoreKit;
-			productReference = F47464584B05AFD1F27F017DFA508ACC /* FBSDKCoreKit.framework */;
+			productReference = 675122DF2C8D630A5DEC847E2120C55B /* FBSDKCoreKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		5B5AC3C06B783F8674FDB4C0F900B56A /* FBSDKLoginKit */ = {
@@ -2844,7 +2910,7 @@
 			);
 			name = FBSDKLoginKit;
 			productName = FBSDKLoginKit;
-			productReference = 8A8A425DAC2BDF201B05D88A4D01E6B7 /* FBSDKLoginKit.framework */;
+			productReference = ECF383730AB4F54CA7735FAD9FCF25A3 /* FBSDKLoginKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		7335E9C9689F3B8A16F063A884748533 /* FacebookLogin */ = {
@@ -2865,24 +2931,7 @@
 			);
 			name = FacebookLogin;
 			productName = FacebookLogin;
-			productReference = 51B5DDA6CBCB227E77CD8AC09CB912AD /* FacebookLogin.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		78B4367BCA5D364903D4B239AE8E93C7 /* SwiftyJSON */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = F49C73703C29AC8ACF13DEC223E7CFBE /* Build configuration list for PBXNativeTarget "SwiftyJSON" */;
-			buildPhases = (
-				2F636742C68FA9765C6B172FD8935D96 /* Sources */,
-				35B1B7E3AE9BEAE9F1394CCD2BC41542 /* Frameworks */,
-				DEE8FD924B7B40DA2A5A330E28304ED5 /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = SwiftyJSON;
-			productName = SwiftyJSON;
-			productReference = 7F6D3DAF1E4348981CE4152F3641F11A /* SwiftyJSON.framework */;
+			productReference = 8F166D7F9D86A6ACD8F4EAD65646FB03 /* FacebookLogin.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		88E9EC28B8B46C3631E6B242B50F4442 /* Alamofire */ = {
@@ -2899,7 +2948,7 @@
 			);
 			name = Alamofire;
 			productName = Alamofire;
-			productReference = D570A329AA34EEE37E3A5F6FE31804AC /* Alamofire.framework */;
+			productReference = FD3238618259213974DC5D538A0A47BA /* Alamofire.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		9EFE4C70245EE2857D336B8B9FA4E825 /* AlamofireImage */ = {
@@ -2917,7 +2966,7 @@
 			);
 			name = AlamofireImage;
 			productName = AlamofireImage;
-			productReference = 1B71D1E5012E24BDE21D0E4DFD8AD571 /* AlamofireImage.framework */;
+			productReference = 91A871249D9F549373426E7F53F7111C /* AlamofireImage.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		A7FEAA14E89971698ACA148F7F7202F2 /* FacebookShare */ = {
@@ -2938,16 +2987,16 @@
 			);
 			name = FacebookShare;
 			productName = FacebookShare;
-			productReference = A887DD40FEC99E5ECC33E5A934B5E4ED /* FacebookShare.framework */;
+			productReference = D39D5A7C8416E40C31212CFAFB3050CD /* FacebookShare.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		B5813E33CF560D8EBBAB957E6092A280 /* RMMapper */ = {
+		C02E444F9715B3504851F8B9D94D485D /* RMMapper */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 22691BD58BB831ACC7C7BCA05FFE4332 /* Build configuration list for PBXNativeTarget "RMMapper" */;
+			buildConfigurationList = 8479C448D9EF35EC5BE3F4EA5FBD6E31 /* Build configuration list for PBXNativeTarget "RMMapper" */;
 			buildPhases = (
-				74D59B2133D02409D79125D7A274AB26 /* Sources */,
-				CAA471BA8562C2C559C03DE5D0781947 /* Frameworks */,
-				632F1149958BBA0DA427DF760BB96A99 /* Headers */,
+				B15F46B022190ABA4110622DD3093BE9 /* Sources */,
+				1D4D8ADB875A495E1A14DC76A33A6D4F /* Frameworks */,
+				3DA6F558BC4E954C9819F48F980D8E10 /* Headers */,
 			);
 			buildRules = (
 			);
@@ -2955,7 +3004,24 @@
 			);
 			name = RMMapper;
 			productName = RMMapper;
-			productReference = 198EEF700E4CD4B5574D1AAFEF490D9F /* RMMapper.framework */;
+			productReference = 727AAA6D7D5CE063B155A5E3862A6D1B /* RMMapper.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		C6028EB35115C7B23FA58FA571BD6873 /* SwiftyJSON */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0DB3B6B0FBD2CF387213B3D296C7DBCC /* Build configuration list for PBXNativeTarget "SwiftyJSON" */;
+			buildPhases = (
+				6BAB795380D3690461F1635394AC974C /* Sources */,
+				E07802518CCEF546C6146CC945781BF8 /* Frameworks */,
+				2FD0D63415E8138B954F80F1C3760D9B /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SwiftyJSON;
+			productName = SwiftyJSON;
+			productReference = F8F3F43657AF43EB0D3FF29C989EC71C /* SwiftyJSON.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		CD6C9FB6B052E1CF663F8A56041EA163 /* ObjectMapper */ = {
@@ -2972,7 +3038,7 @@
 			);
 			name = ObjectMapper;
 			productName = ObjectMapper;
-			productReference = 6C601E89D0B896372FC3F901DC230A19 /* ObjectMapper.framework */;
+			productReference = C49380BEE5F5C01725F0B358BB2EDF4D /* ObjectMapper.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		DDBCFDE490CDFDABF6F16A26F346932D /* FacebookCore */ = {
@@ -2991,37 +3057,38 @@
 			);
 			name = FacebookCore;
 			productName = FacebookCore;
-			productReference = EAA577C05C741F37F56A60D1FB90AB2C /* FacebookCore.framework */;
+			productReference = F9F01F7C38E970AA579F30E7ACB78CE3 /* FacebookCore.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		FE05600F71547F9B6C06125BF78402EF /* Pods-Turnstr */ = {
+		DFB9972D03CB801CFAB573E985F5E2CE /* Pods-Turnstr */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 39152FD62F501C1F6E1C29A16E5B4403 /* Build configuration list for PBXNativeTarget "Pods-Turnstr" */;
+			buildConfigurationList = EBF6CD4486EFD7C7F0B3A45E6AA6D580 /* Build configuration list for PBXNativeTarget "Pods-Turnstr" */;
 			buildPhases = (
-				4F4A1C3CC9F9A67CA0A393F9722A7BD2 /* Sources */,
-				29EBFF9BB5B09105EC83B47433E57A29 /* Frameworks */,
-				93E0BD5044FFA9C4F3848FC1AD8C478B /* Headers */,
+				FA3CBAA84681B65B4F459C2A79406C00 /* Sources */,
+				46E05AA2AFF7B4D8C23FBD0ECA38ED4D /* Frameworks */,
+				9A408B5FEA679A8A113C24BBFEF0B6A9 /* Headers */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				FB6C8BC67F3DCAD1B3438F786122A557 /* PBXTargetDependency */,
-				005E1AC52229FD1F8635E678C5341DE2 /* PBXTargetDependency */,
-				D59BEE463D6A9EFAC157AE8AA8FF299A /* PBXTargetDependency */,
-				D4947BB66286ABE5D496C844AA933556 /* PBXTargetDependency */,
-				0BE2F5AF2A4E756A5C205B13620783AE /* PBXTargetDependency */,
-				E1370D2516A049D2E9AC65B1B992C97B /* PBXTargetDependency */,
-				0E0CC947A86A237B07D8BC014FD3A075 /* PBXTargetDependency */,
-				B281C0EF5669173B31A946BD531DEB8C /* PBXTargetDependency */,
-				CAF1305A2193109A5243CC52A4A2B744 /* PBXTargetDependency */,
-				45184E5D3287014C6ACF486772092B1D /* PBXTargetDependency */,
-				486439271DD08D1357AAFFEAF445A491 /* PBXTargetDependency */,
-				FCAF0F51072C9A7426F2E5F95575528E /* PBXTargetDependency */,
-				B612D82F7F08F641A00F158CCFDCCE3D /* PBXTargetDependency */,
+				70636535B6801057E80FC0AB64623623 /* PBXTargetDependency */,
+				57C116C44DB7E83F7F9AE756654A5D1A /* PBXTargetDependency */,
+				74FC7C25A015382DE9B80D1DF69D2E62 /* PBXTargetDependency */,
+				96C406921274A00ED5617D080340B7C6 /* PBXTargetDependency */,
+				EB8B54770283CBD6F85CE5C107E60FB3 /* PBXTargetDependency */,
+				32D16799CF6DFC3F65CF22111175B36E /* PBXTargetDependency */,
+				19C8636A714D09EA7D5B80A156AF87C5 /* PBXTargetDependency */,
+				1F208EFF94FE7A0376E2CBB39E6A266E /* PBXTargetDependency */,
+				EACF45395567C1E4DFD63EF99903342D /* PBXTargetDependency */,
+				5B722FD241824CA4A4DC6351B361569E /* PBXTargetDependency */,
+				8F527DBEE2697F32BCF082B00205BBE3 /* PBXTargetDependency */,
+				23460FDD8ECE00518A4B6FEA5BE70417 /* PBXTargetDependency */,
+				39DCF8415B13972C823A9B31C198B8F4 /* PBXTargetDependency */,
+				B75864DC7747D45EE992131F99A6F86B /* PBXTargetDependency */,
 			);
 			name = "Pods-Turnstr";
 			productName = "Pods-Turnstr";
-			productReference = 8E8924AE0D93CC9269AE3A6DBC972699 /* Pods_Turnstr.framework */;
+			productReference = 8CD3A233731736EBCF62B8599ADF301C /* Pods_Turnstr.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -3041,7 +3108,7 @@
 				en,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
-			productRefGroup = 070D480DF86B7BCC7B1C93417F268297 /* Products */;
+			productRefGroup = 73F32F4CD4015FCDDE844FD603C07ADC /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -3054,11 +3121,12 @@
 				593E9479C06FB200807D11AB29EB50BD /* FBSDKCoreKit */,
 				5B5AC3C06B783F8674FDB4C0F900B56A /* FBSDKLoginKit */,
 				332F91393FB1DE033D370B4CEDDD5FCF /* FBSDKShareKit */,
+				2F0C0F810568D3E82219429D9D870F04 /* Kingfisher */,
 				3EDFE4052B5DE7D509935AC0774CB135 /* NVActivityIndicatorView */,
 				CD6C9FB6B052E1CF663F8A56041EA163 /* ObjectMapper */,
-				FE05600F71547F9B6C06125BF78402EF /* Pods-Turnstr */,
-				B5813E33CF560D8EBBAB957E6092A280 /* RMMapper */,
-				78B4367BCA5D364903D4B239AE8E93C7 /* SwiftyJSON */,
+				DFB9972D03CB801CFAB573E985F5E2CE /* Pods-Turnstr */,
+				C02E444F9715B3504851F8B9D94D485D /* RMMapper */,
+				C6028EB35115C7B23FA58FA571BD6873 /* SwiftyJSON */,
 			);
 		};
 /* End PBXProject section */
@@ -3151,15 +3219,6 @@
 				3A8F508533ADB6D1CF80CD4A1ACB2C40 /* FBSDKViewImpressionTracker.m in Sources */,
 				81BB869D81785738050FC6DB20CDE9A5 /* FBSDKWebDialog.m in Sources */,
 				468A777F552BD0567796A5A05F2B6748 /* FBSDKWebDialogView.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2F636742C68FA9765C6B172FD8935D96 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				57A674FC3679B7F63862CA6F0296A826 /* SwiftyJSON-dummy.m in Sources */,
-				4D256D8F5E0C8C8F1BBC57E5DBEDCF74 /* SwiftyJSON.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3300,14 +3359,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4F4A1C3CC9F9A67CA0A393F9722A7BD2 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E14EF2BD32706FE0370F2908D3D7A54F /* Pods-Turnstr-dummy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		680F6C411F89A72F72D7C854DDE1536B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3360,15 +3411,41 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		74D59B2133D02409D79125D7A274AB26 /* Sources */ = {
+		6B38BCE9AC53CB2E4B610BC80768B056 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5DB1CB710CBA28E14404EAE3571519DA /* NSObject+RMArchivable.m in Sources */,
-				B2827AD692D8BE129B0C1A408621FC98 /* NSObject+RMCopyable.m in Sources */,
-				DB31402F4D654C594B2E7C47787FDD47 /* NSUserDefaults+RMSaveCustomObject.m in Sources */,
-				A52B21981ECD3D903BE70F2EA95E369F /* RMMapper-dummy.m in Sources */,
-				0F6D4B447B74566F9A0228876DCF2AD0 /* RMMapper.m in Sources */,
+				9C1BB53BA70217F566B36537A3A63880 /* AnimatedImageView.swift in Sources */,
+				3F2A2A1940FBE921847ED80C8781F1C2 /* Box.swift in Sources */,
+				D7F44E70FBF99B6917AFB2218064DCF3 /* CacheSerializer.swift in Sources */,
+				934A36D6B847A9B437846EB47FD3C9C4 /* Filter.swift in Sources */,
+				BDDA79DF79ECE8FAA434BC2D6D31A7C1 /* FormatIndicatedCacheSerializer.swift in Sources */,
+				36F504803AC5AE737F3A7F227A2883BE /* Image.swift in Sources */,
+				D93FFDFFDED6C6DE36B7669792DA27ED /* ImageCache.swift in Sources */,
+				1F9D95C57864416D56FADC88A5A50457 /* ImageDownloader.swift in Sources */,
+				AB860DDD59CD5022F61D6BD31F634CAC /* ImagePrefetcher.swift in Sources */,
+				15F192484CD7833C82BBB6500CE24C50 /* ImageProcessor.swift in Sources */,
+				7B262B1E8AC91308347656FCF82E1192 /* ImageTransition.swift in Sources */,
+				BB2D09C37CAA41F61C8231B42449818F /* ImageView+Kingfisher.swift in Sources */,
+				D4D6C0A689145B53E332183C4B1AA8A2 /* Indicator.swift in Sources */,
+				6A007E9D44771E83A6D33E3A8EB4003E /* Kingfisher-dummy.m in Sources */,
+				E31D9ECACCCF91BA47600348F7387D80 /* Kingfisher.swift in Sources */,
+				2E154F53E56940FC016558CB1D9B49A3 /* KingfisherManager.swift in Sources */,
+				F2F46DDB7D7FC3B69CCFA48E84DC9108 /* KingfisherOptionsInfo.swift in Sources */,
+				62FF161052DEB878DBC35D8402ED380F /* RequestModifier.swift in Sources */,
+				4AD00EED32EA5B3D946BD06BD7A425AF /* Resource.swift in Sources */,
+				2A256604A39C74C9C9954DAB2041878D /* String+MD5.swift in Sources */,
+				23B956A659AF2E76734D07458429F29F /* ThreadHelper.swift in Sources */,
+				C8A24B5D1DE2CE90CDB894280AB8DC89 /* UIButton+Kingfisher.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6BAB795380D3690461F1635394AC974C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EAC370B81AB20CAC1159E1DB84C13388 /* SwiftyJSON-dummy.m in Sources */,
+				E9EBC58C3A8F700CD66DAA39CB8FAB7C /* SwiftyJSON.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3393,6 +3470,18 @@
 				5A54A9178928558C579D201BF7500392 /* BFWebViewAppLinkResolver.m in Sources */,
 				AA0283267E8DA7A4F516A18CAE3152B6 /* Bolts-dummy.m in Sources */,
 				83C94DD9A551CAEBB9000477466F9318 /* Bolts.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B15F46B022190ABA4110622DD3093BE9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				86CE51D3F1AC1887521DF5CD21EF8F65 /* NSObject+RMArchivable.m in Sources */,
+				0CBD0946CDD8F3E61CFA318D41684808 /* NSObject+RMCopyable.m in Sources */,
+				D44FC8422597BCDD9F8FC95D01A17A93 /* NSUserDefaults+RMSaveCustomObject.m in Sources */,
+				7A4981301B7192FD14062269770052A6 /* RMMapper-dummy.m in Sources */,
+				39BCE0306BEA1E585374A891D4666E5C /* RMMapper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3496,32 +3585,28 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FA3CBAA84681B65B4F459C2A79406C00 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				893F270D542F162EA59662F4BA547F0A /* Pods-Turnstr-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		005E1AC52229FD1F8635E678C5341DE2 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = AlamofireImage;
-			target = 9EFE4C70245EE2857D336B8B9FA4E825 /* AlamofireImage */;
-			targetProxy = A687E487F1B01211CE9E1BEB8407C434 /* PBXContainerItemProxy */;
-		};
-		0BE2F5AF2A4E756A5C205B13620783AE /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = FBSDKLoginKit;
-			target = 5B5AC3C06B783F8674FDB4C0F900B56A /* FBSDKLoginKit */;
-			targetProxy = 6AB3E2940A015B22E665D3B0DB6FDEC2 /* PBXContainerItemProxy */;
-		};
-		0E0CC947A86A237B07D8BC014FD3A075 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = FacebookCore;
-			target = DDBCFDE490CDFDABF6F16A26F346932D /* FacebookCore */;
-			targetProxy = 82955058801D92FBCA6777580B460A3A /* PBXContainerItemProxy */;
-		};
 		102E9AC77CE9679B727E823020603411 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = FBSDKCoreKit;
 			target = 593E9479C06FB200807D11AB29EB50BD /* FBSDKCoreKit */;
 			targetProxy = 1C05F1BC4B6F06B4C0446413DA20D093 /* PBXContainerItemProxy */;
+		};
+		19C8636A714D09EA7D5B80A156AF87C5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = FacebookCore;
+			target = DDBCFDE490CDFDABF6F16A26F346932D /* FacebookCore */;
+			targetProxy = BEBC2A7766E9031254DD1360021625D1 /* PBXContainerItemProxy */;
 		};
 		1D5E477078E2373969DF1E1DEF30A230 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -3529,11 +3614,35 @@
 			target = 593E9479C06FB200807D11AB29EB50BD /* FBSDKCoreKit */;
 			targetProxy = FA292E856D14F23EA8F2CFEE5343A139 /* PBXContainerItemProxy */;
 		};
+		1F208EFF94FE7A0376E2CBB39E6A266E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = FacebookLogin;
+			target = 7335E9C9689F3B8A16F063A884748533 /* FacebookLogin */;
+			targetProxy = B8548E636507AD36C5068361F40ECEB5 /* PBXContainerItemProxy */;
+		};
+		23460FDD8ECE00518A4B6FEA5BE70417 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ObjectMapper;
+			target = CD6C9FB6B052E1CF663F8A56041EA163 /* ObjectMapper */;
+			targetProxy = A46241746309AED59194A7C3FAECE8C4 /* PBXContainerItemProxy */;
+		};
 		29B94C6EE820DC0EA659485414F1DB61 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = FBSDKCoreKit;
 			target = 593E9479C06FB200807D11AB29EB50BD /* FBSDKCoreKit */;
 			targetProxy = 709123FA3378063036E76800A835D78D /* PBXContainerItemProxy */;
+		};
+		32D16799CF6DFC3F65CF22111175B36E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = FBSDKShareKit;
+			target = 332F91393FB1DE033D370B4CEDDD5FCF /* FBSDKShareKit */;
+			targetProxy = 98E8FBCCF14A0F24CA5BF00D5EA37D92 /* PBXContainerItemProxy */;
+		};
+		39DCF8415B13972C823A9B31C198B8F4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = RMMapper;
+			target = C02E444F9715B3504851F8B9D94D485D /* RMMapper */;
+			targetProxy = 91E3EBF03883E372A1BD0637BB3C65A3 /* PBXContainerItemProxy */;
 		};
 		3AD374BD47173289CD51E510F815CFE3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -3541,29 +3650,41 @@
 			target = 44CAD6CE523055ED339E87154473A254 /* Bolts */;
 			targetProxy = 3CC86B89628C4FAD9D64973B13407AF5 /* PBXContainerItemProxy */;
 		};
-		45184E5D3287014C6ACF486772092B1D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = NVActivityIndicatorView;
-			target = 3EDFE4052B5DE7D509935AC0774CB135 /* NVActivityIndicatorView */;
-			targetProxy = 6157B40D3531BB2763203930E0789D51 /* PBXContainerItemProxy */;
-		};
-		486439271DD08D1357AAFFEAF445A491 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = ObjectMapper;
-			target = CD6C9FB6B052E1CF663F8A56041EA163 /* ObjectMapper */;
-			targetProxy = D6AA72E923F265BCBFB93079401AFDA4 /* PBXContainerItemProxy */;
-		};
 		5254E5C4FBCF8D0C43B37000F524A63A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = Bolts;
 			target = 44CAD6CE523055ED339E87154473A254 /* Bolts */;
 			targetProxy = A88DAB774826E14D761152DC0DF2A8BC /* PBXContainerItemProxy */;
 		};
+		57C116C44DB7E83F7F9AE756654A5D1A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AlamofireImage;
+			target = 9EFE4C70245EE2857D336B8B9FA4E825 /* AlamofireImage */;
+			targetProxy = 0ED49E6898B03010E3B3A60F9A7B97B1 /* PBXContainerItemProxy */;
+		};
+		5B722FD241824CA4A4DC6351B361569E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Kingfisher;
+			target = 2F0C0F810568D3E82219429D9D870F04 /* Kingfisher */;
+			targetProxy = 3E575A22615041AAD89E224E802012D9 /* PBXContainerItemProxy */;
+		};
 		5E93C8C6C5520A2C49BA5F22637A01B7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = FBSDKLoginKit;
 			target = 5B5AC3C06B783F8674FDB4C0F900B56A /* FBSDKLoginKit */;
 			targetProxy = 1707295455DE4AF37E9B157E5859EB8F /* PBXContainerItemProxy */;
+		};
+		70636535B6801057E80FC0AB64623623 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Alamofire;
+			target = 88E9EC28B8B46C3631E6B242B50F4442 /* Alamofire */;
+			targetProxy = 76CFAEF55EF965D2C9453A091F38C6F1 /* PBXContainerItemProxy */;
+		};
+		74FC7C25A015382DE9B80D1DF69D2E62 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Bolts;
+			target = 44CAD6CE523055ED339E87154473A254 /* Bolts */;
+			targetProxy = 143894B58AE4468D33DBBADD22D3C15A /* PBXContainerItemProxy */;
 		};
 		858C73FD543C52D9322067174B059EF1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -3583,23 +3704,29 @@
 			target = DDBCFDE490CDFDABF6F16A26F346932D /* FacebookCore */;
 			targetProxy = 403CDAAA725C0A371A69BC8327C8FA6E /* PBXContainerItemProxy */;
 		};
+		8F527DBEE2697F32BCF082B00205BBE3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = NVActivityIndicatorView;
+			target = 3EDFE4052B5DE7D509935AC0774CB135 /* NVActivityIndicatorView */;
+			targetProxy = 4C54277F1492A0BEA612C2FDCB3065ED /* PBXContainerItemProxy */;
+		};
 		937661D705D919A7FB5179F15A009128 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = Bolts;
 			target = 44CAD6CE523055ED339E87154473A254 /* Bolts */;
 			targetProxy = 97793D355FB11B086CBE31CF7BC58008 /* PBXContainerItemProxy */;
 		};
-		B281C0EF5669173B31A946BD531DEB8C /* PBXTargetDependency */ = {
+		96C406921274A00ED5617D080340B7C6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = FacebookLogin;
-			target = 7335E9C9689F3B8A16F063A884748533 /* FacebookLogin */;
-			targetProxy = 77EA8608DA168827BBB7CE14F8A74395 /* PBXContainerItemProxy */;
+			name = FBSDKCoreKit;
+			target = 593E9479C06FB200807D11AB29EB50BD /* FBSDKCoreKit */;
+			targetProxy = 3B3949EFDF12B08E8D18D3FB1028033C /* PBXContainerItemProxy */;
 		};
-		B612D82F7F08F641A00F158CCFDCCE3D /* PBXTargetDependency */ = {
+		B75864DC7747D45EE992131F99A6F86B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = SwiftyJSON;
-			target = 78B4367BCA5D364903D4B239AE8E93C7 /* SwiftyJSON */;
-			targetProxy = 9CA6766DD44C67FC611065A29CB6D320 /* PBXContainerItemProxy */;
+			target = C6028EB35115C7B23FA58FA571BD6873 /* SwiftyJSON */;
+			targetProxy = EC40DC198C9CEF2F5E51DF08C43312E7 /* PBXContainerItemProxy */;
 		};
 		BC513D655DDD160DC94787BCBB50BC0A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -3619,35 +3746,23 @@
 			target = 44CAD6CE523055ED339E87154473A254 /* Bolts */;
 			targetProxy = 79C653BF28A85A4416BD1419B8C5BFA3 /* PBXContainerItemProxy */;
 		};
-		CAF1305A2193109A5243CC52A4A2B744 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = FacebookShare;
-			target = A7FEAA14E89971698ACA148F7F7202F2 /* FacebookShare */;
-			targetProxy = 0FAD49551285FAA722CE757951704A38 /* PBXContainerItemProxy */;
-		};
-		D4947BB66286ABE5D496C844AA933556 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = FBSDKCoreKit;
-			target = 593E9479C06FB200807D11AB29EB50BD /* FBSDKCoreKit */;
-			targetProxy = 46B313672D38FFBB391D1808DBF45CE0 /* PBXContainerItemProxy */;
-		};
-		D59BEE463D6A9EFAC157AE8AA8FF299A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = Bolts;
-			target = 44CAD6CE523055ED339E87154473A254 /* Bolts */;
-			targetProxy = BEE5195A7428258035FCFBE11FBC67AE /* PBXContainerItemProxy */;
-		};
-		E1370D2516A049D2E9AC65B1B992C97B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = FBSDKShareKit;
-			target = 332F91393FB1DE033D370B4CEDDD5FCF /* FBSDKShareKit */;
-			targetProxy = 3BEFFDCD8023684E1495FF5C026D0F50 /* PBXContainerItemProxy */;
-		};
 		EA851DC627C1F1FCA44D6F0CE8F66F7C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = Bolts;
 			target = 44CAD6CE523055ED339E87154473A254 /* Bolts */;
 			targetProxy = 8C8608F2C87A6D91FCD86F90E5604514 /* PBXContainerItemProxy */;
+		};
+		EACF45395567C1E4DFD63EF99903342D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = FacebookShare;
+			target = A7FEAA14E89971698ACA148F7F7202F2 /* FacebookShare */;
+			targetProxy = D7A7ADF6B8D9B0ABDBD1F3A1DF652E03 /* PBXContainerItemProxy */;
+		};
+		EB8B54770283CBD6F85CE5C107E60FB3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = FBSDKLoginKit;
+			target = 5B5AC3C06B783F8674FDB4C0F900B56A /* FBSDKLoginKit */;
+			targetProxy = 34E4270DD7112C34D07FE98A089F2ADD /* PBXContainerItemProxy */;
 		};
 		F32A611521D7DA0B5914B9D034A81BE4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -3660,18 +3775,6 @@
 			name = FBSDKShareKit;
 			target = 332F91393FB1DE033D370B4CEDDD5FCF /* FBSDKShareKit */;
 			targetProxy = CCEA274D6567B8AF3FC64523E9ACCC0B /* PBXContainerItemProxy */;
-		};
-		FB6C8BC67F3DCAD1B3438F786122A557 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = Alamofire;
-			target = 88E9EC28B8B46C3631E6B242B50F4442 /* Alamofire */;
-			targetProxy = 497317A5C8F6B041344A84BDC89F6D20 /* PBXContainerItemProxy */;
-		};
-		FCAF0F51072C9A7426F2E5F95575528E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = RMMapper;
-			target = B5813E33CF560D8EBBAB957E6092A280 /* RMMapper */;
-			targetProxy = 0C15F1B98E11ED2308403C37367F35EA /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -4739,7 +4842,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0F78B4868885D9E36AFE233BBB23EAD5 /* Build configuration list for PBXNativeTarget "FBSDKShareKit" */ = {
+		0DB3B6B0FBD2CF387213B3D296C7DBCC /* Build configuration list for PBXNativeTarget "SwiftyJSON" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				35ABB0B990FBB61618F700F17E2A569A /* Debug */,
@@ -4748,7 +4851,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		22691BD58BB831ACC7C7BCA05FFE4332 /* Build configuration list for PBXNativeTarget "RMMapper" */ = {
+		0F78B4868885D9E36AFE233BBB23EAD5 /* Build configuration list for PBXNativeTarget "FBSDKShareKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				EEA258ED11E9875446EC9850329D3B19 /* Debug */,
@@ -4784,7 +4887,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		39152FD62F501C1F6E1C29A16E5B4403 /* Build configuration list for PBXNativeTarget "Pods-Turnstr" */ = {
+		419E5D95491847CD79841B971A8A3277 /* Build configuration list for PBXNativeTarget "Alamofire" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FB67271B0B7D6DFC8331521010E98B75 /* Debug */,
@@ -4793,7 +4896,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		419E5D95491847CD79841B971A8A3277 /* Build configuration list for PBXNativeTarget "Alamofire" */ = {
+		66819D22A1CF928AEE67FD15232570E9 /* Build configuration list for PBXNativeTarget "Kingfisher" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C9660A42FEDD040185578ADA021EC8E0 /* Debug */,
@@ -4816,6 +4919,15 @@
 			buildConfigurations = (
 				4D0600C8607F365B156DD030F39A99BA /* Debug */,
 				6498D9E0C0F98AAF99B41C9EEAA80A86 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8479C448D9EF35EC5BE3F4EA5FBD6E31 /* Build configuration list for PBXNativeTarget "RMMapper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F4207A23581A11E4FF31BA838F6B7D46 /* Debug */,
+				DF531DA20C80E3F265DD983A5621A6DF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -4856,7 +4968,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F49C73703C29AC8ACF13DEC223E7CFBE /* Build configuration list for PBXNativeTarget "SwiftyJSON" */ = {
+		EBF6CD4486EFD7C7F0B3A45E6AA6D580 /* Build configuration list for PBXNativeTarget "Pods-Turnstr" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				75D204171D9710EDAA4FFC8D1B8D4882 /* Debug */,

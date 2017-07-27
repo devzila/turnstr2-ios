@@ -18,6 +18,11 @@ class PhotoLibraryViewController: ParentViewController, UICollectionViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        LoadPhotoLibNavBar()
+        objNav.btnBack.isHidden = false
+        objNav.btnBack.addTarget(self, action: #selector(goBack), for: .touchUpInside)
+        objNav.btnRightMenu.setTitle("Upload Photo", for: .normal)
+        objNav.btnRightMenu.addTarget(self, action: #selector(btnTappedPhotoLibrary), for: .touchUpInside)
         kAppDelegate.loadingIndicationCreationMSG(msg: "Loading...")
         self.photoAlbum { (response) in
             if let arrAlbums = response?.response {
@@ -38,7 +43,7 @@ class PhotoLibraryViewController: ParentViewController, UICollectionViewDataSour
     }
     
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
@@ -46,6 +51,7 @@ class PhotoLibraryViewController: ParentViewController, UICollectionViewDataSour
         if segue.identifier == "photosViewSegue"{
             if let vc = segue.destination as? PhotosViewController, let index = sender as? IndexPath {
                 vc.photoAlbum = arrPhotoAlbum[index.row]
+                vc.isFromPublicPhoto = false
             }
         }
     }

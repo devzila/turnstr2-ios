@@ -28,6 +28,9 @@ struct KSResponse<T>: Mappable {
         case is Photos.Type: response = Mapper<Photos>().map(JSONObject: map["photos"].currentValue) as? T
         case is Array<Photos>.Type: response = Mapper<Photos>().mapArray(JSONObject: map["photos"].currentValue) as? T
             
+        case is CommentModel.Type: response = Mapper<CommentModel>().map(JSONObject: map["comment"].currentValue) as? T
+        case is Array<CommentModel>.Type: response = Mapper<CommentModel>().mapArray(JSONObject: map["comment"].currentValue) as? T
+            
         default: response <- map["data"]
         }
     }

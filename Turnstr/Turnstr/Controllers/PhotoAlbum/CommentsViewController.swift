@@ -8,32 +8,160 @@
 
 import UIKit
 
-class CommentsViewController: UIViewController {
+class CommentsViewController: UIViewController, UITextViewDelegate, ServiceUtility {
     @IBOutlet weak var tblViewComments: UITableView!
+    @IBOutlet weak var imgViewBackground: UIImageView!
+    @IBOutlet weak var txtViewAddComment: UITextView!
+    @IBOutlet weak var btnAddComment: UIButton!
+    
+    var objPhoto: Photos?
+    var arrComments = [CommentModel]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
+        imgViewBackground.alpha = 0.0
+        btnAddComment.isEnabled = false
+        
+        tblViewComments.rowHeight = UITableViewAutomaticDimension
+        tblViewComments.estimatedRowHeight = 40
+        self.tblViewComments.tableFooterView = UIView(frame: CGRect.zero)
+        
+        guard objPhoto != nil else { return }
+        kAppDelegate.loadingIndicationCreationMSG(msg: "Loading...")
+        getPhotoComment(id: (objPhoto?.id)!) { (response) in
+            if let commentsArray = response?.response {
+                print(commentsArray)
+                self.arrComments = commentsArray
+                self.tblViewComments.reloadData()
+            }
+        }
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        UIView.animate(withDuration: 0.5, animations: {
+            self.imgViewBackground.alpha = 0.4
+        }, completion: {
+            finished in
+        })
+    }
+    
     @IBAction func backgroundViewTapped(_ sender: UITapGestureRecognizer) {
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: false, completion: nil)
     }
-
+    
+    @IBAction func btnTappedAddComment(_ sender: Any) {
+        self.view.endEditing(true)
+        guard objPhoto != nil else { return }
+        kAppDelegate.loadingIndicationCreationMSG(msg: "Posting...")
+        self.postPhotoComment(id: (objPhoto?.id)!, comment: txtViewAddComment.text) { (response) in
+            if let comment = response?.response {
+                self.arrComments.append(comment)
+                self.txtViewAddComment.text = ""
+                self.view.endEditing(true)
+                self.tblViewComments.reloadData()
+            }
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // UITextView Delegates
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.text == "Write a comment" {
+            btnAddComment.isEnabled = true
+            textView.text = ""
+        }
     }
-    */
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        self.view.endEditing(true)
+        if textView.text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) == "" {
+            btnAddComment.isEnabled = false
+            textView.text = "Write a comment"
+        }
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            textView.resignFirstResponder()
+            return false
+        }
+        guard let textStr = textView.text else { return true }
+        let newLength = textStr.characters.count + text.characters.count - range.length
+        // Set keynot max limit
+        return newLength <= 1000
+    }
+    
+    /*
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
+}
 
+extension CommentsViewController: UITableViewDelegate, UITableViewDataSource {
+    //MARK: - UITableView Delegate/Datasource
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        //Check whether to show settings section or not.
+        return arrComments.count
+    }
+    // TableView cell for row at index
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellComments", for: indexPath)
+        
+        cell.preservesSuperviewLayoutMargins = false
+        cell.separatorInset = UIEdgeInsets.zero
+        cell.layoutMargins = UIEdgeInsets.zero
+        
+        if let lblName = cell.viewWithTag(1001) as? UILabel {
+            lblName.text = arrComments[indexPath.row].user?.username
+        }
+        
+        if let lblComment = cell.viewWithTag(1003) as? UILabel {
+            lblComment.text = arrComments[indexPath.row].body
+        }
+        
+        if let lblTime = cell.viewWithTag(1002) as? UILabel {
+            lblTime.text = self.convertStringToDate(dateString: arrComments[indexPath.row].created_at!)?.timeAgoDisplay()
+        }
+        
+        var cube = cell.contentView.viewWithTag(indexPath.item) as? AITransformView
+        if cube == nil {
+            
+            cube = AITransformView.init(frame: CGRect.init(x: 8, y: 8, width: 48, height: 48), cube_size: 30)
+            cube?.tag = indexPath.item
+            cube?.backgroundColor = UIColor.clear
+            cube?.isUserInteractionEnabled = false
+            let objComment = arrComments[indexPath.row].user
+            let arrFaces = [objComment?.avatar_face1 ?? "thumb", objComment?.avatar_face2 ?? "thumb", objComment?.avatar_face3 ?? "thumb", objComment?.avatar_face4 ?? "thumb", objComment?.avatar_face5 ?? "thumb", objComment?.avatar_face6 ?? "thumb"]
+            cube?.setup(withUrls: arrFaces)
+            cell.contentView.addSubview(cube!)
+            cube?.setScroll(CGPoint.init(x: 0, y: 30/2), end: CGPoint.init(x: 20, y: 30/2))
+            cube?.setScroll(CGPoint.init(x: 30/2, y: 0), end: CGPoint.init(x: 30/2, y: 10))
+        }
+        
+        return cell
+    }
+    
+    func convertStringToDate(dateString: String) -> Date? {
+        let dateFormatter = DateFormatter() //2017-07-10T05:39:31.000Z
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        dateFormatter.locale = Locale.init(identifier: "en_US_POSIX")
+        
+        if let dateObj = dateFormatter.date(from: dateString) {
+            return dateObj
+        }
+        return nil
+    }
 }

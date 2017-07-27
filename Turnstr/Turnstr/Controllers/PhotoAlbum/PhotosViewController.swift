@@ -17,24 +17,43 @@ class PhotosViewController: ParentViewController, UICollectionViewDataSource, UI
     
     var arrPhotos = [Photos]()
     var photoAlbum: PhotoAlbum?
+    var isFromPublicPhoto = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         LoadNavBar()
+        if isFromPublicPhoto {
+            objNav.btnBack.isHidden = true
+        } else {
+            objNav.btnBack.isHidden = false
+            objNav.btnBack.addTarget(self, action: #selector(goBack), for: .touchUpInside)
+        }
         objNav.btnRightMenu.isHidden = true
-        objNav.btnBack.addTarget(self, action: #selector(goBack), for: .touchUpInside)
-        
-        kAppDelegate.loadingIndicationCreationMSG(msg: "Loading...")
-        getAlbumPhotos(id: (photoAlbum?.id)!) { (response) in
-            if let photosArray = response?.response {
-                print(photosArray)
-                self.arrPhotos = photosArray
-                self.lblNoPhotos.isHidden = self.arrPhotos.count > 0
-                self.collViewPhotos.reloadData()
+        //objNav.btnBack.addTarget(self, action: #selector(goBack), for: .touchUpInside)
+        if isFromPublicPhoto {
+            kAppDelegate.loadingIndicationCreationMSG(msg: "Loading...")
+            getAllPublicPhotos() { (response) in
+                if let photosArray = response?.response {
+                    print(photosArray)
+                    self.arrPhotos = photosArray
+                    self.lblNoPhotos.isHidden = self.arrPhotos.count > 0
+                    self.collViewPhotos.reloadData()
+                }
+            }
+        } else {
+            kAppDelegate.loadingIndicationCreationMSG(msg: "Loading...")
+            getAlbumPhotos(id: (photoAlbum?.id)!) { (response) in
+                if let photosArray = response?.response {
+                    print(photosArray)
+                    self.arrPhotos = photosArray
+                    self.lblNoPhotos.isHidden = self.arrPhotos.count > 0
+                    self.collViewPhotos.reloadData()
+                }
             }
         }
+        
     }
 }
 
@@ -79,6 +98,8 @@ extension PhotosViewController {
             if let vc = segue.destination as? PhotoDetailViewController, let index = sender as? IndexPath {
                 vc.objPhotos = arrPhotos
                 vc.selectedIndex = index.row
+                vc.albumId = photoAlbum?.id
+                vc.isFromPublicPhoto = isFromPublicPhoto
             }
         }
     }
