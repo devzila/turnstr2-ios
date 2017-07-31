@@ -18,6 +18,7 @@
 		7E4E57631F1FC1DE00FCD758 /* PhotoAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4E575F1F1FC1DE00FCD758 /* PhotoAlbum.swift */; };
 		7E4E57641F1FC1DE00FCD758 /* Photos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4E57601F1FC1DE00FCD758 /* Photos.swift */; };
 		7E4E57651F1FC1DE00FCD758 /* KSResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4E57611F1FC1DE00FCD758 /* KSResponse.swift */; };
+		8A1B1F941F2FB83700BA51C9 /* loaderImage.gif in Resources */ = {isa = PBXBuildFile; fileRef = 8A1B1F931F2FB83700BA51C9 /* loaderImage.gif */; };
 		8AE0E2BE1F29007900A28422 /* Costant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE0E2BD1F29007900A28422 /* Costant.swift */; };
 		8AE0E2C01F291AFB00A28422 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE0E2BF1F291AFB00A28422 /* User.swift */; };
 		8AEC2C751F1693E9008DF3BB /* TabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEC2C741F1693E9008DF3BB /* TabbarController.swift */; };
@@ -102,7 +103,6 @@
 		D9AC62DA1F0191100055ED3D /* UIWindowExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AC62D21F0191100055ED3D /* UIWindowExtension.swift */; };
 		D9AC62DB1F0191100055ED3D /* VCExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AC62D31F0191100055ED3D /* VCExtensions.swift */; };
 		D9AC62DE1F01913C0055ED3D /* CaptureImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AC62DD1F01913C0055ED3D /* CaptureImage.swift */; };
-		D9AC62E31F01917A0055ED3D /* KBLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AC62E01F01917A0055ED3D /* KBLoader.swift */; };
 		D9AC62E41F01917A0055ED3D /* KBLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AC62E11F01917A0055ED3D /* KBLog.swift */; };
 		D9AC62FE1F01995C0055ED3D /* LocalizedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AC62FD1F01995C0055ED3D /* LocalizedStrings.swift */; };
 		D9AC63001F019A050055ED3D /* NSObjectExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AC62FF1F019A050055ED3D /* NSObjectExtensions.swift */; };
@@ -151,6 +151,7 @@
 		7E4E575F1F1FC1DE00FCD758 /* PhotoAlbum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoAlbum.swift; sourceTree = "<group>"; };
 		7E4E57601F1FC1DE00FCD758 /* Photos.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Photos.swift; sourceTree = "<group>"; };
 		7E4E57611F1FC1DE00FCD758 /* KSResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KSResponse.swift; sourceTree = "<group>"; };
+		8A1B1F931F2FB83700BA51C9 /* loaderImage.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loaderImage.gif; sourceTree = "<group>"; };
 		8AE0E2BD1F29007900A28422 /* Costant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Costant.swift; sourceTree = "<group>"; };
 		8AE0E2BF1F291AFB00A28422 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		8AEC2C741F1693E9008DF3BB /* TabbarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabbarController.swift; sourceTree = "<group>"; };
@@ -254,7 +255,6 @@
 		D9AC62D21F0191100055ED3D /* UIWindowExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIWindowExtension.swift; sourceTree = "<group>"; };
 		D9AC62D31F0191100055ED3D /* VCExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VCExtensions.swift; sourceTree = "<group>"; };
 		D9AC62DD1F01913C0055ED3D /* CaptureImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureImage.swift; sourceTree = "<group>"; };
-		D9AC62E01F01917A0055ED3D /* KBLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KBLoader.swift; sourceTree = "<group>"; };
 		D9AC62E11F01917A0055ED3D /* KBLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KBLog.swift; sourceTree = "<group>"; };
 		D9AC62FD1F01995C0055ED3D /* LocalizedStrings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalizedStrings.swift; sourceTree = "<group>"; };
 		D9AC62FF1F019A050055ED3D /* NSObjectExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSObjectExtensions.swift; sourceTree = "<group>"; };
@@ -318,6 +318,7 @@
 		7E4E57551F1FC16400FCD758 /* PhotoAlbum */ = {
 			isa = PBXGroup;
 			children = (
+				8A1B1F931F2FB83700BA51C9 /* loaderImage.gif */,
 				7E4E57561F1FC16400FCD758 /* CommentsViewController.swift */,
 				7E4E57571F1FC16400FCD758 /* PhotoDetailViewController.swift */,
 				7E4E57581F1FC16400FCD758 /* PhotoLibraryViewController.swift */,
@@ -594,7 +595,6 @@
 		D9AC62DF1F01917A0055ED3D /* MISC */ = {
 			isa = PBXGroup;
 			children = (
-				D9AC62E01F01917A0055ED3D /* KBLoader.swift */,
 				D9AC62E11F01917A0055ED3D /* KBLog.swift */,
 				8AE0E2BD1F29007900A28422 /* Costant.swift */,
 			);
@@ -852,6 +852,7 @@
 				D9FDE6191EC2263C009D5BE3 /* Assets.xcassets in Resources */,
 				8AEC2C8A1F169C23008DF3BB /* Stories.storyboard in Resources */,
 				7E2C2DFF1F2675C40055D309 /* loaderImage.gif in Resources */,
+				8A1B1F941F2FB83700BA51C9 /* loaderImage.gif in Resources */,
 				8AEC2C841F169C23008DF3BB /* LaunchScreen.storyboard in Resources */,
 				D95181A81F180ADE008595CC /* PhotoAlbum.storyboard in Resources */,
 				8AEC2C891F169C23008DF3BB /* Profile.storyboard in Resources */,
@@ -1017,7 +1018,6 @@
 				D96366611F035BD100784A58 /* SDWebImageDecoder.m in Sources */,
 				D96366361F02FCBC00784A58 /* EditProfileCell.swift in Sources */,
 				D91C3B001F001D78005F945C /* IQBarButtonItem.swift in Sources */,
-				D9AC62E31F01917A0055ED3D /* KBLoader.swift in Sources */,
 				D9FDE63D1EC22C55009D5BE3 /* Header.swift in Sources */,
 				D963665F1F035BD100784A58 /* SDImageCache.m in Sources */,
 				D96366651F035BD100784A58 /* SDWebImagePrefetcher.m in Sources */,
