@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Rxi-zi-6EK">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Rxi-zi-6EK">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -20,17 +20,46 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="chat" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Us0-Og-aKI">
-                                <rect key="frame" x="170.5" y="323" width="34" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ceu-gD-hTS">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZQO-NT-8hy">
+                                        <rect key="frame" x="8" y="21.5" width="120" height="33"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="120" id="vtE-qJ-3g0"/>
+                                            <constraint firstAttribute="height" constant="33" id="xLe-fe-SN6"/>
+                                        </constraints>
+                                        <state key="normal" image="logo_login"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LeX-jl-1w4">
+                                        <rect key="frame" x="313" y="15" width="46" height="46"/>
+                                        <inset key="contentEdgeInsets" minX="8" minY="8" maxX="8" maxY="8"/>
+                                        <state key="normal" image="newChat"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="0.60784313729999995" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="LeX-jl-1w4" firstAttribute="centerY" secondItem="ceu-gD-hTS" secondAttribute="centerY" constant="8" id="63G-P8-ge5"/>
+                                    <constraint firstItem="ZQO-NT-8hy" firstAttribute="leading" secondItem="ceu-gD-hTS" secondAttribute="leading" constant="8" id="9dy-eA-P9y"/>
+                                    <constraint firstItem="ZQO-NT-8hy" firstAttribute="centerY" secondItem="ceu-gD-hTS" secondAttribute="centerY" constant="8" id="M4m-tw-dXh"/>
+                                    <constraint firstAttribute="height" constant="60" id="dKB-rU-fKW"/>
+                                    <constraint firstAttribute="trailing" secondItem="LeX-jl-1w4" secondAttribute="trailing" constant="16" id="tna-Vc-Gjg"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="seb-FE-QRw">
+                                <rect key="frame" x="0.0" y="60" width="375" height="607"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Us0-Og-aKI" firstAttribute="centerY" secondItem="IMF-bX-VoA" secondAttribute="centerY" id="WVd-ZC-qXB"/>
-                            <constraint firstItem="Us0-Og-aKI" firstAttribute="centerX" secondItem="IMF-bX-VoA" secondAttribute="centerX" id="hGn-90-TNS"/>
+                            <constraint firstItem="ceu-gD-hTS" firstAttribute="leading" secondItem="IMF-bX-VoA" secondAttribute="leading" id="Duo-7D-t4Q"/>
+                            <constraint firstAttribute="trailing" secondItem="ceu-gD-hTS" secondAttribute="trailing" id="OUY-y7-pB8"/>
+                            <constraint firstItem="seb-FE-QRw" firstAttribute="leading" secondItem="IMF-bX-VoA" secondAttribute="leading" id="Q31-VE-Bdc"/>
+                            <constraint firstItem="ceu-gD-hTS" firstAttribute="top" secondItem="IMF-bX-VoA" secondAttribute="top" id="dt4-5J-ZIF"/>
+                            <constraint firstItem="seb-FE-QRw" firstAttribute="top" secondItem="ceu-gD-hTS" secondAttribute="bottom" id="grX-67-Wqc"/>
+                            <constraint firstAttribute="trailing" secondItem="seb-FE-QRw" secondAttribute="trailing" id="j9u-dm-iyh"/>
+                            <constraint firstItem="9yy-ru-QGh" firstAttribute="top" secondItem="seb-FE-QRw" secondAttribute="bottom" id="w99-n1-9fs"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ZZS-BU-98p"/>
@@ -38,6 +67,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5fZ-8Q-Ksq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="903" y="-86"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="wT1-Wc-dnm">
+            <objects>
+                <viewController id="Zaq-K5-qei" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="xnq-rm-pdd"/>
+                        <viewControllerLayoutGuide type="bottom" id="4lD-Yj-nQO"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ZU7-RD-c87">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mrh-nH-v5o" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1700" y="241"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="zQl-PI-heN">
@@ -56,4 +103,8 @@
             <point key="canvasLocation" x="121" y="-87"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="logo_login" width="120" height="33"/>
+        <image name="newChat" width="30" height="30"/>
+    </resources>
 </document>
