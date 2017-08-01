@@ -121,3 +121,125 @@ class User: NSObject {
         }
     }
 }
+
+
+extension User {
+    
+    convenience init(_ objUser: [String: Any]?) {
+        
+        self.init()
+        
+        if let str = objUser?["id"] as? Int {
+            self.id = "\(str)"
+        }
+        else {
+            self.id = nil
+        }
+        
+        if let str = objUser?["email"] as? String {
+            self.email = "\(str)"
+        }
+        else {
+            self.email = nil
+        }
+        
+        
+        if let str = objUser?["username"] as? String {
+            self.username = "\(str)"
+        }
+        else {
+            self.username = nil
+        }
+        
+        if let str = objUser?["first_name"] as? String {
+            self.firstname = "\(str)".capitalized
+        }
+        else {
+            self.firstname = nil
+        }
+        
+        if let str = objUser?["last_name"] as? String {
+            self.lastname = "\(str)".capitalized
+        }
+        else {
+            self.lastname = nil
+        }
+        
+        name = self.firstname?.appendingFormat(" %@", self.lastname ?? "")
+        
+        if let str = objUser?["phone"] as? Int {
+            self.phone = "\(str)"
+        }
+        else {
+            self.phone = nil
+        }
+        
+        self.cubeUrls = [URL]()
+        
+        if let str = objUser?["avatar_face1"] as? String {
+            if let url = URL(string: str) {
+                self.cubeUrls.append(url)
+            }
+        }
+        
+        if let str = objUser?["avatar_face2"] as? String {
+            if let url = URL(string: str) {
+                self.cubeUrls.append(url)
+            }
+        }
+        
+        if let str = objUser?["avatar_face3"] as? String {
+            if let url = URL(string: str) {
+                self.cubeUrls.append(url)
+            }
+        }
+        
+        if let str = objUser?["avatar_face4"] as? String {
+            if let url = URL(string: str) {
+                self.cubeUrls.append(url)
+            }
+        }
+        
+        if let str = objUser?["avatar_face5"] as? String {
+            if let url = URL(string: str) {
+                self.cubeUrls.append(url)
+            }
+        }
+        
+        if let str = objUser?["avatar_face6"] as? String {
+            if let url = URL(string: str) {
+                self.cubeUrls.append(url)
+            }
+        }
+        
+        if let str = objUser?["website"] as? String {
+            self.website = str
+        }
+        else {
+            self.website = nil
+        }
+        
+        if let str = objUser?["bio"] as? String {
+            self.bio = str
+        }
+        else {
+            self.bio = nil
+        }
+        
+        if let str = objUser?["contact_me"] as? String {
+            self.contactMe = str
+        }
+        else {
+            self.contactMe = nil
+        }
+        
+        if let str = objUser?["online"] as? Bool {
+            self.online  = str
+        }
+            
+        else {
+            self.online = false
+        }
+        
+    }
+}

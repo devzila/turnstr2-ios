@@ -1,5 +1,5 @@
 //
-//  TableViewDataSources.swift
+//  UsersListDataSources.swift
 //  Turnstr
 //
 //  Created by Kamal on 01/08/17.
@@ -8,46 +8,33 @@
 
 import UIKit
 
-class TableViewDataSources: NSObject {
+class UsersListDataSources: NSObject {
 
     typealias CellForRowAtIndexPath = (_ cell: UITableViewCell, _ IndexPath: IndexPath) -> ()
     typealias CellSelectForRowAtIndexPath = (_ IndexPath: IndexPath) -> ()
-    lazy var items: [Any] = [Any]()
+    lazy var items: [Friends] = [Friends]()
     var tableView: UITableView?
     var identifier: CellIdentifiers?
     var cellAtIndex: CellForRowAtIndexPath?
     var selectAtIndex: CellSelectForRowAtIndexPath?
-    var refreshControl: UIRefreshControl?
-    var includeRefreshControl: Bool = false {
-        didSet {
-            if includeRefreshControl == true {
-                refreshControl = UIRefreshControl()
-                refreshControl?.tintColor = .orange
-                if let control = refreshControl {
-                    tableView?.addSubview(control)
-                }
-            }
-        }
-    }
     
-    init(_ objects: [Any], _ tableView: UITableView?, _ cellIdentifier: CellIdentifiers) {
+    init(_ objects: [Friends], _ tableView: UITableView?, _ cellIdentifier: CellIdentifiers) {
         
         super.init()
         self.items = objects
         self.tableView = tableView
-        identifier = cellIdentifier
         
         cellIdentifier.registerCell(tableView)
     }
-    
-    func reloadData() {
-        self.tableView?.reloadData()
-    }
 }
 
-extension TableViewDataSources: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+extension UsersListDataSources: UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
         return items.count
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return items[section].users.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = identifier?.dequeCell(tableView) else { return UITableViewCell() }
@@ -58,10 +45,9 @@ extension TableViewDataSources: UITableViewDataSource {
     }
 }
 
-extension TableViewDataSources: UITableViewDelegate {
+extension UsersListDataSources: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
         if let selectCell = selectAtIndex {
             selectCell(indexPath)
         }

@@ -33,5 +33,5 @@ enum Storyboards: String {
 
 enum StoryboardIds: String {
     
-    case example = "Example"
+    case usersList = "UsersListVC"
 }

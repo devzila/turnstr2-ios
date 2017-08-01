@@ -11,9 +11,9 @@ import Foundation
 
 class KBLog {
     
-    class func log(message: String?, object: Any) {
+    class func log(message: String?, object: Any?) {
         #if DEBUG
-        print("\(object)")
+        print((message ?? "") + "\(object)")
         #endif
     }
     

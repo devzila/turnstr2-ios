@@ -11,9 +11,8 @@ import UIKit
 
 
 enum CellIdentifiers: String{
-    case employee = "EmployeeCell"
-    case task = "TaskCell"
-    case search = "Search"
+    case channels = "ChannelCell"
+    case userCell = "UserCell"
 }
 
 extension CellIdentifiers {
