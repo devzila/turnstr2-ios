@@ -5,6 +5,7 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -14,9 +15,47 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EBj-SE-uHQ">
+                        <rect key="frame" x="5" y="5" width="33.5" height="33.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="EBj-SE-uHQ" secondAttribute="height" multiplier="1:1" id="0DL-Y5-weV"/>
+                        </constraints>
+                    </imageView>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="svm-Cm-UST">
+                        <rect key="frame" x="46" y="6.5" width="266" height="31"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OWU-rv-DeJ">
+                                <rect key="frame" x="0.0" y="0.0" width="266" height="15.5"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U1n-gc-sr4">
+                                <rect key="frame" x="0.0" y="15.5" width="266" height="15.5"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="svm-Cm-UST" firstAttribute="leading" secondItem="EBj-SE-uHQ" secondAttribute="trailing" constant="8" id="E69-jb-67C"/>
+                    <constraint firstItem="EBj-SE-uHQ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="ECD-6k-kIa"/>
+                    <constraint firstAttribute="trailing" secondItem="svm-Cm-UST" secondAttribute="trailing" constant="8" id="Hph-K2-kIb"/>
+                    <constraint firstItem="EBj-SE-uHQ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="Orf-AW-Yc6"/>
+                    <constraint firstItem="svm-Cm-UST" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="foC-3G-3j8"/>
+                    <constraint firstAttribute="bottom" secondItem="EBj-SE-uHQ" secondAttribute="bottom" constant="5" id="s8W-Qc-dIe"/>
+                </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="imgView" destination="EBj-SE-uHQ" id="Wig-X5-7vB"/>
+                <outlet property="lblLastMessage" destination="U1n-gc-sr4" id="aeB-nX-iF1"/>
+                <outlet property="lblName" destination="OWU-rv-DeJ" id="PFZ-7A-s3x"/>
+            </connections>
         </tableViewCell>
     </objects>
 </document>

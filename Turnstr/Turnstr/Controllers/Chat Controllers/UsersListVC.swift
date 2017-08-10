@@ -48,6 +48,7 @@ class UsersListVC: ParentViewController {
     }
     
     func didSelectCellAt(_ indexPath: IndexPath) {
+        
         guard let userId = users[indexPath.row].id else { return }
         SBDGroupChannel.createChannel(withUserIds: [userId], isDistinct: true) {[weak self] (channel, error) in
             if error != nil {
@@ -55,16 +56,24 @@ class UsersListVC: ParentViewController {
                 return
             }
             else {
-                self?.popVC()
+                self?.dismiss(animated: false, completion: {
+                    self?.pushToChat(channel)
+                })
             }
         }
     }
     
+    func pushToChat(_ channel: SBDGroupChannel?) {
+        guard let vc = Storyboards.chatStoryboard.initialVC(with: .chatVC) as? ChatVC else { return }
+        vc.channel = channel
+        topVC?.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     //MARK: ------ API Methods
     func apiListUsers()  {
-        let response = WebServices.sharedInstance.GetMethodServerData(strRequest: "user/followers", GetURL: "", parType: "")
+        let response = WebServices.sharedInstance.GetMethodServerData(strRequest: "members", GetURL: "", parType: "")
         let objData = objDataS.validateData(response: response)
-        if let followers = objData["followers"] as? [AnyObject] {
+        if let followers = objData["members"] as? [AnyObject] {
             for obj in followers {
                 let user = User.init(obj as? [String: Any])
                 users.append(user)

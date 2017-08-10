@@ -40,6 +40,9 @@ extension NSObject {
         return enabled
     }
     
+    var topVC: UIViewController? {
+        return AppDelegate.shared?.window?.topViewController()
+    }
     
     
     func openAlert(title: String?, message strMessage: String?, with options: String?..., didSelect:@escaping(_ index: Int?) -> Void){

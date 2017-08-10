@@ -24,5 +24,6 @@ pod 'FBSDKShareKit', '~> 4.22.1'
 
 #SendBird
 pod 'SendBirdSDK'
+pod 'GrowingTextView'
 
 end

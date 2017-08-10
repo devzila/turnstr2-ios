@@ -19,9 +19,13 @@ class ChatBudsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        apiListChatBuds()
         initDataSource()
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        apiListChatBuds()
     }
 
     

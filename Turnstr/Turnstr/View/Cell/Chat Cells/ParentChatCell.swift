@@ -20,6 +20,12 @@ class ParentChatCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        layoutIfNeeded()
+        
+        let size = frame.size
+        borderDesign(cornerRadius: size.height/2, borderWidth: nil, borderColor: nil)
+        
         // Initialization code
     }
 

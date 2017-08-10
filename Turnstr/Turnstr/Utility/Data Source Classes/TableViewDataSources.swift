@@ -42,6 +42,7 @@ class TableViewDataSources: NSObject {
     
     func reloadData() {
         self.tableView?.reloadData()
+        self.refreshControl?.endRefreshing()
     }
 }
 

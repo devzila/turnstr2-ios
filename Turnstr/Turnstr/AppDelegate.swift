@@ -155,6 +155,9 @@ extension AppDelegate {
                 if error == nil {
                     KBLog.log(message: "Send bird login user", object: user)
                 }
+                else {
+                    KBLog.log(message: "Error in Send bird login user", object: user)
+                }
             })
         }
     }
