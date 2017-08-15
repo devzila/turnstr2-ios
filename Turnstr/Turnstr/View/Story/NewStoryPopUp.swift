@@ -9,13 +9,13 @@
 import UIKit
 
 class NewStoryPopUp: UIView {
-
+    
     @IBOutlet weak var btnCancel: UIButton!
     @IBOutlet weak var btnNext: UIButton!
     @IBOutlet weak var uvCube: UIView!
     @IBOutlet weak var ttxtCaption: IQTextView!
     
-    var arrMedia: [UIImage] = []
+    var arrMedia = [NewStoryMedia]()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,8 +32,18 @@ class NewStoryPopUp: UIView {
         
         for item in arrMedia {
             
+            let story = item
+            
+            
             let imgImage: UIImageView = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: cube!.frame.width, height: cube!.frame.height))
-            imgImage.image = item
+            
+            if story.type == .image {
+                imgImage.image = story.image
+            }else {
+                
+                imgImage.image = story.image
+            }
+            
             imgImage.contentMode = .scaleAspectFill
             arrImages.append(imgImage)
         }
@@ -47,5 +57,5 @@ class NewStoryPopUp: UIView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
 }

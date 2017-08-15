@@ -21,10 +21,16 @@ class ParentViewController: UIViewController, PickerDelegate, CustomAlertViewDel
     
     var pickerView: PickerView!
     
+    var btnNavBack = UIButton()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        btnNavBack.frame = CGRect.init(x: 0, y: 0, width: 50, height: 60)
+        btnNavBack.setImage(#imageLiteral(resourceName: "back_arrow"), for: .normal)
+        btnNavBack.tintColor = UIColor.black
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -74,6 +80,11 @@ class ParentViewController: UIViewController, PickerDelegate, CustomAlertViewDel
     }
     
     //MARK:- Navigation Methods
+    
+    func dismissVC() {
+        //_ = self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: true, completion: nil)
+    }
     
     func LogoutClicked() -> Void {
         kAppDelegate.LogoutFromApp()

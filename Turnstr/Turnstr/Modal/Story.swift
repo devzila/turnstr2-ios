@@ -18,6 +18,13 @@ class Story: NSObject {
     var strCaption: String = ""
     var media: [[String:Any]] = [[ : ]]
     
+    //
+    //Comment Like
+    //
+    var comments_count: Int = 0
+    var likes_count: Int = 0
+    var has_liked: Bool = false
+    
     
     //
     // Media Object
@@ -62,6 +69,19 @@ class Story: NSObject {
         if let obj = dict["id"] as? Int {
             storyID = obj
         }
+        
+        if let obj = dict["comments_count"] as? Int {
+            comments_count = obj
+        }
+        
+        if let obj = dict["likes_count"] as? Int {
+            likes_count = obj
+        }
+        
+        if let obj = dict["has_liked"] as? Bool {
+            has_liked = obj
+        }
+        
         
         if let obj = dict["caption"] as? String {
             strCaption = obj
@@ -153,7 +173,7 @@ class Story: NSObject {
         media_type = ""
         
         if let obj = media["media_url"] as? String {
-            media_url = obj 
+            media_url = obj
         }
         
         if let obj = media["thumb_url"] as? String {
@@ -170,7 +190,9 @@ class Story: NSObject {
         strCaption = ""
         media = [[ : ]]
         
-        
+        likes_count = 0
+        comments_count = 0
+        has_liked = false
         //
         // Media Object
         //

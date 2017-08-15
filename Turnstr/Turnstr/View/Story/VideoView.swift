@@ -9,20 +9,31 @@
 import UIKit
 import AVFoundation
 
+protocol VideoDelegate {
+    func VideoPicked(url: URL)
+}
 
-
-class VideoView: UIView, AVCaptureFileOutputRecordingDelegate {
-
+class VideoView: UIView, AVCaptureFileOutputRecordingDelegate, VideoPlayerDelegates {
+    
+    var videoPathNum: Int = 1
+    
+    var delegate: VideoDelegate?
+    
     var btnVideoCap = UIButton()
     var btnSelfiCap = UIButton()
     
     var timer: Timer? = nil
     let lengthAccepted = 5.0 as Float
+    let maximumLength = 15.0 as Float
+    
     var cameraDevice : AVCaptureDevice?
     var captureAudio :AVCaptureDevice?
     var cameraPreviewlayer : AVCaptureVideoPreviewLayer?
     var cameraSession : AVCaptureSession?
     var videoFileOutput : AVCaptureMovieFileOutput?
+    
+    var progressView = UISlider()
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -136,17 +147,20 @@ class VideoView: UIView, AVCaptureFileOutputRecordingDelegate {
     //MARK: Observer
     @objc func videoRecordingLength(){
         
-//        if videoLength.value < videoLength.maximumValue{
-//            videoLength.value += 1.0
-//        }
-//        else{
-//            videoFileOutput?.stopRecording()
-//        }
+        
+        if progressView.value < maximumLength{
+            progressView.value = progressView.value+1.0
+        }
+        else{
+            videoFileOutput?.stopRecording()
+            
+        }
     }
     
     
     //MARK:- Buttons
     func CameraScreenButtons() -> Void {
+        
         
         btnSelfiCap.frame = CGRect.init(x: kWidth-55, y: self.frame.height-60, width: 50, height: 40)
         btnSelfiCap.setImage(UIImage.init(named: "selfi"), for: .normal)
@@ -157,8 +171,15 @@ class VideoView: UIView, AVCaptureFileOutputRecordingDelegate {
         btnVideoCap.frame = CGRect.init(x: kCenterW-30, y: self.frame.height-70, width: 60, height: 60)
         btnVideoCap.setImage(#imageLiteral(resourceName: "video"), for: .normal)
         self.addSubview(btnVideoCap)
-        btnVideoCap.addTarget(self, action: #selector(VideoCaptureClicked(sender:)), for: .touchUpInside)
+        btnVideoCap.addTarget(self, action: #selector(touchRelease(sender:)), for: .touchUpInside);
+        btnVideoCap.addTarget(self, action: #selector(touchStart(sender:)), for: .touchDown)
         
+        
+        progressView.frame = CGRect.init(x: 10, y: btnVideoCap.frame.minY-10, width: kWidth-20, height: 5)
+        progressView.minimumValue = 0.0
+        progressView.maximumValue = maximumLength
+        progressView.isUserInteractionEnabled = false
+        self.addSubview(progressView)
     }
     
     func StopSession() -> Void {
@@ -169,8 +190,16 @@ class VideoView: UIView, AVCaptureFileOutputRecordingDelegate {
         cameraSession?.startRunning()
     }
     
+    func touchRelease(sender: UIButton) -> Void {
+        print("Touch released")
+        
+        videoFileOutput!.stopRecording()
+    }
     
-    func VideoCaptureClicked(sender: UIButton) -> Void {
+    func touchStart(sender: UIButton) -> Void {
+        print("Touch start")
+        
+        progressView.value = 0.0
         
         var videoConnection: AVCaptureConnection?
         for connection in (videoFileOutput?.connections)! {
@@ -191,7 +220,7 @@ class VideoView: UIView, AVCaptureFileOutputRecordingDelegate {
         
         
         let recordingDelegate : AVCaptureFileOutputRecordingDelegate? = self
-        let strPath = self.documentPath.appendingFormat("/output.mov") as String
+        let strPath = self.documentPath.appendingFormat("/output\(videoPathNum).mov") as String
         if FileManager.default.fileExists(atPath: strPath){
             do {
                 try FileManager.default.removeItem(atPath: strPath)
@@ -204,10 +233,6 @@ class VideoView: UIView, AVCaptureFileOutputRecordingDelegate {
         videoFileOutput!.startRecording(toOutputFileURL: filePath as URL!, recordingDelegate: recordingDelegate)
     }
     
-    func btnReleased(btnCapture: UIButton){
-        
-        videoFileOutput!.stopRecording()
-    }
     
     func SelfyCaptureClicked(sender: UIButton) -> Void {
         let animation = CATransition()
@@ -229,21 +254,42 @@ class VideoView: UIView, AVCaptureFileOutputRecordingDelegate {
         cameraPreviewlayer?.add(animation, forKey: nil)
     }
     
-    //MARK: AVCaptureFileOutputRecordingDelegate Methods
     
-    func captureOutput(captureOutput: AVCaptureFileOutput!, didStartRecordingToOutputFileAtURL fileURL: NSURL!, fromConnections connections: [AnyObject]!) {
+    //MARK:- Video PLayer delegtes
+    
+    func resetRecording() {
+        progressView.value  = 0
+    }
+    
+    func VideoPlayerDone(videoUrl: URL) {
+        
+        delegate?.VideoPicked(url: videoUrl)
+        resetRecording()
+    }
+    
+    func VideoPlayerCancel() {
+        resetRecording()
+    }
+    
+    //MARK:- AVCaptureFileOutputRecordingDelegate Methods
+    
+    func capture(_ captureOutput: AVCaptureFileOutput!, didStartRecordingToOutputFileAt fileURL: URL!, fromConnections connections: [Any]!) {
         
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(videoRecordingLength), userInfo: nil, repeats: true)
         
     }
     
+    
     func capture(_ captureOutput: AVCaptureFileOutput!, didFinishRecordingToOutputFileAt outputFileURL: URL!, fromConnections connections: [Any]!, error: Error!) {
         
+        print("output URL")
         print(outputFileURL)
         
         timer?.invalidate()
         
         self.exportVideo(outputUrl: outputFileURL as NSURL, ofDuration: captureOutput.recordedDuration)
+        
+        videoPathNum = videoPathNum+1
     }
     
     
@@ -281,7 +327,7 @@ class VideoView: UIView, AVCaptureFileOutputRecordingDelegate {
         
         let documentsPath: NSString = NSSearchPathForDirectoriesInDomains(.documentDirectory,.userDomainMask,true)[0] as NSString
         
-        let exportPath: NSString = documentsPath.appendingFormat("/%i-xvideo.mov", 1)
+        let exportPath: NSString = documentsPath.appendingFormat("/%i-xvideo.mov", videoPathNum)
         let exportUrl: NSURL = NSURL.fileURL(withPath: exportPath as String) as NSURL
         
         
@@ -296,24 +342,20 @@ class VideoView: UIView, AVCaptureFileOutputRecordingDelegate {
         
         exporter?.exportAsynchronously(completionHandler: {
             DispatchQueue.main.async {
-                let expOutputURL:NSURL? = (exporter?.outputURL as NSURL?)
+                let expOutputURL: URL? = (exporter?.outputURL as URL?)
                 if expOutputURL != nil{
-                    /*let videoPlayer = VideoPlayerView(frame: self.view.bounds)
-                    let duration = CGFloat(CMTimeGetSeconds(duration))
-                    if duration < 1.0{
-                        self.videoLength.value = 0.0
-                        return;
-                    }
-                    videoPlayer.addControls(duration)
-                    videoPlayer.initPlayer(expOutputURL)
-                    videoPlayer.play()
+                    
+                    
+                    let videoPlayer = VideoPlayer.init(frame: CGRect.init(x: 0, y: 0, width: kWidth, height: self.frame.height+78))
                     videoPlayer.delegate = self
-                    self.view.addSubview(videoPlayer)*/
+                    self.addSubview(videoPlayer)
+                    videoPlayer.startPlayer(videoUrl: expOutputURL!)
+                    
                 }
             }
         })
     }
-
+    
     func deleteFileAtPath(strPath: String?){
         let fileManager = FileManager.default
         let filePath = self.documentPath.appendingFormat("/%@", strPath!)
@@ -326,5 +368,9 @@ class VideoView: UIView, AVCaptureFileOutputRecordingDelegate {
             }
         }
     }
+    
+    
+    
+    
     
 }

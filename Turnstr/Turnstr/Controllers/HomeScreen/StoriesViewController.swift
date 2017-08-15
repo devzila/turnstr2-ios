@@ -9,12 +9,15 @@
 import UIKit
 
 class StoriesViewController: ParentViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIGestureRecognizerDelegate {
-
+    
+    var screenType: enumScreenType = .normal
+    
+    
     var topCube: AITransformView?
     
     var uvCollectionView: UICollectionView?
     var flowLayout: UICollectionViewFlowLayout?
-
+    
     let objStory = Story.sharedInstance
     
     var arrList: NSMutableArray = NSMutableArray()
@@ -29,7 +32,12 @@ class StoriesViewController: ParentViewController, UICollectionViewDelegate, UIC
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        if screenType == .myStories {
+            self.view.addSubview(btnNavBack)
+            btnNavBack.addTarget(self, action: #selector(goBack), for: .touchUpInside)
+        }
+        
         lblPostLeft.numberOfLines = 0
         lblPostRight.numberOfLines = 0
         
@@ -57,7 +65,7 @@ class StoriesViewController: ParentViewController, UICollectionViewDelegate, UIC
         createCollectionView()
         
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -94,13 +102,13 @@ class StoriesViewController: ParentViewController, UICollectionViewDelegate, UIC
         uvCollectionView?.reloadData()
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
+    
     //MARK:- Collection Grid for Story Setup
     
     func createCollectionView() -> Void {
@@ -142,22 +150,6 @@ class StoriesViewController: ParentViewController, UICollectionViewDelegate, UIC
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath)
         
-        //cell.backgroundColor = UIColor.init("F3F3F3")
-        
-        //let frame: CGRect = CGRect.init(x: 0, y: 0, width: PhotoSize().width, height: PhotoSize().height)
-        
-        
-//        var imgBigImage = cell.contentView.viewWithTag(-111) as? UIImageView
-//        if imgBigImage == nil {
-//            imgBigImage = UIImageView.init(frame: frame)
-//            imgBigImage?.tag = -111
-//            imgBigImage?.contentMode = .scaleToFill
-//            
-//        }
-//        imgBigImage?.image = nil
-//        cell.contentView.addSubview(imgBigImage!)
-//        
-        
         objStory.ParseStoryData(dict: arrList[indexPath.row] as! Dictionary<String, Any>)
         
         
@@ -179,7 +171,7 @@ class StoriesViewController: ParentViewController, UICollectionViewDelegate, UIC
                 objStory.ParseMedia(media: item)
                 arrMedia.append(objStory.thumb_url)
             }
-        
+            
             
             cube?.setup(withUrls: arrMedia)
             
@@ -194,6 +186,7 @@ class StoriesViewController: ParentViewController, UICollectionViewDelegate, UIC
         tap.numberOfTapsRequired = 1
         cube?.addGestureRecognizer(tap)
         
+        cube?.isExclusiveTouch = true
         
         cell.layer.masksToBounds = true
         cell.layer.borderWidth = 1.0
@@ -210,7 +203,7 @@ class StoriesViewController: ParentViewController, UICollectionViewDelegate, UIC
         self.navigationController?.pushViewController(mvc, animated: true)
         
     }
-
+    
     //MARK:- Action Methods
     
     func handleTap(sender: UITapGestureRecognizer? = nil) {
@@ -229,6 +222,7 @@ class StoriesViewController: ParentViewController, UICollectionViewDelegate, UIC
     @IBAction func NewStoryClicked(_ sender: UIButton) {
         let camVC = CameraViewController(nibName: "CameraViewController", bundle: nil)
         self.navigationController?.pushViewController(camVC, animated: true)
+        
     }
     
     //MARK:- APIS Handling
@@ -243,10 +237,22 @@ class StoriesViewController: ParentViewController, UICollectionViewDelegate, UIC
         DispatchQueue.global().async {
             
             if sType == kAPIGetAllStories {
-                let dictAction: NSDictionary = [
-                    "action": kAPIGetAllStories,
-                    "page": self.current_page+1
-                ]
+                
+                let dictAction: NSDictionary
+                
+                if self.screenType == .myStories {
+                    dictAction = [
+                        "action": kAPIGetStories,
+                        "page": self.current_page+1
+                    ]
+                }
+                else{
+                    dictAction = [
+                        "action": kAPIGetAllStories,
+                        "page": self.current_page+1
+                    ]
+                }
+                
                 
                 let arrResponse = self.objDataS.GetRequestToServer(dictAction: dictAction)
                 

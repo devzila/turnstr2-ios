@@ -25,7 +25,7 @@ class LoginViewController: ParentViewController {
             return
         }
         
-        txtUsername.text = "a@gmail.com"
+        txtUsername.text = "bb@bb.bb"
         txtPassword.text = "12345678"
     }
     

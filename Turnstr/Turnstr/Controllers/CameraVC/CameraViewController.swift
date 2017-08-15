@@ -10,15 +10,16 @@ import UIKit
 import Photos
 
 
-class CameraViewController: ParentViewController, UICollectionViewDelegate, UICollectionViewDataSource, CameraViewDelegates {
-
+class CameraViewController: ParentViewController, UICollectionViewDelegate, UICollectionViewDataSource, CameraViewDelegates, VideoDelegate {
+    
     
     var uvContent = UIView()
     var selectedTab: Int = 1
     
     var library: PHPhotoLibrary?
     var photoArray : [UIImage] = []
-    var arrSelectedImages: [UIImage] = []
+    //var arrSelectedImages: [UIImage] = []
+    var arrSelectedImages = [NewStoryMedia]()
     
     
     var uvCollectionView: UICollectionView?
@@ -33,11 +34,15 @@ class CameraViewController: ParentViewController, UICollectionViewDelegate, UICo
     @IBOutlet weak var img2: UIImageView!
     @IBOutlet weak var img3: UIImageView!
     @IBOutlet weak var img4: UIImageView!
+    @IBOutlet weak var img5: UIImageView!
+    @IBOutlet weak var img6: UIImageView!
     
     var btnCross1 = UIButton()
     var btnCross2 = UIButton()
     var btnCross3 = UIButton()
     var btnCross4 = UIButton()
+    var btnCross5 = UIButton()
+    var btnCross6 = UIButton()
     
     @IBOutlet weak var uvImages: UIView!
     var uvPopUP: NewStoryPopUp?
@@ -57,7 +62,7 @@ class CameraViewController: ParentViewController, UICollectionViewDelegate, UICo
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         /*
          * Navigation Bar
          */
@@ -73,7 +78,7 @@ class CameraViewController: ParentViewController, UICollectionViewDelegate, UICo
         //
         //Content View Center
         //
-        uvContent.frame = CGRect.init(x: 0, y: kNavBarHeightWithLogo, width: kWidth, height: kHeight-kNavBarHeightWithLogo-40-75-60)
+        uvContent.frame = CGRect.init(x: 0, y: kNavBarHeightWithLogo, width: kWidth, height: kHeight-kNavBarHeightWithLogo-40-75)
         uvContent.backgroundColor = UIColor.black
         self.view.addSubview(uvContent)
         
@@ -84,7 +89,7 @@ class CameraViewController: ParentViewController, UICollectionViewDelegate, UICo
         
         createCameraView()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -104,6 +109,7 @@ class CameraViewController: ParentViewController, UICollectionViewDelegate, UICo
         
         if uvVideo == nil {
             uvVideo = VideoView.init(frame: uvContent.frame)
+            uvVideo?.delegate = self
         }
         uvVideo?.isHidden = true
         uvContent.addSubview(uvVideo!)
@@ -114,14 +120,23 @@ class CameraViewController: ParentViewController, UICollectionViewDelegate, UICo
     func reloadSelectedImages() -> Void {
         
         LoadPlaceHolders()
-        let arrImg: [UIImageView] = [img1, img2, img3, img4]
-        let arrBtns: [UIButton] = [btnCross1, btnCross2, btnCross3, btnCross4]
+        let arrImg: [UIImageView] = [img1, img2, img3, img4, img5, img6]
+        let arrBtns: [UIButton] = [btnCross1, btnCross2, btnCross3, btnCross4, btnCross5, btnCross6]
         var j=0
-       
-        for image in arrSelectedImages {
+        
+        for dict in arrSelectedImages {
+            
+            let story = dict
             
             let imgV = arrImg[j]
-            imgV.image = image
+            
+            if story.type == .image {
+                imgV.image = story.image
+            }
+            else {
+                
+                imgV.image = story.image
+            }
             
             let btn = arrBtns[j]
             btn.isHidden = false
@@ -130,8 +145,8 @@ class CameraViewController: ParentViewController, UICollectionViewDelegate, UICo
     }
     
     func LoadPlaceHolders() -> Void {
-        let arrImg: [UIImageView] = [img1, img2, img3, img4]
-        let arrBtns: [UIButton] = [btnCross1, btnCross2, btnCross3, btnCross4]
+        let arrImg: [UIImageView] = [img1, img2, img3, img4, img5, img6]
+        let arrBtns: [UIButton] = [btnCross1, btnCross2, btnCross3, btnCross4, btnCross5, btnCross6]
         var j=0
         
         for imgV in arrImg {
@@ -178,6 +193,9 @@ class CameraViewController: ParentViewController, UICollectionViewDelegate, UICo
         
     }
     
+    //MARK:- ----------------------------------
+    //MARK:---------Upload media actions-------
+    
     func PopupCancel(sender: UIButton) -> Void {
         objPopupAlert?.close()
         uvPopUP = nil
@@ -219,6 +237,20 @@ class CameraViewController: ParentViewController, UICollectionViewDelegate, UICo
         btnCross4.tag = 3
         btnCross4.addTarget(self, action: #selector(DeleteImage(sender:)), for: .touchUpInside)
         
+        
+        btnCross5.frame = CGRect.init(x: img5.frame.maxX-30, y: 0, width: 30, height: 30)
+        btnCross5.setImage(#imageLiteral(resourceName: "close_1"), for: .normal)
+        uvImages.addSubview(btnCross5)
+        btnCross5.tag = 4
+        btnCross5.addTarget(self, action: #selector(DeleteImage(sender:)), for: .touchUpInside)
+        
+        
+        btnCross6.frame = CGRect.init(x: img6.frame.maxX-30, y: 0, width: 30, height: 30)
+        btnCross6.setImage(#imageLiteral(resourceName: "close_1"), for: .normal)
+        uvImages.addSubview(btnCross6)
+        btnCross6.tag = 5
+        btnCross6.addTarget(self, action: #selector(DeleteImage(sender:)), for: .touchUpInside)
+        
     }
     
     func HideCrossButtons() -> Void {
@@ -226,11 +258,13 @@ class CameraViewController: ParentViewController, UICollectionViewDelegate, UICo
         btnCross2.isHidden = true
         btnCross3.isHidden = true
         btnCross4.isHidden = true
+        btnCross5.isHidden = true
+        btnCross6.isHidden = true
     }
-
+    
     
     // MARK: - Action Methods
-
+    
     @IBAction func LibraryClicked(_ sender: UIButton) {
         selectedTab = 1
         TabHandling()
@@ -286,7 +320,7 @@ class CameraViewController: ParentViewController, UICollectionViewDelegate, UICo
     }
     
     func nextClicked() -> Void {
-        if arrSelectedImages.count != 4 {
+        if arrSelectedImages.count < 4 {
             return
         }
         
@@ -350,7 +384,7 @@ class CameraViewController: ParentViewController, UICollectionViewDelegate, UICo
         }
         imgBigImage?.image = nil
         cell.contentView.addSubview(imgBigImage!)
-       
+        
         imgBigImage?.image = photoArray[indexPath.item]
         
         
@@ -359,11 +393,12 @@ class CameraViewController: ParentViewController, UICollectionViewDelegate, UICo
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        if arrSelectedImages.count == 4 {
-            objUtil.showToast(strMsg: "You can select maximum four files")
+        if arrSelectedImages.count == 6 {
+            objUtil.showToast(strMsg: "You can select maximum six files")
         }
         else{
-            arrSelectedImages.append(photoArray[indexPath.item])
+            
+            arrSelectedImages.append(NewStoryMedia.init(image: photoArray[indexPath.item], url: nil, type: .image))
             reloadSelectedImages()
         }
     }
@@ -420,15 +455,28 @@ class CameraViewController: ParentViewController, UICollectionViewDelegate, UICo
     //MARK:- Camera Delegates
     
     func CameraImageClicked(view: UIView, image: UIImage) {
-        if arrSelectedImages.count == 4 {
-            objUtil.showToast(strMsg: "You can select maximum four files")
+        if arrSelectedImages.count == 6 {
+            objUtil.showToast(strMsg: "You can select maximum six files")
             return
         }
         
-        arrSelectedImages.append(image)
+        arrSelectedImages.append(NewStoryMedia.init(image: image, url: nil, type: .image))
         reloadSelectedImages()
     }
-
+    
+    //MARK:- Video Delegates
+    
+    func VideoPicked(url: URL) {
+        if arrSelectedImages.count == 6 {
+            objUtil.showToast(strMsg: "You can select maximum six files")
+            return
+        }
+        let thumb = url.getThumbnailOfURL()
+        
+        arrSelectedImages.append(NewStoryMedia.init(image: thumb, url: url, type: .video))
+        reloadSelectedImages()
+    }
+    
     
     //MARK:- APIS Handling
     
@@ -449,15 +497,16 @@ class CameraViewController: ParentViewController, UICollectionViewDelegate, UICo
                     
                 ]
                 
-                let arrResponse = self.objDataS.uploadFilesToServer(dictAction: dictAction, arrImages: self.arrSelectedImages)
+                let arrResponse = self.objDataS.createNewStory(dictAction: dictAction, arrImages: self.arrSelectedImages)
                 
                 if (arrResponse.count) > 0 {
                     DispatchQueue.main.async {
                         
-                        self.objUtil.showToast(strMsg: "Story created successfully")
+                        //self.objUtil.showToast(strMsg: "Story created successfully")
                         self.uvPopUP = nil
                         self.goBack()
                         kAppDelegate.hideLoadingIndicator()
+                        self.objUtil.showToast(strMsg: "Story created successfully")
                     }
                 }
             }
@@ -466,6 +515,19 @@ class CameraViewController: ParentViewController, UICollectionViewDelegate, UICo
         
         
     }
+    
+}
 
+struct NewStoryMedia {
+    var image: UIImage?
+    var url: URL?
+    var type: enumMediaType
+    
+    init(image: UIImage?, url: URL?, type: enumMediaType) {
+        
+        self.url = url
+        self.image = image
+        self.type = type
+    }
     
 }

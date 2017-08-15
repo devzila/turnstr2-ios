@@ -8,13 +8,26 @@
 
 import UIKit
 
+enum enumScreenType {
+    case myStories
+    case normal
+}
+
 //MARK:- DropDown TOP RIght Menu
 enum showMsgs: String {
     case msgAttention = "Attention!!!"
     case msgNoUser = "No user is available"
 }
 
+enum enumMediaType: String {
+    case image
+    case video
+}
 
+enum storyContentType: String {
+    case image = "image/jpeg"
+    case video = "video/mp4"
+}
 
 enum enumPopUPType: Int {
     case date

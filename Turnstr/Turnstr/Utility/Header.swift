@@ -30,6 +30,13 @@ let kAPIPhotoAlbum = "user/albums"
 let kAPIUserPhotoUpload = "user/photos"
 let kAPIPhotoDetail = "photos"
 let kAPIGetAllPhotos = "photos"
+let kAPIGetSpecificStory = "stories/"
+
+let kAPILikeStory = "stories/<story-id>/likes"
+let kAPIGetStoriesComments = "stories/<story-id>/comments"
+
+
+
 
 
 
@@ -61,14 +68,17 @@ let kNotiSessionExpired = "noti_SessionExpired"
 /*
  * General Methods
  */
+let kTabBarHeight: CGFloat = 60
 
 let kWidth = UIScreen.main.bounds.size.width
-let kHeight = UIScreen.main.bounds.size.height-60
+let kHeight = UIScreen.main.bounds.size.height-kTabBarHeight
 let kCenterW = kWidth/2
 let kCenterH = kHeight/2
 
 
 let kNavBarHeight: CGFloat = 60
+
+
 let kNavBarHeightWithLogo: CGFloat = 60
 
 

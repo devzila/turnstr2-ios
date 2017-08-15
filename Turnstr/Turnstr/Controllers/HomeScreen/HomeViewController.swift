@@ -13,6 +13,10 @@ class HomeViewController: ParentViewController {
     var transformView: AITransformView?
     var topCube: AITransformView?
     
+    var btnMyStory = UIButton()
+    
+    @IBOutlet weak var btnDesc: UIButton!
+    
     @IBOutlet weak var lblUserName: UILabel!
     @IBOutlet weak var lblDescription: UILabel!
     @IBOutlet weak var lblPostLeft: UILabel!
@@ -23,6 +27,10 @@ class HomeViewController: ParentViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        btnDesc.addTarget(self, action: #selector(DescriptionClicked(sender:)), for: .touchUpInside)
+        btnMyStory.addTarget(self, action: #selector(MyStoryClicked(sender:)), for: .touchUpInside)
+        
         
         lblPostLeft.numberOfLines = 0
         lblPostRight.numberOfLines = 0
@@ -57,7 +65,10 @@ class HomeViewController: ParentViewController {
         super.viewWillAppear(animated)
         
         lblUserName.text = "@"+objSing.strUserName.lowercased()
-        lblDescription.text = objSing.strUserBio
+        
+        //lblDescription.text = objSing.strUserBio
+        btnDesc.setTitle(objSing.strUserBio, for: .normal)
+        btnDesc.titleLabel?.textAlignment = .center
         
         //
         //Top Cube View
@@ -106,12 +117,23 @@ class HomeViewController: ParentViewController {
         transformView?.setScroll(CGPoint.init(x: 0, y: h/2), end: CGPoint.init(x: 85, y: h/2))
         transformView?.setScroll(CGPoint.init(x: w/2, y: 0), end: CGPoint.init(x: w/2, y: 10))
         
+        MyStoryBUtton()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    //MARK:- UI
+    
+    func MyStoryBUtton() {
+        btnMyStory.frame = CGRect.init(x: uvTopCube.frame.midX-25, y: uvTopCube.frame.maxY-21, width: 50, height: 42)
+        btnMyStory.setImage(#imageLiteral(resourceName: "mystory"), for: .normal)
+        self.view.addSubview(btnMyStory)
+    }
+    
+    //MARK:- Action Methods
     
     @IBAction func EditProfile(_ sender: Any) {
         let mvc = EditProfileViewController()
@@ -122,21 +144,18 @@ class HomeViewController: ParentViewController {
         LogoutClicked()
     }
     
-    @IBAction func btnTappedMyPhotos(_ sender: UIButton) {
-        let mainStoryboard: UIStoryboard = UIStoryboard(name: "PhotoAlbum", bundle: nil)
-        if let viewController = mainStoryboard.instantiateViewController(withIdentifier: "PhotoLibraryViewController") as? PhotoLibraryViewController {
-            self.navigationController?.pushViewController(viewController, animated: true)
-        }
+    func MyStoryClicked(sender: UIButton) {
+        
+        let storyboard = UIStoryboard(name: Storyboards.storyStoryboard.rawValue, bundle: nil)
+        let homeVC: StoriesViewController = storyboard.instantiateViewController(withIdentifier: "StoriesViewController") as! StoriesViewController
+        homeVC.screenType = .myStories
+        self.navigationController?.pushViewController(homeVC, animated: true)
+        
     }
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
+    func DescriptionClicked(sender: UIButton) {
+        
+    }
+    
     
 }

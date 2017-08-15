@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LikeCommetFooter" customModule="Turnstr" customModuleProvider="target">
+            <connections>
+                <outlet property="btnComment" destination="f4Y-Bx-Nbr" id="4pU-3e-i62"/>
+                <outlet property="btnLike" destination="aj4-jC-crJ" id="bOf-TW-2IV"/>
+                <outlet property="btnShare" destination="seQ-rP-Qvy" id="gAN-Zh-Y61"/>
+                <outlet property="btnTotalComment" destination="83G-uh-OV6" id="kjO-y6-Axu"/>
+                <outlet property="btnTotalLike" destination="s6k-x0-8vB" id="YQU-ot-xWl"/>
+                <outlet property="lblCaption" destination="Vkl-QY-DZF" id="c51-E6-m4E"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="159"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tkY-wJ-Jcg">
+                    <rect key="frame" x="0.0" y="59" width="375" height="50"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="hi7-lg-NAF">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s6k-x0-8vB">
+                                    <rect key="frame" x="0.0" y="0.0" width="187.5" height="50"/>
+                                    <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <state key="normal" title="1.8K">
+                                        <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="83G-uh-OV6">
+                                    <rect key="frame" x="187.5" y="0.0" width="187.5" height="50"/>
+                                    <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
+                                    <state key="normal" title="413 comments">
+                                        <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                </button>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="hi7-lg-NAF" firstAttribute="leading" secondItem="tkY-wJ-Jcg" secondAttribute="leading" id="KNE-Y0-eMl"/>
+                        <constraint firstAttribute="bottom" secondItem="hi7-lg-NAF" secondAttribute="bottom" id="Z5b-u0-Qy8"/>
+                        <constraint firstAttribute="trailing" secondItem="hi7-lg-NAF" secondAttribute="trailing" id="dxR-KQ-uN8"/>
+                        <constraint firstAttribute="height" constant="50" id="h36-Q5-q9G"/>
+                        <constraint firstItem="hi7-lg-NAF" firstAttribute="top" secondItem="tkY-wJ-Jcg" secondAttribute="top" id="xeO-dr-3Sf"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hXQ-D0-7dj" customClass="view" customModule="Turnstr" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="109" width="375" height="50"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="YLv-ef-u4b">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aj4-jC-crJ">
+                                    <rect key="frame" x="0.0" y="0.0" width="125" height="50"/>
+                                    <inset key="contentEdgeInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <inset key="imageEdgeInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <state key="normal" title="Like" image="ic_like">
+                                        <color key="titleColor" red="1" green="0.60784313729999995" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                    <state key="selected" title="Liked" image="ic_like_active"/>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f4Y-Bx-Nbr">
+                                    <rect key="frame" x="125" y="0.0" width="125" height="50"/>
+                                    <inset key="imageEdgeInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <state key="normal" title="Comment" image="ic_coment">
+                                        <color key="titleColor" red="1" green="0.60784313729999995" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="seQ-rP-Qvy">
+                                    <rect key="frame" x="250" y="0.0" width="125" height="50"/>
+                                    <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
+                                    <state key="normal" title="Share" image="ic_share">
+                                        <color key="titleColor" red="1" green="0.60784313729999995" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                </button>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="YLv-ef-u4b" firstAttribute="leading" secondItem="hXQ-D0-7dj" secondAttribute="leading" id="3Ic-aG-Nzz"/>
+                        <constraint firstItem="YLv-ef-u4b" firstAttribute="top" secondItem="hXQ-D0-7dj" secondAttribute="top" id="AP1-9Q-wcI"/>
+                        <constraint firstAttribute="height" constant="50" id="YGW-te-Gxh"/>
+                        <constraint firstAttribute="trailing" secondItem="YLv-ef-u4b" secondAttribute="trailing" id="tnJ-3A-7Hj"/>
+                        <constraint firstAttribute="bottom" secondItem="YLv-ef-u4b" secondAttribute="bottom" id="wxv-Iw-7YE"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="TopBorder">
+                            <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                            <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="BorderFULL" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vkl-QY-DZF">
+                    <rect key="frame" x="8" y="0.0" width="359" height="59"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="tkY-wJ-Jcg" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="0BV-2p-NnA"/>
+                <constraint firstItem="hXQ-D0-7dj" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="4CZ-Eq-vyy"/>
+                <constraint firstAttribute="trailing" secondItem="Vkl-QY-DZF" secondAttribute="trailing" constant="8" id="4ip-Yh-1YC"/>
+                <constraint firstItem="Vkl-QY-DZF" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="5zv-zB-N6z"/>
+                <constraint firstItem="tkY-wJ-Jcg" firstAttribute="top" secondItem="Vkl-QY-DZF" secondAttribute="bottom" id="Bfc-De-goJ"/>
+                <constraint firstAttribute="trailing" secondItem="tkY-wJ-Jcg" secondAttribute="trailing" id="WZV-YT-WXJ"/>
+                <constraint firstItem="Vkl-QY-DZF" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="aBj-0X-MNZ"/>
+                <constraint firstAttribute="bottom" secondItem="hXQ-D0-7dj" secondAttribute="bottom" id="e8G-dX-ZX7"/>
+                <constraint firstAttribute="trailing" secondItem="hXQ-D0-7dj" secondAttribute="trailing" id="pIb-Wb-JoT"/>
+                <constraint firstItem="hXQ-D0-7dj" firstAttribute="top" secondItem="tkY-wJ-Jcg" secondAttribute="bottom" id="qFL-yy-mZp"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="33.5" y="-225.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="ic_coment" width="24" height="23"/>
+        <image name="ic_like" width="25" height="22"/>
+        <image name="ic_like_active" width="23" height="20"/>
+        <image name="ic_share" width="22" height="16"/>
+    </resources>
+</document>

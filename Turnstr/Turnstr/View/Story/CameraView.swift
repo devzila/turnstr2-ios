@@ -19,7 +19,7 @@ protocol CameraViewDelegates {
     func CameraImageClicked(view: UIView, image: UIImage)
 }
 class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate {
-
+    
     var delegate: CameraViewDelegates?
     
     //var captureDevice : AVCaptureDevice?
@@ -48,7 +48,7 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     func cameraSetup(){
         cameraSession = AVCaptureSession()
         cameraSession?.sessionPreset = AVCaptureSessionPresetPhoto
@@ -160,57 +160,57 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate {
     }
     
     /*lazy var cameraSession: AVCaptureSession = {
-        let s = AVCaptureSession()
-        s.sessionPreset = AVCaptureSessionPresetMedium
-        return s
-    }()
-    
-    lazy var previewLayer: AVCaptureVideoPreviewLayer = {
-        let preview =  AVCaptureVideoPreviewLayer(session: self.cameraSession)
-        preview?.bounds = CGRect(x: 0, y: 0, width: self.bounds.width, height: self.bounds.height)
-        preview?.position = CGPoint(x: self.bounds.midX, y: self.bounds.midY)
-        preview?.videoGravity = AVLayerVideoGravityResize
-        return preview!
-    }()
-    
-    func setupCameraSession() {
-        captureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo) as AVCaptureDevice
-        
-        do {
-            let deviceInput = try AVCaptureDeviceInput(device: captureDevice)
-            
-            cameraSession.beginConfiguration()
-            
-            if (cameraSession.canAddInput(deviceInput) == true) {
-                cameraSession.addInput(deviceInput)
-            }
-            
-            let dataOutput = AVCaptureVideoDataOutput()
-            dataOutput.videoSettings = [(kCVPixelBufferPixelFormatTypeKey as NSString) : NSNumber(value: kCVPixelFormatType_420YpCbCr8BiPlanarFullRange as UInt32)]
-            dataOutput.alwaysDiscardsLateVideoFrames = true
-            
-            if (cameraSession.canAddOutput(dataOutput) == true) {
-                cameraSession.addOutput(dataOutput)
-            }
-            
-            cameraSession.commitConfiguration()
-            
-            let queue = DispatchQueue(label: "com.invasivecode.videoQueue")
-            dataOutput.setSampleBufferDelegate(self, queue: queue)
-            
-        }
-        catch let error as NSError {
-            NSLog("\(error), \(error.localizedDescription)")
-        }
-    }
-    
-    func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputSampleBuffer sampleBuffer: CMSampleBuffer!, from connection: AVCaptureConnection!) {
-        // Here you collect each frame and process it
-    }
-    
-    func captureOutput(_ captureOutput: AVCaptureOutput!, didDrop sampleBuffer: CMSampleBuffer!, from connection: AVCaptureConnection!) {
-        // Here you can count how many frames are dopped
-    }*/
+     let s = AVCaptureSession()
+     s.sessionPreset = AVCaptureSessionPresetMedium
+     return s
+     }()
+     
+     lazy var previewLayer: AVCaptureVideoPreviewLayer = {
+     let preview =  AVCaptureVideoPreviewLayer(session: self.cameraSession)
+     preview?.bounds = CGRect(x: 0, y: 0, width: self.bounds.width, height: self.bounds.height)
+     preview?.position = CGPoint(x: self.bounds.midX, y: self.bounds.midY)
+     preview?.videoGravity = AVLayerVideoGravityResize
+     return preview!
+     }()
+     
+     func setupCameraSession() {
+     captureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo) as AVCaptureDevice
+     
+     do {
+     let deviceInput = try AVCaptureDeviceInput(device: captureDevice)
+     
+     cameraSession.beginConfiguration()
+     
+     if (cameraSession.canAddInput(deviceInput) == true) {
+     cameraSession.addInput(deviceInput)
+     }
+     
+     let dataOutput = AVCaptureVideoDataOutput()
+     dataOutput.videoSettings = [(kCVPixelBufferPixelFormatTypeKey as NSString) : NSNumber(value: kCVPixelFormatType_420YpCbCr8BiPlanarFullRange as UInt32)]
+     dataOutput.alwaysDiscardsLateVideoFrames = true
+     
+     if (cameraSession.canAddOutput(dataOutput) == true) {
+     cameraSession.addOutput(dataOutput)
+     }
+     
+     cameraSession.commitConfiguration()
+     
+     let queue = DispatchQueue(label: "com.invasivecode.videoQueue")
+     dataOutput.setSampleBufferDelegate(self, queue: queue)
+     
+     }
+     catch let error as NSError {
+     NSLog("\(error), \(error.localizedDescription)")
+     }
+     }
+     
+     func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputSampleBuffer sampleBuffer: CMSampleBuffer!, from connection: AVCaptureConnection!) {
+     // Here you collect each frame and process it
+     }
+     
+     func captureOutput(_ captureOutput: AVCaptureOutput!, didDrop sampleBuffer: CMSampleBuffer!, from connection: AVCaptureConnection!) {
+     // Here you can count how many frames are dopped
+     }*/
     
     //MARK:- Buttons
     func CameraScreenButtons() -> Void {
@@ -227,7 +227,7 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate {
         
         
     }
-
+    
     func StopSession() -> Void {
         cameraSession?.stopRunning()
     }

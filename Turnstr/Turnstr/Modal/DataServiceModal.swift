@@ -52,6 +52,13 @@ class DataServiceModal: NSObject {
             strRequest = String(format: "{\"user_id\":\"%@\", \"access_token\":\"%@\"}", dictAction["user_id"] as! String, dictAction["access_token"] as! String)
             strPostUrl = kAPIFacebookLogin
         }
+        else if action == kAPILikeStory {
+            
+            strRequest = ""
+            strPostUrl = String(format: "stories/%d/likes", dictAction["id"] as! Int)
+            strParType = ""
+        }
+        
         
         
         print("API Request")
@@ -81,6 +88,24 @@ class DataServiceModal: NSObject {
             
             strRequest = String(format: "?page=%d", dictAction["page"] as! Int)
             strPostUrl = kAPIGetAllStories
+            strParType = ""
+        }
+        else if action == kAPIGetStories {
+            
+            strRequest = String(format: "?page=%d", dictAction["page"] as! Int)
+            strPostUrl = kAPIGetStories
+            strParType = ""
+        }
+        else if action == kAPIGetSpecificStory {
+            
+            strRequest = String(format: "%d", dictAction["id"] as! Int)
+            strPostUrl = kAPIGetSpecificStory
+            strParType = ""
+        }
+        else if action == kAPIGetStoriesComments {
+            
+            strRequest = String(format: "%d/comments", dictAction["id"] as! Int)
+            strPostUrl = "stories/"
             strParType = ""
         }
         
@@ -116,6 +141,12 @@ class DataServiceModal: NSObject {
             strPostUrl = kAPIPOSTStories
             
         }
+        else if action == kAPIGetStoriesComments {
+            
+            dictRequest = dictAction as! [String : String]
+            strPostUrl = String(format: "stories/%@/comments", dictAction["id"] as! String)
+            strParType = ""
+        }
         
         
         let dictResponse = WebServices.sharedInstance.uploadMedia(PostURL: strPostUrl, strData: dictRequest, parType: strParType, arrImages: arrImages)
@@ -123,7 +154,24 @@ class DataServiceModal: NSObject {
         
         return self.validateData(response: dictResponse)
     }
-
+    
+    func createNewStory(dictAction:NSDictionary, arrImages: [NewStoryMedia]) -> Dictionary<String,AnyObject>  {
+        self.allSharedInstance()
+        
+        
+        
+        var dictRequest: Dictionary = [String: String]()
+        var strPostUrl = ""
+        
+        dictRequest = dictAction as! [String : String]
+        strPostUrl = kAPIPOSTStories
+        
+        
+        let dictResponse = WebServices.sharedInstance.CreateNewStory(PostURL: strPostUrl, strData: dictRequest, arrImages: arrImages)
+        print(dictResponse)
+        
+        return self.validateData(response: dictResponse)
+    }
     
     //MARK:- Shared Instance
     
@@ -273,11 +321,11 @@ class DataServiceModal: NSObject {
             let data = objUtil?.getDictFromDefaults(key: kUDLoginData)
             
             if (data?.count)! > 0 {
-//                if let sessionId = data?["auth_token"] {
-                    objSingl?.strUserSessionId = "\(session!)"
-                    print(objSingl?.strUserSessionId ?? "")
-//                    
-//                }
+                //                if let sessionId = data?["auth_token"] {
+                objSingl?.strUserSessionId = "\(session!)"
+                print(objSingl?.strUserSessionId ?? "")
+                //
+                //                }
                 
                 if let objUser = data?["user"] as? Dictionary<String, Any> {
                     
