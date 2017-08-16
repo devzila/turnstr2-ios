@@ -10,7 +10,7 @@ import UIKit
 import SendBirdSDK
 
 class ChatBudsVC: UIViewController {
-
+    
     @IBOutlet weak var tableView: UITableView?
     
     lazy var chatbuds = [SBDGroupChannel]()
@@ -18,7 +18,7 @@ class ChatBudsVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         initDataSource()
         // Do any additional setup after loading the view.
     }
@@ -27,7 +27,7 @@ class ChatBudsVC: UIViewController {
         super.viewWillAppear(animated)
         apiListChatBuds()
     }
-
+    
     
     //MARK: ------ Custom Methods
     func initDataSource() {
@@ -45,7 +45,7 @@ class ChatBudsVC: UIViewController {
     }
     
     func updateCell(_ cell: UITableViewCell, _ indexpath: IndexPath) {
-        if let groupCell = cell as? ParentChatCell {
+        if let groupCell = cell as? ChannelCell {
             let channel = self.chatbuds[indexpath.row]
             groupCell.updateBudCell(channel)
         }
@@ -53,6 +53,9 @@ class ChatBudsVC: UIViewController {
     
     func didSelectCellAt(_ indexPath: IndexPath) {
         KBLog.log(message: "chat bud -- > ", object: chatbuds[indexPath.row])
+        guard let vc = Storyboards.chatStoryboard.initialVC(with: .chatVC) as? ChatVC else { return }
+        vc.channel = chatbuds[indexPath.row]
+        topVC?.navigationController?.pushViewController(vc, animated: true)
     }
     
     //MARK: ------ API Methods

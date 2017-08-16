@@ -11,17 +11,20 @@ import GrowingTextView
 import SendBirdSDK
 
 class ChatParentVC: UIViewController {
-
+    
     @IBOutlet weak var tableView: UITableView?
     @IBOutlet weak var inputBar: UIView?
     @IBOutlet weak var heightInputBarConstraint: NSLayoutConstraint?
+    @IBOutlet weak var bottomConstraintTableView: NSLayoutConstraint?
     @IBOutlet weak var txvInput: GrowingTextView?
     @IBOutlet weak var btnSend: UIButton?
     @IBOutlet weak var widthConstraint: NSLayoutConstraint?
     
+    var inputBarHeight: CGFloat = 60.0
+    
     override var inputAccessoryView: UIView? {
         get {
-            self.inputBar?.frame.size.height = 60
+            self.inputBar?.frame.size.height = inputBarHeight
             self.inputBar?.clipsToBounds = true
             return self.inputBar
         }
@@ -32,7 +35,7 @@ class ChatParentVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         heightInputBarConstraint?.constant = txvInput?.minHeight ?? 50
         automaticallyAdjustsScrollViewInsets = false
         // Do any additional setup after loading the view.
@@ -70,8 +73,9 @@ class ChatParentVC: UIViewController {
     func showKeyboard(notification: Notification) {
         if let frame = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue {
             let height = frame.cgRectValue.height
-            tableView?.scrollIndicatorInsets.bottom = height
-            tableView?.contentInset.bottom = height
+            UIView.animate(withDuration: 0.35, animations: { [weak self] in
+                self?.bottomConstraintTableView?.constant = height + (self?.inputBarHeight ?? 66)
+            })
         }
     }
     
@@ -81,13 +85,14 @@ class ChatParentVC: UIViewController {
             sendTextMessage(txvInput?.text)
         }
     }
-
+    
 }
 
 extension ChatParentVC: GrowingTextViewDelegate {
     
     func textViewDidChangeHeight(_ textView: GrowingTextView, height: CGFloat) {
-        heightInputBarConstraint?.constant = height + 16
+//        heightInputBarConstraint?.constant = height + 16
+//        bottomConstraintTableView?.constant = inputBarHeight
         UIView.animate(withDuration: 0.3) { [weak self] in
             self?.view.layoutIfNeeded()
         }

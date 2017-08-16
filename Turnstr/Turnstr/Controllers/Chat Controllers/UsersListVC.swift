@@ -10,7 +10,7 @@ import UIKit
 import SendBirdSDK
 
 class UsersListVC: ParentViewController {
-
+    
     var dataSource: TableViewDataSources?
     lazy var users: [User] = [User]()
     
@@ -18,7 +18,7 @@ class UsersListVC: ParentViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         initDataSource()
         apiListUsers()
         // Do any additional setup after loading the view.
@@ -71,7 +71,7 @@ class UsersListVC: ParentViewController {
     
     //MARK: ------ API Methods
     func apiListUsers()  {
-        let response = WebServices.sharedInstance.GetMethodServerData(strRequest: "members", GetURL: "", parType: "")
+        let response = WebServices.sharedInstance.GetMethodServerData(strRequest: "members?page=2", GetURL: "", parType: "")
         let objData = objDataS.validateData(response: response)
         if let followers = objData["members"] as? [AnyObject] {
             for obj in followers {

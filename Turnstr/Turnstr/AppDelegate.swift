@@ -147,13 +147,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 extension AppDelegate {
-    
-    
     func connectSendBirdSession() {
         if isLoggedIn == true, let id = loginUser.id {
-            SBDMain.connect(withUserId: id, completionHandler: { (user, error) in
+            SBDMain.connect(withUserId: id, completionHandler: {[weak self] (user, error) in
                 if error == nil {
-                    KBLog.log(message: "Send bird login user", object: user)
+                    SBDMain.updateCurrentUserInfo(withNickname: self?.loginUser.name, profileUrl: self?.loginUser.cubeUrls.first?.absoluteString, completionHandler: { (error) in
+                        if error != nil {
+                            KBLog.log(message: "Error in saving user info ", object: error)
+                        }
+                    })
                 }
                 else {
                     KBLog.log(message: "Error in Send bird login user", object: user)

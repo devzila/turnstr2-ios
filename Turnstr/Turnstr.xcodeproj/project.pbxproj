@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1861D9C11F44C0C2009E80D7 /* ChatDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1861D9C01F44C0C2009E80D7 /* ChatDataSource.swift */; };
+		1861D9C51F44C5EC009E80D7 /* ReceiverCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1861D9C41F44C5EC009E80D7 /* ReceiverCell.xib */; };
+		1861D9C71F44C610009E80D7 /* SenderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1861D9C61F44C610009E80D7 /* SenderCell.xib */; };
 		7E2C2DFC1F26757A0055D309 /* CommentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E2C2DFA1F26757A0055D309 /* CommentModel.swift */; };
 		7E2C2DFD1F26757A0055D309 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E2C2DFB1F26757A0055D309 /* UserModel.swift */; };
 		7E4E575A1F1FC16400FCD758 /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4E57561F1FC16400FCD758 /* CommentsViewController.swift */; };
@@ -160,6 +163,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1861D9C01F44C0C2009E80D7 /* ChatDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatDataSource.swift; sourceTree = "<group>"; };
+		1861D9C41F44C5EC009E80D7 /* ReceiverCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReceiverCell.xib; sourceTree = "<group>"; };
+		1861D9C61F44C610009E80D7 /* SenderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SenderCell.xib; sourceTree = "<group>"; };
 		1E49C4DB758F6E2256172E66 /* Pods_Turnstr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Turnstr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AC6FD96D7C11DE3F0F2CCC3 /* Pods-Turnstr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Turnstr.release.xcconfig"; path = "Pods/Target Support Files/Pods-Turnstr/Pods-Turnstr.release.xcconfig"; sourceTree = "<group>"; };
 		4C47722425C11F466B24548F /* Pods-Turnstr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Turnstr.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Turnstr/Pods-Turnstr.debug.xcconfig"; sourceTree = "<group>"; };
@@ -390,6 +396,7 @@
 				8A2630101F30EB9800F55C2B /* ChatBudsVC.swift */,
 				8A2630121F30EBAE00F55C2B /* UsersListVC.swift */,
 				8A26302C1F339A5200F55C2B /* ChatVC.swift */,
+				1861D9C01F44C0C2009E80D7 /* ChatDataSource.swift */,
 			);
 			path = "Chat Controllers";
 			sourceTree = "<group>";
@@ -408,7 +415,9 @@
 			children = (
 				8A26301C1F31044600F55C2B /* ParentChatCell.swift */,
 				8A26301E1F31045C00F55C2B /* SenderCell.swift */,
+				1861D9C61F44C610009E80D7 /* SenderCell.xib */,
 				8A2630201F31046A00F55C2B /* ReceiverCell.swift */,
+				1861D9C41F44C5EC009E80D7 /* ReceiverCell.xib */,
 				8A2630281F311D8000F55C2B /* ChannelCell.swift */,
 				8A2630291F311D8000F55C2B /* ChannelCell.xib */,
 			);
@@ -943,7 +952,7 @@
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = XXPSXL3JLY;
 						LastSwiftMigration = 0820;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -970,6 +979,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1861D9C51F44C5EC009E80D7 /* ReceiverCell.xib in Resources */,
 				8A26302B1F311D8000F55C2B /* ChannelCell.xib in Resources */,
 				D96B48EC1F146D7B00621B39 /* NewStoryPopUp.xib in Resources */,
 				D9FDE6601EC2586E009D5BE3 /* img4.png in Resources */,
@@ -993,6 +1003,7 @@
 				D90BF0631F0D7DF5003B5F4D /* StoriesTableViewCell.xib in Resources */,
 				D9FDE6611EC2586E009D5BE3 /* img5.png in Resources */,
 				D9FDE6581EC25821009D5BE3 /* img.png in Resources */,
+				1861D9C71F44C610009E80D7 /* SenderCell.xib in Resources */,
 				D9FDE65F1EC2586E009D5BE3 /* img3.png in Resources */,
 				8AEC2C871F169C23008DF3BB /* Main.storyboard in Resources */,
 				D957F3151F435DDA00307968 /* LikeCommetFooter.xib in Resources */,
@@ -1105,6 +1116,7 @@
 				7E4E575A1F1FC16400FCD758 /* CommentsViewController.swift in Sources */,
 				D96366661F035BD100784A58 /* UIButton+WebCache.m in Sources */,
 				D96366631F035BD100784A58 /* SDWebImageDownloaderOperation.m in Sources */,
+				1861D9C11F44C0C2009E80D7 /* ChatDataSource.swift in Sources */,
 				D9AC62DA1F0191100055ED3D /* UIWindowExtension.swift in Sources */,
 				D963663A1F03343900784A58 /* PickerView.swift in Sources */,
 				D91C3AFC1F001D78005F945C /* IQKeyboardManagerConstantsInternal.swift in Sources */,
@@ -1313,14 +1325,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = XXPSXL3JLY;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Turnstr/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.app.Turnstr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "31ea06d6-e30f-4113-a1d3-46291e8ec619";
-				PROVISIONING_PROFILE_SPECIFIER = Turnstr_dev;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Turnstr/Turnstr-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
