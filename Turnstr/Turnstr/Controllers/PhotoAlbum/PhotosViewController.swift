@@ -19,6 +19,9 @@ class PhotosViewController: ParentViewController, UICollectionViewDataSource, UI
     var photoAlbum: PhotoAlbum?
     var isFromPublicPhoto = true
     
+    var isLoadNext = false
+    var pageNumber = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,15 +36,7 @@ class PhotosViewController: ParentViewController, UICollectionViewDataSource, UI
         objNav.btnRightMenu.isHidden = true
         //objNav.btnBack.addTarget(self, action: #selector(goBack), for: .touchUpInside)
         if isFromPublicPhoto {
-            kAppDelegate.loadingIndicationCreationMSG(msg: "Loading...")
-            getAllPublicPhotos() { (response) in
-                if let photosArray = response?.response {
-                    print(photosArray)
-                    self.arrPhotos = photosArray
-                    self.lblNoPhotos.isHidden = self.arrPhotos.count > 0
-                    self.collViewPhotos.reloadData()
-                }
-            }
+            getAllPhotos(page: pageNumber)
         } else {
             kAppDelegate.loadingIndicationCreationMSG(msg: "Loading...")
             getAlbumPhotos(id: (photoAlbum?.id)!) { (response) in
@@ -54,6 +49,27 @@ class PhotosViewController: ParentViewController, UICollectionViewDataSource, UI
             }
         }
         
+    }
+    
+    func getAllPhotos(page: Int) {
+        
+        kAppDelegate.loadingIndicationCreationMSG(msg: "Loading...")
+        getAllPublicPhotos(page: page) { (response, dict) in
+            if let photosArray = response?.response {
+                print(photosArray)
+                
+                for object in photosArray {
+                    self.arrPhotos.append(object)
+                }
+                
+                if let _ = dict["next_page"] as? Int {
+                    self.isLoadNext = true
+                }
+                
+                self.lblNoPhotos.isHidden = self.arrPhotos.count > 0
+                self.collViewPhotos.reloadData()
+            }
+        }
     }
 }
 
@@ -85,6 +101,13 @@ extension PhotosViewController {
         // Set collectionview cell size
         let photoCellSize = (self.view.bounds.size.width - 3)/4
         return CGSize(width: photoCellSize, height: photoCellSize)
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row == arrPhotos.count - 1, isLoadNext {
+            pageNumber = pageNumber+1
+            self.getAllPhotos(page: pageNumber)
+        }
     }
     
     

@@ -213,4 +213,23 @@ class ParentViewController: UIViewController, PickerDelegate, CustomAlertViewDel
         alertView1.close()
     }
     
+    func getUserId() -> Int? {
+        let session = objUtil.getUserStringFOrKey(key: kUDSessionData)
+        
+        if session.isEmpty == false {
+            let data = objUtil.getDictFromDefaults(key: kUDLoginData)
+            
+            if (data.count) > 0 {
+                
+                if let objUser = data["user"] as? Dictionary<String, Any> {
+                    
+                    if let str = objUser["id"] as? Int {
+                        return str
+                    }
+                }
+            }
+        }
+        return nil
+    }
+    
 }

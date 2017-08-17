@@ -15,9 +15,12 @@ class PhotoDetailViewController: ParentViewController, UICollectionViewDelegate,
     
     @IBOutlet weak var collViewPhotoDetail: UICollectionView!
     var objPhotos: [Photos]?
+    var photoDetail: Photos?
     var selectedIndex: Int?
     var albumId: Int?
     var isFromPublicPhoto: Bool?
+    @IBOutlet weak var viewUserDetail: UIView!
+    @IBOutlet weak var lblUserName: UILabel!
     
     @IBOutlet weak var btnLike: UIButton!
     @IBOutlet weak var lblLikeCount: UILabel!
@@ -30,7 +33,11 @@ class PhotoDetailViewController: ParentViewController, UICollectionViewDelegate,
         LoadNavBar()
         objNav.btnRightMenu.isHidden = true
         objNav.btnBack.addTarget(self, action: #selector(goBack), for: .touchUpInside)
-        
+        if let isLib = isFromPublicPhoto, isLib == true {
+            viewUserDetail.isHidden = false
+        } else {
+            viewUserDetail.isHidden = true
+        }
         if let photos = objPhotos {
             if selectedIndex != nil {
                 //kAppDelegate.loadingIndicationCreationMSG(msg: "Loading...")
@@ -38,6 +45,8 @@ class PhotoDetailViewController: ParentViewController, UICollectionViewDelegate,
                 if let isPublic = isFromPublicPhoto {
                     getPhotoDetail(idAlbum: albumId, idPhoto: photo.id!, isPublic: isPublic, withHandler: { (response) in
                         if let photoDetail = response?.response {
+                            self.photoDetail = photoDetail
+                            self.setupUserDetails()
                             self.lblLikeCount.text = (photoDetail.likes_count ?? 0) > 0 ? "\(photoDetail.likes_count ?? 0) Likes" : "\(photoDetail.likes_count ?? 0) Like"
                             self.lblCommentCount.text = (photoDetail.comments_count ?? 0) > 0 ? "\(photoDetail.comments_count ?? 0) Comments" : "\(photoDetail.comments_count ?? 0) Comment"
                             if let liked = photoDetail.has_liked, liked == 1 {
@@ -50,6 +59,18 @@ class PhotoDetailViewController: ParentViewController, UICollectionViewDelegate,
                 }
             }
         }
+    }
+    
+    func setupUserDetails() {
+        lblUserName.text = self.photoDetail?.user?.username == nil ? "@" + (self.photoDetail?.user?.first_name)! : "@" + (self.photoDetail?.user?.username)!
+        let cube = AITransformView.init(frame: CGRect.init(x: (viewUserDetail.frame.size.height - 43)/2, y: (viewUserDetail.frame.size.height - 48)/2, width: 48, height: 48), cube_size: 30)
+        cube?.backgroundColor = UIColor.clear
+        cube?.isUserInteractionEnabled = false
+        let arrFaces = [self.photoDetail?.user?.avatar_face1 ?? "thumb", self.photoDetail?.user?.avatar_face2 ?? "thumb", self.photoDetail?.user?.avatar_face3 ?? "thumb", self.photoDetail?.user?.avatar_face4 ?? "thumb", self.photoDetail?.user?.avatar_face5 ?? "thumb", self.photoDetail?.user?.avatar_face6 ?? "thumb"]
+        cube?.setup(withUrls: arrFaces)
+        viewUserDetail.addSubview(cube!)
+        cube?.setScroll(CGPoint.init(x: 0, y: 30/2), end: CGPoint.init(x: 20, y: 30/2))
+        cube?.setScroll(CGPoint.init(x: 30/2, y: 0), end: CGPoint.init(x: 30/2, y: 10))
     }
     
     override func viewDidLayoutSubviews() {
@@ -89,6 +110,12 @@ class PhotoDetailViewController: ParentViewController, UICollectionViewDelegate,
             }
         }
     }
+    @IBAction func publicProfileViewTapped(_ sender: UITapGestureRecognizer) {
+        if photoDetail != nil {
+            //performSegue(withIdentifier: "showProfile", sender: self)
+            performSegue(withIdentifier: "showPublicProfile", sender: self)
+        }
+    }
     
     @IBAction func btnTappedComment(_ sender: Any) {
         if let photos = objPhotos {
@@ -126,7 +153,14 @@ class PhotoDetailViewController: ParentViewController, UICollectionViewDelegate,
         // Pass the selected object to the new view controller.
         if segue.identifier == "commentViewSegue" {
             if let vc = segue.destination as? CommentsViewController {
-                vc.objPhoto = (sender as? Photos) ?? nil
+                vc.objPhoto = self.photoDetail ?? nil//(sender as? Photos) ?? nil
+            }
+        }
+        if segue.identifier == "showPublicProfile" {
+            if let vc = segue.destination as? PublicProfileCollectionViewController {
+                vc.profileDetail = photoDetail?.user ?? nil
+                vc.profileId = photoDetail?.user?.id ?? nil
+                vc.isFromFeeds = false
             }
         }
     }
@@ -179,6 +213,8 @@ extension PhotoDetailViewController {
                 if let isPublic = isFromPublicPhoto {
                     getPhotoDetail(idAlbum: albumId, idPhoto: photo.id!, isPublic: isPublic, withHandler: { (response) in
                         if let photoDetail = response?.response {
+                            self.photoDetail = photoDetail
+                            self.setupUserDetails()
                             self.updateLikeCommentCount(photoDetail: photoDetail)
                         }
                     })

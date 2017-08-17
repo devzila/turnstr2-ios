@@ -31,6 +31,12 @@ struct KSResponse<T>: Mappable {
         case is CommentModel.Type: response = Mapper<CommentModel>().map(JSONObject: map["comment"].currentValue) as? T
         case is Array<CommentModel>.Type: response = Mapper<CommentModel>().mapArray(JSONObject: map["comment"].currentValue) as? T
             
+        case is UserModel.Type: response = Mapper<UserModel>().map(JSONObject: map["user"].currentValue) as? T
+        case is Array<UserModel>.Type: response = Mapper<UserModel>().mapArray(JSONObject: map["user"].currentValue) as? T
+            
+        case is StoryModel.Type: response = Mapper<StoryModel>().map(JSONObject: map["stories"].currentValue) as? T
+        case is Array<StoryModel>.Type: response = Mapper<StoryModel>().mapArray(JSONObject: map["stories"].currentValue) as? T
+            
         default: response <- map["data"]
         }
     }

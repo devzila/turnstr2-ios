@@ -12,6 +12,11 @@ protocol ServiceUtility {
     
 }
 
+enum FavouriteType: String {
+    case delete = "DELETE"
+    case post = "POST"
+}
+
 extension ServiceUtility {
     
     func photoAlbum(withHandler handler: @escaping (_ response: KSResponse<[PhotoAlbum]>?) -> Void) {
@@ -85,10 +90,10 @@ extension ServiceUtility {
         }
     }
     
-    func getAllPublicPhotos(withHandler handler: @escaping (_ response: KSResponse<[Photos]>?) -> Void) {
+    func getAllPublicPhotos(page: Int, withHandler handler: @escaping (_ response: KSResponse<[Photos]>?, _ dict: Dictionary<String, Any>) -> Void) {
         checkNetworkConnection()
         DispatchQueue.global().async {
-            let strRequest = ""
+            let strRequest = String(format: "?page=%d", page)
             let strPostUrl = kAPIGetAllPhotos
             let strParType = ""
             
@@ -100,7 +105,7 @@ extension ServiceUtility {
                     if let dictPhoto = dictResponse["data"]?["data"] as? [String: AnyObject] {
                         let dictMapper = ["statusCode": statusCode, "photos": dictPhoto["photos"] ?? ""] as [String : Any]
                         let ksResponse = KSResponse<[Photos]>(JSON: dictMapper)
-                        handler(ksResponse)
+                        handler(ksResponse, dictPhoto)
                     }
                 } else {
                     self.validateResponseData(response: dictResponse)
@@ -167,10 +172,10 @@ extension ServiceUtility {
         }
     }
     
-    func getPhotoComment(id: Int, withHandler handler: @escaping (_ response: KSResponse<[CommentModel]>?) -> Void) {
+    func getPhotoComment(id: Int, page: Int, withHandler handler: @escaping (_ response: KSResponse<[CommentModel]>?, _ dict: Dictionary<String, Any>) -> Void) {
         checkNetworkConnection()
         DispatchQueue.global().async {
-            let strRequest = ""
+            let strRequest = String(format: "?page=%d", page)
             let strPostUrl = kAPIPhotoDetail + "/\(id)/comments"
             let strParType = ""
             
@@ -182,7 +187,7 @@ extension ServiceUtility {
                     if let dictComments = dictResponse["data"]?["data"] as? [String: AnyObject] {
                         let dictMapper = ["statusCode": statusCode, "comment": dictComments["comments"] ?? ""] as [String : Any]
                         let ksResponse = KSResponse<[CommentModel]>(JSON: dictMapper)
-                        handler(ksResponse)
+                        handler(ksResponse, dictComments)
                     }
                 } else {
                     self.validateResponseData(response: dictResponse)
@@ -211,6 +216,121 @@ extension ServiceUtility {
         }
     }
     
+    func followUnFollowUser(id: Int, type: String, withHandler handler: @escaping (_ response: Dictionary<String, Any>) -> Void) {
+        checkNetworkConnection()
+        DispatchQueue.global().async {
+            let strPutUrl = kAPIFollowUnfollowUser + "/\(id)/\(type)"
+            
+            let dictResponse = WebServices.sharedInstance.putPostMultipartDataToServer(PutPostURL: strPutUrl, type: "POST", strData: ["":""], parType: "")
+            print(dictResponse)
+            DispatchQueue.main.async {
+                if let statusCode = dictResponse["statusCode"] as? Int, statusCode == 200 {
+                    kAppDelegate.hideLoadingIndicator()
+                    if let dictlike = dictResponse["data"] as? [String: Any] {
+                        handler(dictlike)
+                    }
+                } else {
+                    self.validateResponseData(response: dictResponse)
+                }
+            }
+        }
+    }
+    
+    func getMemberDetails(id: Int, withHandler handler: @escaping (_ response: KSResponse<UserModel>?) -> Void) {
+        checkNetworkConnection()
+        DispatchQueue.global().async {
+            let strRequest = ""
+            let strPostUrl = kAPIFollowUnfollowUser + "/\(id)"
+            let strParType = ""
+            
+            let dictResponse = WebServices.sharedInstance.GetMethodServerData(strRequest: strRequest, GetURL: strPostUrl, parType: strParType)
+            print(dictResponse)
+            DispatchQueue.main.async {
+                if let statusCode = dictResponse["statusCode"] as? Int, statusCode == 200 {
+                    kAppDelegate.hideLoadingIndicator()
+                    if let dictPhoto = dictResponse["data"]?["data"] as? [String: AnyObject] {
+                        let dictMapper = ["statusCode": statusCode, "user": dictPhoto["member"] ?? ""] as [String : Any]
+                        let ksResponse = KSResponse<UserModel>(JSON: dictMapper)
+                        handler(ksResponse)
+                    }
+                } else {
+                    self.validateResponseData(response: dictResponse)
+                }
+            }
+            
+        }
+    }
+    
+    func getFave5(id: Int, page: Int, withHandler handler: @escaping (_ response: KSResponse<[UserModel]>?, _ dict: Dictionary<String, Any>) -> Void) {
+        checkNetworkConnection()
+        DispatchQueue.global().async {
+            let strRequest = String(format: "?page=%d", page)
+            let strPostUrl = kAPIFollowUnfollowUser + "/\(id)/favourites"
+            let strParType = ""
+            
+            let dictResponse = WebServices.sharedInstance.GetMethodServerData(strRequest: strRequest, GetURL: strPostUrl, parType: strParType)
+            print(dictResponse)
+            DispatchQueue.main.async {
+                if let statusCode = dictResponse["statusCode"] as? Int, statusCode == 200 {
+                    kAppDelegate.hideLoadingIndicator()
+                    if let dictComments = dictResponse["data"]?["data"] as? [String: AnyObject] {
+                        let dictMapper = ["statusCode": statusCode, "user": dictComments["favourites"] ?? ""] as [String : Any]
+                        let ksResponse = KSResponse<[UserModel]>(JSON: dictMapper)
+                        handler(ksResponse, dictComments)
+                    }
+                } else {
+                    self.validateResponseData(response: dictResponse)
+                }
+            }
+        }
+    }
+    
+    func addDeleteFave5(id: Int, type: FavouriteType, withHandler handler: @escaping (_ response: Dictionary<String, Any>) -> Void) {
+        checkNetworkConnection()
+        DispatchQueue.global().async {
+            let strPutUrl = kAPIFollowUnfollowUser + "/\(id)/favourites"
+            
+            let dictResponse = WebServices.sharedInstance.putPostMultipartDataToServer(PutPostURL: strPutUrl, type: type.rawValue, strData: ["":""], parType: "")
+            print(dictResponse)
+            DispatchQueue.main.async {
+                if let statusCode = dictResponse["statusCode"] as? Int, statusCode == 200 {
+                    kAppDelegate.hideLoadingIndicator()
+                    if let dictlike = dictResponse["data"] as? [String: Any] {
+                        handler(dictlike)
+                    }
+                } else {
+                    self.validateResponseData(response: dictResponse)
+                }
+            }
+        }
+    }
+    
+    func getSpecificUserStories(id: Int, page: Int, isAllStories: Bool, withHandler handler: @escaping (_ response: KSResponse<[StoryModel]>?, _ dict: Dictionary<String, Any>) -> Void) {
+        checkNetworkConnection()
+        DispatchQueue.global().async {
+            let strRequest = String(format: "?page=%d", page)
+            let strPostUrl = isAllStories ? kAPIGetAllStories :kAPIFollowUnfollowUser + "/\(id)/stories"
+            let strParType = ""
+            
+            let dictResponse = WebServices.sharedInstance.GetMethodServerData(strRequest: strRequest, GetURL: strPostUrl, parType: strParType)
+            print(dictResponse)
+            DispatchQueue.main.async {
+                if let statusCode = dictResponse["statusCode"] as? Int, statusCode == 200 {
+                    kAppDelegate.hideLoadingIndicator()
+                    if let dictComments = dictResponse["data"]?["data"] as? [String: AnyObject] {
+                        let dictMapper = ["statusCode": statusCode, "stories": dictComments["stories"] ?? ""] as [String : Any]
+                        let ksResponse = KSResponse<[StoryModel]>(JSON: dictMapper)
+                        handler(ksResponse, dictComments)
+                    }
+                } else {
+                    self.validateResponseData(response: dictResponse)
+                }
+            }
+        }
+    }
+
+    
+    // MARK: - Validate service response
     func validateResponseData(response: [String: AnyObject]) {
         if let dataVal = response["data"] {
             if Utility.sharedInstance.isStrEmpty(str: String.init(format: "%@", dataVal as! CVarArg)) == false {

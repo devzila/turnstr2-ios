@@ -31,6 +31,8 @@ let kAPIUserPhotoUpload = "user/photos"
 let kAPIPhotoDetail = "photos"
 let kAPIGetAllPhotos = "photos"
 let kAPIGetSpecificStory = "stories/"
+let kAPIFollowUnfollowUser = "members"
+
 
 let kAPILikeStory = "stories/<story-id>/likes"
 let kAPIGetStoriesComments = "stories/<story-id>/comments"

@@ -29,6 +29,8 @@ struct Photos: Mappable {
     
     var likes_count: Int?
     
+    var user: UserModel?
+    
     init() {
     }
     
@@ -44,6 +46,8 @@ struct Photos: Mappable {
         has_liked <- map["has_liked"]
         comments_count <- map["comments_count"]
         likes_count <- map["likes_count"]
+        user <- map["user"]
+        
     }
     
     func encodeToJSON() -> [String : Any] {
