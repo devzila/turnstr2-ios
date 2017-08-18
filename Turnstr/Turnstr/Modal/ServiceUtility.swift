@@ -305,6 +305,26 @@ extension ServiceUtility {
         }
     }
     
+    func addUserAsFamily(id: Int, withHandler handler: @escaping (_ response: Dictionary<String, Any>) -> Void) {
+        checkNetworkConnection()
+        DispatchQueue.global().async {
+            let strPutUrl = kAPIFollowUnfollowUser + "/\(id)/family"
+            
+            let dictResponse = WebServices.sharedInstance.putPostMultipartDataToServer(PutPostURL: strPutUrl, type: "POST", strData: ["":""], parType: "")
+            print(dictResponse)
+            DispatchQueue.main.async {
+                if let statusCode = dictResponse["statusCode"] as? Int, statusCode == 200 {
+                    kAppDelegate.hideLoadingIndicator()
+                    if let dictlike = dictResponse["data"] as? [String: Any] {
+                        handler(dictlike)
+                    }
+                } else {
+                    self.validateResponseData(response: dictResponse)
+                }
+            }
+        }
+    }
+    
     func getSpecificUserStories(id: Int, page: Int, isAllStories: Bool, withHandler handler: @escaping (_ response: KSResponse<[StoryModel]>?, _ dict: Dictionary<String, Any>) -> Void) {
         checkNetworkConnection()
         DispatchQueue.global().async {
