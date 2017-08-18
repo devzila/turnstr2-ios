@@ -31,6 +31,8 @@ class PhotoDetailViewController: ParentViewController, UICollectionViewDelegate,
         
         // Do any additional setup after loading the view.
         LoadNavBar()
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+
         objNav.btnRightMenu.isHidden = true
         objNav.btnBack.addTarget(self, action: #selector(goBack), for: .touchUpInside)
         if let isLib = isFromPublicPhoto, isLib == true {

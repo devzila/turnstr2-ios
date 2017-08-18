@@ -1106,6 +1106,8 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnFamily" destination="qgI-ln-ktK" id="EX7-m5-2Lz"/>
+                        <outlet property="btnFave5" destination="cYw-BK-0Oh" id="41g-Dg-IMh"/>
                         <outlet property="collViewPublicProfile" destination="ec4-vP-m65" id="Bi0-c4-NoL"/>
                         <outlet property="lblPostLeft" destination="DQj-Jb-Q5H" id="FOV-t9-hjy"/>
                         <outlet property="lblPostRight" destination="FfR-TD-D2l" id="HiG-w6-OKg"/>

@@ -41,6 +41,8 @@ struct UserModel: Mappable {
     var post_count: Int?
     var phone: Int?
     var following: Bool?
+    var following_me: Bool?
+    var family_member: Bool?
     
     
     init() {
@@ -63,6 +65,8 @@ struct UserModel: Mappable {
         following_count <- map["following_count"]
         post_count <- map["post_count"]
         following <- map["following"]
+        following_me <- map["following_me"]
+        family_member <- map["family_member"]
         avatar_face1 <- map["avatar_face1"]
         avatar_face2 <- map["avatar_face2"]
         avatar_face3 <- map["avatar_face3"]

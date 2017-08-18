@@ -23,6 +23,8 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
     @IBOutlet weak var lblPostRight: UILabel!
     @IBOutlet weak var uvTopCube: UIView!
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var btnFamily: button!
+    @IBOutlet weak var btnFave5: button!
     
     var isFave5LoadNext = false
     var pageNumberFave5 = 0
@@ -76,6 +78,22 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
                 
                 self.setUserCube(objModel: objModel)
                 
+                if objModel.following! {
+                    self.btnFave5.backgroundColor = UIColor(hexString: "00C7FF")
+                    self.btnFave5.setTitleColor(UIColor.white, for: .normal)
+                    self.btnFave5.isSelected = true
+                } else {
+                    self.btnFave5.backgroundColor = UIColor.white
+                    self.btnFave5.setTitleColor(UIColor(hexString: "00C7FF"), for: .normal)
+                    self.btnFave5.isSelected = false
+                }
+                
+                if objModel.following_me! {
+                    self.btnFamily.isHidden = false
+                } else {
+                    self.btnFamily.isHidden = true
+                }
+                
                 self.getFave5List(page: self.pageNumberFave5)
                 self.getAllStories(page: self.pageNumberUserStories, isAllStories: self.isFromFeeds)
             }
@@ -86,8 +104,8 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
     
     
     func addDeleteFave(favType: FavouriteType) {
+        kAppDelegate.loadingIndicationCreationMSG(msg: "Loading...")
         addDeleteFave5(id: (profileDetail?.id)!, type: favType) { (response) in
-            self.collViewPublicProfile.reloadData()
         }
     }
 
@@ -133,7 +151,7 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellFave5", for: indexPath as IndexPath) as? Fave5CollectionViewCell
             if let lblName = cell?.viewWithTag(1001) as? UILabel {
                 if let profile = self.profileDetail {
-                    lblName.text = profile.username != nil ? (profile.username?.uppercased())! : "" + " FAVE 5"
+                    lblName.text = profile.username != nil ? (profile.username?.uppercased())! + " FAVE 5" : "FAVE 5"
                 }
             }
             cell?.arrFave5 = self.arrFav5
@@ -150,9 +168,9 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
             if let lblName = cell?.viewWithTag(1001) as? UILabel {
                 if let profile = self.profileDetail {
                     if isFromFeeds {
-                        lblName.text = " STORIES"
+                        lblName.text = "GENERAL"
                     } else {
-                        lblName.text = profile.username != nil ? (profile.username?.uppercased())! : "" + " STORIES"
+                        lblName.text = profile.username != nil ? (profile.username?.uppercased())! + " STORIES" : "STORIES"
                     }
                     
                 }
@@ -188,6 +206,9 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
         case 1:
             if self.arrUserStories.count > 0 {
                 print("height--\(Float(self.arrUserStories.count/3))")
+                if Float(self.arrUserStories.count/3) < 1 {
+                    return CGSize(width: kWidth, height: CGFloat(Double(PhotoSize().height) + 80.0))
+                }
                 return CGSize(width: kWidth, height: CGFloat(ceil((Float(self.arrUserStories.count/3))) * Float(PhotoSize().height)) + 80)
             }
             return CGSize(width: kWidth, height: 0)
@@ -211,13 +232,24 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
     }
 
     @IBAction func btnTappedFave5(_ sender: UIButton) {
-        addDeleteFave(favType: .post)
+        if sender.isSelected {
+            addDeleteFave(favType: .delete)
+            self.btnFave5.backgroundColor = UIColor.white
+            self.btnFave5.setTitleColor(UIColor(hexString: "00C7FF"), for: .normal)
+            self.btnFave5.isSelected = false
+        } else {
+            addDeleteFave(favType: .post)
+            self.btnFave5.backgroundColor = UIColor(hexString: "00C7FF")
+            self.btnFave5.setTitleColor(UIColor.white, for: .normal)
+            self.btnFave5.isSelected = true
+        }
     }
     
     func getFave5List(page: Int) {
         guard let userID = profileDetail?.id else {
             return
         }
+        kAppDelegate.loadingIndicationCreationMSG(msg: "Loading...")
         getFave5(id: userID, page: page) { (response, dict) in
             
             if let faveArray = response?.response {
