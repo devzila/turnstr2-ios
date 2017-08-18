@@ -25,6 +25,7 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var btnFamily: button!
     @IBOutlet weak var btnFave5: button!
+
     
     var isFave5LoadNext = false
     var pageNumberFave5 = 0
@@ -78,7 +79,7 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
                 
                 self.setUserCube(objModel: objModel)
                 
-                if objModel.following! {
+                if objModel.favourite! {
                     self.btnFave5.backgroundColor = UIColor(hexString: "00C7FF")
                     self.btnFave5.setTitleColor(UIColor.white, for: .normal)
                     self.btnFave5.isSelected = true
@@ -154,6 +155,19 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
                     lblName.text = profile.username != nil ? (profile.username?.uppercased())! + " FAVE 5" : "FAVE 5"
                 }
             }
+            if let view = cell?.viewWithTag(2001) {
+                view.isHidden = !isFromFeeds
+            }
+            if isFromFeeds {
+                if let view = cell?.viewWithTag(1001) {
+                    for constraint in view.constraints as [NSLayoutConstraint] {
+                        if constraint.identifier == "fave5lblWidthConstraint" {
+                            constraint.constant = 0
+                        }
+                    }
+                }
+            }
+            
             cell?.arrFave5 = self.arrFav5
             cell?.delegateFave5 = self
             cell?.setupCollectionView()
@@ -200,7 +214,7 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
         // Set collectionview cell size
         switch indexPath.row {
         case 0:
-            return CGSize(width: kWidth, height: 80)
+            return CGSize(width: kWidth, height: 100)
 //        case 1:
 //            return CGSize(width: kWidth, height: 170)
         case 1:
@@ -229,6 +243,12 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
     }
     
     @IBAction func btnTappedFamily(_ sender: UIButton) {
+        guard let userID = profileDetail?.id else {
+            return
+        }
+        addUserAsFamily(id: userID) { (response) in
+            
+        }
     }
 
     @IBAction func btnTappedFave5(_ sender: UIButton) {

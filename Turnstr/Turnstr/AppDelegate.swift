@@ -8,6 +8,7 @@
 
 import UIKit
 import FacebookCore
+import FacebookLogin
 import SendBirdSDK
 
 @UIApplicationMain
@@ -139,6 +140,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Utility.sharedInstance.removeUserDefaults(key: kUDLoginData)
         Utility.sharedInstance.removeUserDefaults(key: kUDSessionData)
         Singleton.sharedInstance.clearData()
+        
+        let loginManager = LoginManager()
+        loginManager.logOut()
         
         navC.popToRootViewController(animated: true)
         disconnect()
