@@ -47,9 +47,10 @@ class UsersListVC: ParentViewController {
     }
     
     func initUserInfo() {
-        lblPosts?.text = "123"
-        lblFamily?.text = "2"
-        lblFollowing?.text = "65"
+        let obj = Singleton.sharedInstance
+        lblPosts?.text = "\(obj.post_count)"
+        lblFamily?.text = "\(obj.family_count)"
+        lblFollowing?.text = "\(obj.follower_count)"
         
         let w: CGFloat = cubeView?.frame.size.width ?? 80.0
         let h: CGFloat = cubeView?.frame.size.height ?? 80.0
@@ -95,9 +96,10 @@ class UsersListVC: ParentViewController {
     
     //MARK: ------ API Methods
     func apiListUsers()  {
-        let response = WebServices.sharedInstance.GetMethodServerData(strRequest: "members?page=1", GetURL: "", parType: "")
+        let response = WebServices.sharedInstance.GetMethodServerData(strRequest: kAPIFollowUnfollowUser + "/\(loginUser.id ?? "")/family", GetURL: "", parType: "")
         let objData = objDataS.validateData(response: response)
-        if let followers = objData["members"] as? [AnyObject] {
+        if let followers = objData["family"] as? [AnyObject] {
+            users = [User]()
             for obj in followers {
                 let user = User.init(obj as? [String: Any])
                 users.append(user)

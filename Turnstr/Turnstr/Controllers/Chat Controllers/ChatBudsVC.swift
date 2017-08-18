@@ -63,6 +63,7 @@ class ChatBudsVC: UIViewController {
         let query = SBDGroupChannel.createMyGroupChannelListQuery()
         query?.loadNextPage(completionHandler: {[weak self] (channels, error) in
             guard let cs = channels else {return}
+            self?.dataSource?.items = []
             for obj in cs {
                 self?.chatbuds.append(obj)
             }

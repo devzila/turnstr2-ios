@@ -151,7 +151,8 @@ extension AppDelegate {
         if isLoggedIn == true, let id = loginUser.id {
             SBDMain.connect(withUserId: id, completionHandler: {[weak self] (user, error) in
                 if error == nil {
-                    SBDMain.updateCurrentUserInfo(withNickname: self?.loginUser.name, profileUrl: self?.loginUser.cubeUrls.first?.absoluteString, completionHandler: { (error) in
+                    let strUrls = self?.loginUser.cubeUrls.map({ ($0.absoluteString) }).joined(separator: ",")
+                    SBDMain.updateCurrentUserInfo(withNickname: self?.loginUser.name, profileUrl: strUrls, completionHandler: { (error) in
                         if error != nil {
                             KBLog.log(message: "Error in saving user info ", object: error)
                         }

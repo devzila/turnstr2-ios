@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		183306CF1F47800E00F2D133 /* ReceiverCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 183306CD1F47800E00F2D133 /* ReceiverCell.xib */; };
+		183306D01F47800E00F2D133 /* SenderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 183306CE1F47800E00F2D133 /* SenderCell.xib */; };
 		1861D9C11F44C0C2009E80D7 /* ChatDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1861D9C01F44C0C2009E80D7 /* ChatDataSource.swift */; };
 		7EBFF7CE1F461FAC00A8574D /* loaderImage.gif in Resources */ = {isa = PBXBuildFile; fileRef = 7EBFF7CD1F461FAC00A8574D /* loaderImage.gif */; };
 		7EBFF7D41F461FE100A8574D /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EBFF7CF1F461FE100A8574D /* CommentsViewController.swift */; };
@@ -169,6 +171,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		183306CD1F47800E00F2D133 /* ReceiverCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReceiverCell.xib; sourceTree = "<group>"; };
+		183306CE1F47800E00F2D133 /* SenderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SenderCell.xib; sourceTree = "<group>"; };
 		1861D9C01F44C0C2009E80D7 /* ChatDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatDataSource.swift; sourceTree = "<group>"; };
 		1E49C4DB758F6E2256172E66 /* Pods_Turnstr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Turnstr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AC6FD96D7C11DE3F0F2CCC3 /* Pods-Turnstr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Turnstr.release.xcconfig"; path = "Pods/Target Support Files/Pods-Turnstr/Pods-Turnstr.release.xcconfig"; sourceTree = "<group>"; };
@@ -443,6 +447,8 @@
 		8A26301B1F31042C00F55C2B /* Chat Cells */ = {
 			isa = PBXGroup;
 			children = (
+				183306CD1F47800E00F2D133 /* ReceiverCell.xib */,
+				183306CE1F47800E00F2D133 /* SenderCell.xib */,
 				8A26301C1F31044600F55C2B /* ParentChatCell.swift */,
 				8A26301E1F31045C00F55C2B /* SenderCell.swift */,
 				8A2630201F31046A00F55C2B /* ReceiverCell.swift */,
@@ -982,7 +988,7 @@
 				TargetAttributes = {
 					D9FDE60D1EC2263C009D5BE3 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = LCT55BGX4Z;
+						DevelopmentTeam = XXPSXL3JLY;
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
@@ -1011,6 +1017,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				183306CF1F47800E00F2D133 /* ReceiverCell.xib in Resources */,
 				8A26302B1F311D8000F55C2B /* ChannelCell.xib in Resources */,
 				D96B48EC1F146D7B00621B39 /* NewStoryPopUp.xib in Resources */,
 				D9FDE6601EC2586E009D5BE3 /* img4.png in Resources */,
@@ -1018,6 +1025,7 @@
 				7EBFF7F41F46206600A8574D /* PhotoAlbum.storyboard in Resources */,
 				8AEC2C831F169C23008DF3BB /* Chat.storyboard in Resources */,
 				D95181A61F180776008595CC /* LiveFeed.storyboard in Resources */,
+				183306D01F47800E00F2D133 /* SenderCell.xib in Resources */,
 				D91C3B051F001D78005F945C /* IQKeyboardManager.bundle in Resources */,
 				D9FDE6621EC2586E009D5BE3 /* img6.png in Resources */,
 				D9FDE65E1EC2586E009D5BE3 /* img2.png in Resources */,
@@ -1363,11 +1371,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = LCT55BGX4Z;
+				DEVELOPMENT_TEAM = XXPSXL3JLY;
 				INFOPLIST_FILE = Turnstr/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ketapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.app.turnstr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1384,11 +1392,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = LCT55BGX4Z;
+				DEVELOPMENT_TEAM = XXPSXL3JLY;
 				INFOPLIST_FILE = Turnstr/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ketapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.app.turnstr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";

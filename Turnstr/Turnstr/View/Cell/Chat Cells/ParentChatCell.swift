@@ -11,7 +11,7 @@ import SendBirdSDK
 
 class ParentChatCell: UITableViewCell {
 
-    @IBOutlet weak var cubeView: AITransformView?
+    @IBOutlet weak var cubeView: UIView?
     @IBOutlet weak var lblName: UILabel?
     @IBOutlet weak var lblTime: UILabel?
     @IBOutlet weak var lblLastMessage: UILabel?
@@ -60,18 +60,17 @@ class ParentChatCell: UITableViewCell {
             lblMessage?.text = ""
             return
         }
-        var otherUser: SBDUser?
         for member in members {
             print(member.userId)
             print(loginUser.id ?? "No id")
             if member.userId != loginUser.id {
                 lblName?.text = member.nickname
-                otherUser = member
+                createCube(member)
             }
         }
         let msg = channel.lastMessage as? SBDUserMessage
         var strMsg = msg?.message
-        if otherUser == msg?.sender {
+        if loginUser.id == msg?.sender?.userId {
             strMsg = "You: " + (strMsg ?? "")
         }
         lblLastMessage?.text = strMsg
@@ -81,5 +80,31 @@ class ParentChatCell: UITableViewCell {
         lblMessage?.text = message.message
         lblName?.text = message.sender?.nickname
         lblTime?.isHidden = true
+    }
+    
+    
+    
+    func createCube(_ user: SBDUser) {
+        
+        guard let urls = user.profileUrl?.components(separatedBy: ",") else {
+            return
+        }
+        let w: CGFloat = cubeView?.frame.size.width ?? 48.0
+        let h: CGFloat = cubeView?.frame.size.height ?? 48.0
+        
+        cubeView?.backgroundColor = .clear
+        var topCube = cubeView?.viewWithTag(kCubeTag) as? AITransformView
+        topCube?.removeFromSuperview()
+        if topCube == nil {
+            topCube = AITransformView.init(frame: CGRect.init(x: 0, y: 0, width: w, height: h), cube_size: 30)
+            topCube?.tag = kCubeTag
+            cubeView?.addSubview(topCube!)
+            cubeView?.backgroundColor = .clear
+        }
+        
+        topCube?.setup(withUrls: urls)
+        
+        topCube?.setScroll(CGPoint.init(x: 0, y: h/2), end: CGPoint.init(x: 20, y: h/2))
+        topCube?.setScroll(CGPoint.init(x: w/2, y: 0), end: CGPoint.init(x: w/2, y: 10))
     }
 }
