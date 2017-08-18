@@ -16,6 +16,8 @@ class CommentsViewController: UIViewController, UITextViewDelegate, ServiceUtili
     
     var objPhoto: Photos?
     var arrComments = [CommentModel]()
+    var isLoadNext = false
+    var pageNumber = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,13 +30,23 @@ class CommentsViewController: UIViewController, UITextViewDelegate, ServiceUtili
         tblViewComments.estimatedRowHeight = 40
         self.tblViewComments.tableFooterView = UIView(frame: CGRect.zero)
         
+        getComments(page: pageNumber)
+    }
+    
+    func getComments(page: Int) {
         guard objPhoto != nil else { return }
         kAppDelegate.loadingIndicationCreationMSG(msg: "Loading...")
-        getPhotoComment(id: (objPhoto?.id)!) { (response) in
+        getPhotoComment(id: (objPhoto?.id)!, page: page) { (response, dict) in
             if let commentsArray = response?.response {
                 print(commentsArray)
-                self.arrComments = commentsArray
+                for object in commentsArray {
+                    self.arrComments.append(object)
+                }
                 self.tblViewComments.reloadData()
+                
+                if let _ = dict["next_page"] as? Int {
+                    self.isLoadNext = true
+                }
             }
         }
     }
@@ -147,11 +159,19 @@ extension CommentsViewController: UITableViewDelegate, UITableViewDataSource {
             let arrFaces = [objComment?.avatar_face1 ?? "thumb", objComment?.avatar_face2 ?? "thumb", objComment?.avatar_face3 ?? "thumb", objComment?.avatar_face4 ?? "thumb", objComment?.avatar_face5 ?? "thumb", objComment?.avatar_face6 ?? "thumb"]
             cube?.setup(withUrls: arrFaces)
             cell.contentView.addSubview(cube!)
-            cube?.setScroll(CGPoint.init(x: 0, y: 30/2), end: CGPoint.init(x: 20, y: 30/2))
-            cube?.setScroll(CGPoint.init(x: 30/2, y: 0), end: CGPoint.init(x: 30/2, y: 10))
+            cube?.setScroll(CGPoint.init(x: 0, y: 48/2), end: CGPoint.init(x: 20, y: 48/2))
+            cube?.setScroll(CGPoint.init(x: 48/2, y: 0), end: CGPoint.init(x: 48/2, y: 10))
+
         }
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row == arrComments.count - 1, isLoadNext {
+            pageNumber = pageNumber+1
+            self.getComments(page: pageNumber)
+        }
     }
     
     func convertStringToDate(dateString: String) -> Date? {

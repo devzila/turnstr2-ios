@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TabbarController: UIViewController {
+class TabbarController: ParentViewController {
 
     @IBOutlet var contentView: UIView?
     @IBOutlet weak var btnLiveFeed: UIButton?
@@ -58,6 +58,15 @@ class TabbarController: UIViewController {
 
         
         // Do any additional setup after loading the view.
+        
+        if story == nil {
+            if let feedVC = Storyboards.photoStoryboard.initialVC(with: StoryboardIds.feedScreen) as? PublicProfileCollectionViewController {
+                feedVC.profileId = getUserId() ?? nil
+                feedVC.isFromFeeds = true
+                story = feedVC
+            }
+        }
+        self.activeViewController = story
     }
 
     @IBAction func btnSelectAction(_ sender: UIButton) {
@@ -78,7 +87,11 @@ class TabbarController: UIViewController {
         
         if sender === btnStory {
             if story == nil {
-                story = Storyboards.storyStoryboard.initialVC()
+                if let feedVC = Storyboards.photoStoryboard.initialVC(with: StoryboardIds.feedScreen) as? PublicProfileCollectionViewController {
+                    feedVC.profileId = getUserId() ?? nil
+                    feedVC.isFromFeeds = true
+                    story = feedVC
+                }
             }
             self.activeViewController = story
         }
