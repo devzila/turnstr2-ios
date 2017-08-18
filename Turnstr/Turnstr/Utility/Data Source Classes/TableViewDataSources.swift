@@ -61,6 +61,10 @@ extension TableViewDataSources: UITableViewDataSource {
 
 extension TableViewDataSources: UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 64
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if let selectCell = selectAtIndex {

@@ -11,7 +11,7 @@ import SendBirdSDK
 
 class ParentChatCell: UITableViewCell {
 
-    @IBOutlet weak var imgView: UIImageView?
+    @IBOutlet weak var cubeView: AITransformView?
     @IBOutlet weak var lblName: UILabel?
     @IBOutlet weak var lblTime: UILabel?
     @IBOutlet weak var lblLastMessage: UILabel?

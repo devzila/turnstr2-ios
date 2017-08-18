@@ -15,12 +15,18 @@ class UsersListVC: ParentViewController {
     lazy var users: [User] = [User]()
     
     @IBOutlet weak var tableView: UITableView?
+    @IBOutlet weak var lblPosts: UILabel?
+    @IBOutlet weak var lblFollowing: UILabel?
+    @IBOutlet weak var lblFamily: UILabel?
+    @IBOutlet weak var cubeView: UIView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         initDataSource()
         apiListUsers()
+        
+        initUserInfo()
         // Do any additional setup after loading the view.
     }
     
@@ -38,6 +44,24 @@ class UsersListVC: ParentViewController {
         dataSource?.selectAtIndex = { [weak self] (_ indexPath: IndexPath) in
             self?.didSelectCellAt(indexPath)
         }
+    }
+    
+    func initUserInfo() {
+        lblPosts?.text = "123"
+        lblFamily?.text = "2"
+        lblFollowing?.text = "65"
+        
+        let w: CGFloat = cubeView?.frame.size.width ?? 80.0
+        let h: CGFloat = cubeView?.frame.size.height ?? 80.0
+        
+        
+        let topCube = AITransformView.init(frame: CGRect.init(x: 0, y: 0, width: w, height: h), cube_size: 60)
+        cubeView?.addSubview(topCube!)
+        let objSing = Singleton.sharedInstance
+        topCube?.setup(withUrls: [objSing.strUserPic1.urlWithThumb, objSing.strUserPic2.urlWithThumb, objSing.strUserPic3.urlWithThumb, objSing.strUserPic4.urlWithThumb, objSing.strUserPic5.urlWithThumb, objSing.strUserPic6.urlWithThumb])
+        
+        topCube?.setScroll(CGPoint.init(x: 0, y: h/2), end: CGPoint.init(x: 20, y: h/2))
+        topCube?.setScroll(CGPoint.init(x: w/2, y: 0), end: CGPoint.init(x: w/2, y: 10))
     }
     
     func updateCell(_ cell: UITableViewCell, _ indexpath: IndexPath) {
@@ -71,7 +95,7 @@ class UsersListVC: ParentViewController {
     
     //MARK: ------ API Methods
     func apiListUsers()  {
-        let response = WebServices.sharedInstance.GetMethodServerData(strRequest: "members?page=2", GetURL: "", parType: "")
+        let response = WebServices.sharedInstance.GetMethodServerData(strRequest: "members?page=1", GetURL: "", parType: "")
         let objData = objDataS.validateData(response: response)
         if let followers = objData["members"] as? [AnyObject] {
             for obj in followers {
