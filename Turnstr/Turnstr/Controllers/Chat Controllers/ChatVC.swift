@@ -21,27 +21,15 @@ class ChatVC: ChatParentVC  {
         SBDMain.add(self, identifier: "channel")
         
         dataSource = ChatDataSource(with: tableView, items: [])
+        dataSource?.channel = channel
         tableView?.delegate = dataSource
         tableView?.dataSource = dataSource
         loadChatHistory()
+        
+        initUserInfo()
     }
     
     //MARK: ------- Custom Message
-    
-    func initUserInfo() {
-        
-        let w: CGFloat = cubeView?.frame.size.width ?? 80.0
-        let h: CGFloat = cubeView?.frame.size.height ?? 80.0
-        
-        let topCube = AITransformView.init(frame: CGRect.init(x: 0, y: 0, width: w, height: h), cube_size: 60)
-        cubeView?.addSubview(topCube!)
-        let objSing = Singleton.sharedInstance
-        topCube?.setup(withUrls: [objSing.strUserPic1.urlWithThumb, objSing.strUserPic2.urlWithThumb, objSing.strUserPic3.urlWithThumb, objSing.strUserPic4.urlWithThumb, objSing.strUserPic5.urlWithThumb, objSing.strUserPic6.urlWithThumb])
-        
-        topCube?.setScroll(CGPoint.init(x: 0, y: h/2), end: CGPoint.init(x: 20, y: h/2))
-        topCube?.setScroll(CGPoint.init(x: w/2, y: 0), end: CGPoint.init(x: w/2, y: 10))
-    }
-    
     
     override func sendTextMessage(_ message: String?) {
         

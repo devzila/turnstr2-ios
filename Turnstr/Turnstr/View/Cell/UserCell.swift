@@ -27,7 +27,9 @@ class UserCell: UITableViewCell {
         
         createCube(user)
         lblName?.textColor = .white
-        lblName?.font = UIFont.systemFont(ofSize: 15.0)
+        lblName?.font = UIFont.boldSystemFont(ofSize: 14.0)
+        lblSubTitle?.textColor = .white
+        lblSubTitle?.font = UIFont.systemFont(ofSize: 14.0)
         backgroundColor = .clear
     }
     

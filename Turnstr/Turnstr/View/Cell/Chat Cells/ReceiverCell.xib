@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,7 +18,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WEC-Es-cKl">
-                        <rect key="frame" x="284.5" y="8" width="27.5" height="29"/>
+                        <rect key="frame" x="276.5" y="8" width="27.5" height="29"/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="28" id="ReZ-wo-zpp"/>
@@ -26,7 +26,7 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Iey-6O-Hjd">
-                        <rect key="frame" x="193" y="8" width="83" height="27.5"/>
+                        <rect key="frame" x="177.5" y="8" width="83" height="27.5"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="svm-Cm-UST">
                                 <rect key="frame" x="39" y="4" width="36" height="19.5"/>
@@ -67,8 +67,8 @@
                     <constraint firstItem="Iey-6O-Hjd" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="59D-xm-cPn"/>
                     <constraint firstAttribute="bottom" secondItem="Iey-6O-Hjd" secondAttribute="bottom" constant="8" id="9es-AV-Baa"/>
                     <constraint firstItem="WEC-Es-cKl" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="GgS-uu-4Kl"/>
-                    <constraint firstAttribute="trailing" secondItem="WEC-Es-cKl" secondAttribute="trailing" constant="8" id="Knl-YY-zEg"/>
-                    <constraint firstItem="WEC-Es-cKl" firstAttribute="leading" secondItem="Iey-6O-Hjd" secondAttribute="trailing" constant="8" id="Q7r-4u-wTh"/>
+                    <constraint firstAttribute="trailing" secondItem="WEC-Es-cKl" secondAttribute="trailing" constant="16" id="Knl-YY-zEg"/>
+                    <constraint firstItem="WEC-Es-cKl" firstAttribute="leading" secondItem="Iey-6O-Hjd" secondAttribute="trailing" constant="16" id="Q7r-4u-wTh"/>
                     <constraint firstItem="Iey-6O-Hjd" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="75" id="kPC-GM-8Tm"/>
                 </constraints>
             </tableViewCellContentView>

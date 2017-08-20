@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -14,11 +14,11 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aIz-BY-uUT">
-                        <rect key="frame" x="45" y="8" width="83" height="27.5"/>
+                        <rect key="frame" x="53" y="8" width="83" height="27.5"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="svm-Cm-UST">
                                 <rect key="frame" x="8" y="4" width="36" height="19.5"/>
@@ -68,7 +68,7 @@
                     <constraint firstItem="2Xs-rS-lIj" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="R7l-dS-Xeb"/>
                     <constraint firstItem="2Xs-rS-lIj" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="S2b-0b-FBR"/>
                     <constraint firstAttribute="bottom" secondItem="aIz-BY-uUT" secondAttribute="bottom" constant="8" id="osa-NJ-FPt"/>
-                    <constraint firstItem="aIz-BY-uUT" firstAttribute="leading" secondItem="2Xs-rS-lIj" secondAttribute="trailing" constant="8" id="p5D-Hp-HV2"/>
+                    <constraint firstItem="aIz-BY-uUT" firstAttribute="leading" secondItem="2Xs-rS-lIj" secondAttribute="trailing" constant="16" id="p5D-Hp-HV2"/>
                     <constraint firstItem="aIz-BY-uUT" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="yP1-OZ-cDR"/>
                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="aIz-BY-uUT" secondAttribute="trailing" constant="75" id="ylt-Zz-YTA"/>
                 </constraints>

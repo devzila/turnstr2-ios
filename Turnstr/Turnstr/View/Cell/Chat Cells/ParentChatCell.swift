@@ -54,20 +54,20 @@ class ParentChatCell: UITableViewCell {
     }
     
     func updateOneToOneChannel(_ channel: SBDGroupChannel) {
-        guard let members = channel.members as? [SBDUser] else {
         
+        guard let members = channel.members as? [SBDUser] else {
+            
             lblName?.text = ""
             lblMessage?.text = ""
             return
         }
         for member in members {
-            print(member.userId)
-            print(loginUser.id ?? "No id")
             if member.userId != loginUser.id {
                 lblName?.text = member.nickname
                 createCube(member)
             }
         }
+        
         let msg = channel.lastMessage as? SBDUserMessage
         var strMsg = msg?.message
         if loginUser.id == msg?.sender?.userId {
@@ -76,17 +76,17 @@ class ParentChatCell: UITableViewCell {
         lblLastMessage?.text = strMsg
     }
     
-    func updateChat(_ message: SBDUserMessage) {
+    func updateChat(_ message: SBDUserMessage, _ channel: SBDGroupChannel?) {
         lblMessage?.text = message.message
         lblName?.text = message.sender?.nickname
         lblTime?.isHidden = true
+        createCube(message.sender)
     }
     
     
-    
-    func createCube(_ user: SBDUser) {
+    func createCube(_ user: SBDUser?) {
         
-        guard let urls = user.profileUrl?.components(separatedBy: ",") else {
+        guard let urls = user?.profileUrl?.components(separatedBy: ",") else {
             return
         }
         let w: CGFloat = cubeView?.frame.size.width ?? 48.0
@@ -94,13 +94,13 @@ class ParentChatCell: UITableViewCell {
         
         cubeView?.backgroundColor = .clear
         var topCube = cubeView?.viewWithTag(kCubeTag) as? AITransformView
-        topCube?.removeFromSuperview()
-        if topCube == nil {
-            topCube = AITransformView.init(frame: CGRect.init(x: 0, y: 0, width: w, height: h), cube_size: 30)
-            topCube?.tag = kCubeTag
-            cubeView?.addSubview(topCube!)
-            cubeView?.backgroundColor = .clear
+        if topCube != nil {
+            topCube = nil
         }
+        topCube = AITransformView.init(frame: CGRect.init(x: 0, y: 0, width: w, height: h), cube_size: 30)
+        topCube?.tag = kCubeTag
+        cubeView?.addSubview(topCube!)
+        cubeView?.backgroundColor = .clear
         
         topCube?.setup(withUrls: urls)
         

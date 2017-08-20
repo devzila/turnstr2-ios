@@ -13,7 +13,6 @@ class ChatBudsVC: UIViewController {
     
     @IBOutlet weak var tableView: UITableView?
     
-    lazy var chatbuds = [SBDGroupChannel]()
     var dataSource: TableViewDataSources?
     
     override func viewDidLoad() {
@@ -46,15 +45,14 @@ class ChatBudsVC: UIViewController {
     
     func updateCell(_ cell: UITableViewCell, _ indexpath: IndexPath) {
         if let groupCell = cell as? ChannelCell {
-            let channel = self.chatbuds[indexpath.row]
+            guard let channel = self.dataSource?.items[indexpath.row] as? SBDGroupChannel else { return }
             groupCell.updateBudCell(channel)
         }
     }
     
     func didSelectCellAt(_ indexPath: IndexPath) {
-        KBLog.log(message: "chat bud -- > ", object: chatbuds[indexPath.row])
         guard let vc = Storyboards.chatStoryboard.initialVC(with: .chatVC) as? ChatVC else { return }
-        vc.channel = chatbuds[indexPath.row]
+        vc.channel = self.dataSource?.items[indexPath.row] as? SBDGroupChannel
         topVC?.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -63,11 +61,7 @@ class ChatBudsVC: UIViewController {
         let query = SBDGroupChannel.createMyGroupChannelListQuery()
         query?.loadNextPage(completionHandler: {[weak self] (channels, error) in
             guard let cs = channels else {return}
-            self?.dataSource?.items = []
-            for obj in cs {
-                self?.chatbuds.append(obj)
-            }
-            self?.dataSource?.items = self?.chatbuds ?? []
+            self?.dataSource?.items = cs
             self?.dataSource?.reloadData()
         })
     }

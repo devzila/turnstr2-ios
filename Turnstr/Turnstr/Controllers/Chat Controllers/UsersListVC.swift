@@ -57,6 +57,7 @@ class UsersListVC: ParentViewController {
         
         
         let topCube = AITransformView.init(frame: CGRect.init(x: 0, y: 0, width: w, height: h), cube_size: 60)
+        cubeView?.backgroundColor = .clear
         cubeView?.addSubview(topCube!)
         let objSing = Singleton.sharedInstance
         topCube?.setup(withUrls: [objSing.strUserPic1.urlWithThumb, objSing.strUserPic2.urlWithThumb, objSing.strUserPic3.urlWithThumb, objSing.strUserPic4.urlWithThumb, objSing.strUserPic5.urlWithThumb, objSing.strUserPic6.urlWithThumb])
@@ -77,7 +78,7 @@ class UsersListVC: ParentViewController {
         guard let userId = users[indexPath.row].id else { return }
         SBDGroupChannel.createChannel(withUserIds: [userId], isDistinct: true) {[weak self] (channel, error) in
             if error != nil {
-                KBLog.log(message: "Error in creatig chat channel", object: error)
+                self?.dismissAlert(title: "Error", message: error?.description)
                 return
             }
             else {

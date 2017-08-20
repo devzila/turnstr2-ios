@@ -13,6 +13,7 @@ class ChatDataSource: NSObject {
 
     var messages: [SBDUserMessage] = [SBDUserMessage]()
     var tableView: UITableView?
+    var channel: SBDGroupChannel?
     
     init(with tableView: UITableView?, items: [SBDUserMessage]) {
         
@@ -62,7 +63,7 @@ extension ChatDataSource: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = configureCell(tableView: tableView, indexPath: indexPath)
-        cell.updateChat(messages[indexPath.row])
+        cell.updateChat(messages[indexPath.row], channel)
         cell.transform = CGAffineTransform(rotationAngle: .pi)
         return cell
     }

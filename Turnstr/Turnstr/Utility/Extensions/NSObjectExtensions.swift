@@ -65,7 +65,7 @@ extension NSObject {
             
         }
         alert.addAction(cancel)
-        AppDelegate.shared?.window?.rootViewController?.present(alert, animated: true, completion: nil)
+        topVC?.present(alert, animated: true, completion: nil)
     }
     
     func getJson(_ array:Array<Any>?) -> String {
