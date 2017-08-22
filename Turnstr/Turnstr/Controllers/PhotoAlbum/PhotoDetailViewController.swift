@@ -11,7 +11,7 @@ import Kingfisher
 
 let appThemeColor: UIColor = UIColor(red: 227.0 / 255.0, green: 100.0 / 255.0, blue: 32.0 / 255.0, alpha: 1.0)
 
-class PhotoDetailViewController: ParentViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate, ServiceUtility {
+class PhotoDetailViewController: ParentViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate, ServiceUtility, CommentsDelegate {
     
     @IBOutlet weak var collViewPhotoDetail: UICollectionView!
     var objPhotos: [Photos]?
@@ -40,6 +40,11 @@ class PhotoDetailViewController: ParentViewController, UICollectionViewDelegate,
         } else {
             viewUserDetail.isHidden = true
         }
+        
+        getUserDetailsAPI()
+    }
+    
+    func getUserDetailsAPI() {
         if let photos = objPhotos {
             if selectedIndex != nil {
                 //kAppDelegate.loadingIndicationCreationMSG(msg: "Loading...")
@@ -156,6 +161,7 @@ class PhotoDetailViewController: ParentViewController, UICollectionViewDelegate,
         if segue.identifier == "commentViewSegue" {
             if let vc = segue.destination as? CommentsViewController {
                 vc.objPhoto = self.photoDetail ?? nil//(sender as? Photos) ?? nil
+                vc.delegate = self
             }
         }
         if segue.identifier == "showPublicProfile" {
@@ -233,6 +239,10 @@ extension PhotoDetailViewController {
         } else {
             self.btnLike.setTitleColor(UIColor.white, for: .normal)
         }
+    }
+    
+    func btnCancelTapped() {
+        getUserDetailsAPI()
     }
 }
 

@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var hud = MBProgressHUD()
-
+    //var isTabChanges = false
 
     static var shared: AppDelegate? {
         guard let delegate = UIApplication.shared.delegate as? AppDelegate else { return nil }

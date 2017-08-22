@@ -100,8 +100,9 @@ extension ServiceUtility {
             let dictResponse = WebServices.sharedInstance.GetMethodServerData(strRequest: strRequest, GetURL: strPostUrl, parType: strParType)
             print(dictResponse)
             DispatchQueue.main.async {
+                kAppDelegate.hideLoadingIndicator()
                 if let statusCode = dictResponse["statusCode"] as? Int, statusCode == 200 {
-                    kAppDelegate.hideLoadingIndicator()
+                    
                     if let dictPhoto = dictResponse["data"]?["data"] as? [String: AnyObject] {
                         let dictMapper = ["statusCode": statusCode, "photos": dictPhoto["photos"] ?? ""] as [String : Any]
                         let ksResponse = KSResponse<[Photos]>(JSON: dictMapper)
@@ -291,6 +292,26 @@ extension ServiceUtility {
             let strPutUrl = kAPIFollowUnfollowUser + "/\(id)/favourites"
             
             let dictResponse = WebServices.sharedInstance.putPostMultipartDataToServer(PutPostURL: strPutUrl, type: type.rawValue, strData: ["":""], parType: "")
+            print(dictResponse)
+            DispatchQueue.main.async {
+                if let statusCode = dictResponse["statusCode"] as? Int, statusCode == 200 {
+                    kAppDelegate.hideLoadingIndicator()
+                    if let dictlike = dictResponse["data"] as? [String: Any] {
+                        handler(dictlike)
+                    }
+                } else {
+                    self.validateResponseData(response: dictResponse)
+                }
+            }
+        }
+    }
+    
+    func deleteUserPhoto(albumId: Int, photoId: Int, withHandler handler: @escaping (_ response: Dictionary<String, Any>) -> Void) {
+        checkNetworkConnection()
+        DispatchQueue.global().async {
+            let strPutUrl = kAPIPhotoAlbum + "/\(albumId)/photos/\(photoId)"
+            
+            let dictResponse = WebServices.sharedInstance.putPostMultipartDataToServer(PutPostURL: strPutUrl, type: "DELETE", strData: ["":""], parType: "")
             print(dictResponse)
             DispatchQueue.main.async {
                 if let statusCode = dictResponse["statusCode"] as? Int, statusCode == 200 {
