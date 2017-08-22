@@ -9,13 +9,37 @@
 import Foundation
 import AVFoundation
 import UIKit
+import MobileCoreServices
+
+
+enum MediaType {
+    case image
+    case video
+    
+    var string: String {
+        switch self {
+        case .image:
+            return kUTTypeImage as String
+            
+        case .video:
+            return kUTTypeVideo as String
+        }
+    }
+}
+
+
 
 class CameraImage: NSObject {
     
     static var shared = CameraImage()
     var fromVC: UIViewController?
-    var complete:((_ image: UIImage?) -> Void)?
+    var complete:((_ image: UIImage?, _ url: URL?) -> Void)?
     
+    var dictionaryPath: String{
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray
+        let documentsDirectory = paths[0] as! String
+        return documentsDirectory
+    }
     
     func cameraNotPermitted() -> Bool{
         let status: AVAuthorizationStatus = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
@@ -46,7 +70,7 @@ class CameraImage: NSObject {
         }
     }
     
-    func captureImage(from vc: UIViewController, captureOptions sources: [UIImagePickerControllerSourceType], allowEditting crop: Bool, fromView sender: UIButton?, callBack: ((_ image: UIImage?) -> Void)?) {
+    func captureImage(from vc: UIViewController, captureOptions sources: [UIImagePickerControllerSourceType], allowEditting crop: Bool, fileTypes: [MediaType], callBack: ((_ image: UIImage?, _ url: URL?) -> Void)?) {
         
         if cameraNotPermitted() {
             return
@@ -57,10 +81,11 @@ class CameraImage: NSObject {
         
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
+        imagePicker.mediaTypes = fileTypes.map( { ($0.string) } )
         imagePicker.allowsEditing = crop
         
         if sources.count > 1 {
-            openActionSheet(with: imagePicker, sources: sources, sender: sender)
+            openActionSheet(with: imagePicker, sources: sources)
         }
         else {
             let source = sources[0]
@@ -71,7 +96,7 @@ class CameraImage: NSObject {
         }
     }
     
-    func openActionSheet(with imagePicker: UIImagePickerController, sources: [UIImagePickerControllerSourceType], sender: UIButton?) {
+    func openActionSheet(with imagePicker: UIImagePickerController, sources: [UIImagePickerControllerSourceType]) {
         
         let actionSheet = UIAlertController(title: L10n.selectSource.string, message: nil, preferredStyle: .actionSheet)
         for source in sources {
@@ -89,15 +114,9 @@ class CameraImage: NSObject {
         let cancel = UIAlertAction(title: L10n.cancel.string, style: .cancel) { (action) in
         }
         actionSheet.addAction(cancel)
-        if let btn = sender {
-            actionSheet.popoverPresentationController?.barButtonItem = UIBarButtonItem(customView: btn)
-            fromVC?.present(actionSheet, animated: true, completion: nil)
-        }
-        
+        fromVC?.present(actionSheet, animated: true, completion: nil)
     }
 }
-
-
 
 
 extension CameraImage: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -113,24 +132,42 @@ extension CameraImage: UIImagePickerControllerDelegate, UINavigationControllerDe
             fromVC?.dismiss(animated: true, completion: nil)
             return
         }
-        callBack(nil)
+        callBack(nil, nil)
         fromVC?.dismiss(animated: true, completion: nil)
     }
+    
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
         var image: UIImage? = nil
-        if let edittedImage = info[UIImagePickerControllerEditedImage] as? UIImage {
-            image = edittedImage
+        var url: URL? = nil
+        
+        defer {
+            if let complete = complete {
+                complete(image, url)
+            }
         }
-        else if let fullImage = info[UIImagePickerControllerOriginalImage] as? UIImage{
-            image = fullImage
+        
+        //Get file by checking its file type
+        guard let mediaType = info[UIImagePickerControllerMediaType] as? String else { return }
+        if mediaType == MediaType.image.string {
+            if let edittedImage = info[UIImagePickerControllerEditedImage] as? UIImage {
+                image = edittedImage
+            }
+            else if let fullImage = info[UIImagePickerControllerOriginalImage] as? UIImage{
+                image = fullImage
+            }
+        }
+        else if mediaType == MediaType.video.string {
+            if let videoURL = info[UIImagePickerControllerMediaURL] as? URL {
+                getUrlFromVideoFile(url: videoURL)
+            }
         }
         
         guard let callBack = complete else {
-            fromVC?.dismiss(animated: true, completion: nil)
             return
         }
-        callBack(image)
+        callBack(image, nil)
         fromVC?.dismiss(animated: true, completion: nil)
     }
 }
@@ -151,4 +188,36 @@ extension UIImagePickerControllerSourceType {
 
         }
     }
+}
+
+extension CameraImage {
+    
+    func compressVideoFromInputUrl(_ fromUrl: URL, toUrl url: URL, completionHandler:@escaping ((_ exportSession: AVAssetExportSession) -> Void)){
+        
+        do {
+            try FileManager.default.removeItem(at: url)
+        }
+        catch{
+            print("error in removing file at path \(url)")
+        }
+        let asset: AVURLAsset = AVURLAsset(url: fromUrl)
+        let exportSession = AVAssetExportSession.init(asset: asset, presetName: AVAssetExportPresetMediumQuality)
+        exportSession?.outputURL = url
+        exportSession?.outputFileType = AVFileTypeQuickTimeMovie
+        exportSession?.exportAsynchronously(completionHandler: {
+            completionHandler(exportSession!)
+        })
+    }
+    
+    
+    func getUrlFromVideoFile(url: URL) {
+        
+        let documentPath = self.dictionaryPath.appendingFormat("/%@", "video.mp4")
+        let url = URL(fileURLWithPath: documentPath)
+        
+        compressVideoFromInputUrl(url, toUrl: url) { (session) in
+            
+        }
+    }
+    
 }

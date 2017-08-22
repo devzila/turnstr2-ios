@@ -69,6 +69,13 @@ class ChatParentVC: UIViewController {
     
     func sendTextMessage(_ message: String?) {}
     
+    func sendFiledata(_ data: Data, fileName: String, fileType: String, msg: String?) {}
+    
+    func sendFile(_ image: UIImage) {
+        guard let data = UIImageJPEGRepresentation(image, 0.5) else { return }
+        sendFiledata(data, fileName: "iOS\(Date().timeStamp())", fileType: "image", msg: nil)
+    }
+    
     //MARK: NotificationCenter handlers
     func showKeyboard(notification: Notification) {
         if let frame = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue {
@@ -83,6 +90,15 @@ class ChatParentVC: UIViewController {
     @IBAction func btnSendAction() {
         if txvInput?.text != "" {
             sendTextMessage(txvInput?.text)
+        }
+    }
+    
+    @IBAction func getFile() {
+        CameraImage.shared.captureImage(from: self, captureOptions: [.camera, .photoLibrary], allowEditting: true, fileTypes: [.image, .video]) {[weak self] (image, url) in
+            
+            if let image = image {
+                self?.sendFile(image)
+            }
         }
     }
     

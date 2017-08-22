@@ -219,7 +219,7 @@ class MyStoriesViewController: ParentViewController, UITableViewDataSource, UITa
                                 
                                 let j = self.arrList.count
                                 var k = 0
-                                for var i in (j..<j+stories.count) {
+                                for i in (j..<j+stories.count) {
                                     self.arrList.add(stories[k])
                                     k = k+1
                                     

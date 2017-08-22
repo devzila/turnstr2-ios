@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Rxi-zi-6EK">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Rxi-zi-6EK">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -295,7 +295,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
                     <subviews>
                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="x9j-kX-7FL" customClass="GrowingTextView" customModule="GrowingTextView">
-                            <rect key="frame" x="8" y="8" width="359" height="39"/>
+                            <rect key="frame" x="66" y="8" width="301" height="39"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -329,6 +329,15 @@
                                 <action selector="btnSendAction" destination="bxc-eO-jSw" eventType="touchUpInside" id="0Zp-Az-rGH"/>
                             </connections>
                         </button>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="camera" translatesAutoresizingMaskIntoConstraints="NO" id="9PR-jm-Vz9">
+                            <rect key="frame" x="0.0" y="8.5" width="66" height="39"/>
+                        </imageView>
+                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FG3-Tf-1Xp">
+                            <rect key="frame" x="0.0" y="8.5" width="66" height="39"/>
+                            <connections>
+                                <action selector="getFile" destination="bxc-eO-jSw" eventType="touchUpInside" id="mF9-gP-qat"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" red="0.69928067920000003" green="0.83724212649999996" blue="0.91864568000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
@@ -336,10 +345,17 @@
                         <constraint firstItem="Ih5-AX-mc4" firstAttribute="top" secondItem="7ba-E5-Gxg" secondAttribute="top" id="3GJ-DG-nXL"/>
                         <constraint firstItem="x9j-kX-7FL" firstAttribute="top" secondItem="7ba-E5-Gxg" secondAttribute="top" constant="8" id="C3G-rj-DbT"/>
                         <constraint firstAttribute="bottom" secondItem="x9j-kX-7FL" secondAttribute="bottom" constant="8" id="FWr-c1-6HI"/>
+                        <constraint firstItem="9PR-jm-Vz9" firstAttribute="centerY" secondItem="FG3-Tf-1Xp" secondAttribute="centerY" id="ISb-U9-jma"/>
                         <constraint firstAttribute="bottom" secondItem="Ih5-AX-mc4" secondAttribute="bottom" id="LIC-mD-kfA"/>
+                        <constraint firstItem="x9j-kX-7FL" firstAttribute="leading" secondItem="FG3-Tf-1Xp" secondAttribute="trailing" id="MZS-T6-W6D"/>
+                        <constraint firstItem="FG3-Tf-1Xp" firstAttribute="centerY" secondItem="Ih5-AX-mc4" secondAttribute="centerY" id="Q4Y-fO-air"/>
                         <constraint firstAttribute="height" constant="55" id="Q7c-gs-u4w"/>
+                        <constraint firstItem="9PR-jm-Vz9" firstAttribute="width" secondItem="FG3-Tf-1Xp" secondAttribute="width" id="YXf-ch-o9d"/>
+                        <constraint firstItem="FG3-Tf-1Xp" firstAttribute="height" secondItem="x9j-kX-7FL" secondAttribute="height" id="cIk-bq-An5"/>
                         <constraint firstItem="Ih5-AX-mc4" firstAttribute="leading" secondItem="x9j-kX-7FL" secondAttribute="trailing" constant="8" id="ceG-Cg-T5P"/>
-                        <constraint firstItem="x9j-kX-7FL" firstAttribute="leading" secondItem="7ba-E5-Gxg" secondAttribute="leading" constant="8" id="xAf-D1-Hgj"/>
+                        <constraint firstItem="FG3-Tf-1Xp" firstAttribute="leading" secondItem="7ba-E5-Gxg" secondAttribute="leading" id="cfC-gE-oGv"/>
+                        <constraint firstItem="9PR-jm-Vz9" firstAttribute="centerX" secondItem="FG3-Tf-1Xp" secondAttribute="centerX" id="hDB-AZ-R3o"/>
+                        <constraint firstItem="9PR-jm-Vz9" firstAttribute="height" secondItem="FG3-Tf-1Xp" secondAttribute="height" id="j01-qm-Uof"/>
                     </constraints>
                 </view>
             </objects>
@@ -363,6 +379,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="camera" width="66" height="66"/>
         <image name="cross" width="30" height="30"/>
         <image name="newChat" width="30" height="30"/>
         <image name="send" width="40" height="40"/>
