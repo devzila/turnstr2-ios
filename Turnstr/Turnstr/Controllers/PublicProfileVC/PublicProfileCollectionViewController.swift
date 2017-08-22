@@ -28,12 +28,12 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
 
     
     var isFave5LoadNext = false
-    var pageNumberFave5 = 0
+    var pageNumberFave5 = 1
     var arrFav5 = [UserModel]()
     
     var isUserStoriesLoadNext = false
     var isFromFeeds = false
-    var pageNumberUserStories = 0
+    var pageNumberUserStories = 1
     var arrUserStories = [StoryModel]()
 
     override func viewDidLoad() {
@@ -41,8 +41,18 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
 
         // Do any additional setup after loading the view.
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        pageNumberFave5 = 1
+        arrFav5.removeAll()
+        pageNumberUserStories = 1
+        arrUserStories.removeAll()
+        
         guard let userID = profileId else { return }
-//
+        
         viewPreferences.isHidden = isFromFeeds
         
         if getUserId() == userID {
@@ -52,7 +62,6 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
         }
         
         searchBar.isHidden = !isFromFeeds
-        
         
         getMemberDetails(id: userID) { (response) in
             if let objModel = response?.response {
@@ -94,7 +103,6 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
                 } else {
                     self.btnFamily.isHidden = true
                 }
-                
                 self.getFave5List(page: self.pageNumberFave5)
                 self.getAllStories(page: self.pageNumberUserStories, isAllStories: self.isFromFeeds)
             }
@@ -102,11 +110,54 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
         
     }
     
-    
-    
     func addDeleteFave(favType: FavouriteType) {
         kAppDelegate.loadingIndicationCreationMSG(msg: "Loading...")
         addDeleteFave5(id: (profileDetail?.id)!, type: favType) { (response) in
+            self.updateUserData()
+        }
+    }
+    
+    func updateUserData() {
+        guard let userID = profileId else { return }
+        getMemberDetails(id: userID) { (response) in
+            if let objModel = response?.response {
+                self.profileDetail = objModel
+                let postTitle: NSMutableAttributedString = NSMutableAttributedString.init(string: "posts\nfollowers\nfamily")
+                postTitle.addAttribute(NSFontAttributeName, value: UIFont.systemFont(ofSize: 10), range: NSMakeRange(0, postTitle.length))
+                postTitle.addAttribute(NSForegroundColorAttributeName, value: UIColor.white, range: NSMakeRange(0, postTitle.length))
+                
+                let style = NSMutableParagraphStyle()
+                style.alignment = .right
+                postTitle.addAttribute(NSParagraphStyleAttributeName, value: style, range: NSMakeRange(0, postTitle.length))
+                
+                self.lblPostLeft.attributedText = postTitle
+                
+                
+                let postDetail: NSMutableAttributedString = NSMutableAttributedString.init(string: "\(objModel.post_count ?? 0)\n\(objModel.follower_count ?? 0)\n\(objModel.family_count ?? 0)")
+                postDetail.addAttribute(NSFontAttributeName, value: UIFont.systemFont(ofSize: 10), range: NSMakeRange(0, postDetail.length))
+                postDetail.addAttribute(NSForegroundColorAttributeName, value: UIColor.white, range: NSMakeRange(0, postDetail.length))
+                style.alignment = .left
+                
+                postDetail.addAttribute(NSParagraphStyleAttributeName, value: style, range: NSMakeRange(0, postDetail.length))
+                
+                self.lblPostRight.attributedText = postDetail
+                
+                if objModel.favourite! {
+                    self.btnFave5.backgroundColor = UIColor(hexString: "00C7FF")
+                    self.btnFave5.setTitleColor(UIColor.white, for: .normal)
+                    self.btnFave5.isSelected = true
+                } else {
+                    self.btnFave5.backgroundColor = UIColor.white
+                    self.btnFave5.setTitleColor(UIColor(hexString: "00C7FF"), for: .normal)
+                    self.btnFave5.isSelected = false
+                }
+                
+                if objModel.following_me! {
+                    self.btnFamily.isHidden = false
+                } else {
+                    self.btnFamily.isHidden = true
+                }
+            }
         }
     }
 
@@ -233,6 +284,19 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
         
     }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        if (scrollView.contentOffset.y >= (collViewPublicProfile.contentSize.height - scrollView.frame.size.height)) {
+            //reach bottom
+            if isUserStoriesLoadNext {
+                pageNumberUserStories = pageNumberUserStories+1
+                self.getAllStories(page: self.pageNumberUserStories, isAllStories: self.isFromFeeds)
+            }
+        }
+    }
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
+    }
     func PhotoSize() -> CGSize {
         let photoCellSize = (kWidth/3)
         return CGSize(width: photoCellSize, height: photoCellSize)
@@ -247,7 +311,7 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
             return
         }
         addUserAsFamily(id: userID) { (response) in
-            
+            self.updateUserData()
         }
     }
 
@@ -279,6 +343,8 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
                 }
                 if let _ = dict["next_page"] as? Int {
                     self.isFave5LoadNext = true
+                } else {
+                    self.isFave5LoadNext = false
                 }
                 self.collViewPublicProfile.reloadItems(at: [IndexPath(row: 0, section: 0)])
             }
@@ -289,7 +355,10 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
         guard let userID = profileDetail?.id else {
             return
         }
+        kAppDelegate.loadingIndicationCreationMSG(msg: "Loading...")
         getSpecificUserStories(id: userID, page: pageNumberUserStories, isAllStories: isAllStories) { (response, dict) in
+            kAppDelegate.hideLoadingIndicator()
+
             if let storyArray = response?.response {
                 print(storyArray)
                 for object in storyArray {
@@ -300,6 +369,9 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
                 }
                 if let _ = dict["next_page"] as? Int {
                     self.isUserStoriesLoadNext = true
+                } else {
+                    self.isUserStoriesLoadNext = false
+
                 }
                 self.collViewPublicProfile.reloadItems(at: [IndexPath(row: 1, section: 0)])
             }

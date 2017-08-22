@@ -8,6 +8,11 @@
 
 import UIKit
 
+
+protocol CommentsDelegate {
+        func btnCancelTapped()
+}
+
 class CommentsViewController: UIViewController, UITextViewDelegate, ServiceUtility {
     @IBOutlet weak var tblViewComments: UITableView!
     @IBOutlet weak var imgViewBackground: UIImageView!
@@ -18,6 +23,7 @@ class CommentsViewController: UIViewController, UITextViewDelegate, ServiceUtili
     var arrComments = [CommentModel]()
     var isLoadNext = false
     var pageNumber = 0
+    var delegate: CommentsDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +52,8 @@ class CommentsViewController: UIViewController, UITextViewDelegate, ServiceUtili
                 
                 if let _ = dict["next_page"] as? Int {
                     self.isLoadNext = true
+                } else {
+                    self.isLoadNext = false
                 }
             }
         }
@@ -61,12 +69,17 @@ class CommentsViewController: UIViewController, UITextViewDelegate, ServiceUtili
     }
     
     @IBAction func backgroundViewTapped(_ sender: UITapGestureRecognizer) {
+        delegate?.btnCancelTapped()
         self.dismiss(animated: false, completion: nil)
     }
     
     @IBAction func btnTappedAddComment(_ sender: Any) {
         self.view.endEditing(true)
         guard objPhoto != nil else { return }
+        
+        if txtViewAddComment.text.trimmingCharacters(in: .whitespacesAndNewlines) == "Write a comment" || txtViewAddComment.text.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
+            return
+        }
         kAppDelegate.loadingIndicationCreationMSG(msg: "Posting...")
         self.postPhotoComment(id: (objPhoto?.id)!, comment: txtViewAddComment.text) { (response) in
             if let comment = response?.response {

@@ -114,7 +114,7 @@ class MenuBar: UIView {
     }
     
     func rightPhotoButton() -> UIButton {
-        btnRightMenu = Utility.sharedInstance.createButton(xCo: kWidth - 110, forY: 5, forW: 100, forH: kNavBarHeight, forText: "", textColor: UIColor.white, wifthFont: UIFont.boldSystemFont(ofSize: 13), backColor: krgbClear)
+        btnRightMenu = Utility.sharedInstance.createButton(xCo: kWidth - 100, forY: 10, forW: 90, forH: kNavBarHeight, forText: "", textColor: UIColor.white, wifthFont: UIFont.boldSystemFont(ofSize: 13), backColor: krgbClear)
         return btnRightMenu
     }
     

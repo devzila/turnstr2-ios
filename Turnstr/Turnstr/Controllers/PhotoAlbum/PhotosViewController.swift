@@ -20,40 +20,63 @@ class PhotosViewController: ParentViewController, UICollectionViewDataSource, UI
     var isFromPublicPhoto = true
     
     var isLoadNext = false
-    var pageNumber = 0
+    var pageNumber = 1
+    var selectedIndexPath: IndexPath?
+    
+    var isDelete = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        LoadNavBar()
+       // LoadNavBar()
+        LoadPhotoLibNavBar() 
         if isFromPublicPhoto {
             objNav.btnBack.isHidden = true
+            objNav.btnRightMenu.isHidden = true
         } else {
             objNav.btnBack.isHidden = false
+            objNav.btnRightMenu.isHidden = false
             objNav.btnBack.addTarget(self, action: #selector(goBack), for: .touchUpInside)
+            
+            objNav.btnRightMenu.setTitle("Select", for: .normal)
+            objNav.btnRightMenu.setTitleColor(UIColor.white, for: .normal)
+            objNav.btnRightMenu.addTarget(self, action: #selector(btnTappedDeletePhoto), for: .touchUpInside)
         }
-        objNav.btnRightMenu.isHidden = true
-        //objNav.btnBack.addTarget(self, action: #selector(goBack), for: .touchUpInside)
-        if isFromPublicPhoto {
-            getAllPhotos(page: pageNumber)
-        } else {
-            kAppDelegate.loadingIndicationCreationMSG(msg: "Loading...")
-            getAlbumPhotos(id: (photoAlbum?.id)!) { (response) in
-                if let photosArray = response?.response {
-                    print(photosArray)
-                    self.arrPhotos = photosArray
-                    self.lblNoPhotos.isHidden = self.arrPhotos.count > 0
-                    self.collViewPhotos.reloadData()
-                }
-            }
-        }
+        
+        collViewPhotos.allowsMultipleSelection = false
         
     }
     
-    func getAllPhotos(page: Int) {
-        
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+//        if kAppDelegate.isTabChanges != true {
+//            return
+//        }
+//        kAppDelegate.isTabChanges = false
+        pageNumber = 1
+        arrPhotos.removeAll()
+        if isFromPublicPhoto {
+            kAppDelegate.loadingIndicationCreationMSG(msg: "Loading...")
+            getAllPhotos(page: pageNumber)
+        } else {
+            picsOfUser()
+        }
+    }
+    
+    func picsOfUser() {
         kAppDelegate.loadingIndicationCreationMSG(msg: "Loading...")
+        getAlbumPhotos(id: (photoAlbum?.id)!) { (response) in
+            if let photosArray = response?.response {
+                print(photosArray)
+                self.arrPhotos = photosArray
+                self.lblNoPhotos.isHidden = self.arrPhotos.count > 0
+                self.collViewPhotos.reloadData()
+            }
+        }
+    }
+    
+    func getAllPhotos(page: Int) {
         getAllPublicPhotos(page: page) { (response, dict) in
             if let photosArray = response?.response {
                 print(photosArray)
@@ -64,6 +87,8 @@ class PhotosViewController: ParentViewController, UICollectionViewDataSource, UI
                 
                 if let _ = dict["next_page"] as? Int {
                     self.isLoadNext = true
+                } else {
+                    self.isLoadNext = false
                 }
                 
                 self.lblNoPhotos.isHidden = self.arrPhotos.count > 0
@@ -71,7 +96,32 @@ class PhotosViewController: ParentViewController, UICollectionViewDataSource, UI
             }
         }
     }
+    
+    func btnTappedDeletePhoto() {
+        
+        if objNav.btnRightMenu.isSelected {
+            objNav.btnRightMenu.isSelected = false
+            objNav.btnRightMenu.setTitle("Select", for: .normal)
+            isDelete = false
+            deletePhotoAPI()
+        } else {
+            isDelete = true
+            objNav.btnRightMenu.isSelected = true
+            objNav.btnRightMenu.setTitle("Delete", for: .normal)
+        }
+    }
+    
+    func deletePhotoAPI() {
+        guard let index = selectedIndexPath else { return }
+        kAppDelegate.loadingIndicationCreationMSG(msg: "Deleting...")
+        deleteUserPhoto(albumId: (photoAlbum?.id)!, photoId: arrPhotos[index.row].id!) { (response) in
+            self.picsOfUser()
+            self.selectedIndexPath = nil
+        }
+    }
 }
+
+
 
 
 extension PhotosViewController {
@@ -90,11 +140,27 @@ extension PhotosViewController {
                 imgView.sd_setImage(with: URL(string: coverImage), placeholderImage: #imageLiteral(resourceName: "placeholder"))
             }
         }
+        if selectedIndexPath != nil && indexPath == selectedIndexPath {
+            cell.contentView.layer.borderColor = UIColor(hexString: "00C7FF").cgColor
+            cell.contentView.layer.borderWidth = 3.0
+        }else {
+            cell.contentView.layer.borderColor = UIColor.clear.cgColor
+            cell.contentView.layer.borderWidth = 0.0
+        }
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        performSegue(withIdentifier: photoDetailSegue, sender: indexPath)
+        if !isDelete {
+            performSegue(withIdentifier: photoDetailSegue, sender: indexPath)
+        } else {
+            let cell = collectionView.cellForItem(at: indexPath)!
+            cell.isSelected = true
+            cell.contentView.layer.borderColor = UIColor(hexString: "00C7FF").cgColor
+            cell.contentView.layer.borderWidth = 3.0
+            self.selectedIndexPath = indexPath
+        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -103,11 +169,21 @@ extension PhotosViewController {
         return CGSize(width: photoCellSize, height: photoCellSize)
     }
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if indexPath.row == arrPhotos.count - 1, isLoadNext {
             pageNumber = pageNumber+1
             self.getAllPhotos(page: pageNumber)
         }
+    }
+
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath)!
+        
+        cell.contentView.layer.borderColor = UIColor.clear.cgColor
+        cell.contentView.layer.borderWidth = 0.0
+        selectedIndexPath = nil
     }
     
     

@@ -64,6 +64,8 @@ class HomeViewController: ParentViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        //kAppDelegate.isTabChanges = true
+        
         lblUserName.text = "@"+objSing.strUserName.lowercased()
         
         //lblDescription.text = objSing.strUserBio
