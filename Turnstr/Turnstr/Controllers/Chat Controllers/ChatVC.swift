@@ -46,9 +46,9 @@ class ChatVC: ChatParentVC  {
     
     override func sendFiledata(_ data: Data, fileName: String, fileType: String, msg: String?) {
         
-        
+        kAppDelegate.loadingIndicationCreation()
         channel?.sendFileMessage(withBinaryData: data, filename: fileName, type: fileType, size: UInt(data.count), data: msg, completionHandler: {[weak self] (message, error) in
-            
+            kAppDelegate.hideLoadingIndicator()
             if let msg = message {
                 self?.dataSource?.add(msg)
             }

@@ -8,6 +8,7 @@
 
 import UIKit
 import SendBirdSDK
+import KSPhotoBrowser
 
 class ParentChatCell: UITableViewCell {
 
@@ -19,6 +20,8 @@ class ParentChatCell: UITableViewCell {
     @IBOutlet weak var lblMessage: UILabel?
     @IBOutlet weak var bubbleView: UIView?
     @IBOutlet weak var imgView: UIImageView?
+    
+    var currentMessage: SBDBaseMessage?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -78,6 +81,7 @@ class ParentChatCell: UITableViewCell {
     }
     
     func updateChat(_ message: SBDBaseMessage, _ channel: SBDGroupChannel?) {
+        currentMessage = message
         if let message = message as? SBDUserMessage {
             imgView?.isHidden = true
             lblMessage?.isHidden = false
@@ -121,5 +125,21 @@ class ParentChatCell: UITableViewCell {
         
         topCube?.setScroll(CGPoint.init(x: 0, y: h/2), end: CGPoint.init(x: 20, y: h/2))
         topCube?.setScroll(CGPoint.init(x: w/2, y: 0), end: CGPoint.init(x: w/2, y: 10))
+    }
+    
+    
+    func mediaTapped(point: CGPoint) {
+        if imgView?.frame.contains(point) ?? false {
+            
+            guard let msg = currentMessage as? SBDFileMessage,
+                let imageView = imgView,
+                let vc = topVC,
+                let url = URL(string: msg.url)
+                else { return }
+            
+            let item = KSPhotoItem(sourceView: imageView, imageUrl: url)
+            let browser = KSPhotoBrowser(photoItems: [item], selectedIndex: 0)
+            browser.show(from: vc)
+        }
     }
 }

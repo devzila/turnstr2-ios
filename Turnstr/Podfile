@@ -13,6 +13,8 @@ pod 'RMMapper'
 pod 'NVActivityIndicatorView'
 pod 'ObjectMapper'
 pod 'Kingfisher', '~> 3.0'
+pod 'Hero'
+pod 'KSPhotoBrowser'
 
 # Facebook SDK
 pod 'FacebookCore', '~> 0.2'

@@ -107,8 +107,6 @@ class ChatParentVC: UIViewController {
 extension ChatParentVC: GrowingTextViewDelegate {
     
     func textViewDidChangeHeight(_ textView: GrowingTextView, height: CGFloat) {
-//        heightInputBarConstraint?.constant = height + 16
-//        bottomConstraintTableView?.constant = inputBarHeight
         UIView.animate(withDuration: 0.3) { [weak self] in
             self?.view.layoutIfNeeded()
         }

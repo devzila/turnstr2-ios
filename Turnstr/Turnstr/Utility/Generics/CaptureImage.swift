@@ -105,7 +105,7 @@ class CameraImage: NSObject {
                 self.fromVC?.present(imagePicker, animated: true, completion: nil)
             })
             if source == .camera {
-                if cameraExists{  actionSheet.addAction(action) }
+                if cameraExists { actionSheet.addAction(action) }
             }
             else {
                 actionSheet.addAction(action)
@@ -163,11 +163,6 @@ extension CameraImage: UIImagePickerControllerDelegate, UINavigationControllerDe
                 getUrlFromVideoFile(url: videoURL)
             }
         }
-        
-        guard let callBack = complete else {
-            return
-        }
-        callBack(image, nil)
         fromVC?.dismiss(animated: true, completion: nil)
     }
 }
@@ -216,7 +211,9 @@ extension CameraImage {
         let url = URL(fileURLWithPath: documentPath)
         
         compressVideoFromInputUrl(url, toUrl: url) { (session) in
-            
+            if let complete = self.complete {
+                complete(nil, url)
+            }
         }
     }
     
