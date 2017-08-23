@@ -29,8 +29,7 @@ class ChatVC: ChatParentVC  {
         initUserInfo()
     }
     
-    //MARK: ------- Custom Message
-    
+    //MARK: ------- Chat Messages
     override func sendTextMessage(_ message: String?) {
         
         channel?.sendUserMessage(message, completionHandler: {[weak self] (message, error) in
@@ -44,6 +43,23 @@ class ChatVC: ChatParentVC  {
             }
         })
     }
+    
+    override func sendFiledata(_ data: Data, fileName: String, fileType: String, msg: String?) {
+        
+        kAppDelegate.loadingIndicationCreation()
+        channel?.sendFileMessage(withBinaryData: data, filename: fileName, type: fileType, size: UInt(data.count), data: msg, completionHandler: {[weak self] (message, error) in
+            kAppDelegate.hideLoadingIndicator()
+            if let msg = message {
+                self?.dataSource?.add(msg)
+            }
+            else {
+                self?.dismissAlert(title: "Error", message: error?.localizedDescription)
+            }
+        })
+    }
+    
+    //MARK: ------- Custom Message
+    
     
     func loadChatHistory() {
         guard  let channel = channel else { return }

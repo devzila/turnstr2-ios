@@ -10,5 +10,9 @@ import UIKit
 
 class SenderCell: ParentChatCell {
 
-    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let touch = touches.first
+        let point = touch?.location(in: imgView) ?? .zero
+        mediaTapped(point: point)
+    }
 }

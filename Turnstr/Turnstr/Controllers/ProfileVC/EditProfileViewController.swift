@@ -440,7 +440,8 @@ class EditProfileViewController: ParentViewController, UITableViewDelegate, UITa
             objUtil.showToast(strMsg: "You can upload maximum six Images.")
             return
         }
-        CameraImage.shared.captureImage(from: self, captureOptions: [.camera, .photoLibrary], allowEditting: true, fromView: sender) {[weak self] (image) in
+        
+        CameraImage.shared.captureImage(from: self, captureOptions: [.camera, .photoLibrary], allowEditting: true, fileTypes: [.image]) {[weak self] (image, url) in
             if image != nil {
                 
                 if (self?.objHeader?.arrImage.count)! < 6 {
@@ -466,7 +467,7 @@ class EditProfileViewController: ParentViewController, UITableViewDelegate, UITa
             
             let sendButton = UIAlertAction(title: "Edit", style: .default, handler: { (action) -> Void in
                 
-                CameraImage.shared.captureImage(from: self, captureOptions: [.camera, .photoLibrary], allowEditting: true, fromView: self.objHeader?.btnChangePhoto) {[weak self] (image) in
+                CameraImage.shared.captureImage(from: self, captureOptions: [.camera, .photoLibrary], allowEditting: true, fileTypes: [.image]) {[weak self] (image, url) in
                     if image != nil {
                         
                         self?.objHeader?.arrImage.remove(at: selectedINdex)
@@ -498,7 +499,9 @@ class EditProfileViewController: ParentViewController, UITableViewDelegate, UITa
             //
             // Insert new
             //
-            CameraImage.shared.captureImage(from: self, captureOptions: [.camera, .photoLibrary], allowEditting: true, fromView: self.objHeader?.btnChangePhoto) {[weak self] (image) in
+            
+            
+            CameraImage.shared.captureImage(from: self, captureOptions: [.camera, .photoLibrary], allowEditting: true, fileTypes: [.image]) {[weak self] (image, url) in
                 if image != nil {
                     
                     self?.objHeader?.arrImage.append(image!)

@@ -11,7 +11,7 @@ import SendBirdSDK
 
 class ChatDataSource: NSObject {
 
-    var messages: [SBDUserMessage] = [SBDUserMessage]()
+    var messages: [SBDBaseMessage] = [SBDBaseMessage]()
     var tableView: UITableView?
     var channel: SBDGroupChannel?
     
@@ -28,7 +28,7 @@ class ChatDataSource: NSObject {
         tableView?.estimatedRowHeight = 44.0
     }
     
-    func add(_ message: SBDUserMessage) {
+    func add(_ message: SBDBaseMessage) {
         messages.insert(message, at: 0)
         tableView?.beginUpdates()
         let indexPath = IndexPath(row: 0, section: 0)
@@ -45,12 +45,24 @@ class ChatDataSource: NSObject {
     func configureCell(tableView: UITableView, indexPath: IndexPath) -> ParentChatCell{
         
         var cell: ParentChatCell?
+        KBLog.log(message: "message", object: messages[indexPath.row])
         let message = messages[indexPath.row]
-        if message.sender?.userId == loginUser.id {
-            cell = tableView.dequeueReusableCell(withIdentifier: "SenderCell") as? SenderCell
+        
+        if let msg = message as? SBDUserMessage {
+            if msg.sender?.userId == loginUser.id {
+                cell = tableView.dequeueReusableCell(withIdentifier: "SenderCell") as? SenderCell
+            }
+            else {
+                cell = tableView.dequeueReusableCell(withIdentifier: "ReceiverCell") as? ReceiverCell
+            }
         }
-        else {
-            cell = tableView.dequeueReusableCell(withIdentifier: "ReceiverCell") as? ReceiverCell
+        else if let msg = message as? SBDFileMessage {
+            if msg.sender?.userId == loginUser.id {
+                cell = tableView.dequeueReusableCell(withIdentifier: "SenderCell") as? SenderCell
+            }
+            else {
+                cell = tableView.dequeueReusableCell(withIdentifier: "ReceiverCell") as? ReceiverCell
+            }
         }
         return cell ?? ParentChatCell()
     }
@@ -71,7 +83,13 @@ extension ChatDataSource: UITableViewDataSource {
 
 extension ChatDataSource:UITableViewDelegate {
     
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 100.0
-//    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if messages[indexPath.row] is SBDUserMessage {
+            return UITableViewAutomaticDimension
+        }
+        else if messages[indexPath.row] is SBDFileMessage {
+            return screenWidth * 0.5
+        }
+        return 0.0
+    }
 }

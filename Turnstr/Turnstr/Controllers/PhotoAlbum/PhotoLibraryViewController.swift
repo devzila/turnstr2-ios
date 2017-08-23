@@ -34,7 +34,7 @@ class PhotoLibraryViewController: ParentViewController, UICollectionViewDataSour
     }
     
     @IBAction func btnTappedPhotoLibrary(_ sender: UIButton) {
-        CameraImage.shared.captureImage(from: self, captureOptions: [.camera, .photoLibrary], allowEditting: true, fromView: sender) {[weak self] (image) in
+        CameraImage.shared.captureImage(from: self, captureOptions: [.camera, .photoLibrary], allowEditting: true, fileTypes: [.image]) {[weak self] (image, url) in
             if image != nil {
                 kAppDelegate.loadingIndicationCreationMSG(msg: "Uploading...")
                 self?.uploadPhotoToAlbum(arrImages: [image!])

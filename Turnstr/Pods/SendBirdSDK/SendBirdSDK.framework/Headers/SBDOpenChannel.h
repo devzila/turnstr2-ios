@@ -29,6 +29,11 @@
 @property (strong, nonatomic, readonly, nullable) NSMutableArray<SBDUser *> *operators;
 
 /**
+ The frozen state of this channel.
+ */
+@property (atomic) BOOL isFrozen;
+
+/**
  *  Internal use only.
  */
 + (void)clearCache;
@@ -435,5 +440,10 @@
  @return Serialized <span>data</span>.
  */
 - (nullable NSData *)serialize;
+
+/**
+ *  Internal use only.
+ */
+- (nullable NSDictionary *)_toDictionary;
 
 @end

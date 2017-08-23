@@ -8,6 +8,7 @@
 
 import UIKit
 import SendBirdSDK
+import KSPhotoBrowser
 
 class ParentChatCell: UITableViewCell {
 
@@ -18,6 +19,9 @@ class ParentChatCell: UITableViewCell {
     @IBOutlet weak var lblUnreadCount: UILabel?
     @IBOutlet weak var lblMessage: UILabel?
     @IBOutlet weak var bubbleView: UIView?
+    @IBOutlet weak var imgView: UIImageView?
+    
+    var currentMessage: SBDBaseMessage?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -70,17 +74,32 @@ class ParentChatCell: UITableViewCell {
         
         let msg = channel.lastMessage as? SBDUserMessage
         var strMsg = msg?.message
-        if loginUser.id == msg?.sender?.userId {
-            strMsg = "You: " + (strMsg ?? "")
+        if let fileMsg = channel.lastMessage as? SBDFileMessage {
+            strMsg = fileMsg.type
         }
         lblLastMessage?.text = strMsg
     }
     
-    func updateChat(_ message: SBDUserMessage, _ channel: SBDGroupChannel?) {
-        lblMessage?.text = message.message
-        lblName?.text = message.sender?.nickname
-        lblTime?.isHidden = true
-        createCube(message.sender)
+    func updateChat(_ message: SBDBaseMessage, _ channel: SBDGroupChannel?) {
+        currentMessage = message
+        if let message = message as? SBDUserMessage {
+            imgView?.isHidden = true
+            lblMessage?.isHidden = false
+            lblMessage?.text = message.message
+            lblName?.text = message.sender?.nickname
+            lblTime?.isHidden = true
+            createCube(message.sender)
+        }
+        else if let message = message as? SBDFileMessage {
+            imgView?.isHidden = false
+            lblMessage?.isHidden = true
+            if let url = URL(string: message.url) {
+                imgView?.sd_setImage(with: url, placeholderImage: #imageLiteral(resourceName: "placeholder"))
+            }
+            lblName?.text = message.sender?.nickname
+            lblTime?.isHidden = true
+            createCube(message.sender)
+        }
     }
     
     
@@ -106,5 +125,21 @@ class ParentChatCell: UITableViewCell {
         
         topCube?.setScroll(CGPoint.init(x: 0, y: h/2), end: CGPoint.init(x: 20, y: h/2))
         topCube?.setScroll(CGPoint.init(x: w/2, y: 0), end: CGPoint.init(x: w/2, y: 10))
+    }
+    
+    
+    func mediaTapped(point: CGPoint) {
+        if imgView?.frame.contains(point) ?? false {
+            
+            guard let msg = currentMessage as? SBDFileMessage,
+                let imageView = imgView,
+                let vc = topVC,
+                let url = URL(string: msg.url)
+                else { return }
+            
+            let item = KSPhotoItem(sourceView: imageView, imageUrl: url)
+            let browser = KSPhotoBrowser(photoItems: [item], selectedIndex: 0)
+            browser.show(from: vc)
+        }
     }
 }
