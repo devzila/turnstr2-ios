@@ -21,6 +21,7 @@ class Fave5CollectionViewCell: UICollectionViewCell, UICollectionViewDataSource,
     func setupCollectionView() {
         collViewFave5.delegate = self
         collViewFave5.dataSource = self
+        collViewFave5.reloadData()
     }
     
     
