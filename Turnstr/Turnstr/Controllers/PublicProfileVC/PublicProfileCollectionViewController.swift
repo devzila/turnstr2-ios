@@ -13,7 +13,7 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
     var transformView: AITransformView?
     var topCube: AITransformView?
     var profileDetail: UserModel?
-    var profileDict: Array<Dictionary<String, Any>>?
+    var profileDict = [[String:Any]]() //: Array<Dictionary<String, Any>>?
     var profileId: Int?
     
     @IBOutlet weak var collViewPublicProfile: UICollectionView!
@@ -36,20 +36,24 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
     var pageNumberUserStories = 1
     var arrUserStories = [StoryModel]()
 
+    
+    var pageSearchResult = 1
+    var isSearching = false
+    var isSearchingStoriesLoadNext = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        
         pageNumberFave5 = 1
         arrFav5.removeAll()
         pageNumberUserStories = 1
         arrUserStories.removeAll()
+        profileDict.removeAll()
+        
+        setPullToRefreshOnCollView()
+        
+        searchBar.showsCancelButton = false
         
         guard let userID = profileId else { return }
         
@@ -107,8 +111,45 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
                 self.getAllStories(page: self.pageNumberUserStories, isAllStories: self.isFromFeeds)
             }
         }
-        
     }
+    
+    deinit {
+        self.collViewPublicProfile.dg_removePullToRefresh()
+    }
+
+    // MARK: Pull to refresh & Infinite scrolling
+    func setPullToRefreshOnCollView() {
+        /// Set the loading view's indicator color
+        let loadingView = DGElasticPullToRefreshLoadingViewCircle()
+        loadingView.tintColor = UIColor.gray
+        /// Add handler
+        collViewPublicProfile.dg_addPullToRefreshWithActionHandler({ [weak self] () -> Void in
+            // Add your logic here
+            // Do not forget to call dg_stopLoading() at the end
+            if kAppDelegate.checkNetworkStatus() == false {
+                self?.collViewPublicProfile.dg_stopLoading()
+                return
+            }
+            if !(self?.isSearching)! {
+                self?.pageNumberFave5 = 1
+                self?.arrFav5.removeAll()
+                self?.pageNumberUserStories = 1
+                self?.arrUserStories.removeAll()
+                self?.profileDict.removeAll()
+                
+                self?.getFave5List(page: (self?.pageNumberFave5)!)
+                self?.getAllStories(page: (self?.pageNumberUserStories)!, isAllStories: (self?.isFromFeeds)!)
+            } else {
+                self?.collViewPublicProfile.dg_stopLoading()
+            }
+            
+            }, loadingView: loadingView)
+        
+        /// Set the background color of pull to refresh
+        collViewPublicProfile.dg_setPullToRefreshFillColor(#colorLiteral(red: 0.9450980392, green: 0.9450980392, blue: 0.937254902, alpha: 1))
+        collViewPublicProfile.dg_setPullToRefreshBackgroundColor(collViewPublicProfile.backgroundColor!)
+    }
+
     
     func addDeleteFave(favType: FavouriteType) {
         kAppDelegate.loadingIndicationCreationMSG(msg: "Loading...")
@@ -265,7 +306,10 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
         // Set collectionview cell size
         switch indexPath.row {
         case 0:
-            return CGSize(width: kWidth, height: 100)
+            if !isSearching {
+                return CGSize(width: kWidth, height: 100)
+            }
+            return CGSize(width: kWidth, height: 0)
 //        case 1:
 //            return CGSize(width: kWidth, height: 170)
         case 1:
@@ -285,12 +329,19 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        collViewPublicProfile.fixedPullToRefreshViewForDidScroll()
         
         if (scrollView.contentOffset.y >= (collViewPublicProfile.contentSize.height - scrollView.frame.size.height)) {
-            //reach bottom
-            if isUserStoriesLoadNext {
-                pageNumberUserStories = pageNumberUserStories+1
-                self.getAllStories(page: self.pageNumberUserStories, isAllStories: self.isFromFeeds)
+            if !isSearching {
+                if isUserStoriesLoadNext {
+                    pageNumberUserStories = pageNumberUserStories+1
+                    self.getAllStories(page: self.pageNumberUserStories, isAllStories: self.isFromFeeds)
+                }
+            } else {
+                if isSearchingStoriesLoadNext {
+                    pageSearchResult = pageSearchResult+1
+                    searchStoryResults()
+                }
             }
         }
     }
@@ -333,7 +384,7 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
         guard let userID = profileDetail?.id else {
             return
         }
-        kAppDelegate.loadingIndicationCreationMSG(msg: "Loading...")
+//        kAppDelegate.loadingIndicationCreationMSG(msg: "Loading...")
         getFave5(id: userID, page: page) { (response, dict) in
             
             if let faveArray = response?.response {
@@ -346,6 +397,7 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
                 } else {
                     self.isFave5LoadNext = false
                 }
+                self.collViewPublicProfile.dg_stopLoading()
                 self.collViewPublicProfile.reloadItems(at: [IndexPath(row: 0, section: 0)])
             }
         }
@@ -365,7 +417,10 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
                     self.arrUserStories.append(object)
                 }
                 if let arrStories = dict["stories"] as? Array<Dictionary<String, Any>> {
-                    self.profileDict = arrStories
+                    for object in arrStories {
+                        self.profileDict.append(object)
+                    }
+                    
                 }
                 if let _ = dict["next_page"] as? Int {
                     self.isUserStoriesLoadNext = true
@@ -373,6 +428,7 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
                     self.isUserStoriesLoadNext = false
 
                 }
+                self.collViewPublicProfile.dg_stopLoading()
                 self.collViewPublicProfile.reloadItems(at: [IndexPath(row: 1, section: 0)])
             }
         }
@@ -389,10 +445,8 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
     
     func cellUserStoryTappedAtIndex(index: Int) {
         let mvc = StoryPreviewViewController()
-        if self.profileDict != nil {
-            mvc.dictInfo = (self.profileDict?[index])!
-            self.navigationController?.pushViewController(mvc, animated: true)
-        }
+        mvc.dictInfo = (self.profileDict[index])
+        self.navigationController?.pushViewController(mvc, animated: true)
         
     }
     
@@ -402,14 +456,53 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.searchBar.endEditing(true)
+        isSearching = true
+        self.arrUserStories.removeAll()
+        self.profileDict.removeAll()
+        searchStoryResults()
+        collViewPublicProfile.reloadData()
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        
+        searchBar.showsCancelButton = true
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         self.searchBar.endEditing(true)
+        searchBar.showsCancelButton = false
+        isSearching = false
+        self.pageNumberUserStories = 1
+        self.arrUserStories.removeAll()
+        self.profileDict.removeAll()
+        searchBar.text = ""
+        self.getAllStories(page: self.pageNumberUserStories, isAllStories: self.isFromFeeds)
+    }
+    
+    func searchStoryResults() {
+        kAppDelegate.loadingIndicationCreationMSG(msg: "Searching...")
+        searchStories(page: pageSearchResult, strSearch: searchBar.text!) { (response, dictResponse) in
+            kAppDelegate.hideLoadingIndicator()
+            
+            if let storyArray = response?.response {
+                print(storyArray)
+                for object in storyArray {
+                    self.arrUserStories.append(object)
+                }
+                if let arrStories = dictResponse["stories"] as? Array<Dictionary<String, Any>> {
+                    for object in arrStories {
+                        self.profileDict.append(object)
+                    }
+                    
+                }
+                if let _ = dictResponse["next_page"] as? Int {
+                    self.isSearchingStoriesLoadNext = false
+                } else {
+                    self.isSearchingStoriesLoadNext = false
+                    
+                }
+                self.collViewPublicProfile.reloadData()
+            }
+        }
     }
     
     /*

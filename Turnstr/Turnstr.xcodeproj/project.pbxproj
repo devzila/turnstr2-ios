@@ -29,6 +29,15 @@
 		7EBFF7F11F46204800A8574D /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EBFF7E91F46204800A8574D /* UserModel.swift */; };
 		7EBFF7F21F46204800A8574D /* KSResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EBFF7EA1F46204800A8574D /* KSResponse.swift */; };
 		7EBFF7F41F46206600A8574D /* PhotoAlbum.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7EBFF7F31F46206600A8574D /* PhotoAlbum.storyboard */; };
+		7EDC72861F4DF0D000A00316 /* DGElasticPullToRefreshExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDC727C1F4DF0D000A00316 /* DGElasticPullToRefreshExtensions.swift */; };
+		7EDC72871F4DF0D000A00316 /* DGElasticPullToRefreshLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDC727D1F4DF0D000A00316 /* DGElasticPullToRefreshLoadingView.swift */; };
+		7EDC72881F4DF0D000A00316 /* DGElasticPullToRefreshLoadingViewCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDC727E1F4DF0D000A00316 /* DGElasticPullToRefreshLoadingViewCircle.swift */; };
+		7EDC72891F4DF0D000A00316 /* DGElasticPullToRefreshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDC727F1F4DF0D000A00316 /* DGElasticPullToRefreshView.swift */; };
+		7EDC728A1F4DF0D000A00316 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDC72811F4DF0D000A00316 /* Extension.swift */; };
+		7EDC728B1F4DF0D000A00316 /* pulltorefresharrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7EDC72821F4DF0D000A00316 /* pulltorefresharrow.png */; };
+		7EDC728C1F4DF0D000A00316 /* PullToRefreshOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDC72831F4DF0D000A00316 /* PullToRefreshOption.swift */; };
+		7EDC728D1F4DF0D000A00316 /* PullToRefreshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDC72841F4DF0D000A00316 /* PullToRefreshView.swift */; };
+		7EDC728E1F4DF0D000A00316 /* UIScrollViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDC72851F4DF0D000A00316 /* UIScrollViewExtension.swift */; };
 		8A1781E61F4A030400BE9694 /* ChatVCExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1781E51F4A030400BE9694 /* ChatVCExtension.swift */; };
 		8A2630111F30EB9800F55C2B /* ChatBudsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2630101F30EB9800F55C2B /* ChatBudsVC.swift */; };
 		8A2630131F30EBAE00F55C2B /* UsersListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2630121F30EBAE00F55C2B /* UsersListVC.swift */; };
@@ -198,6 +207,15 @@
 		7EBFF7E91F46204800A8574D /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		7EBFF7EA1F46204800A8574D /* KSResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KSResponse.swift; sourceTree = "<group>"; };
 		7EBFF7F31F46206600A8574D /* PhotoAlbum.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PhotoAlbum.storyboard; sourceTree = "<group>"; };
+		7EDC727C1F4DF0D000A00316 /* DGElasticPullToRefreshExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DGElasticPullToRefreshExtensions.swift; sourceTree = "<group>"; };
+		7EDC727D1F4DF0D000A00316 /* DGElasticPullToRefreshLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DGElasticPullToRefreshLoadingView.swift; sourceTree = "<group>"; };
+		7EDC727E1F4DF0D000A00316 /* DGElasticPullToRefreshLoadingViewCircle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DGElasticPullToRefreshLoadingViewCircle.swift; sourceTree = "<group>"; };
+		7EDC727F1F4DF0D000A00316 /* DGElasticPullToRefreshView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DGElasticPullToRefreshView.swift; sourceTree = "<group>"; };
+		7EDC72811F4DF0D000A00316 /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		7EDC72821F4DF0D000A00316 /* pulltorefresharrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pulltorefresharrow.png; sourceTree = "<group>"; };
+		7EDC72831F4DF0D000A00316 /* PullToRefreshOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PullToRefreshOption.swift; sourceTree = "<group>"; };
+		7EDC72841F4DF0D000A00316 /* PullToRefreshView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PullToRefreshView.swift; sourceTree = "<group>"; };
+		7EDC72851F4DF0D000A00316 /* UIScrollViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIScrollViewExtension.swift; sourceTree = "<group>"; };
 		8A1781E51F4A030400BE9694 /* ChatVCExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatVCExtension.swift; sourceTree = "<group>"; };
 		8A2630101F30EB9800F55C2B /* ChatBudsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatBudsVC.swift; sourceTree = "<group>"; };
 		8A2630121F30EBAE00F55C2B /* UsersListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersListVC.swift; sourceTree = "<group>"; };
@@ -417,6 +435,38 @@
 			path = CollectionViewCell;
 			sourceTree = "<group>";
 		};
+		7EDC727A1F4DF0D000A00316 /* PullUpDownLibrary */ = {
+			isa = PBXGroup;
+			children = (
+				7EDC727B1F4DF0D000A00316 /* DGElasticPullToRefresh */,
+				7EDC72801F4DF0D000A00316 /* InfiniteScroller */,
+			);
+			path = PullUpDownLibrary;
+			sourceTree = "<group>";
+		};
+		7EDC727B1F4DF0D000A00316 /* DGElasticPullToRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				7EDC727C1F4DF0D000A00316 /* DGElasticPullToRefreshExtensions.swift */,
+				7EDC727D1F4DF0D000A00316 /* DGElasticPullToRefreshLoadingView.swift */,
+				7EDC727E1F4DF0D000A00316 /* DGElasticPullToRefreshLoadingViewCircle.swift */,
+				7EDC727F1F4DF0D000A00316 /* DGElasticPullToRefreshView.swift */,
+			);
+			path = DGElasticPullToRefresh;
+			sourceTree = "<group>";
+		};
+		7EDC72801F4DF0D000A00316 /* InfiniteScroller */ = {
+			isa = PBXGroup;
+			children = (
+				7EDC72811F4DF0D000A00316 /* Extension.swift */,
+				7EDC72821F4DF0D000A00316 /* pulltorefresharrow.png */,
+				7EDC72831F4DF0D000A00316 /* PullToRefreshOption.swift */,
+				7EDC72841F4DF0D000A00316 /* PullToRefreshView.swift */,
+				7EDC72851F4DF0D000A00316 /* UIScrollViewExtension.swift */,
+			);
+			path = InfiniteScroller;
+			sourceTree = "<group>";
+		};
 		8A05B12A1F2FBD8C00F32737 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
@@ -501,6 +551,7 @@
 		D91C3ADD1F001D70005F945C /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				7EDC727A1F4DF0D000A00316 /* PullUpDownLibrary */,
 				D96B48ED1F1472D600621B39 /* CustomAlertView */,
 				D963663B1F035BD100784A58 /* SDWebImage */,
 				D96366291F02D33900784A58 /* Reachablity */,
@@ -991,9 +1042,9 @@
 				TargetAttributes = {
 					D9FDE60D1EC2263C009D5BE3 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = XXPSXL3JLY;
+						DevelopmentTeam = LCT55BGX4Z;
 						LastSwiftMigration = 0820;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -1028,6 +1079,7 @@
 				7EBFF7F41F46206600A8574D /* PhotoAlbum.storyboard in Resources */,
 				8AEC2C831F169C23008DF3BB /* Chat.storyboard in Resources */,
 				D95181A61F180776008595CC /* LiveFeed.storyboard in Resources */,
+				7EDC728B1F4DF0D000A00316 /* pulltorefresharrow.png in Resources */,
 				183306D01F47800E00F2D133 /* SenderCell.xib in Resources */,
 				D91C3B051F001D78005F945C /* IQKeyboardManager.bundle in Resources */,
 				D9FDE6621EC2586E009D5BE3 /* img6.png in Resources */,
@@ -1145,6 +1197,7 @@
 				D90DF8451F157E64002DD501 /* VideoView.swift in Sources */,
 				7EBFF7D81F461FE100A8574D /* PublicProfileViewController.swift in Sources */,
 				D9FDE63E1EC22C55009D5BE3 /* Utility.swift in Sources */,
+				7EDC728A1F4DF0D000A00316 /* Extension.swift in Sources */,
 				7EBFF7D61F461FE100A8574D /* PhotoLibraryViewController.swift in Sources */,
 				D9AC62D81F0191100055ED3D /* UIButtonExtension.swift in Sources */,
 				D90BF05E1F0D6752003B5F4D /* MyStoriesViewController.swift in Sources */,
@@ -1152,6 +1205,7 @@
 				D91C3AFB1F001D78005F945C /* IQKeyboardManagerConstants.swift in Sources */,
 				D91C3AFE1F001D78005F945C /* IQKeyboardReturnKeyHandler.swift in Sources */,
 				D9FDE6461EC236F5009D5BE3 /* Image.swift in Sources */,
+				7EDC72871F4DF0D000A00316 /* DGElasticPullToRefreshLoadingView.swift in Sources */,
 				8A26301A1F30F46300F55C2B /* Friends.swift in Sources */,
 				D957F3161F435DDA00307968 /* VideoPlayer.swift in Sources */,
 				D90A0F881F01F32E00BFCE90 /* MenuBar.swift in Sources */,
@@ -1160,7 +1214,9 @@
 				7EBFF7ED1F46204800A8574D /* Photos.swift in Sources */,
 				D96366631F035BD100784A58 /* SDWebImageDownloaderOperation.m in Sources */,
 				1861D9C11F44C0C2009E80D7 /* ChatDataSource.swift in Sources */,
+				7EDC72891F4DF0D000A00316 /* DGElasticPullToRefreshView.swift in Sources */,
 				D9AC62DA1F0191100055ED3D /* UIWindowExtension.swift in Sources */,
+				7EDC728E1F4DF0D000A00316 /* UIScrollViewExtension.swift in Sources */,
 				D963663A1F03343900784A58 /* PickerView.swift in Sources */,
 				D91C3AFC1F001D78005F945C /* IQKeyboardManagerConstantsInternal.swift in Sources */,
 				D91C3B011F001D78005F945C /* IQPreviousNextView.swift in Sources */,
@@ -1169,6 +1225,7 @@
 				8A1781E61F4A030400BE9694 /* ChatVCExtension.swift in Sources */,
 				7EBFF7E11F461FFE00A8574D /* UserStoryCollectionViewCell.swift in Sources */,
 				7EBFF7F01F46204800A8574D /* CommentModel.swift in Sources */,
+				7EDC728C1F4DF0D000A00316 /* PullToRefreshOption.swift in Sources */,
 				8A2630111F30EB9800F55C2B /* ChatBudsVC.swift in Sources */,
 				D91C3AF81F001D78005F945C /* IQUIView+Hierarchy.swift in Sources */,
 				D96366681F035BD100784A58 /* UIImage+MultiFormat.m in Sources */,
@@ -1182,10 +1239,13 @@
 				D963666C1F035BD100784A58 /* UIView+WebCacheOperation.m in Sources */,
 				8AE0E2C01F291AFB00A28422 /* User.swift in Sources */,
 				7EBFF7EC1F46204800A8574D /* PhotoAlbum.swift in Sources */,
+				7EDC728D1F4DF0D000A00316 /* PullToRefreshView.swift in Sources */,
 				7EBFF7EB1F46204800A8574D /* ServiceUtility.swift in Sources */,
 				D9AC62C41F018FC90055ED3D /* Device.swift in Sources */,
 				D91C3B021F001D78005F945C /* IQTitleBarButtonItem.swift in Sources */,
 				D9FDE6481EC236F5009D5BE3 /* textField.swift in Sources */,
+				7EDC72861F4DF0D000A00316 /* DGElasticPullToRefreshExtensions.swift in Sources */,
+				7EDC72881F4DF0D000A00316 /* DGElasticPullToRefreshLoadingViewCircle.swift in Sources */,
 				D9AC62D51F0191100055ED3D /* DateExtension.swift in Sources */,
 				D95181AA1F180C37008595CC /* LiveFeedsViewController.swift in Sources */,
 				D9FDE6471EC236F5009D5BE3 /* scroll.swift in Sources */,
@@ -1375,15 +1435,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = XXPSXL3JLY;
+				DEVELOPMENT_TEAM = LCT55BGX4Z;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Turnstr/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.app.Turnstr;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ketapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "31ea06d6-e30f-4113-a1d3-46291e8ec619";
-				PROVISIONING_PROFILE_SPECIFIER = Turnstr_dev;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Turnstr/Turnstr-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -1397,15 +1457,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = XXPSXL3JLY;
+				DEVELOPMENT_TEAM = LCT55BGX4Z;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Turnstr/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.app.Turnstr;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ketapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "31ea06d6-e30f-4113-a1d3-46291e8ec619";
-				PROVISIONING_PROFILE_SPECIFIER = Turnstr_dev;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Turnstr/Turnstr-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};

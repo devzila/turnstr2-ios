@@ -1117,7 +1117,7 @@
                                     <action selector="btnTappedBack:" destination="aq8-IG-OTR" eventType="touchUpInside" id="glE-D4-ISD"/>
                                 </connections>
                             </button>
-                            <searchBar hidden="YES" contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="K2T-kt-fvH">
+                            <searchBar hidden="YES" contentMode="redraw" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K2T-kt-fvH">
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="jMS-4P-heq"/>
