@@ -58,6 +58,12 @@ class DataServiceModal: NSObject {
             strPostUrl = String(format: "stories/%d/likes", dictAction["id"] as! Int)
             strParType = ""
         }
+        else if action == kAPIDELETEStory {
+            
+            strRequest = ""
+            strPostUrl = String(format: "user/stories/%d", dictAction["id"] as! Int)
+            strParType = kAPIDELETEStory
+        }
         
         
         
@@ -200,36 +206,53 @@ class DataServiceModal: NSObject {
             
             if let dataData = response["data"] {
                 
-                if let dataVal = dataData["data"] as? Dictionary<String, Any> {
+                if let success = dataData["success"] as? Bool {
                     
-                    if objUtil?.isStrEmpty(str: String.init(format: "%@", dataVal as CVarArg)) == false {
+                    if success == true {
                         
-                        if dataVal.count > 0 {
-                            data = dataVal as [String : AnyObject]
+                        if let dataVal = dataData["data"] as? Dictionary<String, Any> {
                             
-                            return data
+                            if objUtil?.isStrEmpty(str: String.init(format: "%@", dataVal as CVarArg)) == false {
+                                
+                                if dataVal.count > 0 {
+                                    data = dataVal as [String : AnyObject]
+                                    
+                                    return data
+                                }
+                                else{
+                                    DispatchQueue.main.async {
+                                        kAppDelegate.hideLoadingIndicator()
+                                    }
+                                }
+                            }
+                            else {
+                                //
+                                // Create a delegate method for those services which only return empty array
+                                // And return that delegate method from here for notify to controllers
+                                //
+                                DispatchQueue.main.async {
+                                    kAppDelegate.hideLoadingIndicator()
+                                }
+                            }
                         }
-                        else{
+                    }
+                    else{
+                        if let message = dataData["error"] as? String {
                             DispatchQueue.main.async {
+                                self.objUtil?.showToast(strMsg: message)
                                 kAppDelegate.hideLoadingIndicator()
                             }
                         }
                     }
-                    else {
-                        //
-                        // Create a delegate method for those services which only return empty array
-                        // And return that delegate method from here for notify to controllers
-                        //
-                        DispatchQueue.main.async {
-                            kAppDelegate.hideLoadingIndicator()
-                        }
-                    }
                 }
+                
+                
+                
                 
             }
             return data
         }
-        else if response["statusCode"] as! Int == 400 || response["statusCode"] as! Int == 401 || response["statusCode"] as! Int == 404 || response["statusCode"] as! Int == 500 || response["statusCode"] as! Int == 422 {
+        else if response["statusCode"] as! Int == 400 || response["statusCode"] as! Int == 401 || response["statusCode"] as! Int == 404 || response["statusCode"] as! Int == 500 || response["statusCode"] as! Int == 422 || response["statusCode"] as! Int == 222 {
             
             if let dataVal = response["data"] {
                 

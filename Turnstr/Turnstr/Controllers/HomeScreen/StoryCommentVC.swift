@@ -8,12 +8,19 @@
 
 import UIKit
 
+protocol StoryCommentsDelegate {
+    func CommentCountChanged(count: Int)
+}
+
 class StoryCommentVC: ParentViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var txtComment: UITextField!
     
     let objStory = Story.sharedInstance
     let objCom = Comment.sharedInstance
+    
+    var delegate: StoryCommentsDelegate?
+    
     
     var tblMainTable: UITableView?
     //var arrComments: NSMutableArray = NSMutableArray()
@@ -80,6 +87,7 @@ class StoryCommentVC: ParentViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView:UITableView, numberOfRowsInSection section:Int) -> Int
     {
+        delegate?.CommentCountChanged(count: arrComments.count)
         return arrComments.count
         
     }
@@ -197,7 +205,7 @@ class StoryCommentVC: ParentViewController, UITableViewDelegate, UITableViewData
             
         }
     }
-
+    
     func APIPostCommentRequest() -> Void {
         
         if kAppDelegate.checkNetworkStatus() == false {
@@ -229,5 +237,5 @@ class StoryCommentVC: ParentViewController, UITableViewDelegate, UITableViewData
             }
         }
     }
-
+    
 }

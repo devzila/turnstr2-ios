@@ -214,6 +214,7 @@ class StoriesViewController: ParentViewController, UICollectionViewDelegate, UIC
         
         let mvc = StoryPreviewViewController()
         mvc.dictInfo = arrList[indexPath.item] as! Dictionary<String, Any>
+        mvc.userTYpe = screenType
         self.navigationController?.pushViewController(mvc, animated: true)
         
         

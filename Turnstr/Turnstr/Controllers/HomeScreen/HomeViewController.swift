@@ -25,6 +25,11 @@ class HomeViewController: ParentViewController {
     @IBOutlet weak var uvCenterCube: UIView!
     @IBOutlet weak var uvTopCube: UIView!
     
+    
+    override func viewDidLayoutSubviews() {
+        MyStoryBUtton()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -116,7 +121,7 @@ class HomeViewController: ParentViewController {
         transformView?.backgroundColor = UIColor.clear
         transformView?.setup(withUrls: [objSing.strUserPic1.urlWithThumb, objSing.strUserPic2.urlWithThumb, objSing.strUserPic3.urlWithThumb, objSing.strUserPic4.urlWithThumb, objSing.strUserPic5.urlWithThumb, objSing.strUserPic6.urlWithThumb])
         uvCenterCube.addSubview(transformView!)
-        transformView?.setScroll(CGPoint.init(x: 0, y: h/2), end: CGPoint.init(x: 85, y: h/2))
+        transformView?.setScroll(CGPoint.init(x: 0, y: h/2), end: CGPoint.init(x: IS_IPHONE_6P ? 115 : 85, y: h/2))
         transformView?.setScroll(CGPoint.init(x: w/2, y: 0), end: CGPoint.init(x: w/2, y: 10))
         
         MyStoryBUtton()

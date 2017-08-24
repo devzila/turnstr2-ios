@@ -59,6 +59,7 @@
                         <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                             <color key="value" red="0.85882352939999995" green="0.85882352939999995" blue="0.85882352939999995" alpha="1" colorSpace="calibratedRGB"/>
                         </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="BorderFULL" value="YES"/>
                     </userDefinedRuntimeAttributes>
                 </view>
             </subviews>

@@ -11,12 +11,17 @@ import UIKit
 
 
 
+let IS_IPHONE_4_OR_LESS =  UIDevice.current.userInterfaceIdiom == .phone && ScreenSize.SCREEN_MAX_LENGTH < 568.0
+let IS_IPHONE_5 = UIDevice.current.userInterfaceIdiom == .phone && ScreenSize.SCREEN_MAX_LENGTH == 568.0
+let IS_IPHONE_6 = UIDevice.current.userInterfaceIdiom == .phone && ScreenSize.SCREEN_MAX_LENGTH == 667.0
+let IS_IPHONE_6P = UIDevice.current.userInterfaceIdiom == .phone && ScreenSize.SCREEN_MAX_LENGTH == 736.0
+
 /*
  * API Urls
  */
 
 let kBaseURL = "https://fathomless-retreat-45620.herokuapp.com/v1/"
-let kImageBaseUrl = "https://fathomless-retreat-45620.herokuapp.com"
+let kImageBaseUrl = ""
 
 
 let kAPILogin = "sessions"
@@ -33,7 +38,7 @@ let kAPIGetAllPhotos = "photos"
 let kAPIGetSpecificStory = "stories/"
 let kAPIFollowUnfollowUser = "members"
 
-
+let kAPIDELETEStory = "DELETE user/stories/<story-id>"
 let kAPILikeStory = "stories/<story-id>/likes"
 let kAPIGetStoriesComments = "stories/<story-id>/comments"
 

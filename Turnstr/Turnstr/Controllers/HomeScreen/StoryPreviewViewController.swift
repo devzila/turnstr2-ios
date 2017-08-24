@@ -8,12 +8,17 @@
 
 import UIKit
 
-class StoryPreviewViewController: ParentViewController, UIGestureRecognizerDelegate {
+
+class StoryPreviewViewController: ParentViewController, UIGestureRecognizerDelegate, StoryCommentsDelegate {
     
     var transformView: AITransformView?
     
+    var btnUserName = UIButton()
+    
+    
     let objStory = Story.sharedInstance
     var objCommentFooter: LikeCommetFooter?
+    var userTYpe: enumScreenType = .normal
     
     
     var dictInfo: Dictionary<String, Any> = [:]
@@ -45,7 +50,7 @@ class StoryPreviewViewController: ParentViewController, UIGestureRecognizerDeleg
         transformView?.setup(withUrls: arrMedia)
         self.view.addSubview(transformView!)
         transformView?.setScroll(CGPoint.init(x: 0, y: h/2), end: CGPoint.init(x: 85, y: h/2))
-        transformView?.setScroll(CGPoint.init(x: w/2, y: 0), end: CGPoint.init(x: w/2, y: kNavBarHeight+30))
+        transformView?.setScroll(CGPoint.init(x: w/2, y: 0), end: CGPoint.init(x: w/2, y: kNavBarHeight + (IS_IPHONE_6P ? 60 :30)))
         
         let tap = UITapGestureRecognizer.init(target: self, action: #selector(handleTap(sender:)))
         tap.delegate = self
@@ -61,6 +66,16 @@ class StoryPreviewViewController: ParentViewController, UIGestureRecognizerDeleg
         objNav.btnBack.addTarget(self, action: #selector(goBack), for: .touchUpInside)
         objNav.btnBack.tintColor = UIColor.white
         
+        if userTYpe == .myStories {
+            if objStory.strUserID == objSing.strUserID {
+                uvNavBar?.addSubview(objNav.RightButonIcon())
+                objNav.btnRightMenu.setImage(#imageLiteral(resourceName: "delete"), for: .normal)
+                objNav.btnRightMenu.tintColor = UIColor.white
+                objNav.btnRightMenu.addTarget(self, action: #selector(DeleteStory), for: .touchUpInside)
+            }
+        }
+        
+        SetupUserHeader()
         SetupFooter()
         
         kAppDelegate.loadingIndicationCreation()
@@ -73,6 +88,39 @@ class StoryPreviewViewController: ParentViewController, UIGestureRecognizerDeleg
         // Dispose of any resources that can be recreated.
     }
     
+    //MARK:- Setup UserHeader
+    
+    func SetupUserHeader() {
+        //
+        //Top Cube View
+        //
+        
+        
+        let w: CGFloat = 50
+        let h: CGFloat = 50
+        
+        let uvCube = objUtil.createView(xCo: 10, forY: kNavBarHeight+10, forW: w, forH: h, backColor: UIColor.clear)
+        self.view.addSubview(uvCube)
+        
+        let topCube = AITransformView.init(frame: CGRect.init(x: 0, y: 0, width: w, height: h), cube_size: 35)
+        topCube?.backgroundColor = UIColor.clear
+        
+        let urls = [objStory.strUserPic1.urlWithThumb, objStory.strUserPic2.urlWithThumb, objStory.strUserPic3.urlWithThumb, objStory.strUserPic4.urlWithThumb, objStory.strUserPic5.urlWithThumb, objStory.strUserPic6.urlWithThumb]
+        print(urls)
+        topCube?.setup(withUrls: urls)
+        uvCube.addSubview(topCube!)
+        
+        topCube?.setScroll(CGPoint.init(x: 0, y: h/2), end: CGPoint.init(x: 10, y: h/2))
+        topCube?.setScroll(CGPoint.init(x: w/2, y: 0), end: CGPoint.init(x: w/2, y: 5))
+        topCube?.isUserInteractionEnabled = false
+        
+        btnUserName.frame = CGRect.init(x: uvCube.frame.maxX+8, y: uvCube.frame.minY, width: kWidth-uvCube.frame.maxX-8, height: h)
+        btnUserName.setTitleColor(UIColor.white, for: .normal)
+        btnUserName.titleLabel?.font = UIFont.init(name: kFontOpen3, size: 14.0)
+        btnUserName.contentHorizontalAlignment = .left
+        btnUserName.addTarget(self, action: #selector(OpenProfile(sender:)), for: .touchUpInside)
+        self.view.addSubview(btnUserName)
+    }
     //MARK:- SetUP Footer
     
     func SetupFooter() -> Void {
@@ -90,6 +138,8 @@ class StoryPreviewViewController: ParentViewController, UIGestureRecognizerDeleg
     
     func PrefillData() -> Void {
         
+        btnUserName.setTitle(objStory.strUserFname.capitalized+" "+objStory.strUserLName.capitalized, for: .normal)
+        
         if objCommentFooter != nil {
             objCommentFooter?.lblCaption.text = objStory.strCaption.capitalized
             objCommentFooter?.btnTotalLike.setTitle("\(objStory.likes_count) likes", for: .normal)
@@ -101,8 +151,35 @@ class StoryPreviewViewController: ParentViewController, UIGestureRecognizerDeleg
     }
     
     //MARK:- Action Methods
+    
+    func OpenProfile(sender: UIButton) {
+        
+        if let feedVC = Storyboards.photoStoryboard.initialVC(with: StoryboardIds.feedScreen) as? PublicProfileCollectionViewController {
+            feedVC.profileId = Int(objStory.strUserID) ?? nil
+            self.navigationController?.pushViewController(feedVC, animated: true)
+        }
+        
+        
+    }
     func LikeClicked(sender: UIButton) -> Void {
         
+        
+        if objStory.has_liked == true {
+            
+            dictInfo["likes_count"] = objStory.likes_count-1
+            objStory.likes_count = objStory.likes_count-1
+            objCommentFooter?.btnTotalLike.setTitle("\(objStory.likes_count) Likes", for: .normal)
+            objStory.has_liked = false
+            dictInfo["has_liked"] = false
+        }
+        else{
+            dictInfo["likes_count"] = objStory.likes_count+1
+            objStory.likes_count = objStory.likes_count+1
+            objCommentFooter?.btnTotalLike.setTitle("\(objStory.likes_count) Likes", for: .normal)
+            objStory.has_liked = true
+            dictInfo["has_liked"] = true
+            
+        }
         kAppDelegate.loadingIndicationCreation()
         APIRequest(sType: kAPILikeStory, data: [:])
         
@@ -113,6 +190,7 @@ class StoryPreviewViewController: ParentViewController, UIGestureRecognizerDeleg
         //let homeVC: CommentsViewController = storyboard.instantiateViewController(withIdentifier: "CommentsViewController") as! CommentsViewController
         let homeVC = StoryCommentVC.init(nibName: "StoryCommentVC", bundle: nil)
         homeVC.dictInfo = self.dictInfo
+        homeVC.delegate = self
         self.present(homeVC, animated: true, completion: nil)
         
     }
@@ -121,7 +199,20 @@ class StoryPreviewViewController: ParentViewController, UIGestureRecognizerDeleg
         
     }
     
-    
+    func DeleteStory() {
+        let actionSheetController: UIAlertController = UIAlertController(title: "Are you sure?", message: "", preferredStyle: .alert)
+        let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { action -> Void in
+            //Just dismiss the action sheet
+        }
+        let yesAction: UIAlertAction = UIAlertAction(title: "Yes", style: .default) { action -> Void in
+            kAppDelegate.loadingIndicationCreationMSG(msg: "Deleting")
+            self.APIRequest(sType: kAPIDELETEStory, data: [:])
+        }
+        actionSheetController.addAction(yesAction)
+        actionSheetController.addAction(cancelAction)
+        
+        self.present(actionSheetController, animated: true, completion: nil)
+    }
     
     func handleTap(sender: UITapGestureRecognizer? = nil) {
         // handling code
@@ -132,6 +223,12 @@ class StoryPreviewViewController: ParentViewController, UIGestureRecognizerDeleg
         self.navigationController?.present(mvc, animated: true, completion: nil)
         
         
+    }
+    
+    //MARK:- Comments delegate
+    
+    func CommentCountChanged(count: Int) {
+        objCommentFooter?.btnTotalComment.setTitle("\(count) Comments", for: .normal)
     }
     
     //MARK:- APIS Handling
@@ -183,6 +280,24 @@ class StoryPreviewViewController: ParentViewController, UIGestureRecognizerDeleg
                     DispatchQueue.main.async {
                         self.objCommentFooter?.btnLike.isSelected = !(self.objCommentFooter?.btnLike.isSelected)!
                         kAppDelegate.hideLoadingIndicator()
+                    }
+                }
+            }
+            else if sType == kAPIDELETEStory {
+                
+                self.objStory.ParseStoryData(dict: self.dictInfo)
+                
+                let dictAction: NSDictionary = [
+                    "action": kAPIDELETEStory,
+                    "id": self.objStory.storyID
+                ]
+                
+                let arrResponse = self.objDataS.PostRequestToServer(dictAction: dictAction)
+                
+                if (arrResponse.count) > 0 {
+                    DispatchQueue.main.async {
+                        kAppDelegate.hideLoadingIndicator()
+                        self.goBack()
                     }
                 }
             }

@@ -32,12 +32,16 @@ class WebServices: NSObject {
         
         
         
-        let request = NSMutableURLRequest(url: NSURL.init(string: kBaseURL.appending(PostURL)) as! URL)
+        let request = NSMutableURLRequest(url: URL.init(string: kBaseURL.appending(PostURL))!)
         
         print("\(request.url! as URL)")
         
-        
-        request.httpMethod = "POST"
+        if parType == kAPIDELETEStory {
+            request.httpMethod = "DELETE"
+        }
+        else{
+            request.httpMethod = "POST"
+        }
         
         request.httpBody = JSONString .data(using: String.Encoding.utf8)
         

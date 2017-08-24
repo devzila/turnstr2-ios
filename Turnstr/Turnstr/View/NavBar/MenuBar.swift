@@ -83,9 +83,9 @@ class MenuBar: UIView {
     }
     
     func RightButonIcon() -> UIButton {
-        btnRightMenu = Utility.sharedInstance.createButton(xCo: kWidth - 45, forY: 0, forW: 40, forH: self.frame.height, forText: "", textColor: UIColor.white, wifthFont: UIFont.systemFont(ofSize: 12), backColor: krgbClear)
+        btnRightMenu = Utility.sharedInstance.createButton(xCo: kWidth - 45, forY: 10, forW: 40, forH: self.frame.height, forText: "", textColor: UIColor.white, wifthFont: UIFont.systemFont(ofSize: 12), backColor: krgbClear)
         btnRightMenu.setImage(#imageLiteral(resourceName: "user_icon"), for: .normal)
-        btnRightMenu.backgroundColor = UIColor.red
+        btnRightMenu.backgroundColor = UIColor.clear
         return btnRightMenu
     }
     

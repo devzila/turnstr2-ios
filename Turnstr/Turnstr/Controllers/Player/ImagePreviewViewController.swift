@@ -11,7 +11,7 @@ import AVKit
 import AVFoundation
 
 class ImagePreviewViewController: ParentViewController, UIScrollViewDelegate {
-
+    
     var currentIndex: Int = 0
     let playerController = AVPlayerViewController()
     
@@ -28,7 +28,7 @@ class ImagePreviewViewController: ParentViewController, UIScrollViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.view.backgroundColor = UIColor.black
         
         /*
@@ -51,7 +51,7 @@ class ImagePreviewViewController: ParentViewController, UIScrollViewDelegate {
     func DismissBack() {
         dismissVC()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -68,7 +68,7 @@ class ImagePreviewViewController: ParentViewController, UIScrollViewDelegate {
         scrScrollView.contentSize = CGSize.init(width: kWidth * CGFloat(objStory.media.count), height: kHeight)
         
     }
-
+    
     func PagingButtons() {
         btnNext.frame = CGRect.init(x: kWidth-50, y: (kCenterH-25)+kNavBarHeight, width: 50, height: 50)
         btnNext.setImage(#imageLiteral(resourceName: "arrow_right"), for: .normal)
@@ -92,20 +92,23 @@ class ImagePreviewViewController: ParentViewController, UIScrollViewDelegate {
             print(objStory.media_type)
             if objStory.media_type == storyContentType.video.rawValue {
                 
-                let imgView = UIImageView.init(frame: CGRect.init(x: kWidth*CGFloat(j), y: 0, width: kWidth, height: scrScrollView.frame.height))
+                let frame = CGRect.init(x: kWidth*CGFloat(j), y: 0, width: kWidth, height: scrScrollView.frame.height)
+                
+                let imgView = UIImageView.init(frame: frame)
                 imgView.sd_setImage(with: URL.init(string: objStory.thumb_url), placeholderImage: #imageLiteral(resourceName: "thumb"))
                 imgView.contentMode = .scaleAspectFit
                 imgView.isUserInteractionEnabled = true
                 scrScrollView.addSubview(imgView)
                 
-                let btnPlay = UIButton.init(frame: CGRect.init(x: imgView.frame.midX-25, y: imgView.frame.midY-25, width: 50, height: 50))
+                //CGRect.init(x: imgView.frame.midX-25, y: imgView.frame.midY-25, width: 50, height: 50)
+                let btnPlay = UIButton.init(frame: CGRect.init(x: frame.midX-25, y: frame.midY-25, width: 50, height: 50))
                 btnPlay.setImage(#imageLiteral(resourceName: "play"), for: .normal)
                 btnPlay.backgroundColor = UIColor.darkGray
                 btnPlay.layer.cornerRadius = 5.0
                 btnPlay.layer.masksToBounds = true
                 btnPlay.accessibilityElements = [objStory.media_url]
                 btnPlay.addTarget(self, action: #selector(PlayVideo(sender:)), for: .touchUpInside)
-                imgView.addSubview(btnPlay)
+                scrScrollView.addSubview(btnPlay)
                 
                 
             }
@@ -126,7 +129,7 @@ class ImagePreviewViewController: ParentViewController, UIScrollViewDelegate {
             
             j = j+1
         }
-
+        
     }
     
     func scrollToPage(page: Int, animated: Bool) {
@@ -173,7 +176,7 @@ class ImagePreviewViewController: ParentViewController, UIScrollViewDelegate {
                 self.present(playerController, animated: true) {
                     player.play()
                 }
-
+                
             }
         }
     }
