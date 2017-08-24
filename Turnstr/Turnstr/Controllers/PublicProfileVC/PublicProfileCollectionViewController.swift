@@ -25,6 +25,7 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var btnFamily: button!
     @IBOutlet weak var btnFave5: button!
+    @IBOutlet weak var constraintImgVwLogoX: NSLayoutConstraint!
 
     
     var isFave5LoadNext = false
@@ -55,6 +56,14 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
         
         searchBar.showsCancelButton = false
         
+        
+        let searchTextField = searchBar.value(forKey: "searchField") as? UITextField
+        if searchTextField!.responds(to: #selector(getter: UITextField.attributedPlaceholder)) {
+            let attributeDict = [NSForegroundColorAttributeName: UIColor(hexString: "00C7FF")]
+            searchTextField!.attributedPlaceholder = NSAttributedString(string: "Search", attributes: attributeDict)
+        }
+        
+        
         guard let userID = profileId else { return }
         
         viewPreferences.isHidden = isFromFeeds
@@ -66,6 +75,14 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
         }
         
         searchBar.isHidden = !isFromFeeds
+        
+        uvTopCube.isHidden = isFromFeeds
+        lblPostLeft.isHidden = isFromFeeds
+        lblPostRight.isHidden = isFromFeeds
+        
+        if isFromFeeds {
+            constraintImgVwLogoX.constant = view.frame.size.width/2 - 120
+        }
         
         getMemberDetails(id: userID) { (response) in
             if let objModel = response?.response {
@@ -247,6 +264,8 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
                     lblName.text = profile.username != nil ? (profile.username?.uppercased())! + " FAVE 5" : "FAVE 5"
                 }
             }
+            
+            
             if let view = cell?.viewWithTag(2001) {
                 view.isHidden = !isFromFeeds
             }
@@ -307,7 +326,7 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
         switch indexPath.row {
         case 0:
             if !isSearching {
-                return CGSize(width: kWidth, height: 100)
+                return CGSize(width: kWidth, height: 130)
             }
             return CGSize(width: kWidth, height: 0)
 //        case 1:

@@ -41,6 +41,10 @@ class Fave5CollectionViewCell: UICollectionViewCell, UICollectionViewDataSource,
         let h: CGFloat = collectionView.frame.size.height
         var cube = cell.contentView.viewWithTag(indexPath.item) as? AITransformView
         
+        if let lblName = cell.viewWithTag(1003) as? UILabel {
+            lblName.text = self.arrFave5[indexPath.row].username != nil ? self.arrFave5[indexPath.row].username : ""
+        }
+        
         if cube == nil {
             
             cube = AITransformView.init(frame: CGRect.init(x: 0, y: 0, width: w, height: h), cube_size: w/2)

@@ -802,19 +802,35 @@
                                                     <rect key="frame" x="71" y="26" width="297" height="71"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="2" minimumInteritemSpacing="2" id="Zpp-ov-EN9">
-                                                        <size key="itemSize" width="97" height="78"/>
+                                                        <size key="itemSize" width="97" height="66"/>
                                                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                         <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                     </collectionViewFlowLayout>
                                                     <cells>
                                                         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="ubB-BC-M57">
-                                                            <rect key="frame" x="0.0" y="-3.5" width="97" height="78"/>
+                                                            <rect key="frame" x="0.0" y="3" width="97" height="66"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                                <rect key="frame" x="0.0" y="0.0" width="97" height="78"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="97" height="66"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" tag="1003" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="1TE-SC-NUA">
+                                                                        <rect key="frame" x="0.0" y="51" width="97" height="15"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="15" id="qwS-DB-wOB"/>
+                                                                        </constraints>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                                        <nil key="textColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
                                                             </view>
+                                                            <constraints>
+                                                                <constraint firstItem="1TE-SC-NUA" firstAttribute="leading" secondItem="ubB-BC-M57" secondAttribute="leading" id="CY8-Tw-Pfl"/>
+                                                                <constraint firstAttribute="trailing" secondItem="1TE-SC-NUA" secondAttribute="trailing" id="GSl-fa-5Dw"/>
+                                                                <constraint firstAttribute="bottom" secondItem="1TE-SC-NUA" secondAttribute="bottom" id="H2A-HF-xCA"/>
+                                                            </constraints>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                                                     <integer key="value" value="1"/>
@@ -1117,12 +1133,22 @@
                                     <action selector="btnTappedBack:" destination="aq8-IG-OTR" eventType="touchUpInside" id="glE-D4-ISD"/>
                                 </connections>
                             </button>
-                            <searchBar hidden="YES" contentMode="redraw" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K2T-kt-fvH">
+                            <searchBar hidden="YES" contentMode="redraw" barStyle="black" placeholder="Search" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K2T-kt-fvH">
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="jMS-4P-heq"/>
                                 </constraints>
+                                <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <scopeButtonTitles>
+                                    <string>Title</string>
+                                    <string>Title</string>
+                                </scopeButtonTitles>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="searchField.textColor">
+                                        <color key="value" red="0.0" green="0.7803921568627451" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="delegate" destination="aq8-IG-OTR" id="pvv-M7-3nx"/>
                                 </connections>
@@ -1152,6 +1178,7 @@
                         <outlet property="btnFamily" destination="qgI-ln-ktK" id="EX7-m5-2Lz"/>
                         <outlet property="btnFave5" destination="cYw-BK-0Oh" id="41g-Dg-IMh"/>
                         <outlet property="collViewPublicProfile" destination="ec4-vP-m65" id="Bi0-c4-NoL"/>
+                        <outlet property="constraintImgVwLogoX" destination="yUj-GA-e4I" id="oht-pg-4ql"/>
                         <outlet property="lblPostLeft" destination="DQj-Jb-Q5H" id="FOV-t9-hjy"/>
                         <outlet property="lblPostRight" destination="FfR-TD-D2l" id="HiG-w6-OKg"/>
                         <outlet property="searchBar" destination="K2T-kt-fvH" id="LQu-p1-1Mq"/>
