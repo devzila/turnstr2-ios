@@ -8,12 +8,12 @@
 
 import UIKit
 
-class PublicProfileCollectionViewController: ParentViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, ServiceUtility, Fave5CellDelegate, UISearchBarDelegate, UserStoryDelegate {
+class PublicProfileCollectionViewController: ParentViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, ServiceUtility, Fave5CellDelegate, UISearchBarDelegate, UserStoryDelegate, TurntStoryDelegate {
     
     var transformView: AITransformView?
     var topCube: AITransformView?
     var profileDetail: UserModel?
-    var profileDict = [[String:Any]]() //: Array<Dictionary<String, Any>>?
+    var profileDict = [[String:Any]]()
     var profileId: Int?
     
     @IBOutlet weak var collViewPublicProfile: UICollectionView!
@@ -41,6 +41,10 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
     var pageSearchResult = 1
     var isSearching = false
     var isSearchingStoriesLoadNext = false
+    
+    var isMemberLoadNext = false
+    var pageNumberMember = 1
+    var arrMembers = [UserModel]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,13 +80,13 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
         
         searchBar.isHidden = !isFromFeeds
         
-        uvTopCube.isHidden = isFromFeeds
+//        uvTopCube.isHidden = isFromFeeds
         lblPostLeft.isHidden = isFromFeeds
         lblPostRight.isHidden = isFromFeeds
         
-        if isFromFeeds {
-            constraintImgVwLogoX.constant = view.frame.size.width/2 - 120
-        }
+//        if isFromFeeds {
+//            constraintImgVwLogoX.constant = (view.frame.size.width - 120)/2
+//        }
         
         getMemberDetails(id: userID) { (response) in
             if let objModel = response?.response {
@@ -126,6 +130,9 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
                 }
                 self.getFave5List(page: self.pageNumberFave5)
                 self.getAllStories(page: self.pageNumberUserStories, isAllStories: self.isFromFeeds)
+                if self.getUserId() == userID && !self.isFromFeeds {
+                    self.getAllMembersData()
+                }
             }
         }
     }
@@ -153,9 +160,14 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
                 self?.pageNumberUserStories = 1
                 self?.arrUserStories.removeAll()
                 self?.profileDict.removeAll()
+                self?.arrMembers.removeAll()
                 
                 self?.getFave5List(page: (self?.pageNumberFave5)!)
                 self?.getAllStories(page: (self?.pageNumberUserStories)!, isAllStories: (self?.isFromFeeds)!)
+                guard let userID = self?.profileId else { return }
+                if self?.getUserId() == userID && !(self?.isFromFeeds)! {
+                    self?.getAllMembersData()
+                }
             } else {
                 self?.collViewPublicProfile.dg_stopLoading()
             }
@@ -251,7 +263,7 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
     
     // tell the collection view how many cells to make
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+        return 3
     }
     
     // make a cell for each cell index path
@@ -266,42 +278,49 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
             }
             
             
-            if let view = cell?.viewWithTag(2001) {
-                view.isHidden = !isFromFeeds
-            }
-            if isFromFeeds {
-                if let view = cell?.viewWithTag(1001) {
-                    for constraint in view.constraints as [NSLayoutConstraint] {
-                        if constraint.identifier == "fave5lblWidthConstraint" {
-                            constraint.constant = 0
-                        }
-                    }
-                }
-            }
+//            if let view = cell?.viewWithTag(2001) {
+//                view.isHidden = !isFromFeeds
+//            }
+//            if isFromFeeds {
+//                if let view = cell?.viewWithTag(1001) {
+//                    for constraint in view.constraints as [NSLayoutConstraint] {
+//                        if constraint.identifier == "fave5lblWidthConstraint" {
+//                            constraint.constant = 0
+//                        }
+//                    }
+//                }
+//            }
             
             cell?.arrFave5 = self.arrFav5
             cell?.delegateFave5 = self
             cell?.setupCollectionView()
             return cell!
-//        case 1:
-//            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellTurntStory", for: indexPath as IndexPath) as? TurntStoriesCollectionViewCell
-//            cell?.setupCollectionView()
-//            return cell!
         case 1:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellUserStory", for: indexPath as IndexPath) as? UserStoryCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellTurntStory", for: indexPath as IndexPath) as? TurntStoriesCollectionViewCell
+            cell?.delegateTurntStory = self
+            cell?.arrTurntStories = self.arrUserStories
             cell?.setupCollectionView()
+            return cell!
+        case 2:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellUserStory", for: indexPath as IndexPath) as? UserStoryCollectionViewCell
             if let lblName = cell?.viewWithTag(1001) as? UILabel {
                 if let profile = self.profileDetail {
-                    if isFromFeeds {
-                        lblName.text = "GENERAL"
-                    } else {
-                        lblName.text = profile.username != nil ? (profile.username?.uppercased())! + " STORIES" : "STORIES"
+                    if let userID = profileId {
+                        if isFromFeeds {
+                            lblName.text = "GENERAL"
+                            cell?.arrStories = self.arrUserStories
+                        } else if getUserId() == userID {
+                            lblName.text = "GENERAL"
+                            cell?.arrMembers = self.arrMembers
+                        } else {
+                            lblName.text = profile.username != nil ? (profile.username?.uppercased())! + " STORIES" : "STORIES"
+                            cell?.arrStories = self.arrUserStories
+                        }
                     }
-                    
                 }
             }
             cell?.delegateUserStory = self
-            cell?.arrUserStories = self.arrUserStories
+            
             cell?.setupCollectionView()
             return cell!
         default:
@@ -329,16 +348,21 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
                 return CGSize(width: kWidth, height: 130)
             }
             return CGSize(width: kWidth, height: 0)
-//        case 1:
-//            return CGSize(width: kWidth, height: 170)
         case 1:
-            if self.arrUserStories.count > 0 {
-                print("height--\(Float(self.arrUserStories.count/3))")
+            return CGSize(width: kWidth, height: 130)
+        case 2:
+            if let userID = self.profileId, userID == self.getUserId(), !isFromFeeds , self.arrMembers.count > 0 {
+                if Float(self.arrMembers.count/3) < 1 {
+                    return CGSize(width: kWidth, height: CGFloat(Double(PhotoSize().height) + 80.0))
+                }
+                return CGSize(width: kWidth, height: CGFloat(ceil((Float(self.arrMembers.count/3))) * Float(PhotoSize().height)) + 50)
+            } else if self.arrUserStories.count > 0 {
                 if Float(self.arrUserStories.count/3) < 1 {
                     return CGSize(width: kWidth, height: CGFloat(Double(PhotoSize().height) + 80.0))
                 }
-                return CGSize(width: kWidth, height: CGFloat(ceil((Float(self.arrUserStories.count/3))) * Float(PhotoSize().height)) + 80)
+                return CGSize(width: kWidth, height: CGFloat(ceil((Float(self.arrUserStories.count/3))) * Float(PhotoSize().height)) + 50)
             }
+            
             return CGSize(width: kWidth, height: 0)
             
         default:
@@ -355,6 +379,9 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
                 if isUserStoriesLoadNext {
                     pageNumberUserStories = pageNumberUserStories+1
                     self.getAllStories(page: self.pageNumberUserStories, isAllStories: self.isFromFeeds)
+                } else if isMemberLoadNext {
+                    pageNumberMember = pageNumberMember + 1
+                    self.getAllMembersData()
                 }
             } else {
                 if isSearchingStoriesLoadNext {
@@ -449,6 +476,10 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
                 }
                 self.collViewPublicProfile.dg_stopLoading()
                 self.collViewPublicProfile.reloadItems(at: [IndexPath(row: 1, section: 0)])
+                self.collViewPublicProfile.reloadItems(at: [IndexPath(row: 2, section: 0)])
+//                if let userID = self.profileId, userID == self.getUserId() {
+//                    self.collViewPublicProfile.reloadItems(at: [IndexPath(row: 2, section: 0)])
+//                }
             }
         }
     }
@@ -463,10 +494,17 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
     
     
     func cellUserStoryTappedAtIndex(index: Int) {
-        let mvc = StoryPreviewViewController()
-        mvc.dictInfo = (self.profileDict[index])
-        self.navigationController?.pushViewController(mvc, animated: true)
-        
+        if let userID = profileId, userID == self.getUserId() {
+            let mvc = StoryPreviewViewController()
+            mvc.dictInfo = (self.profileDict[index])
+            self.navigationController?.pushViewController(mvc, animated: true)
+        } else {
+            let storyboard = UIStoryboard(name: "PhotoAlbum", bundle: nil)
+            if let profileVC = storyboard.instantiateViewController(withIdentifier: "PublicProfileCollectionViewController") as? PublicProfileCollectionViewController {
+                profileVC.profileId = self.arrMembers[index].id ?? nil
+                self.navigationController?.pushViewController(profileVC, animated: true)
+            }
+        }
     }
     
     func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
@@ -520,6 +558,32 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
                     
                 }
                 self.collViewPublicProfile.reloadData()
+            }
+        }
+    }
+    
+    func cellTurntStoryTappedAtIndex(index: Int) {
+        
+    }
+    
+    func getAllMembersData() {
+        getAllMember(page: pageNumberMember) { (response, dict) in
+            kAppDelegate.hideLoadingIndicator()
+            
+            if let memberArray = response?.response {
+                print(memberArray)
+                for object in memberArray {
+                    self.arrMembers.append(object)
+                }
+                
+                if let _ = dict["next_page"] as? Int {
+                    self.isMemberLoadNext = true
+                } else {
+                    self.isMemberLoadNext = false
+                    
+                }
+                self.collViewPublicProfile.dg_stopLoading()
+                self.collViewPublicProfile.reloadItems(at: [IndexPath(row: 2, section: 0)])
             }
         }
     }

@@ -15,7 +15,8 @@ protocol UserStoryDelegate {
 class UserStoryCollectionViewCell: UICollectionViewCell, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, ServiceUtility, UIGestureRecognizerDelegate {
     @IBOutlet weak var collViewUserStory: UICollectionView!
     
-    var arrUserStories = [StoryModel]()
+    var arrMembers: [UserModel]? //= [UserModel]()
+    var arrStories: [StoryModel]?
     var delegateUserStory: UserStoryDelegate?
     
     func setupCollectionView() {
@@ -29,7 +30,10 @@ class UserStoryCollectionViewCell: UICollectionViewCell, UICollectionViewDataSou
     
     // tell the collection view how many cells to make
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return arrUserStories.count
+        if arrMembers == nil {
+            return arrStories == nil ? 0 : arrStories!.count
+        }
+        return arrMembers!.count
     }
     
     // make a cell for each cell index path
@@ -49,11 +53,16 @@ class UserStoryCollectionViewCell: UICollectionViewCell, UICollectionViewDataSou
             cube?.tag = indexPath.item
             cube?.backgroundColor = UIColor.clear
             cube?.isUserInteractionEnabled = true
-            let arrFave = arrUserStories[indexPath.row].media
             var arrFaces = [String]()
-            for url in arrFave! {
-                arrFaces.append(url.thumb_url ?? "thumb")
+            if let arrMem = arrMembers {
+                arrFaces = [arrMem[indexPath.row].avatar_face1 ?? "thumb", arrMem[indexPath.row].avatar_face2 ?? "thumb", arrMem[indexPath.row].avatar_face3 ?? "thumb", arrMem[indexPath.row].avatar_face4 ?? "thumb", arrMem[indexPath.row].avatar_face5 ?? "thumb", arrMem[indexPath.row].avatar_face6 ?? "thumb"]
+            } else {
+                let arrFave = arrStories?[indexPath.row].media
+                for url in arrFave! {
+                    arrFaces.append(url.thumb_url ?? "thumb")
+                }
             }
+            
             cube?.setup(withUrls: arrFaces)
             cell.contentView.addSubview(cube!)
             cube?.setScroll(CGPoint.init(x: 0, y: h/2), end: CGPoint.init(x: 20, y: h/2))

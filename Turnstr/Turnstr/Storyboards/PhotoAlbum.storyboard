@@ -782,7 +782,7 @@
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ec4-vP-m65">
-                                <rect key="frame" x="0.0" y="166" width="375" height="501"/>
+                                <rect key="frame" x="0.0" y="156" width="375" height="511"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="gKw-eC-c3H">
                                     <size key="itemSize" width="375" height="105"/>
@@ -799,7 +799,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="olu-ja-DGO">
-                                                    <rect key="frame" x="71" y="26" width="297" height="71"/>
+                                                    <rect key="frame" x="71" y="20" width="297" height="77"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="2" minimumInteritemSpacing="2" id="Zpp-ov-EN9">
                                                         <size key="itemSize" width="97" height="66"/>
@@ -809,7 +809,7 @@
                                                     </collectionViewFlowLayout>
                                                     <cells>
                                                         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="ubB-BC-M57">
-                                                            <rect key="frame" x="0.0" y="3" width="97" height="66"/>
+                                                            <rect key="frame" x="0.0" y="5.5" width="97" height="66"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                                 <rect key="frame" x="0.0" y="0.0" width="97" height="66"/>
@@ -848,7 +848,7 @@
                                                     <color key="textColor" red="0.0" green="0.78039215689999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view tag="2001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8gB-65-pkF">
+                                                <view hidden="YES" tag="2001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8gB-65-pkF">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="24"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="POPULAR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dGD-nZ-Les">
@@ -894,7 +894,7 @@
                                             <constraint firstItem="15Q-Ua-mRz" firstAttribute="leading" secondItem="2gh-D7-zXk" secondAttribute="leading" constant="7" id="DPK-dg-kqi"/>
                                             <constraint firstItem="15Q-Ua-mRz" firstAttribute="top" secondItem="2gh-D7-zXk" secondAttribute="top" constant="27" id="FL0-dW-xtZ"/>
                                             <constraint firstItem="olu-ja-DGO" firstAttribute="leading" secondItem="15Q-Ua-mRz" secondAttribute="trailing" constant="8" id="IdF-ld-ZXd"/>
-                                            <constraint firstItem="olu-ja-DGO" firstAttribute="top" secondItem="2gh-D7-zXk" secondAttribute="top" constant="26" id="MgN-u1-fVk"/>
+                                            <constraint firstItem="olu-ja-DGO" firstAttribute="top" secondItem="2gh-D7-zXk" secondAttribute="top" constant="20" id="MgN-u1-fVk"/>
                                             <constraint firstAttribute="bottom" secondItem="olu-ja-DGO" secondAttribute="bottom" constant="8" id="U3E-8B-Hun"/>
                                             <constraint firstAttribute="trailing" secondItem="8gB-65-pkF" secondAttribute="trailing" id="XJN-bI-NTc"/>
                                             <constraint firstItem="8gB-65-pkF" firstAttribute="leading" secondItem="2gh-D7-zXk" secondAttribute="leading" id="Yvt-5t-xSv"/>
@@ -917,7 +917,7 @@
                                                     <rect key="frame" x="0.0" y="28" width="375" height="77"/>
                                                     <color key="backgroundColor" red="0.0" green="0.78039215689999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 </view>
-                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="4a5-Nt-XXH">
+                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="4a5-Nt-XXH">
                                                     <rect key="frame" x="15" y="31" width="345" height="70"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="2" minimumInteritemSpacing="0.0" id="SbG-Cq-JcB">
@@ -992,7 +992,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="140"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="VUE-QD-Gdr">
+                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="VUE-QD-Gdr">
                                                     <rect key="frame" x="0.0" y="37" width="375" height="103"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="9n4-70-iNf">
@@ -1168,7 +1168,7 @@
                             <constraint firstItem="K2T-kt-fvH" firstAttribute="top" secondItem="Rzo-Y3-aLM" secondAttribute="bottom" id="aTZ-Om-W4e"/>
                             <constraint firstItem="ec4-vP-m65" firstAttribute="leading" secondItem="WFM-VN-EO5" secondAttribute="leading" id="f5Q-mR-SW1"/>
                             <constraint firstItem="STh-aN-i6t" firstAttribute="top" secondItem="WFM-VN-EO5" secondAttribute="top" constant="28" id="fAR-Df-vHo"/>
-                            <constraint firstItem="ec4-vP-m65" firstAttribute="top" secondItem="fnd-DV-5Gt" secondAttribute="bottom" constant="16" id="oXt-ma-OGm"/>
+                            <constraint firstItem="ec4-vP-m65" firstAttribute="top" secondItem="fnd-DV-5Gt" secondAttribute="bottom" constant="6" id="oXt-ma-OGm"/>
                             <constraint firstItem="fnd-DV-5Gt" firstAttribute="top" secondItem="Rzo-Y3-aLM" secondAttribute="bottom" constant="50" id="u9d-Cv-DNI"/>
                             <constraint firstItem="STh-aN-i6t" firstAttribute="leading" secondItem="WFM-VN-EO5" secondAttribute="leading" constant="8" id="xFg-GK-3cl"/>
                             <constraint firstAttribute="trailing" secondItem="FfW-Qk-ezR" secondAttribute="trailing" id="xii-FW-PAM"/>

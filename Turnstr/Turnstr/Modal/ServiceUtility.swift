@@ -262,6 +262,31 @@ extension ServiceUtility {
         }
     }
     
+    func getAllMember(page: Int, withHandler handler: @escaping (_ response: KSResponse<[UserModel]>?, _ dict: Dictionary<String, Any>) -> Void) {
+        checkNetworkConnection()
+        DispatchQueue.global().async {
+            let strRequest = String(format: "?page=%d", page)
+            let strPostUrl = kAPIFollowUnfollowUser
+            let strParType = ""
+            
+            let dictResponse = WebServices.sharedInstance.GetMethodServerData(strRequest: strRequest, GetURL: strPostUrl, parType: strParType)
+            print(dictResponse)
+            DispatchQueue.main.async {
+                if let statusCode = dictResponse["statusCode"] as? Int, statusCode == 200 {
+                    kAppDelegate.hideLoadingIndicator()
+                    if let dictPhoto = dictResponse["data"]?["data"] as? [String: AnyObject] {
+                        let dictMapper = ["statusCode": statusCode, "user": dictPhoto["members"] ?? ""] as [String : Any]
+                        let ksResponse = KSResponse<[UserModel]>(JSON: dictMapper)
+                        handler(ksResponse, dictPhoto)
+                    }
+                } else {
+                    self.validateResponseData(response: dictResponse)
+                }
+            }
+            
+        }
+    }
+    
     func getFave5(id: Int, page: Int, withHandler handler: @escaping (_ response: KSResponse<[UserModel]>?, _ dict: Dictionary<String, Any>) -> Void) {
         checkNetworkConnection()
         DispatchQueue.global().async {
