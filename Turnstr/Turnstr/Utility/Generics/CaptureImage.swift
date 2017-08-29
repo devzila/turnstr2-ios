@@ -22,7 +22,7 @@ enum MediaType {
             return kUTTypeImage as String
             
         case .video:
-            return kUTTypeVideo as String
+            return kUTTypeMovie as String
         }
     }
 }
@@ -81,7 +81,8 @@ class CameraImage: NSObject {
         
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
-        imagePicker.mediaTypes = fileTypes.map( { ($0.string) } )
+        let mediaTypes = fileTypes.map({ ($0.string) })
+        imagePicker.mediaTypes = mediaTypes
         imagePicker.allowsEditing = crop
         
         if sources.count > 1 {
@@ -119,6 +120,28 @@ class CameraImage: NSObject {
 }
 
 
+
+
+extension CameraImage {
+    
+    func openOptions(from: UIViewController, source: UIImagePickerControllerSourceType, of mediaType: String, callBack: ((_ image: UIImage?, _ url: URL?) -> Void)?) {
+        
+        let imagePicker = UIImagePickerController()
+        if source == .camera {
+            if cameraExists { imagePicker.sourceType = source }
+        }
+        else {
+            imagePicker.sourceType = source
+        }
+        imagePicker.delegate = self
+        imagePicker.mediaTypes = [mediaType]
+        self.complete = callBack
+        self.fromVC = from
+        fromVC?.present(imagePicker, animated: true, completion: nil)
+    }
+}
+
+
 extension CameraImage: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     var cameraExists: Bool {
@@ -140,13 +163,8 @@ extension CameraImage: UIImagePickerControllerDelegate, UINavigationControllerDe
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
         var image: UIImage? = nil
-        var url: URL? = nil
+        let url: URL? = nil
         
-        defer {
-            if let complete = complete {
-                complete(image, url)
-            }
-        }
         
         //Get file by checking its file type
         guard let mediaType = info[UIImagePickerControllerMediaType] as? String else { return }
@@ -156,6 +174,10 @@ extension CameraImage: UIImagePickerControllerDelegate, UINavigationControllerDe
             }
             else if let fullImage = info[UIImagePickerControllerOriginalImage] as? UIImage{
                 image = fullImage
+            }
+            
+            if let complete = complete {
+                complete(image, url)
             }
         }
         else if mediaType == MediaType.video.string {
@@ -180,7 +202,7 @@ extension UIImagePickerControllerSourceType {
             
         case .savedPhotosAlbum:
             return L10n.savedPhotoAlbum.string
-
+            
         }
     }
 }
@@ -208,11 +230,12 @@ extension CameraImage {
     func getUrlFromVideoFile(url: URL) {
         
         let documentPath = self.dictionaryPath.appendingFormat("/%@", "video.mp4")
-        let url = URL(fileURLWithPath: documentPath)
+        let toUrl = URL(fileURLWithPath: documentPath)
         
-        compressVideoFromInputUrl(url, toUrl: url) { (session) in
+        compressVideoFromInputUrl(url, toUrl: toUrl) { (session) in
             if let complete = self.complete {
-                complete(nil, url)
+                KBLog.log(message: "data", object: toUrl)
+                complete(nil, toUrl)
             }
         }
     }

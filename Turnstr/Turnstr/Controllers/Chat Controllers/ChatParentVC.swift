@@ -9,6 +9,7 @@
 import UIKit
 import GrowingTextView
 import SendBirdSDK
+import MobileCoreServices
 
 class ChatParentVC: UIViewController {
     
@@ -38,6 +39,7 @@ class ChatParentVC: UIViewController {
         
         heightInputBarConstraint?.constant = txvInput?.minHeight ?? 50
         automaticallyAdjustsScrollViewInsets = false
+        txvInput?.borderDesign(cornerRadius: 8, borderWidth: 0.5, borderColor: .gray)
         // Do any additional setup after loading the view.
     }
     
@@ -76,6 +78,35 @@ class ChatParentVC: UIViewController {
         sendFiledata(data, fileName: "iOS\(Date().timeStamp())", fileType: "image", msg: nil)
     }
     
+    func sendVideo(_ url: URL) {
+        var data: Data?
+        do {
+            data = try Data(contentsOf: url)
+        }
+        catch {
+            KBLog.log(message: "video posting", object: error)
+            dismissAlert(title: "Error", message: error.localizedDescription)
+            return
+        }
+        guard let dataToPost = data else { return }
+        sendFiledata(dataToPost, fileName: url.lastPathComponent, fileType: "video", msg: "video shared")
+    }
+    
+    func openSource(_ option: UIImagePickerControllerSourceType, type: String) {
+        
+        CameraImage.shared.openOptions(from: self, source: option, of: type) { (image, url) in
+            if let image = image {
+                self.sendFile(image)
+            }
+            else if let url = url {
+                self.sendVideo(url)
+            }
+        }
+    }
+    func shareLocation() {
+        
+    }
+    
     //MARK: NotificationCenter handlers
     func showKeyboard(notification: Notification) {
         if let frame = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue {
@@ -94,14 +125,37 @@ class ChatParentVC: UIViewController {
     }
     
     @IBAction func getFile() {
-        CameraImage.shared.captureImage(from: self, captureOptions: [.camera, .photoLibrary], allowEditting: true, fileTypes: [.image, .video]) {[weak self] (image, url) in
-            
-            if let image = image {
-                self?.sendFile(image)
-            }
+        
+        let options = ["Capture Image", "Chose Image", "Record Video", "Chose Video"]
+        
+        let actionSheet = UIAlertController(title: L10n.selectSource.string, message: nil, preferredStyle: .actionSheet)
+        for source in options {
+            let action = UIAlertAction(title: source, style: .default, handler: { (action) in
+                self.openCameraFor(index: options.index(of: source) ?? 10)
+            })
+            actionSheet.addAction(action)
         }
+        let cancel = UIAlertAction(title: L10n.cancel.string, style: .cancel) { (action) in
+        }
+        actionSheet.addAction(cancel)
+        present(actionSheet, animated: true, completion: nil)
     }
     
+    func openCameraFor(index: Int) {
+        switch index {
+        case 0:
+            self.openSource(.camera, type: kUTTypeImage as String)
+        case 1:
+            self.openSource(.photoLibrary, type:  kUTTypeImage as String)
+        case 2:
+            self.openSource(.camera, type: kUTTypeMovie as String)
+        case 3:
+            self.openSource(.photoLibrary, type: kUTTypeMovie as String)
+            //        case 4:
+        //            self.shareLocation()
+        default: break
+        }
+    }
 }
 
 extension ChatParentVC: GrowingTextViewDelegate {

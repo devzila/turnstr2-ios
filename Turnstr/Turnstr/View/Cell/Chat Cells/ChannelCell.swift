@@ -11,6 +11,9 @@ import SendBirdSDK
 
 class ChannelCell: ParentChatCell {
 
+    @IBOutlet weak var sepratorLine: UIView?
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

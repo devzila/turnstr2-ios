@@ -46,6 +46,9 @@ class ChatBudsVC: UIViewController {
     func updateCell(_ cell: UITableViewCell, _ indexpath: IndexPath) {
         if let groupCell = cell as? ChannelCell {
             guard let channel = self.dataSource?.items[indexpath.row] as? SBDGroupChannel else { return }
+            
+            let index = indexpath.row < 7 ? CGFloat(indexpath.row) : CGFloat(indexpath.row % 7)
+            groupCell.sepratorLine?.alpha = (1 - (index * 0.1))
             groupCell.updateBudCell(channel)
         }
     }

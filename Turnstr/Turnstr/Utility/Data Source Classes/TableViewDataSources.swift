@@ -36,6 +36,7 @@ class TableViewDataSources: NSObject {
         self.items = objects
         self.tableView = tableView
         identifier = cellIdentifier
+        tableView?.tableFooterView = UIView()
         
         cellIdentifier.registerCell(tableView)
     }
