@@ -23,6 +23,7 @@ enum DateFormats: String {
     case MM_dd_yyyy = "MM dd, yyyy"
     case MM_d_yyyy = "MM d, yyyy"
     case MMd_yyyy = "MMd, yyyy"
+    case h_mm_a = "h:mm a"
     case dd_MMM_YYYY_hh_mm_a = "dd MMM yyyy, hh:mm a"
     case EEEE_MMM_d_yyyy = "EEEE, MMM d yyyy"
     case utc = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
@@ -93,9 +94,12 @@ extension Date {
         }
     }
     init(timeStamp: String) {
-        let ts = Double(timeStamp) ?? 0
+        var ts = Double(timeStamp) ?? 0
+        if timeStamp.length > 10 {
+            ts = (Double(timeStamp) ?? 0)/1000
+        }
         let interval = TimeInterval.init(ts)
-        self.init(timeIntervalSinceNow: interval)
+        self.init(timeIntervalSince1970: interval)
     }
     
     func differenceOfYearsFrom(_ date: Date) -> String{

@@ -9,6 +9,8 @@
 import UIKit
 import SendBirdSDK
 import KSPhotoBrowser
+import AVKit
+import AVFoundation
 
 class ParentChatCell: UITableViewCell {
 
@@ -22,6 +24,7 @@ class ParentChatCell: UITableViewCell {
     @IBOutlet weak var imgView: UIImageView?
     
     var currentMessage: SBDBaseMessage?
+    let playerController = AVPlayerViewController()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -29,6 +32,7 @@ class ParentChatCell: UITableViewCell {
         layoutIfNeeded()
         
         bubbleView?.borderDesign(cornerRadius: 8, borderWidth: nil, borderColor: nil)
+        
         
         // Initialization code
     }
@@ -82,24 +86,55 @@ class ParentChatCell: UITableViewCell {
     
     func updateChat(_ message: SBDBaseMessage, _ channel: SBDGroupChannel?) {
         currentMessage = message
+        channel?.markAsRead()
         if let message = message as? SBDUserMessage {
             imgView?.isHidden = true
             lblMessage?.isHidden = false
             lblMessage?.text = message.message
             lblName?.text = message.sender?.nickname
-            lblTime?.isHidden = true
+            lblTime?.text = Date.init(timeStamp: "\(message.createdAt)").string(.h_mm_a)
             createCube(message.sender)
+            if message.sender?.userId == loginUser.id {
+                readStatus(of: message, with: channel)
+            }
+            else {
+                lblTime?.attributedText = nil
+                lblTime?.text = Date.init(timeStamp: "\(message.createdAt)").string(.h_mm_a)
+            }
         }
         else if let message = message as? SBDFileMessage {
             imgView?.isHidden = false
             lblMessage?.isHidden = true
             if let url = URL(string: message.url) {
-                imgView?.sd_setImage(with: url, placeholderImage: #imageLiteral(resourceName: "placeholder"))
+                if message.type == "video" {
+                    imgView?.image = #imageLiteral(resourceName: "videoThubnail")
+                    imgView?.contentMode = .scaleAspectFill
+                }
+                else {
+                    imgView?.sd_setImage(with: url, placeholderImage: #imageLiteral(resourceName: "placeholder"))
+                }
             }
             lblName?.text = message.sender?.nickname
-            lblTime?.isHidden = true
             createCube(message.sender)
+            if message.sender?.userId == loginUser.id {
+                readStatus(of: message, with: channel)
+            }
+            else {
+                lblTime?.attributedText = nil
+                lblTime?.text = Date.init(timeStamp: "\(message.createdAt)").string(.h_mm_a)
+            }
         }
+    }
+    
+    func readStatus(of msg: SBDBaseMessage, with channel: SBDGroupChannel?) {
+        let count = channel?.getReadReceipt(of: msg)
+        lblTime?.text = ""
+        let str = Date.init(timeStamp: "\(msg.createdAt)").string(.h_mm_a) + " "
+        let attributedString = NSMutableAttributedString(string: str)
+        let attachment = NSTextAttachment()
+        attachment.image = count == 0 ? #imageLiteral(resourceName: "ic_tick") : #imageLiteral(resourceName: "ic_double_tick")
+        attributedString.append(NSAttributedString(attachment: attachment))
+        lblTime?.attributedText = attributedString
     }
     
     
@@ -137,9 +172,19 @@ class ParentChatCell: UITableViewCell {
                 let url = URL(string: msg.url)
                 else { return }
             
-            let item = KSPhotoItem(sourceView: imageView, imageUrl: url)
-            let browser = KSPhotoBrowser(photoItems: [item], selectedIndex: 0)
-            browser.show(from: vc)
+            if msg.type == "video"{
+                let player = AVPlayer(url: url)
+                playerController.player = player
+                playerController.modalTransitionStyle = .crossDissolve
+                topVC?.present(playerController, animated: false) {
+                    player.play()
+                }
+            }
+            else {
+                let item = KSPhotoItem(sourceView: imageView, imageUrl: url)
+                let browser = KSPhotoBrowser(photoItems: [item], selectedIndex: 0)
+                browser.show(from: vc)
+            }
         }
     }
 }
