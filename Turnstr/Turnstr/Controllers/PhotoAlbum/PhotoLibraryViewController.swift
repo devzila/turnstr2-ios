@@ -15,14 +15,17 @@ class PhotoLibraryViewController: ParentViewController, UICollectionViewDataSour
     var arrPhotoAlbum = [PhotoAlbum]()
     let photoAlbumIdentifier = "PhotoAlbum"
     
+    var topCube: AITransformView?
+    
+    @IBOutlet weak var uvTopCube: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        LoadPhotoLibNavBar()
-        objNav.btnBack.isHidden = false
-        objNav.btnBack.addTarget(self, action: #selector(goBack), for: .touchUpInside)
-        objNav.btnRightMenu.setTitle("Upload Photo", for: .normal)
-        objNav.btnRightMenu.addTarget(self, action: #selector(btnTappedPhotoLibrary), for: .touchUpInside)
+//        LoadPhotoLibNavBar()
+//        objNav.btnBack.isHidden = false
+//        objNav.btnBack.addTarget(self, action: #selector(goBack), for: .touchUpInside)
+//        objNav.btnRightMenu.setTitle("Upload Photo", for: .normal)
+//        objNav.btnRightMenu.addTarget(self, action: #selector(btnTappedPhotoLibrary), for: .touchUpInside)
         kAppDelegate.loadingIndicationCreationMSG(msg: "Loading...")
         self.photoAlbum { (response) in
             if let arrAlbums = response?.response {
@@ -31,6 +34,30 @@ class PhotoLibraryViewController: ParentViewController, UICollectionViewDataSour
                 self.collViewPhotoAlbum.reloadData()
             }
         }
+        
+        //
+        //Top Cube View
+        //
+        
+        topCube?.removeFromSuperview()
+        topCube = nil
+        
+        let w: CGFloat = 40
+        let h: CGFloat = 33
+        
+        if topCube == nil {
+            
+            topCube = AITransformView.init(frame: CGRect.init(x: 0, y: 0, width: w, height: h), cube_size: 28)
+        }
+        topCube?.backgroundColor = UIColor.clear
+        topCube?.setup(withUrls: [objSing.strUserPic1.urlWithThumb, objSing.strUserPic2.urlWithThumb, objSing.strUserPic3.urlWithThumb, objSing.strUserPic4.urlWithThumb, objSing.strUserPic5.urlWithThumb, objSing.strUserPic6.urlWithThumb])
+        uvTopCube.addSubview(topCube!)
+        
+        topCube?.setScroll(CGPoint.init(x: 0, y: h/2), end: CGPoint.init(x: 9, y: h/2))
+        topCube?.setScroll(CGPoint.init(x: w/2, y: 0), end: CGPoint.init(x: w/2, y: 5))
+    }
+    @IBAction func btnBackTapped(_ sender: Any) {
+        goBack()
     }
     
     @IBAction func btnTappedPhotoLibrary(_ sender: UIButton) {
