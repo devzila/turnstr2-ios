@@ -75,6 +75,7 @@ class ParentChatCell: UITableViewCell {
                 createCube(member)
             }
         }
+        KBLog.log(message: "unread count", object: channel.unreadMessageCount)
         
         let msg = channel.lastMessage as? SBDUserMessage
         var strMsg = msg?.message

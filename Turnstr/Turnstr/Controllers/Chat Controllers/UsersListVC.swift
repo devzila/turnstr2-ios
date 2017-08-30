@@ -105,9 +105,32 @@ class UsersListVC: ParentViewController {
                 let user = User.init(obj as? [String: Any])
                 users.append(user)
             }
+//            self.registerUsers(users)
             self.dataSource?.items = users
             self.dataSource?.reloadData()
         }
         self.dataSource?.refreshControl?.endRefreshing()
     }
+    
+//    
+//    func registerUsers(_ users: [User]) {
+//        
+//        for u in users {
+//        
+//            SBDMain.connect(withUserId: u.id ?? "", completionHandler: { (user, error) in
+//                if error == nil {
+//                    let strUrls = u.cubeUrls.map({ ($0.absoluteString) }).joined(separator: ",")
+//                    SBDMain.updateCurrentUserInfo(withNickname: u.name, profileUrl: strUrls, completionHandler: { (error) in
+//                        if error != nil {
+//                            KBLog.log(message: "Error in saving user info ", object: error)
+//                        }
+//                    })
+//                }
+//                else {
+//                    KBLog.log(message: "Error in Send bird login user", object: user)
+//                }
+//            })
+//        }
+//        
+//    }
 }

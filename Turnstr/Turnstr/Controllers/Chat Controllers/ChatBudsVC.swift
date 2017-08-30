@@ -66,6 +66,12 @@ class ChatBudsVC: UIViewController {
             guard let cs = channels else {return}
             self?.dataSource?.items = cs
             self?.dataSource?.reloadData()
+            
+            var count = 0
+            for bud in cs {
+                count += Int(bud.unreadMessageCount)
+            }
+            UIApplication.shared.applicationIconBadgeNumber = count
         })
     }
     

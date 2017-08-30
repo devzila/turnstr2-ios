@@ -53,6 +53,7 @@
 		8A26302B1F311D8000F55C2B /* ChannelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A2630291F311D8000F55C2B /* ChannelCell.xib */; };
 		8A26302D1F339A5200F55C2B /* ChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A26302C1F339A5200F55C2B /* ChatVC.swift */; };
 		8A26302F1F33B3CA00F55C2B /* ChatParentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A26302E1F33B3CA00F55C2B /* ChatParentVC.swift */; };
+		8A9C6B071F5745560095230B /* AppDelegateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9C6B061F5745560095230B /* AppDelegateExtension.swift */; };
 		8AE0E2BE1F29007900A28422 /* Costant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE0E2BD1F29007900A28422 /* Costant.swift */; };
 		8AE0E2C01F291AFB00A28422 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE0E2BF1F291AFB00A28422 /* User.swift */; };
 		8AEC2C751F1693E9008DF3BB /* TabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEC2C741F1693E9008DF3BB /* TabbarController.swift */; };
@@ -232,6 +233,7 @@
 		8A26302C1F339A5200F55C2B /* ChatVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatVC.swift; sourceTree = "<group>"; };
 		8A26302E1F33B3CA00F55C2B /* ChatParentVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatParentVC.swift; sourceTree = "<group>"; };
 		8A8796B91F55F7A7001B01D6 /* Turnstr.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Turnstr.entitlements; sourceTree = "<group>"; };
+		8A9C6B061F5745560095230B /* AppDelegateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegateExtension.swift; sourceTree = "<group>"; };
 		8AE0E2BD1F29007900A28422 /* Costant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Costant.swift; sourceTree = "<group>"; };
 		8AE0E2BF1F291AFB00A28422 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		8AEC2C741F1693E9008DF3BB /* TabbarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabbarController.swift; sourceTree = "<group>"; };
@@ -870,6 +872,7 @@
 				D9FDE6281EC22714009D5BE3 /* Controllers */,
 				8AEC2C7A1F169C23008DF3BB /* Storyboards */,
 				D9FDE6111EC2263C009D5BE3 /* AppDelegate.swift */,
+				8A9C6B061F5745560095230B /* AppDelegateExtension.swift */,
 				8AEC2C741F1693E9008DF3BB /* TabbarController.swift */,
 				D9FDE6181EC2263C009D5BE3 /* Assets.xcassets */,
 				D9FDE61D1EC2263C009D5BE3 /* Info.plist */,
@@ -1265,6 +1268,7 @@
 				D9AC62D41F0191100055ED3D /* ColorExtension.swift in Sources */,
 				D963665D1F035BD100784A58 /* MKAnnotationView+WebCache.m in Sources */,
 				7EBFF7EF1F46204800A8574D /* MediaModel.swift in Sources */,
+				8A9C6B071F5745560095230B /* AppDelegateExtension.swift in Sources */,
 				D9AC62FE1F01995C0055ED3D /* LocalizedStrings.swift in Sources */,
 				D9FDE6451EC236F5009D5BE3 /* button.swift in Sources */,
 				D963662F1F02D74E00784A58 /* WebServices.swift in Sources */,

@@ -13,11 +13,11 @@ import SendBirdSDK
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
     var window: UIWindow?
     var hud = MBProgressHUD()
     //var isTabChanges = false
-
+    
     static var shared: AppDelegate? {
         guard let delegate = UIApplication.shared.delegate as? AppDelegate else { return nil }
         
@@ -39,42 +39,45 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Facebook Initilization
         SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         
-        //SandBird Integration 
+        //SandBird Integration
         SBDMain.initWithApplicationId(kSendBirdAppId)
         connectSendBirdSession()
         
+        //Register APNS
+        registerForAPNS(application)
+        
         return true
     }
-
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
     }
-
+    
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
         
         disconnect()
     }
-
+    
     func applicationWillEnterForeground(_ application: UIApplication) {
         
         connectSendBirdSession()
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
     }
-
+    
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
-
+    
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         
         disconnect()
     }
-
-
+    
+    
     //MARK:- Loaders
     
     func loadingIndicationCreation() -> Void {
@@ -130,8 +133,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return false
     }
     
-
-    //MARK:- Logout 
+    
+    //MARK:- Logout
     
     func LogoutFromApp() -> Void {
         
@@ -161,6 +164,12 @@ extension AppDelegate {
                             KBLog.log(message: "Error in saving user info ", object: error)
                         }
                     })
+                    
+                    if let token = SBDMain.getPendingPushToken() {
+                        SBDMain.registerDevicePushToken(token, unique: true, completionHandler: { (status, error) in
+                            KBLog.log(message: "Error in saving device token ", object: error)
+                        })
+                    }
                 }
                 else {
                     KBLog.log(message: "Error in Send bird login user", object: user)
@@ -170,7 +179,7 @@ extension AppDelegate {
     }
     
     func disconnect() {
-        SBDMain.disconnect { 
+        SBDMain.disconnect {
             KBLog.log("Disconnected")
         }
     }
