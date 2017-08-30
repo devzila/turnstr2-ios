@@ -307,7 +307,7 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
                 if let profile = self.profileDetail {
                     if let userID = profileId {
                         if isFromFeeds {
-                            lblName.text = "GENERAL"
+                            lblName.text = isSearching ? "SEARCH" : "GENERAL"
                             cell?.arrStories = self.arrUserStories
                         } else if getUserId() == userID {
                             lblName.text = "GENERAL"
@@ -349,7 +349,10 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
             }
             return CGSize(width: kWidth, height: 0)
         case 1:
-            return CGSize(width: kWidth, height: 130)
+            if !isSearching {
+                return CGSize(width: kWidth, height: 130)
+            }
+            return CGSize(width: kWidth, height: 0)
         case 2:
             if let userID = self.profileId, userID == self.getUserId(), !isFromFeeds , self.arrMembers.count > 0 {
                 if Float(self.arrMembers.count/3) < 1 {

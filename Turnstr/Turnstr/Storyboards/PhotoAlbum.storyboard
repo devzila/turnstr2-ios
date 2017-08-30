@@ -22,7 +22,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="23Z-eB-fhD">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="85" width="375" height="582"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="1" id="biL-GA-bsf">
                                     <size key="itemSize" width="170" height="170"/>
@@ -47,7 +47,7 @@
                                                         <constraint firstAttribute="height" constant="18" id="Cyq-C9-r0d"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -68,13 +68,13 @@
                                     <outlet property="delegate" destination="YrZ-a1-rSa" id="dsn-yQ-x1z"/>
                                 </connections>
                             </collectionView>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ex4-fS-LpF">
-                                <rect key="frame" x="272" y="20" width="103" height="36"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ex4-fS-LpF">
+                                <rect key="frame" x="270" y="15" width="103" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="9ei-3m-6XW"/>
                                     <constraint firstAttribute="width" constant="103" id="Sdr-za-ZMB"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="9"/>
+                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="10"/>
                                 <state key="normal" title="PHOTO ALBUM">
                                     <color key="titleColor" red="0.99646085500000003" green="0.67751961949999995" blue="0.1683604121" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
@@ -82,27 +82,70 @@
                                     <action selector="btnTappedPhotoLibrary:" destination="YrZ-a1-rSa" eventType="touchUpInside" id="6bv-ps-7eL"/>
                                 </connections>
                             </button>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Turnstr" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fHb-aH-ZA1">
-                                <rect key="frame" x="119" y="20" width="137" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <color key="textColor" red="0.99646085500000003" green="0.67751961949999995" blue="0.1683604121" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photoAddAlbum" translatesAutoresizingMaskIntoConstraints="NO" id="5C4-yG-HM7">
+                                <rect key="frame" x="352" y="22" width="18" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="Mnp-UP-GJr"/>
+                                    <constraint firstAttribute="width" constant="18" id="oX1-Kl-7Fb"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backGrey" translatesAutoresizingMaskIntoConstraints="NO" id="0PP-ZU-FiF">
+                                <rect key="frame" x="6" y="26" width="20" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="6qk-bY-aMl"/>
+                                    <constraint firstAttribute="height" constant="21" id="JxT-PL-JY6"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TurnstrLogo" translatesAutoresizingMaskIntoConstraints="NO" id="nye-tO-Gb0">
+                                <rect key="frame" x="112" y="30" width="150" height="41"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="KBX-bS-Byp"/>
+                                    <constraint firstAttribute="height" constant="41" id="cto-wl-VPn"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oqt-fd-u98">
+                                <rect key="frame" x="0.0" y="15" width="41" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="S2S-Lj-1Ev"/>
+                                    <constraint firstAttribute="width" constant="41" id="jpj-ft-vTh"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="btnBackTapped:" destination="YrZ-a1-rSa" eventType="touchUpInside" id="tKa-6Z-P2t"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cRg-L0-mww">
+                                <rect key="frame" x="38" y="21" width="40" height="40"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="hc0-Ml-pf3"/>
+                                    <constraint firstAttribute="height" constant="40" id="vx3-30-dA4"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="oqt-fd-u98" firstAttribute="top" secondItem="hEC-8b-M0y" secondAttribute="top" constant="15" id="0kW-g9-8M7"/>
+                            <constraint firstItem="5C4-yG-HM7" firstAttribute="top" secondItem="h3R-j4-28E" secondAttribute="bottom" constant="2" id="6dC-Zr-z3r"/>
                             <constraint firstAttribute="trailing" secondItem="23Z-eB-fhD" secondAttribute="trailing" id="97O-We-8qI"/>
+                            <constraint firstItem="oqt-fd-u98" firstAttribute="leading" secondItem="hEC-8b-M0y" secondAttribute="leading" id="FTc-mH-6So"/>
+                            <constraint firstItem="cRg-L0-mww" firstAttribute="top" secondItem="hEC-8b-M0y" secondAttribute="topMargin" constant="21" id="GJ1-yF-THE"/>
+                            <constraint firstItem="0PP-ZU-FiF" firstAttribute="leading" secondItem="hEC-8b-M0y" secondAttribute="leading" constant="6" id="Ilu-Qf-SzI"/>
+                            <constraint firstItem="0PP-ZU-FiF" firstAttribute="top" secondItem="h3R-j4-28E" secondAttribute="bottom" constant="6" id="RL6-cx-2Vt"/>
                             <constraint firstItem="PSw-DS-kJU" firstAttribute="top" secondItem="23Z-eB-fhD" secondAttribute="bottom" id="XFx-z0-Ess"/>
                             <constraint firstItem="23Z-eB-fhD" firstAttribute="leading" secondItem="hEC-8b-M0y" secondAttribute="leading" id="Zh3-n0-aBW"/>
-                            <constraint firstAttribute="trailing" secondItem="ex4-fS-LpF" secondAttribute="trailing" id="wEY-HR-dB4"/>
-                            <constraint firstItem="ex4-fS-LpF" firstAttribute="top" secondItem="h3R-j4-28E" secondAttribute="bottom" id="wkA-rf-sdI"/>
-                            <constraint firstItem="23Z-eB-fhD" firstAttribute="top" secondItem="h3R-j4-28E" secondAttribute="bottom" constant="44" id="ygR-Qg-S21"/>
+                            <constraint firstItem="nye-tO-Gb0" firstAttribute="top" secondItem="h3R-j4-28E" secondAttribute="bottom" constant="10" id="b2q-yi-dvu"/>
+                            <constraint firstItem="cRg-L0-mww" firstAttribute="leading" secondItem="0PP-ZU-FiF" secondAttribute="trailing" constant="12" id="d3e-yl-Uma"/>
+                            <constraint firstItem="nye-tO-Gb0" firstAttribute="centerX" secondItem="hEC-8b-M0y" secondAttribute="centerX" id="dmP-FL-RDX"/>
+                            <constraint firstAttribute="trailing" secondItem="5C4-yG-HM7" secondAttribute="trailing" constant="5" id="fz9-HD-4vh"/>
+                            <constraint firstAttribute="trailing" secondItem="ex4-fS-LpF" secondAttribute="trailing" constant="2" id="wEY-HR-dB4"/>
+                            <constraint firstItem="ex4-fS-LpF" firstAttribute="top" secondItem="h3R-j4-28E" secondAttribute="bottom" constant="-5" id="wkA-rf-sdI"/>
+                            <constraint firstItem="23Z-eB-fhD" firstAttribute="top" secondItem="h3R-j4-28E" secondAttribute="bottom" constant="65" id="ygR-Qg-S21"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="3qC-Jt-fJT"/>
                     <connections>
                         <outlet property="collViewPhotoAlbum" destination="23Z-eB-fhD" id="bay-0j-IYW"/>
+                        <outlet property="uvTopCube" destination="cRg-L0-mww" id="vZC-13-VxQ"/>
                         <segue destination="2Z7-tz-Jit" kind="show" identifier="photosViewSegue" id="WrZ-b0-qaP">
                             <nil key="action"/>
                         </segue>
@@ -1384,11 +1427,14 @@
         </scene>
     </scenes>
     <resources>
+        <image name="TurnstrLogo" width="260" height="90"/>
         <image name="backBtn" width="115" height="84"/>
+        <image name="backGrey" width="72" height="33"/>
         <image name="commentPhoto" width="128" height="128"/>
         <image name="ic_user" width="28" height="29"/>
         <image name="likePhoto" width="128" height="128"/>
         <image name="logo_login" width="120" height="33"/>
+        <image name="photoAddAlbum" width="39" height="37"/>
         <image name="sharePhoto" width="128" height="128"/>
     </resources>
 </document>
