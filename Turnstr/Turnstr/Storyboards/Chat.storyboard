@@ -32,6 +32,10 @@
                                             <constraint firstAttribute="height" constant="100" id="TKn-gn-fAk"/>
                                         </constraints>
                                     </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XE0-22-SIO">
+                                        <rect key="frame" x="166" y="88" width="50" height="42"/>
+                                        <state key="normal" image="mystory"/>
+                                    </button>
                                     <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LeX-jl-1w4">
                                         <rect key="frame" x="305" y="106" width="54" height="46"/>
                                         <inset key="contentEdgeInsets" minX="16" minY="8" maxX="8" maxY="8"/>
@@ -52,6 +56,8 @@
                                     <constraint firstItem="1y7-zs-kFc" firstAttribute="centerY" secondItem="ceu-gD-hTS" secondAttribute="centerY" id="6nw-Cd-NaM"/>
                                     <constraint firstAttribute="trailing" secondItem="D9e-Eh-MU4" secondAttribute="trailing" constant="16" id="9ve-db-FhQ"/>
                                     <constraint firstItem="D9e-Eh-MU4" firstAttribute="top" secondItem="ceu-gD-hTS" secondAttribute="top" constant="20" id="IEy-hO-2jE"/>
+                                    <constraint firstItem="XE0-22-SIO" firstAttribute="bottom" secondItem="1y7-zs-kFc" secondAttribute="bottom" id="Nw7-ZX-mFj"/>
+                                    <constraint firstItem="XE0-22-SIO" firstAttribute="centerX" secondItem="1y7-zs-kFc" secondAttribute="centerX" constant="4" id="VUu-7f-JNh"/>
                                     <constraint firstAttribute="bottom" secondItem="LeX-jl-1w4" secondAttribute="bottom" constant="8" id="aDY-cu-CJt"/>
                                     <constraint firstAttribute="height" constant="160" id="dKB-rU-fKW"/>
                                     <constraint firstAttribute="trailing" secondItem="LeX-jl-1w4" secondAttribute="trailing" constant="16" id="tna-Vc-Gjg"/>
@@ -159,6 +165,10 @@
                                             <constraint firstAttribute="width" constant="100" id="Gxi-SX-VoA"/>
                                         </constraints>
                                     </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Muf-uE-WHP">
+                                        <rect key="frame" x="166.5" y="88" width="50" height="42"/>
+                                        <state key="normal" image="mystory"/>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.933848083" green="0.96601492170000003" blue="0.97958594560000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -168,6 +178,8 @@
                                     <constraint firstItem="F5U-GN-E0c" firstAttribute="leading" secondItem="5Lc-Sp-mH3" secondAttribute="trailing" constant="8" id="9X9-fD-mdK"/>
                                     <constraint firstItem="8cN-6M-Tqj" firstAttribute="centerY" secondItem="FXJ-2c-liH" secondAttribute="centerY" id="GVv-I6-Fvh"/>
                                     <constraint firstAttribute="trailing" secondItem="Zf2-6r-Xqd" secondAttribute="trailing" constant="4" id="KEI-N7-mee"/>
+                                    <constraint firstItem="Muf-uE-WHP" firstAttribute="bottom" secondItem="gWm-tM-9NU" secondAttribute="bottom" id="MeE-h8-hVw"/>
+                                    <constraint firstItem="Muf-uE-WHP" firstAttribute="centerX" secondItem="gWm-tM-9NU" secondAttribute="centerX" constant="4" id="QCE-EI-sbD"/>
                                     <constraint firstItem="Zf2-6r-Xqd" firstAttribute="leading" secondItem="VdS-Wa-CB1" secondAttribute="trailing" constant="8" id="dJZ-tK-hl4"/>
                                     <constraint firstAttribute="trailing" secondItem="F5U-GN-E0c" secondAttribute="trailing" constant="4" id="f4D-rT-XlW"/>
                                     <constraint firstItem="Zf2-6r-Xqd" firstAttribute="top" secondItem="FXJ-2c-liH" secondAttribute="bottom" constant="4" id="he8-Od-J5J"/>
@@ -394,6 +406,7 @@
         <image name="chat-icon" width="60" height="27"/>
         <image name="chat-plus-icon" width="30" height="30"/>
         <image name="cross" width="30" height="30"/>
+        <image name="mystory" width="50" height="42"/>
         <image name="send" width="40" height="40"/>
     </resources>
 </document>
