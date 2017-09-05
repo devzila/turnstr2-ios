@@ -350,7 +350,7 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
             return CGSize(width: kWidth, height: 0)
         case 1:
             if !isSearching {
-                return CGSize(width: kWidth, height: 130)
+                return CGSize(width: kWidth, height: (kWidth/3)+30)
             }
             return CGSize(width: kWidth, height: 0)
         case 2:
@@ -358,12 +358,12 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
                 if Float(self.arrMembers.count/3) < 1 {
                     return CGSize(width: kWidth, height: CGFloat(Double(PhotoSize().height) + 80.0))
                 }
-                return CGSize(width: kWidth, height: CGFloat(ceil((Float(self.arrMembers.count/3))) * Float(PhotoSize().height)) + 50)
+                return CGSize(width: kWidth, height: CGFloat(ceil(Float(self.arrMembers.count)/3) * Float(PhotoSize().height)) + 30)
             } else if self.arrUserStories.count > 0 {
                 if Float(self.arrUserStories.count/3) < 1 {
                     return CGSize(width: kWidth, height: CGFloat(Double(PhotoSize().height) + 80.0))
                 }
-                return CGSize(width: kWidth, height: CGFloat(ceil((Float(self.arrUserStories.count/3))) * Float(PhotoSize().height)) + 50)
+                return CGSize(width: kWidth, height: CGFloat(ceil(Float(self.arrUserStories.count)/3) * Float(PhotoSize().height)) + 50)
             }
             
             return CGSize(width: kWidth, height: 0)
@@ -497,17 +497,29 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
     
     
     func cellUserStoryTappedAtIndex(index: Int) {
-        if let userID = profileId, userID == self.getUserId() {
-            let mvc = StoryPreviewViewController()
-            mvc.dictInfo = (self.profileDict[index])
-            self.navigationController?.pushViewController(mvc, animated: true)
-        } else {
+        if let userID = profileId, userID == self.getUserId() && !self.isFromFeeds {
             let storyboard = UIStoryboard(name: "PhotoAlbum", bundle: nil)
             if let profileVC = storyboard.instantiateViewController(withIdentifier: "PublicProfileCollectionViewController") as? PublicProfileCollectionViewController {
                 profileVC.profileId = self.arrMembers[index].id ?? nil
                 self.navigationController?.pushViewController(profileVC, animated: true)
             }
+        } else {
+            let mvc = StoryPreviewViewController()
+            mvc.dictInfo = (self.profileDict[index])
+            self.navigationController?.pushViewController(mvc, animated: true)
         }
+        
+//        if let userID = profileId, userID == self.getUserId() {
+//            let mvc = StoryPreviewViewController()
+//            mvc.dictInfo = (self.profileDict[index])
+//            self.navigationController?.pushViewController(mvc, animated: true)
+//        } else {
+//            let storyboard = UIStoryboard(name: "PhotoAlbum", bundle: nil)
+//            if let profileVC = storyboard.instantiateViewController(withIdentifier: "PublicProfileCollectionViewController") as? PublicProfileCollectionViewController {
+//                profileVC.profileId = self.arrMembers[index].id ?? nil
+//                self.navigationController?.pushViewController(profileVC, animated: true)
+//            }
+//        }
     }
     
     func touchesBegan(touches: NSSet, withEvent event: UIEvent) {

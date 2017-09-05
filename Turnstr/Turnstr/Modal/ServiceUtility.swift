@@ -183,6 +183,7 @@ extension ServiceUtility {
             let dictResponse = WebServices.sharedInstance.GetMethodServerData(strRequest: strRequest, GetURL: strPostUrl, parType: strParType)
             print(dictResponse)
             DispatchQueue.main.async {
+                kAppDelegate.hideLoadingIndicator()
                 if let statusCode = dictResponse["statusCode"] as? Int, statusCode == 200 {
                     kAppDelegate.hideLoadingIndicator()
                     if let dictComments = dictResponse["data"]?["data"] as? [String: AnyObject] {

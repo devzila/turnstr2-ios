@@ -110,7 +110,7 @@ let kMenuBG = kLightGray
 let kBlueColor  = UIColor.init("5da1fb")
 let kOrangeColor = UIColor.init("FF9B00")
 
-
+let kShareFontColor = UIColor.init("1E1E1E")
 
 
 

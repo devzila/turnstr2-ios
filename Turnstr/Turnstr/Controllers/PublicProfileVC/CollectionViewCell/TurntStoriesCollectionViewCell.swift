@@ -44,7 +44,7 @@ class TurntStoriesCollectionViewCell: UICollectionViewCell, UICollectionViewData
         
         if cube == nil {
             
-            cube = AITransformView.init(frame: CGRect.init(x: 0, y: 0, width: w, height: h), cube_size: w/2)
+            cube = AITransformView.init(frame: CGRect.init(x: 0, y: (cell.frame.size.height-h)/2, width: w, height: h), cube_size: w/2)
             cube?.tag = indexPath.item
             cube?.backgroundColor = UIColor.clear
             cube?.isUserInteractionEnabled = true

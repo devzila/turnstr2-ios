@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FacebookShare
 
 class PhotosViewController: ParentViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, ServiceUtility {
     @IBOutlet weak var collViewPhotos: UICollectionView!
@@ -27,7 +28,6 @@ class PhotosViewController: ParentViewController, UICollectionViewDataSource, UI
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // Do any additional setup after loading the view.
        // LoadNavBar()
         LoadPhotoLibNavBar() 
@@ -57,7 +57,7 @@ class PhotosViewController: ParentViewController, UICollectionViewDataSource, UI
         pageNumber = 1
         arrPhotos.removeAll()
         if isFromPublicPhoto {
-            kAppDelegate.loadingIndicationCreationMSG(msg: "Loading...")
+//            kAppDelegate.loadingIndicationCreationMSG(msg: "Loading...")
             getAllPhotos(page: pageNumber)
         } else {
             picsOfUser()
@@ -194,9 +194,10 @@ extension PhotosViewController {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if segue.identifier == photoDetailSegue {
-            if let vc = segue.destination as? PhotoDetailViewController, let index = sender as? IndexPath {
-                vc.objPhotos = arrPhotos
-                vc.selectedIndex = index.row
+            if let vc = segue.destination as? PhotoDetailNewViewController, let index = sender as? IndexPath {
+                //vc.objPhotos = arrPhotos PhotoDetailViewController
+                //vc.selectedIndex = index.row
+                vc.photoId = self.arrPhotos[index.row].id
                 vc.albumId = photoAlbum?.id
                 vc.isFromPublicPhoto = isFromPublicPhoto
             }
