@@ -9,6 +9,7 @@
 import Foundation
 import SendBirdSDK
 import UserNotifications
+import PushKit
 
 extension AppDelegate: UNUserNotificationCenterDelegate{
     
@@ -33,6 +34,19 @@ extension AppDelegate: UNUserNotificationCenterDelegate{
         
         let notificaitonSettings = UIUserNotificationSettings(types: [.badge, .sound, .alert], categories: nil)
         application.registerUserNotificationSettings(notificaitonSettings)
+    }
+    
+    func registerVOIP() {
+        
+        let mainQueue = DispatchQueue.main
+        // Create a push registry object
+        let voipRegistry: PKPushRegistry = PKPushRegistry(queue: mainQueue)
+        
+        // Set the registry's delegate to self
+        voipRegistry.delegate = self
+        
+        // Set the push type to VoIP
+        voipRegistry.desiredPushTypes = [.voIP]
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
@@ -90,5 +104,44 @@ extension AppDelegate: UNUserNotificationCenterDelegate{
     
     func redirectApns(_ userInfo: [AnyHashable: Any]){
         
+    }
+}
+
+extension AppDelegate: PKPushRegistryDelegate {
+    
+    func pushRegistry(_ registry: PKPushRegistry, didUpdate credentials: PKPushCredentials, forType type: PKPushType) {
+        let token = credentials.token
+        var pushToken = ""
+        for i in 0..<token.count {
+            pushToken = pushToken + String(format: "%02.2hhx", arguments: [token[i]])
+        }
+    }
+    func pushRegistry(_ registry: PKPushRegistry, didReceiveIncomingPushWith payload: PKPushPayload, forType type: PKPushType) {
+        let info = payload.dictionaryPayload
+        KBLog.log(message: "Receive Push", object: info)
+        guard let aps = info["aps"] as? [String: Any],
+            let name = aps["alert"] as? String
+            else {return}
+        var caller = Caller(name: name)
+        caller.sessionId = "\(info["sessionId"] ?? "")"
+        caller.token = "\(info["token"] ?? "")"
+        caller.udid = "\(info["udid"] ?? "")"
+        caller.isCalling = false
+        let callType = "\(info["callType"] ?? "")"
+        if callType == "CALLING" {
+            caller.isVideo = false
+        }
+        else {
+            caller.isVideo = true
+        }
+        displayIncomingCall(uuid: UUID(), handle: name, hasVideo: caller.isVideo)
+    }
+    func pushRegistry(_ registry: PKPushRegistry, didInvalidatePushTokenForType type: PKPushType) {
+        print("Invalid token")
+    }
+    
+    func displayIncomingCall(uuid: UUID, handle: String, hasVideo: Bool = true, completion: ((NSError?) -> Void)? = nil) {
+        
+        providerDelegate?.reportIncomingCall(uuid: uuid, handle: handle, hasVideo: hasVideo, completion: completion)
     }
 }

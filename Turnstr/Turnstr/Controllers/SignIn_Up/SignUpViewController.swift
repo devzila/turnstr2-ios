@@ -107,6 +107,8 @@ class SignUpViewController: ParentViewController {
                                 //self.LoadEditProfile()
                                 //self.LoadMyStories()
                             }
+                            
+                            kAppDelegate.connectSendBirdSession()
                         }
                         kAppDelegate.hideLoadingIndicator()
                     }

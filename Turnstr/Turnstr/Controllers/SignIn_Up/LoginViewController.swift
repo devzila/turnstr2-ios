@@ -111,6 +111,8 @@ class LoginViewController: ParentViewController {
                                 self.LoadHomeScreen()
                                 //self.LoadMyStories()
                             }
+                            
+                            kAppDelegate.connectSendBirdSession()
                         }
                         
                         kAppDelegate.hideLoadingIndicator()
@@ -135,6 +137,8 @@ class LoginViewController: ParentViewController {
                                 //self.LoadEditProfile()
                                 self.LoadHomeScreen()
                             }
+                            
+                            kAppDelegate.connectSendBirdSession()
                         }
                         
                         kAppDelegate.hideLoadingIndicator()

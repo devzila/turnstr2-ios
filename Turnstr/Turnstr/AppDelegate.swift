@@ -16,6 +16,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     var hud = MBProgressHUD()
+    
+    var callManager = SpeakerboxCallManager()
+    var providerDelegate: ProviderDelegate?
+    var onGoingCall : SpeakerboxCall? = nil
+    var caller: Caller?
+    
     //var isTabChanges = false
     
     static var shared: AppDelegate? {
@@ -45,6 +51,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //Register APNS
         registerForAPNS(application)
+        
+        registerVOIP()
         
         return true
     }

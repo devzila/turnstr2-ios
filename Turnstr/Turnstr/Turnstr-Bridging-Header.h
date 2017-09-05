@@ -18,5 +18,6 @@
 #import "UIButton+WebCache.h"
 #import "UIImageView+WebCache.h"
 #import "CubePageView.h"
+#import "AudioController.h"
 
 #endif /* Turnstr_Bridging_Header_h */

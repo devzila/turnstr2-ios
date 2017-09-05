@@ -38,6 +38,21 @@
 		7EDC728C1F4DF0D000A00316 /* PullToRefreshOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDC72831F4DF0D000A00316 /* PullToRefreshOption.swift */; };
 		7EDC728D1F4DF0D000A00316 /* PullToRefreshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDC72841F4DF0D000A00316 /* PullToRefreshView.swift */; };
 		7EDC728E1F4DF0D000A00316 /* UIScrollViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDC72851F4DF0D000A00316 /* UIScrollViewExtension.swift */; };
+		8A1104BC1F5DB406009FFE0C /* Caller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1104BB1F5DB406009FFE0C /* Caller.swift */; };
+		8A1104D21F5DC0D9009FFE0C /* Array+Speakerbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1104BE1F5DC0D9009FFE0C /* Array+Speakerbox.swift */; };
+		8A1104D31F5DC0D9009FFE0C /* AudioController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A1104C11F5DC0D9009FFE0C /* AudioController.mm */; };
+		8A1104D41F5DC0D9009FFE0C /* CADebugMacros.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A1104C21F5DC0D9009FFE0C /* CADebugMacros.cpp */; };
+		8A1104D51F5DC0D9009FFE0C /* CallAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1104C41F5DC0D9009FFE0C /* CallAudio.swift */; };
+		8A1104D61F5DC0D9009FFE0C /* CAStreamBasicDescription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A1104C61F5DC0D9009FFE0C /* CAStreamBasicDescription.cpp */; };
+		8A1104D71F5DC0D9009FFE0C /* CAXException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A1104C81F5DC0D9009FFE0C /* CAXException.cpp */; };
+		8A1104D81F5DC0D9009FFE0C /* CallDurationFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1104CA1F5DC0D9009FFE0C /* CallDurationFormatter.swift */; };
+		8A1104D91F5DC0D9009FFE0C /* NSUserActivity+StartCallConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1104CB1F5DC0D9009FFE0C /* NSUserActivity+StartCallConvertible.swift */; };
+		8A1104DA1F5DC0D9009FFE0C /* ProviderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1104CC1F5DC0D9009FFE0C /* ProviderDelegate.swift */; };
+		8A1104DB1F5DC0D9009FFE0C /* SpeakerboxCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1104CD1F5DC0D9009FFE0C /* SpeakerboxCall.swift */; };
+		8A1104DC1F5DC0D9009FFE0C /* SpeakerboxCallManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1104CE1F5DC0D9009FFE0C /* SpeakerboxCallManager.swift */; };
+		8A1104DD1F5DC0D9009FFE0C /* StartCallConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1104CF1F5DC0D9009FFE0C /* StartCallConvertible.swift */; };
+		8A1104DE1F5DC0D9009FFE0C /* UIFont+Speakerbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1104D01F5DC0D9009FFE0C /* UIFont+Speakerbox.swift */; };
+		8A1104DF1F5DC0D9009FFE0C /* URL+StartCallConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1104D11F5DC0D9009FFE0C /* URL+StartCallConvertible.swift */; };
 		8A1781E61F4A030400BE9694 /* ChatVCExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1781E51F4A030400BE9694 /* ChatVCExtension.swift */; };
 		8A2630111F30EB9800F55C2B /* ChatBudsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2630101F30EB9800F55C2B /* ChatBudsVC.swift */; };
 		8A2630131F30EBAE00F55C2B /* UsersListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2630121F30EBAE00F55C2B /* UsersListVC.swift */; };
@@ -217,6 +232,26 @@
 		7EDC72831F4DF0D000A00316 /* PullToRefreshOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PullToRefreshOption.swift; sourceTree = "<group>"; };
 		7EDC72841F4DF0D000A00316 /* PullToRefreshView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PullToRefreshView.swift; sourceTree = "<group>"; };
 		7EDC72851F4DF0D000A00316 /* UIScrollViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIScrollViewExtension.swift; sourceTree = "<group>"; };
+		8A1104BB1F5DB406009FFE0C /* Caller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Caller.swift; sourceTree = "<group>"; };
+		8A1104BE1F5DC0D9009FFE0C /* Array+Speakerbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Speakerbox.swift"; sourceTree = "<group>"; };
+		8A1104C01F5DC0D9009FFE0C /* AudioController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioController.h; sourceTree = "<group>"; };
+		8A1104C11F5DC0D9009FFE0C /* AudioController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AudioController.mm; sourceTree = "<group>"; };
+		8A1104C21F5DC0D9009FFE0C /* CADebugMacros.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CADebugMacros.cpp; sourceTree = "<group>"; };
+		8A1104C31F5DC0D9009FFE0C /* CADebugMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADebugMacros.h; sourceTree = "<group>"; };
+		8A1104C41F5DC0D9009FFE0C /* CallAudio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallAudio.swift; sourceTree = "<group>"; };
+		8A1104C51F5DC0D9009FFE0C /* CAMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAMath.h; sourceTree = "<group>"; };
+		8A1104C61F5DC0D9009FFE0C /* CAStreamBasicDescription.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CAStreamBasicDescription.cpp; sourceTree = "<group>"; };
+		8A1104C71F5DC0D9009FFE0C /* CAStreamBasicDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAStreamBasicDescription.h; sourceTree = "<group>"; };
+		8A1104C81F5DC0D9009FFE0C /* CAXException.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CAXException.cpp; sourceTree = "<group>"; };
+		8A1104C91F5DC0D9009FFE0C /* CAXException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAXException.h; sourceTree = "<group>"; };
+		8A1104CA1F5DC0D9009FFE0C /* CallDurationFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallDurationFormatter.swift; sourceTree = "<group>"; };
+		8A1104CB1F5DC0D9009FFE0C /* NSUserActivity+StartCallConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSUserActivity+StartCallConvertible.swift"; sourceTree = "<group>"; };
+		8A1104CC1F5DC0D9009FFE0C /* ProviderDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderDelegate.swift; sourceTree = "<group>"; };
+		8A1104CD1F5DC0D9009FFE0C /* SpeakerboxCall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeakerboxCall.swift; sourceTree = "<group>"; };
+		8A1104CE1F5DC0D9009FFE0C /* SpeakerboxCallManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeakerboxCallManager.swift; sourceTree = "<group>"; };
+		8A1104CF1F5DC0D9009FFE0C /* StartCallConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartCallConvertible.swift; sourceTree = "<group>"; };
+		8A1104D01F5DC0D9009FFE0C /* UIFont+Speakerbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Speakerbox.swift"; sourceTree = "<group>"; };
+		8A1104D11F5DC0D9009FFE0C /* URL+StartCallConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL+StartCallConvertible.swift"; sourceTree = "<group>"; };
 		8A1781E51F4A030400BE9694 /* ChatVCExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatVCExtension.swift; sourceTree = "<group>"; };
 		8A2630101F30EB9800F55C2B /* ChatBudsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatBudsVC.swift; sourceTree = "<group>"; };
 		8A2630121F30EBAE00F55C2B /* UsersListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersListVC.swift; sourceTree = "<group>"; };
@@ -476,6 +511,40 @@
 				7E2C2DFE1F2675C40055D309 /* loaderImage.gif */,
 			);
 			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		8A1104BD1F5DC0D9009FFE0C /* CallKit */ = {
+			isa = PBXGroup;
+			children = (
+				8A1104BE1F5DC0D9009FFE0C /* Array+Speakerbox.swift */,
+				8A1104BF1F5DC0D9009FFE0C /* Audio */,
+				8A1104CA1F5DC0D9009FFE0C /* CallDurationFormatter.swift */,
+				8A1104CB1F5DC0D9009FFE0C /* NSUserActivity+StartCallConvertible.swift */,
+				8A1104CC1F5DC0D9009FFE0C /* ProviderDelegate.swift */,
+				8A1104CD1F5DC0D9009FFE0C /* SpeakerboxCall.swift */,
+				8A1104CE1F5DC0D9009FFE0C /* SpeakerboxCallManager.swift */,
+				8A1104CF1F5DC0D9009FFE0C /* StartCallConvertible.swift */,
+				8A1104D01F5DC0D9009FFE0C /* UIFont+Speakerbox.swift */,
+				8A1104D11F5DC0D9009FFE0C /* URL+StartCallConvertible.swift */,
+			);
+			path = CallKit;
+			sourceTree = "<group>";
+		};
+		8A1104BF1F5DC0D9009FFE0C /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				8A1104C01F5DC0D9009FFE0C /* AudioController.h */,
+				8A1104C11F5DC0D9009FFE0C /* AudioController.mm */,
+				8A1104C21F5DC0D9009FFE0C /* CADebugMacros.cpp */,
+				8A1104C31F5DC0D9009FFE0C /* CADebugMacros.h */,
+				8A1104C41F5DC0D9009FFE0C /* CallAudio.swift */,
+				8A1104C51F5DC0D9009FFE0C /* CAMath.h */,
+				8A1104C61F5DC0D9009FFE0C /* CAStreamBasicDescription.cpp */,
+				8A1104C71F5DC0D9009FFE0C /* CAStreamBasicDescription.h */,
+				8A1104C81F5DC0D9009FFE0C /* CAXException.cpp */,
+				8A1104C91F5DC0D9009FFE0C /* CAXException.h */,
+			);
+			path = Audio;
 			sourceTree = "<group>";
 		};
 		8A26300F1F30E9AC00F55C2B /* Chat Controllers */ = {
@@ -862,6 +931,7 @@
 			isa = PBXGroup;
 			children = (
 				8A8796B91F55F7A7001B01D6 /* Turnstr.entitlements */,
+				8A1104BD1F5DC0D9009FFE0C /* CallKit */,
 				D9FDE64A1EC25561009D5BE3 /* Images */,
 				D91C3ADD1F001D70005F945C /* Library */,
 				D963661D1F02D07E00784A58 /* WebServices */,
@@ -910,6 +980,7 @@
 		D9FDE6291EC22714009D5BE3 /* Modal */ = {
 			isa = PBXGroup;
 			children = (
+				8A1104BB1F5DB406009FFE0C /* Caller.swift */,
 				D957F3221F436EA700307968 /* Comment.swift */,
 				D96366321F02D78500784A58 /* Singleton.swift */,
 				D96366301F02D77E00784A58 /* DataServiceModal.swift */,
@@ -1047,7 +1118,7 @@
 				TargetAttributes = {
 					D9FDE60D1EC2263C009D5BE3 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = LCT55BGX4Z;
+						DevelopmentTeam = XXPSXL3JLY;
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -1210,6 +1281,7 @@
 				7EDC728A1F4DF0D000A00316 /* Extension.swift in Sources */,
 				7EBFF7D61F461FE100A8574D /* PhotoLibraryViewController.swift in Sources */,
 				D9AC62D81F0191100055ED3D /* UIButtonExtension.swift in Sources */,
+				8A1104DB1F5DC0D9009FFE0C /* SpeakerboxCall.swift in Sources */,
 				D90BF05E1F0D6752003B5F4D /* MyStoriesViewController.swift in Sources */,
 				D957F31E1F43632300307968 /* StoryCommentVC.swift in Sources */,
 				D91C3AFB1F001D78005F945C /* IQKeyboardManagerConstants.swift in Sources */,
@@ -1217,6 +1289,7 @@
 				D9FDE6461EC236F5009D5BE3 /* Image.swift in Sources */,
 				7EDC72871F4DF0D000A00316 /* DGElasticPullToRefreshLoadingView.swift in Sources */,
 				8A26301A1F30F46300F55C2B /* Friends.swift in Sources */,
+				8A1104D31F5DC0D9009FFE0C /* AudioController.mm in Sources */,
 				D957F3161F435DDA00307968 /* VideoPlayer.swift in Sources */,
 				D90A0F881F01F32E00BFCE90 /* MenuBar.swift in Sources */,
 				D957F30D1F435C4300307968 /* ImagePreviewViewController.swift in Sources */,
@@ -1235,11 +1308,13 @@
 				8A1781E61F4A030400BE9694 /* ChatVCExtension.swift in Sources */,
 				7EBFF7E11F461FFE00A8574D /* UserStoryCollectionViewCell.swift in Sources */,
 				7EBFF7F01F46204800A8574D /* CommentModel.swift in Sources */,
+				8A1104D21F5DC0D9009FFE0C /* Array+Speakerbox.swift in Sources */,
 				7EDC728C1F4DF0D000A00316 /* PullToRefreshOption.swift in Sources */,
 				8A2630111F30EB9800F55C2B /* ChatBudsVC.swift in Sources */,
 				D91C3AF81F001D78005F945C /* IQUIView+Hierarchy.swift in Sources */,
 				D96366681F035BD100784A58 /* UIImage+MultiFormat.m in Sources */,
 				D9FDE6491EC236F5009D5BE3 /* view.swift in Sources */,
+				8A1104D81F5DC0D9009FFE0C /* CallDurationFormatter.swift in Sources */,
 				D9AC62D71F0191100055ED3D /* StringExtensions.swift in Sources */,
 				D91C3AF61F001D78005F945C /* IQUIScrollView+Additions.swift in Sources */,
 				D91C3AFF1F001D78005F945C /* IQTextView.swift in Sources */,
@@ -1254,9 +1329,11 @@
 				D9AC62C41F018FC90055ED3D /* Device.swift in Sources */,
 				D91C3B021F001D78005F945C /* IQTitleBarButtonItem.swift in Sources */,
 				D9FDE6481EC236F5009D5BE3 /* textField.swift in Sources */,
+				8A1104D41F5DC0D9009FFE0C /* CADebugMacros.cpp in Sources */,
 				7EDC72861F4DF0D000A00316 /* DGElasticPullToRefreshExtensions.swift in Sources */,
 				7EDC72881F4DF0D000A00316 /* DGElasticPullToRefreshLoadingViewCircle.swift in Sources */,
 				D9AC62D51F0191100055ED3D /* DateExtension.swift in Sources */,
+				8A1104DF1F5DC0D9009FFE0C /* URL+StartCallConvertible.swift in Sources */,
 				D95181AA1F180C37008595CC /* LiveFeedsViewController.swift in Sources */,
 				D9FDE6471EC236F5009D5BE3 /* scroll.swift in Sources */,
 				D96366271F02D15D00784A58 /* MBProgressHUD.m in Sources */,
@@ -1266,10 +1343,12 @@
 				D963666B1F035BD100784A58 /* UIImageView+WebCache.m in Sources */,
 				8A26301D1F31044600F55C2B /* ParentChatCell.swift in Sources */,
 				D9AC62D41F0191100055ED3D /* ColorExtension.swift in Sources */,
+				8A1104D71F5DC0D9009FFE0C /* CAXException.cpp in Sources */,
 				D963665D1F035BD100784A58 /* MKAnnotationView+WebCache.m in Sources */,
 				7EBFF7EF1F46204800A8574D /* MediaModel.swift in Sources */,
 				8A9C6B071F5745560095230B /* AppDelegateExtension.swift in Sources */,
 				D9AC62FE1F01995C0055ED3D /* LocalizedStrings.swift in Sources */,
+				8A1104BC1F5DB406009FFE0C /* Caller.swift in Sources */,
 				D9FDE6451EC236F5009D5BE3 /* button.swift in Sources */,
 				D963662F1F02D74E00784A58 /* WebServices.swift in Sources */,
 				D9D36B5F1F110B6D000C66CD /* Story.swift in Sources */,
@@ -1283,10 +1362,12 @@
 				D91C3ADC1F001584005F945C /* KBTextField.swift in Sources */,
 				D957F3141F435DDA00307968 /* LikeCommetFooter.swift in Sources */,
 				D9AC63001F019A050055ED3D /* NSObjectExtensions.swift in Sources */,
+				8A1104D61F5DC0D9009FFE0C /* CAStreamBasicDescription.cpp in Sources */,
 				8AEC2C8C1F169DFE008DF3BB /* Storyboards.swift in Sources */,
 				D91C3AF91F001D78005F945C /* IQUIViewController+Additions.swift in Sources */,
 				8A26302D1F339A5200F55C2B /* ChatVC.swift in Sources */,
 				D96366671F035BD100784A58 /* UIImage+GIF.m in Sources */,
+				8A1104DC1F5DC0D9009FFE0C /* SpeakerboxCallManager.swift in Sources */,
 				D96366331F02D78500784A58 /* Singleton.swift in Sources */,
 				D96366601F035BD100784A58 /* SDWebImageCompat.m in Sources */,
 				D9AC62C31F018FC90055ED3D /* CommonEnums.swift in Sources */,
@@ -1297,6 +1378,7 @@
 				D963662D1F02D62600784A58 /* APIManager.swift in Sources */,
 				D9FDE63C1EC22C55009D5BE3 /* Enums.swift in Sources */,
 				7EBFF7F11F46204800A8574D /* UserModel.swift in Sources */,
+				8A1104DE1F5DC0D9009FFE0C /* UIFont+Speakerbox.swift in Sources */,
 				7EBFF7D71F461FE100A8574D /* PhotosViewController.swift in Sources */,
 				D963666A1F035BD100784A58 /* UIImageView+HighlightedWebCache.m in Sources */,
 				D9FDE6121EC2263C009D5BE3 /* AppDelegate.swift in Sources */,
@@ -1321,9 +1403,11 @@
 				D957F3211F436D0300307968 /* AllExtensions.swift in Sources */,
 				D9FDE63D1EC22C55009D5BE3 /* Header.swift in Sources */,
 				8A2630161F30EBF600F55C2B /* TableViewDataSources.swift in Sources */,
+				8A1104DD1F5DC0D9009FFE0C /* StartCallConvertible.swift in Sources */,
 				D963665F1F035BD100784A58 /* SDImageCache.m in Sources */,
 				D96366651F035BD100784A58 /* SDWebImagePrefetcher.m in Sources */,
 				D96366621F035BD100784A58 /* SDWebImageDownloader.m in Sources */,
+				8A1104DA1F5DC0D9009FFE0C /* ProviderDelegate.swift in Sources */,
 				D9D3DF4F1F1130E100173FFD /* CameraViewController.swift in Sources */,
 				D96366691F035BD100784A58 /* UIImage+WebP.m in Sources */,
 				D9AC63031F019E350055ED3D /* EditProfileViewController.swift in Sources */,
@@ -1333,12 +1417,14 @@
 				D9AC62C01F018FC90055ED3D /* AppFont.swift in Sources */,
 				D96B48EF1F1472D600621B39 /* CustomAlertView.swift in Sources */,
 				D92070DD1EF98FDC0095B9FA /* LoginViewController.swift in Sources */,
+				8A1104D51F5DC0D9009FFE0C /* CallAudio.swift in Sources */,
 				8AEC2C751F1693E9008DF3BB /* TabbarController.swift in Sources */,
 				D91C3B0A1F003DB5005F945C /* ParentViewController.swift in Sources */,
 				D9FDE6311EC22950009D5BE3 /* Trackball.m in Sources */,
 				D96B48E71F145A7400621B39 /* Loader.swift in Sources */,
 				D957F3231F436EA700307968 /* Comment.swift in Sources */,
 				8AE0E2BE1F29007900A28422 /* Costant.swift in Sources */,
+				8A1104D91F5DC0D9009FFE0C /* NSUserActivity+StartCallConvertible.swift in Sources */,
 				8A2630241F3110F600F55C2B /* UserCell.swift in Sources */,
 				D90BF0621F0D7DF5003B5F4D /* StoriesTableViewCell.swift in Sources */,
 				8A26302F1F33B3CA00F55C2B /* ChatParentVC.swift in Sources */,
@@ -1447,12 +1533,12 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Turnstr/Turnstr.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = LCT55BGX4Z;
+				DEVELOPMENT_TEAM = XXPSXL3JLY;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Turnstr/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ketapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rocky.turnstr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1470,12 +1556,12 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Turnstr/Turnstr.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = LCT55BGX4Z;
+				DEVELOPMENT_TEAM = XXPSXL3JLY;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Turnstr/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ketapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rocky.turnstr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";

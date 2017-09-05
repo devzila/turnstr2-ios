@@ -4,6 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,34 +22,43 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ceu-gD-hTS">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="65"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="160"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LeX-jl-1w4">
-                                        <rect key="frame" x="321" y="17.5" width="38" height="46"/>
-                                        <inset key="contentEdgeInsets" minX="8" minY="8" maxX="0.0" maxY="8"/>
-                                        <state key="normal" image="newChat"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1y7-zs-kFc">
+                                        <rect key="frame" x="137" y="30" width="100" height="100"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="Hbc-Is-zT6"/>
+                                            <constraint firstAttribute="height" constant="100" id="TKn-gn-fAk"/>
+                                        </constraints>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LeX-jl-1w4">
+                                        <rect key="frame" x="305" y="106" width="54" height="46"/>
+                                        <inset key="contentEdgeInsets" minX="16" minY="8" maxX="8" maxY="8"/>
+                                        <state key="normal" image="chat-plus-icon"/>
                                         <connections>
-                                            <action selector="newChat" destination="wR6-vm-r7D" eventType="touchUpInside" id="3Uh-2f-KTJ"/>
+                                            <action selector="newChat" destination="wR6-vm-r7D" eventType="touchUpInside" id="Ti4-bG-d1f"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CHAT" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j3Z-d5-apE">
-                                        <rect key="frame" x="165" y="30" width="46" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D9e-Eh-MU4">
+                                        <rect key="frame" x="291" y="20" width="68" height="43"/>
+                                        <inset key="contentEdgeInsets" minX="8" minY="8" maxX="0.0" maxY="8"/>
+                                        <state key="normal" image="chat-icon"/>
+                                    </button>
                                 </subviews>
-                                <color key="backgroundColor" red="1" green="0.60784313729999995" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="LeX-jl-1w4" firstAttribute="centerY" secondItem="ceu-gD-hTS" secondAttribute="centerY" constant="8" id="63G-P8-ge5"/>
-                                    <constraint firstItem="j3Z-d5-apE" firstAttribute="centerX" secondItem="ceu-gD-hTS" secondAttribute="centerX" id="Eb9-ea-61S"/>
-                                    <constraint firstItem="j3Z-d5-apE" firstAttribute="centerY" secondItem="ceu-gD-hTS" secondAttribute="centerY" constant="8" id="SXM-as-dv2"/>
-                                    <constraint firstAttribute="height" constant="65" id="dKB-rU-fKW"/>
+                                    <constraint firstItem="1y7-zs-kFc" firstAttribute="centerX" secondItem="ceu-gD-hTS" secondAttribute="centerX" id="4rl-jc-ByC"/>
+                                    <constraint firstItem="1y7-zs-kFc" firstAttribute="centerY" secondItem="ceu-gD-hTS" secondAttribute="centerY" id="6nw-Cd-NaM"/>
+                                    <constraint firstAttribute="trailing" secondItem="D9e-Eh-MU4" secondAttribute="trailing" constant="16" id="9ve-db-FhQ"/>
+                                    <constraint firstItem="D9e-Eh-MU4" firstAttribute="top" secondItem="ceu-gD-hTS" secondAttribute="top" constant="20" id="IEy-hO-2jE"/>
+                                    <constraint firstAttribute="bottom" secondItem="LeX-jl-1w4" secondAttribute="bottom" constant="8" id="aDY-cu-CJt"/>
+                                    <constraint firstAttribute="height" constant="160" id="dKB-rU-fKW"/>
                                     <constraint firstAttribute="trailing" secondItem="LeX-jl-1w4" secondAttribute="trailing" constant="16" id="tna-Vc-Gjg"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="seb-FE-QRw">
-                                <rect key="frame" x="0.0" y="65" width="375" height="602"/>
+                                <rect key="frame" x="0.0" y="160" width="375" height="507"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
                         </subviews>
@@ -65,12 +75,13 @@
                     </view>
                     <navigationItem key="navigationItem" id="ZZS-BU-98p"/>
                     <connections>
+                        <outlet property="cubeView" destination="1y7-zs-kFc" id="N8o-EE-XED"/>
                         <outlet property="tableView" destination="seb-FE-QRw" id="oBb-ox-hAH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5fZ-8Q-Ksq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="903" y="-86"/>
+            <point key="canvasLocation" x="901.60000000000002" y="-86.806596701649184"/>
         </scene>
         <!--Users ListVC-->
         <scene sceneID="wT1-Wc-dnm">
@@ -380,8 +391,9 @@
     </scenes>
     <resources>
         <image name="camera" width="66" height="66"/>
+        <image name="chat-icon" width="60" height="27"/>
+        <image name="chat-plus-icon" width="30" height="30"/>
         <image name="cross" width="30" height="30"/>
-        <image name="newChat" width="30" height="30"/>
         <image name="send" width="40" height="40"/>
     </resources>
 </document>
