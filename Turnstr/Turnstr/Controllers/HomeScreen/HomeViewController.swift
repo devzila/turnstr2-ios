@@ -96,7 +96,7 @@ class HomeViewController: ParentViewController {
         uvTopCube.addSubview(topCube!)
         
         topCube?.setScroll(CGPoint.init(x: 0, y: h/2), end: CGPoint.init(x: 20, y: h/2))
-        topCube?.setScroll(CGPoint.init(x: w/2, y: 0), end: CGPoint.init(x: w/2, y: 10))
+        topCube?.setScroll(CGPoint.init(x: w/2, y: 0), end: CGPoint.init(x: w/2, y: 1))
         /*
          CGPoint location =  CGPointMake(0, self.center.y+90);
          location = CGPointMake(80, location.y);
@@ -112,17 +112,17 @@ class HomeViewController: ParentViewController {
         transformView = nil
         
         w = kWidth
-        h = 220 // uvCenterCube.frame.size.height-10
+        h = w.getDW(SP: 270, S: 220, F: 220) // uvCenterCube.frame.size.height-10
         
         if transformView == nil {
             
-            transformView = AITransformView.init(frame: CGRect.init(x: 0, y: 20, width: w, height: h), cube_size: 180)//w > h ?h-100:w-100
+            transformView = AITransformView.init(frame: CGRect.init(x: 0, y: 20, width: w, height: h), cube_size: w.getDW(SP: 230, S: 180, F: 180))//w > h ?h-100:w-100
         }
         transformView?.backgroundColor = UIColor.clear
         transformView?.setup(withUrls: [objSing.strUserPic1.urlWithThumb, objSing.strUserPic2.urlWithThumb, objSing.strUserPic3.urlWithThumb, objSing.strUserPic4.urlWithThumb, objSing.strUserPic5.urlWithThumb, objSing.strUserPic6.urlWithThumb])
         uvCenterCube.addSubview(transformView!)
-        transformView?.setScroll(CGPoint.init(x: 0, y: h/2), end: CGPoint.init(x: IS_IPHONE_6P ? 115 : 85, y: h/2))
-        transformView?.setScroll(CGPoint.init(x: w/2, y: 0), end: CGPoint.init(x: w/2, y: 10))
+        transformView?.setScroll(CGPoint.init(x: 0, y: h/2), end: CGPoint.init(x: w.getDW(SP: 115, S: 105, F: 105), y: h/2))
+        transformView?.setScroll(CGPoint.init(x: w/2, y: 0), end: CGPoint.init(x: w/2, y: 1))
         
         MyStoryBUtton()
     }

@@ -94,7 +94,8 @@ class StoriesViewController: ParentViewController, UICollectionViewDelegate, UIC
         uvTopCube.addSubview(topCube!)
         
         topCube?.setScroll(CGPoint.init(x: 0, y: h/2), end: CGPoint.init(x: 20, y: h/2))
-        topCube?.setScroll(CGPoint.init(x: w/2, y: 0), end: CGPoint.init(x: w/2, y: 10))
+        topCube?.setScroll(CGPoint.init(x: w/2, y: 0), end: CGPoint.init(x: w/2, y: 1))
+        
         
         
         
@@ -115,9 +116,11 @@ class StoriesViewController: ParentViewController, UICollectionViewDelegate, UIC
         
         if flowLayout == nil {
             flowLayout = UICollectionViewFlowLayout.init()
-            flowLayout?.sectionInset = UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
-            flowLayout?.itemSize = PhotoSize()
+            flowLayout?.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
             
+            flowLayout?.itemSize = PhotoSize()
+            flowLayout?.minimumInteritemSpacing = 0
+            flowLayout?.minimumLineSpacing = 0
         }
         
         if uvCollectionView == nil {
@@ -132,7 +135,7 @@ class StoriesViewController: ParentViewController, UICollectionViewDelegate, UIC
     }
     
     func PhotoSize() -> CGSize {
-        let photoCellSize = (kWidth/3)-10
+        let photoCellSize = (kWidth/3)
         return CGSize(width: photoCellSize, height: photoCellSize)
     }
     
@@ -158,7 +161,7 @@ class StoriesViewController: ParentViewController, UICollectionViewDelegate, UIC
         var cube = cell.contentView.viewWithTag(indexPath.item) as? AITransformView
         
         if cube == nil {
-            cube = AITransformView.init(frame: CGRect.init(x: 0, y: 0, width: w, height: h), cube_size: 65)
+            cube = AITransformView.init(frame: CGRect.init(x: 0, y: 0, width: w, height: h), cube_size: 85)
             cube?.backgroundColor = UIColor.white
             cube?.tag = indexPath.item
             
@@ -168,8 +171,11 @@ class StoriesViewController: ParentViewController, UICollectionViewDelegate, UIC
             var arrMedia: [String] = []
             
             for item in objStory.media {
+                print(item)
                 objStory.ParseMedia(media: item)
-                arrMedia.append(objStory.thumb_url)
+                if objStory.media_type.isEmpty == false {
+                    arrMedia.append(objStory.thumb_url)
+                }
             }
             
             
@@ -177,7 +183,7 @@ class StoriesViewController: ParentViewController, UICollectionViewDelegate, UIC
             
             
             cube?.setScroll(CGPoint.init(x: 0, y: h/2), end: CGPoint.init(x: 20, y: h/2))
-            cube?.setScroll(CGPoint.init(x: w/2, y: 0), end: CGPoint.init(x: w/2, y: 10))
+            cube?.setScroll(CGPoint.init(x: w/2, y: 0), end: CGPoint.init(x: w/2, y: 2))
             
         }
         let tap = UITapGestureRecognizer.init(target: self, action: #selector(handleTap(sender:)))
@@ -215,9 +221,9 @@ class StoriesViewController: ParentViewController, UICollectionViewDelegate, UIC
         let mvc = StoryPreviewViewController()
         mvc.dictInfo = arrList[indexPath.item] as! Dictionary<String, Any>
         mvc.userTYpe = screenType
-        self.navigationController?.pushViewController(mvc, animated: true)
+        //self.navigationController?.pushViewController(mvc, animated: true)
         
-        
+        topVC?.navigationController?.pushViewController(mvc, animated: true)
     }
     
     @IBAction func NewStoryClicked(_ sender: UIButton) {

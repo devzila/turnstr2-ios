@@ -133,8 +133,8 @@ class StoryCommentVC: ParentViewController, UITableViewDelegate, UITableViewData
             let arrFaces = [objCom.strUserPic1, objCom.strUserPic2, objCom.strUserPic3, objCom.strUserPic4, objCom.strUserPic5, objCom.strUserPic6]
             cube?.setup(withUrls: arrFaces)
             cell.uvImage.addSubview(cube!)
-            cube?.setScroll(CGPoint.init(x: 0, y: 30/2), end: CGPoint.init(x: 20, y: 30/2))
-            cube?.setScroll(CGPoint.init(x: 30/2, y: 0), end: CGPoint.init(x: 30/2, y: 10))
+            cube?.setScroll(CGPoint.init(x: 0, y: 30), end: CGPoint.init(x: 10, y: 30))
+            cube?.setScroll(CGPoint.init(x: 30, y: 0), end: CGPoint.init(x: 30, y: 1))
         }
         
         

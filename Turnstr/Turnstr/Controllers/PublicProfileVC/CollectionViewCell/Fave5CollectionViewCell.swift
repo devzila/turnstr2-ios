@@ -37,8 +37,8 @@ class Fave5CollectionViewCell: UICollectionViewCell, UICollectionViewDataSource,
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath as IndexPath)
         // Use the outlet in our custom class to get a reference to the UILabel in the cell
         
-        let w: CGFloat = collectionView.frame.size.height - 10
-        let h: CGFloat = collectionView.frame.size.height - 10
+        let w: CGFloat = collectionView.frame.size.height
+        let h: CGFloat = collectionView.frame.size.height
         var cube = cell.contentView.viewWithTag(indexPath.item) as? AITransformView
         
         if let lblName = cell.viewWithTag(1003) as? UILabel {
@@ -52,11 +52,11 @@ class Fave5CollectionViewCell: UICollectionViewCell, UICollectionViewDataSource,
             cube?.backgroundColor = UIColor.clear
             cube?.isUserInteractionEnabled = true
             let arrFave = arrFave5[indexPath.row]
-            let arrFaces = [arrFave.avatar_face1 ?? "thumb", arrFave.avatar_face2 ?? "thumb", arrFave.avatar_face3 ?? "thumb", arrFave.avatar_face4 ?? "thumb", arrFave.avatar_face5 ?? "thumb", arrFave.avatar_face6 ?? "thumb"]
+            let arrFaces = [arrFave.avatar_face1 ?? "", arrFave.avatar_face2 ?? "", arrFave.avatar_face3 ?? "", arrFave.avatar_face4 ?? "", arrFave.avatar_face5 ?? "", arrFave.avatar_face6 ?? ""]
             cube?.setup(withUrls: arrFaces)
             cell.contentView.addSubview(cube!)
-            cube?.setScroll(CGPoint.init(x: 0, y: h/2), end: CGPoint.init(x: 20, y: h/2))
-            cube?.setScroll(CGPoint.init(x: w/2, y: 0), end: CGPoint.init(x: w/2, y: 10))
+            cube?.setScroll(CGPoint.init(x: 0, y: w/2), end: CGPoint.init(x: 10, y: w/2))
+            cube?.setScroll(CGPoint.init(x: w/2, y: 0), end: CGPoint.init(x: w/2, y: 1))
             
             let tap = UITapGestureRecognizer.init(target: self, action: #selector(handleTap(sender:)))
             tap.delegate = self

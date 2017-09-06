@@ -49,24 +49,24 @@ class UserStoryCollectionViewCell: UICollectionViewCell, UICollectionViewDataSou
         
         if cube == nil {
             
-            cube = AITransformView.init(frame: CGRect.init(x: 0, y: 0, width: w, height: h), cube_size: w/2)
+            cube = AITransformView.init(frame: CGRect.init(x: 0, y: 0, width: w, height: h), cube_size: w-42)
             cube?.tag = indexPath.item
             cube?.backgroundColor = UIColor.clear
             cube?.isUserInteractionEnabled = true
             var arrFaces = [String]()
             if let arrMem = arrMembers {
-                arrFaces = [arrMem[indexPath.row].avatar_face1 ?? "thumb", arrMem[indexPath.row].avatar_face2 ?? "thumb", arrMem[indexPath.row].avatar_face3 ?? "thumb", arrMem[indexPath.row].avatar_face4 ?? "thumb", arrMem[indexPath.row].avatar_face5 ?? "thumb", arrMem[indexPath.row].avatar_face6 ?? "thumb"]
+                arrFaces = [arrMem[indexPath.row].avatar_face1 ?? "", arrMem[indexPath.row].avatar_face2 ?? "", arrMem[indexPath.row].avatar_face3 ?? "", arrMem[indexPath.row].avatar_face4 ?? "", arrMem[indexPath.row].avatar_face5 ?? "", arrMem[indexPath.row].avatar_face6 ?? ""]
             } else {
                 let arrFave = arrStories?[indexPath.row].media
                 for url in arrFave! {
-                    arrFaces.append(url.thumb_url ?? "thumb")
+                    arrFaces.append(url.thumb_url ?? "")
                 }
             }
             
             cube?.setup(withUrls: arrFaces)
             cell.contentView.addSubview(cube!)
             cube?.setScroll(CGPoint.init(x: 0, y: h/2), end: CGPoint.init(x: 20, y: h/2))
-            cube?.setScroll(CGPoint.init(x: w/2, y: 0), end: CGPoint.init(x: w/2, y: 10))
+            cube?.setScroll(CGPoint.init(x: w/2, y: 0), end: CGPoint.init(x: w/2, y: 1))
             
             let tap = UITapGestureRecognizer.init(target: self, action: #selector(handleTap(sender:)))
             tap.delegate = self

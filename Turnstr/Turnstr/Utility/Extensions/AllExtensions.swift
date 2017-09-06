@@ -36,3 +36,22 @@ extension UIScrollView {
         return Int((self.contentOffset.x+(0.5*self.frame.size.width))/self.frame.width)+1
     }
 }
+
+extension CGFloat {
+    func getDW(SP: CGFloat, S: CGFloat, F: CGFloat) -> CGFloat {
+        
+        if IS_IPHONE_6P {
+            return SP
+        }
+        else if IS_IPHONE_6 {
+            return S
+        }
+        else if IS_IPHONE_5 {
+            return F
+        }
+        else{
+            return F
+        }
+        
+    }
+}

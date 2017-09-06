@@ -248,13 +248,13 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
             topCube = AITransformView.init(frame: CGRect.init(x: 0, y: 0, width: w, height: h), cube_size: h/2 + 10)
         }
         topCube?.backgroundColor = UIColor.clear
-        let arrFaces = [objModel.avatar_face1 ?? "thumb", objModel.avatar_face2 ?? "thumb", objModel.avatar_face3 ?? "thumb", objModel.avatar_face4 ?? "thumb", objModel.avatar_face5 ?? "thumb", objModel.avatar_face6 ?? "thumb"]
+        let arrFaces = [objModel.avatar_face1 ?? "", objModel.avatar_face2 ?? "", objModel.avatar_face3 ?? "", objModel.avatar_face4 ?? "", objModel.avatar_face5 ?? "", objModel.avatar_face6 ?? ""]
         topCube?.setup(withUrls: arrFaces)
         
         uvTopCube.addSubview(topCube!)
         uvTopCube.isUserInteractionEnabled = false
         topCube?.setScroll(CGPoint.init(x: 0, y: h/2), end: CGPoint.init(x: 20, y: h/2))
-        topCube?.setScroll(CGPoint.init(x: w/2, y: 0), end: CGPoint.init(x: w/2, y: 10))
+        topCube?.setScroll(CGPoint.init(x: w/2, y: 0), end: CGPoint.init(x: w/2, y: 1))
 
         
     }

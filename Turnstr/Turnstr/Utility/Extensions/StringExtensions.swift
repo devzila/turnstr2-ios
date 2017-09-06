@@ -49,7 +49,7 @@ extension String {
     
     var urlWithThumb: String {
         if self.isEmpty == true {
-            return "thumb"
+            return ""
         }
         return self
     }

@@ -28,7 +28,7 @@ class StoryPreviewViewController: ParentViewController, UIGestureRecognizerDeleg
         super.viewDidLoad()
         
         print(dictInfo)
-        self.view.backgroundColor = UIColor.black
+        self.view.backgroundColor = UIColor.white
         
         
         objStory.ParseStoryData(dict: dictInfo)
@@ -49,8 +49,8 @@ class StoryPreviewViewController: ParentViewController, UIGestureRecognizerDeleg
         transformView?.backgroundColor = UIColor.clear
         transformView?.setup(withUrls: arrMedia)
         self.view.addSubview(transformView!)
-        transformView?.setScroll(CGPoint.init(x: 0, y: h/2), end: CGPoint.init(x: 85, y: h/2))
-        transformView?.setScroll(CGPoint.init(x: w/2, y: 0), end: CGPoint.init(x: w/2, y: kNavBarHeight + (IS_IPHONE_6P ? 60 :30)))
+        transformView?.setScroll(CGPoint.init(x: 0, y: h/2), end: CGPoint.init(x: IS_IPHONE_6 ? 70 : 85, y: h/2))
+        transformView?.setScroll(CGPoint.init(x: w/2, y: 0), end: CGPoint.init(x: w/2, y: kNavBarHeight + w.getDW(SP: 45, S: 28, F: 28)))//(IS_IPHONE_6P ? 45 :28)
         
         let tap = UITapGestureRecognizer.init(target: self, action: #selector(handleTap(sender:)))
         tap.delegate = self
@@ -111,11 +111,11 @@ class StoryPreviewViewController: ParentViewController, UIGestureRecognizerDeleg
         uvCube.addSubview(topCube!)
         
         topCube?.setScroll(CGPoint.init(x: 0, y: h/2), end: CGPoint.init(x: 10, y: h/2))
-        topCube?.setScroll(CGPoint.init(x: w/2, y: 0), end: CGPoint.init(x: w/2, y: 5))
+        topCube?.setScroll(CGPoint.init(x: w/2, y: 0), end: CGPoint.init(x: w/2, y: 2))
         topCube?.isUserInteractionEnabled = false
         
         btnUserName.frame = CGRect.init(x: uvCube.frame.maxX+8, y: uvCube.frame.minY, width: kWidth-uvCube.frame.maxX-8, height: h)
-        btnUserName.setTitleColor(UIColor.white, for: .normal)
+        btnUserName.setTitleColor(UIColor.black, for: .normal)
         btnUserName.titleLabel?.font = UIFont.init(name: kFontOpen3, size: 14.0)
         btnUserName.contentHorizontalAlignment = .left
         btnUserName.addTarget(self, action: #selector(OpenProfile(sender:)), for: .touchUpInside)
@@ -125,7 +125,7 @@ class StoryPreviewViewController: ParentViewController, UIGestureRecognizerDeleg
     
     func SetupFooter() -> Void {
         if objCommentFooter == nil {
-            objCommentFooter = LikeCommetFooter.init(frame: CGRect.init(x: 0, y: kHeight-120, width: kWidth, height: 120))
+            objCommentFooter = LikeCommetFooter.init(frame: CGRect.init(x: 0, y: kHeight+kTabBarHeight-120, width: kWidth, height: 120))
         }
         objCommentFooter?.btnLike.addTarget(self, action: #selector(LikeClicked(sender:)), for: .touchUpInside)
         objCommentFooter?.btnComment.addTarget(self, action: #selector(CommentClicked(sender:)), for: .touchUpInside)
