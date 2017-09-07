@@ -336,7 +336,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="479" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4aF-P4-DqH">
-                                <rect key="frame" x="0.0" y="134" width="375" height="529"/>
+                                <rect key="frame" x="0.0" y="122" width="375" height="541"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="cellPhotoDetail" rowHeight="514" id="CAB-l8-rU1">
@@ -602,7 +602,7 @@
                             <constraint firstAttribute="trailing" secondItem="Afn-1F-fvh" secondAttribute="trailing" id="WZt-wt-NYR"/>
                             <constraint firstItem="ICV-xe-lzf" firstAttribute="top" secondItem="4aF-P4-DqH" secondAttribute="bottom" constant="4" id="ebn-22-vFc"/>
                             <constraint firstItem="Afn-1F-fvh" firstAttribute="leading" secondItem="mS2-6h-yaY" secondAttribute="leading" id="fce-IM-1GR"/>
-                            <constraint firstItem="4aF-P4-DqH" firstAttribute="top" secondItem="J3K-6X-nKn" secondAttribute="bottom" constant="114" id="vKt-gq-Sa6"/>
+                            <constraint firstItem="4aF-P4-DqH" firstAttribute="top" secondItem="J3K-6X-nKn" secondAttribute="bottom" constant="102" id="vKt-gq-Sa6"/>
                         </constraints>
                     </view>
                     <connections>
