@@ -25,39 +25,69 @@ class PhotosViewController: ParentViewController, UICollectionViewDataSource, UI
     var selectedIndexPath: IndexPath?
     
     var isDelete = false
+    @IBOutlet weak var btnBlueBack: UIButton!
+    @IBOutlet weak var btnSelectDelete: button!
+    
+    @IBOutlet weak var uvTopCube: UIView!
+    var topCube: AITransformView?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-       // LoadNavBar()
-        LoadPhotoLibNavBar() 
+
         if isFromPublicPhoto {
-            objNav.btnBack.isHidden = true
-            objNav.btnRightMenu.isHidden = true
+            btnBlueBack.isHidden = true
+            btnSelectDelete.isHidden = true
+
         } else {
-            objNav.btnBack.isHidden = false
-            objNav.btnRightMenu.isHidden = false
-            objNav.btnBack.addTarget(self, action: #selector(goBack), for: .touchUpInside)
+            btnBlueBack.isHidden = false
+            btnSelectDelete.isHidden = false
+
             
-            objNav.btnRightMenu.setTitle("Select", for: .normal)
-            objNav.btnRightMenu.setTitleColor(UIColor.white, for: .normal)
-            objNav.btnRightMenu.addTarget(self, action: #selector(btnTappedDeletePhoto), for: .touchUpInside)
+            btnSelectDelete.setTitle("Select", for: .normal)
+            btnSelectDelete.setTitleColor(UIColor(hexString: "00C7FF"), for: .normal)
         }
+        
+        
+        //
+        //Top Cube View
+        //
+        
+        topCube?.removeFromSuperview()
+        topCube = nil
+        
+        let w: CGFloat = 95
+        let h: CGFloat = 80
+        
+        if topCube == nil {
+            
+            topCube = AITransformView.init(frame: CGRect.init(x: 0, y: 0, width: w, height: h), cube_size: 65)
+        }
+        topCube?.backgroundColor = UIColor.clear
+        topCube?.setup(withUrls: [objSing.strUserPic1.urlWithThumb, objSing.strUserPic2.urlWithThumb, objSing.strUserPic3.urlWithThumb, objSing.strUserPic4.urlWithThumb, objSing.strUserPic5.urlWithThumb, objSing.strUserPic6.urlWithThumb])
+        uvTopCube.addSubview(topCube!)
+        
+        topCube?.setScroll(CGPoint.init(x: 0, y: h/2), end: CGPoint.init(x: 20, y: h/2))
+        topCube?.setScroll(CGPoint.init(x: w/2, y: 0), end: CGPoint.init(x: w/2, y: 1))
+
         
         collViewPhotos.allowsMultipleSelection = false
         
     }
     
+    @IBAction func btnTappedSelectDelete(_ sender: UIButton) {
+        btnTappedDeletePhoto()
+    }
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-//        if kAppDelegate.isTabChanges != true {
-//            return
-//        }
-//        kAppDelegate.isTabChanges = false
+
         pageNumber = 1
         arrPhotos.removeAll()
+        collViewPhotos.reloadData()
         if isFromPublicPhoto {
-//            kAppDelegate.loadingIndicationCreationMSG(msg: "Loading...")
             getAllPhotos(page: pageNumber)
         } else {
             picsOfUser()
@@ -99,25 +129,32 @@ class PhotosViewController: ParentViewController, UICollectionViewDataSource, UI
     
     func btnTappedDeletePhoto() {
         
-        if objNav.btnRightMenu.isSelected {
-            objNav.btnRightMenu.isSelected = false
-            objNav.btnRightMenu.setTitle("Select", for: .normal)
+        if btnSelectDelete.isSelected {
+            btnSelectDelete.isSelected = false
+            btnSelectDelete.setTitle("Select", for: .normal)
             isDelete = false
             deletePhotoAPI()
         } else {
             isDelete = true
-            objNav.btnRightMenu.isSelected = true
-            objNav.btnRightMenu.setTitle("Delete", for: .normal)
+            btnSelectDelete.isSelected = true
+            btnSelectDelete.setTitle("Delete", for: .normal)
         }
     }
     
     func deletePhotoAPI() {
         guard let index = selectedIndexPath else { return }
         kAppDelegate.loadingIndicationCreationMSG(msg: "Deleting...")
-        deleteUserPhoto(albumId: (photoAlbum?.id)!, photoId: arrPhotos[index.row].id!) { (response) in
-            self.picsOfUser()
-            self.selectedIndexPath = nil
+        if self.arrPhotos.count > index.row {
+            deleteUserPhoto(albumId: (photoAlbum?.id)!, photoId: arrPhotos[index.row].id!) { (response) in
+                self.picsOfUser()
+                self.selectedIndexPath = nil
+            }
         }
+        
+    }
+    
+    @IBAction func btnTappedBack(_ sender: UIButton) {
+        _ = self.navigationController?.popViewController(animated: true)
     }
 }
 
@@ -136,9 +173,12 @@ extension PhotosViewController {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: photosIdentifier, for: indexPath as IndexPath) as UICollectionViewCell
         if let imgView = cell.viewWithTag(1001) as? UIImageView {
-            if let coverImage = self.arrPhotos[indexPath.row].image_thumb {
-                imgView.sd_setImage(with: URL(string: coverImage), placeholderImage: #imageLiteral(resourceName: "placeholder"))
+            if self.arrPhotos.count > indexPath.row {
+                if let coverImage = self.arrPhotos[indexPath.row].image_thumb {
+                    imgView.sd_setImage(with: URL(string: coverImage), placeholderImage: #imageLiteral(resourceName: "placeholder"))
+                }
             }
+            
         }
         if selectedIndexPath != nil && indexPath == selectedIndexPath {
             cell.contentView.layer.borderColor = UIColor(hexString: "00C7FF").cgColor
@@ -195,9 +235,11 @@ extension PhotosViewController {
         // Pass the selected object to the new view controller.
         if segue.identifier == photoDetailSegue {
             if let vc = segue.destination as? PhotoDetailNewViewController, let index = sender as? IndexPath {
-                //vc.objPhotos = arrPhotos PhotoDetailViewController
-                //vc.selectedIndex = index.row
-                vc.photoId = self.arrPhotos[index.row].id
+
+                if self.arrPhotos.count > index.row {
+                    vc.photoId = self.arrPhotos[index.row].id
+                }
+                
                 vc.albumId = photoAlbum?.id
                 vc.isFromPublicPhoto = isFromPublicPhoto
             }

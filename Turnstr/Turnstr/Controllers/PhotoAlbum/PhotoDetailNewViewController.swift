@@ -13,10 +13,12 @@ class PhotoDetailNewViewController: ParentViewController, UITextViewDelegate, Se
 
     
     @IBOutlet weak var tblViewPhotoDetail: UITableView!
+    @IBOutlet weak var uvTopCube: UIView!
     
     var arrComments = [CommentModel]()
     var isLoadNext = false
     var pageNumber = 0
+    var topCube: AITransformView?
     
     var albumId: Int?
     var photoId: Int?
@@ -29,16 +31,32 @@ class PhotoDetailNewViewController: ParentViewController, UITextViewDelegate, Se
 
         // Do any additional setup after loading the view.
         
-        LoadNavBar()
-        self.navigationController?.navigationBar.tintColor = UIColor.white
-        
-        objNav.btnRightMenu.isHidden = true
-        objNav.btnBack.addTarget(self, action: #selector(goBack), for: .touchUpInside)
-        
         
         tblViewPhotoDetail.rowHeight = UITableViewAutomaticDimension
         tblViewPhotoDetail.estimatedRowHeight = 40
         self.tblViewPhotoDetail.tableFooterView = UIView(frame: CGRect.zero)
+        
+        
+        //
+        //Top Cube View
+        //
+        
+        topCube?.removeFromSuperview()
+        topCube = nil
+        
+        let w: CGFloat = 95
+        let h: CGFloat = 80
+        
+        if topCube == nil {
+            
+            topCube = AITransformView.init(frame: CGRect.init(x: 0, y: 0, width: w, height: h), cube_size: 65)
+        }
+        topCube?.backgroundColor = UIColor.clear
+        topCube?.setup(withUrls: [objSing.strUserPic1.urlWithThumb, objSing.strUserPic2.urlWithThumb, objSing.strUserPic3.urlWithThumb, objSing.strUserPic4.urlWithThumb, objSing.strUserPic5.urlWithThumb, objSing.strUserPic6.urlWithThumb])
+        uvTopCube.addSubview(topCube!)
+        
+        topCube?.setScroll(CGPoint.init(x: 0, y: h/2), end: CGPoint.init(x: 20, y: h/2))
+        topCube?.setScroll(CGPoint.init(x: w/2, y: 0), end: CGPoint.init(x: w/2, y: 1))
         
         
         getUserDetailsAPI()
@@ -61,8 +79,7 @@ class PhotoDetailNewViewController: ParentViewController, UITextViewDelegate, Se
                 if let photoDetail = response?.response {
                     self.photoDetail = photoDetail
                     self.tblViewPhotoDetail.reloadData()
-//                    let indexPath = IndexPath(item: 0, section: 0)
-//                    self.tblViewPhotoDetail.reloadRows(at: [indexPath], with: .top)
+
                 }
             })
         }
@@ -76,8 +93,7 @@ class PhotoDetailNewViewController: ParentViewController, UITextViewDelegate, Se
                 for object in commentsArray {
                     self.arrComments.append(object)
                 }
-//                let indexPath = IndexPath(item: 1, section: 0)
-//                self.tblViewPhotoDetail.reloadRows(at: [indexPath], with: .top)
+
                 self.tblViewPhotoDetail.reloadData()
                 
                 if let _ = dict["next_page"] as? Int {
@@ -89,6 +105,9 @@ class PhotoDetailNewViewController: ParentViewController, UITextViewDelegate, Se
         }
     }
     
+    @IBAction func btnTappedBack(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
     
     @IBAction func btnTappedShare(_ sender: UIButton) {
         guard let photo = photoDetail else { return }
@@ -249,6 +268,22 @@ extension PhotoDetailNewViewController: UITableViewDelegate, UITableViewDataSour
             if let lblTime = cell.viewWithTag(1003) as? UILabel {
                 lblTime.text = self.convertStringToDate(dateString: arrComments[indexPath.row - 1].created_at!)?.timeAgoDisplay()
             }
+            
+            var cube = cell.contentView.viewWithTag(indexPath.item) as? AITransformView
+            if cube == nil {
+                cube = AITransformView.init(frame: CGRect.init(x: 8, y: 5, width: 50, height: 50), cube_size: 30)
+                cube?.tag = indexPath.item
+                cube?.backgroundColor = UIColor.clear
+                cube?.isUserInteractionEnabled = false
+                let user = arrComments[indexPath.row - 1].user
+                let arrFaces = [user?.avatar_face1 ?? "thumb", user?.avatar_face2 ?? "thumb", user?.avatar_face3 ?? "thumb", user?.avatar_face4 ?? "thumb", user?.avatar_face5 ?? "thumb", user?.avatar_face6 ?? "thumb"]
+                cube?.setup(withUrls: arrFaces)
+                cell.contentView.addSubview(cube!)
+                cube?.setScroll(CGPoint.init(x: 0, y: 50/2), end: CGPoint.init(x: 7, y: 50/2))
+                cube?.setScroll(CGPoint.init(x: 50/2, y: 0), end: CGPoint.init(x: 50/2, y: 1))
+            }
+
+            
             return cell
         }
         

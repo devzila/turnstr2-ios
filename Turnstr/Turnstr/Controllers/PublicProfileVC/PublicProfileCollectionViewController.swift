@@ -80,13 +80,9 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
         
         searchBar.isHidden = !isFromFeeds
         
-//        uvTopCube.isHidden = isFromFeeds
         lblPostLeft.isHidden = isFromFeeds
         lblPostRight.isHidden = isFromFeeds
         
-//        if isFromFeeds {
-//            constraintImgVwLogoX.constant = (view.frame.size.width - 120)/2
-//        }
         
         getMemberDetails(id: userID) { (response) in
             if let objModel = response?.response {
@@ -277,20 +273,6 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
                 }
             }
             
-            
-//            if let view = cell?.viewWithTag(2001) {
-//                view.isHidden = !isFromFeeds
-//            }
-//            if isFromFeeds {
-//                if let view = cell?.viewWithTag(1001) {
-//                    for constraint in view.constraints as [NSLayoutConstraint] {
-//                        if constraint.identifier == "fave5lblWidthConstraint" {
-//                            constraint.constant = 0
-//                        }
-//                    }
-//                }
-//            }
-            
             cell?.arrFave5 = self.arrFav5
             cell?.delegateFave5 = self
             cell?.setupCollectionView()
@@ -403,7 +385,7 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
     }
 
     @IBAction func btnTappedBack(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
+       _ = self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func btnTappedFamily(_ sender: UIButton) {
@@ -480,9 +462,7 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
                 self.collViewPublicProfile.dg_stopLoading()
                 self.collViewPublicProfile.reloadItems(at: [IndexPath(row: 1, section: 0)])
                 self.collViewPublicProfile.reloadItems(at: [IndexPath(row: 2, section: 0)])
-//                if let userID = self.profileId, userID == self.getUserId() {
-//                    self.collViewPublicProfile.reloadItems(at: [IndexPath(row: 2, section: 0)])
-//                }
+
             }
         }
     }
@@ -509,17 +489,6 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
             self.navigationController?.pushViewController(mvc, animated: true)
         }
         
-//        if let userID = profileId, userID == self.getUserId() {
-//            let mvc = StoryPreviewViewController()
-//            mvc.dictInfo = (self.profileDict[index])
-//            self.navigationController?.pushViewController(mvc, animated: true)
-//        } else {
-//            let storyboard = UIStoryboard(name: "PhotoAlbum", bundle: nil)
-//            if let profileVC = storyboard.instantiateViewController(withIdentifier: "PublicProfileCollectionViewController") as? PublicProfileCollectionViewController {
-//                profileVC.profileId = self.arrMembers[index].id ?? nil
-//                self.navigationController?.pushViewController(profileVC, animated: true)
-//            }
-//        }
     }
     
     func touchesBegan(touches: NSSet, withEvent event: UIEvent) {

@@ -27,10 +27,6 @@ class PublicProfileViewController: ParentViewController, ServiceUtility {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-//        LoadNavBar()
-//        objNav.btnRightMenu.isHidden = true
-//        objNav.btnBack.addTarget(self, action: #selector(goBack), for: .touchUpInside)
         
         // Do any additional setup after loading the view.
         guard let userID = profileId else { return }
@@ -102,13 +98,7 @@ class PublicProfileViewController: ParentViewController, ServiceUtility {
         uvTopCube.isUserInteractionEnabled = false
         topCube?.setScroll(CGPoint.init(x: 0, y: h/2), end: CGPoint.init(x: 20, y: h/2))
         topCube?.setScroll(CGPoint.init(x: w/2, y: 0), end: CGPoint.init(x: w/2, y: 10))
-        /*
-         CGPoint location =  CGPointMake(0, self.center.y+90);
-         location = CGPointMake(80, location.y);
-         
-         CGPoint location =  CGPointMake(self.center.x, 0);
-         location = CGPointMake(self.center.x, 20);
-         */
+
         
         //
         //Center cube view
@@ -155,7 +145,7 @@ class PublicProfileViewController: ParentViewController, ServiceUtility {
     }
     
     @IBAction func btnTappedBack(_ sender: button) {
-        self.navigationController?.popViewController(animated: true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func btnTappedMyStory(_ sender: UIButton) {
