@@ -74,6 +74,8 @@ class HomeViewController: ParentViewController {
         lblUserName.text = "@"+objSing.strUserName.lowercased()
         
         //lblDescription.text = objSing.strUserBio
+        
+        let bio = objSing.strUserBio+""+objSing.strUserPhone
         btnDesc.setTitle(objSing.strUserBio, for: .normal)
         btnDesc.titleLabel?.textAlignment = .center
         

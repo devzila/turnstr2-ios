@@ -51,7 +51,7 @@ class UserStoryCollectionViewCell: UICollectionViewCell, UICollectionViewDataSou
             
             cube = AITransformView.init(frame: CGRect.init(x: 0, y: 0, width: w, height: h), cube_size: w-42)
             cube?.tag = indexPath.item
-            cube?.backgroundColor = UIColor.clear
+            cube?.backgroundColor = UIColor.white
             cube?.isUserInteractionEnabled = true
             var arrFaces = [String]()
             if let arrMem = arrMembers {

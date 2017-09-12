@@ -29,16 +29,13 @@ class ImagePreviewViewController: ParentViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = UIColor.black
+        self.view.backgroundColor = UIColor.white
         
         /*
          * Navigation Bar
          */
-        LoadNavBar()
-        objNav.btnRightMenu.isHidden = true
-        objNav.btnBack.addTarget(self, action: #selector(DismissBack), for: .touchUpInside)
-        objNav.btnBack.tintColor = UIColor.white
-        
+        createNavBar()
+        navBar?.btnBack.addTarget(self, action: #selector(DismissBack), for: .touchUpInside)
         objStory.ParseStoryData(dict: dictInfo)
         
         
@@ -60,8 +57,8 @@ class ImagePreviewViewController: ParentViewController, UIScrollViewDelegate {
     //MARK:- Scroll VIew
     
     func setupScrollView() {
-        scrScrollView.frame = CGRect.init(x: 0, y: kNavBarHeight, width: kWidth, height: kHeight)
-        scrScrollView.backgroundColor = UIColor.black
+        scrScrollView.frame = CGRect.init(x: 0, y: kNavBarHeightNew, width: kWidth, height: kHeight-kNavBarHeightNew)
+        scrScrollView.backgroundColor = UIColor.white
         scrScrollView.isPagingEnabled = true
         scrScrollView.delegate = self;
         self.view.addSubview(scrScrollView)

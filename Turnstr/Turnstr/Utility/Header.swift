@@ -84,6 +84,7 @@ let kCenterH = kHeight/2
 
 
 let kNavBarHeight: CGFloat = 60
+let kNavBarHeightNew: CGFloat = 112
 
 
 let kNavBarHeightWithLogo: CGFloat = 60

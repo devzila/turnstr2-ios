@@ -18,6 +18,7 @@ class ParentViewController: UIViewController, PickerDelegate, CustomAlertViewDel
     
     let objNav: MenuBar = MenuBar()
     var uvNavBar: MenuBar?
+    var navBar: NavBar?
     
     var pickerView: PickerView!
     
@@ -27,9 +28,9 @@ class ParentViewController: UIViewController, PickerDelegate, CustomAlertViewDel
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        btnNavBack.frame = CGRect.init(x: 0, y: 0, width: 50, height: 60)
+        btnNavBack.frame = CGRect.init(x: 0, y: 20, width: 60, height: 40)
         btnNavBack.setImage(#imageLiteral(resourceName: "back_arrow"), for: .normal)
-        btnNavBack.tintColor = UIColor.black
+        //btnNavBack.tintColor = UIColor.black
 
     }
     
@@ -39,6 +40,12 @@ class ParentViewController: UIViewController, PickerDelegate, CustomAlertViewDel
     }
     
     //MARK:- Navigation Bar
+    
+    func createNavBar() {
+        navBar = NavBar.init(frame: CGRect.init(x: 0, y: 0, width: kWidth, height: 112))
+        navBar?.btnBack.addTarget(self, action: #selector(goBack), for: .touchUpInside)
+        self.view.addSubview(navBar!)
+    }
     
     func LoadNavBar() -> Void {
         /*
