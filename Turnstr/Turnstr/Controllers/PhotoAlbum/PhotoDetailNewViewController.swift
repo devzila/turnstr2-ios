@@ -14,6 +14,8 @@ class PhotoDetailNewViewController: ParentViewController, UITextViewDelegate, Se
     
     @IBOutlet weak var tblViewPhotoDetail: UITableView!
     @IBOutlet weak var uvTopCube: UIView!
+    @IBOutlet weak var lblPostLeft: UILabel!
+    @IBOutlet weak var lblPostRight: UILabel!
     
     var arrComments = [CommentModel]()
     var isLoadNext = false
@@ -36,7 +38,7 @@ class PhotoDetailNewViewController: ParentViewController, UITextViewDelegate, Se
         tblViewPhotoDetail.estimatedRowHeight = 40
         self.tblViewPhotoDetail.tableFooterView = UIView(frame: CGRect.zero)
         
-        
+       /*
         //
         //Top Cube View
         //
@@ -58,6 +60,29 @@ class PhotoDetailNewViewController: ParentViewController, UITextViewDelegate, Se
         topCube?.setScroll(CGPoint.init(x: 0, y: h/2), end: CGPoint.init(x: 20, y: h/2))
         topCube?.setScroll(CGPoint.init(x: w/2, y: 0), end: CGPoint.init(x: w/2, y: 1))
         
+        lblPostLeft.numberOfLines = 0
+        lblPostRight.numberOfLines = 0
+        
+        let postTitle: NSMutableAttributedString = NSMutableAttributedString.init(string: "posts\nfollowers\nfamily")
+        postTitle.addAttribute(NSFontAttributeName, value: UIFont.systemFont(ofSize: 10), range: NSMakeRange(0, postTitle.length))
+        postTitle.addAttribute(NSForegroundColorAttributeName, value: UIColor.white, range: NSMakeRange(0, postTitle.length))
+        
+        let style = NSMutableParagraphStyle()
+        style.alignment = .right
+        postTitle.addAttribute(NSParagraphStyleAttributeName, value: style, range: NSMakeRange(0, postTitle.length))
+        
+        lblPostLeft.attributedText = postTitle
+        
+        
+        let postDetail: NSMutableAttributedString = NSMutableAttributedString.init(string: "\(objSing.post_count)\n\(objSing.follower_count)\n\(objSing.family_count)")
+        postDetail.addAttribute(NSFontAttributeName, value: UIFont.systemFont(ofSize: 10), range: NSMakeRange(0, postDetail.length))
+        postDetail.addAttribute(NSForegroundColorAttributeName, value: UIColor.white, range: NSMakeRange(0, postDetail.length))
+        style.alignment = .left
+        
+        postDetail.addAttribute(NSParagraphStyleAttributeName, value: style, range: NSMakeRange(0, postDetail.length))
+        
+        lblPostRight.attributedText = postDetail
+        */
         
         getUserDetailsAPI()
     }
@@ -106,7 +131,7 @@ class PhotoDetailNewViewController: ParentViewController, UITextViewDelegate, Se
     }
     
     @IBAction func btnTappedBack(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func btnTappedShare(_ sender: UIButton) {

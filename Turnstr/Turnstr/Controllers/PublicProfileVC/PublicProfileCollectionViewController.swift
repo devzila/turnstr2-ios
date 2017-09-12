@@ -62,6 +62,7 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
         
         
         let searchTextField = searchBar.value(forKey: "searchField") as? UITextField
+        searchTextField?.backgroundColor = UIColor(hexString: "E8E8E8")
         if searchTextField!.responds(to: #selector(getter: UITextField.attributedPlaceholder)) {
             let attributeDict = [NSForegroundColorAttributeName: UIColor(hexString: "00C7FF")]
             searchTextField!.attributedPlaceholder = NSAttributedString(string: "Search", attributes: attributeDict)
@@ -72,16 +73,24 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
         
         viewPreferences.isHidden = isFromFeeds
         
-        if getUserId() == userID {
-            viewPreferences.isHidden = true
-        } else {
-            viewPreferences.isHidden = false
+        if isFromFeeds {
+            constraintImgVwLogoX.constant = (view.frame.size.width - 120)/2
         }
-        
-        searchBar.isHidden = !isFromFeeds
         
         lblPostLeft.isHidden = isFromFeeds
         lblPostRight.isHidden = isFromFeeds
+        
+        if getUserId() == userID {
+            viewPreferences.isHidden = true
+            uvTopCube.isHidden = true
+            lblPostLeft.isHidden = true
+            lblPostRight.isHidden = true
+        } else {
+            viewPreferences.isHidden = false
+            uvTopCube.isHidden = false
+        }
+        
+        searchBar.isHidden = !isFromFeeds
         
         
         getMemberDetails(id: userID) { (response) in
@@ -267,12 +276,29 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
         switch indexPath.row {
         case 0:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellFave5", for: indexPath as IndexPath) as? Fave5CollectionViewCell
-            if let lblName = cell?.viewWithTag(1001) as? UILabel {
-                if let profile = self.profileDetail {
-                    lblName.text = profile.username != nil ? (profile.username?.uppercased())! + " FAVE 5" : "FAVE 5"
+
+            if let view = cell?.viewWithTag(2001) {
+                view.isHidden = !isFromFeeds
+            }
+            if isFromFeeds {
+                if let view = cell?.viewWithTag(1001) {
+                    for constraint in view.constraints as [NSLayoutConstraint] {
+                        if constraint.identifier == "fave5lblWidthConstraint" {
+                            constraint.constant = 0
+                        }
+                    }
                 }
             }
             
+            if let lblName = cell?.viewWithTag(1001) as? UILabel {
+                if isFromFeeds {
+                    lblName.text = "POPULAR"
+                } else {
+                    if let profile = self.profileDetail {
+                        lblName.text = profile.username != nil ? (profile.username?.uppercased())! + " FAVE 5" : "FAVE 5"
+                    }
+                }
+            }
             cell?.arrFave5 = self.arrFav5
             cell?.delegateFave5 = self
             cell?.setupCollectionView()

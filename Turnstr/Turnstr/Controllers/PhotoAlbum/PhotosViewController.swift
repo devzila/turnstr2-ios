@@ -12,6 +12,8 @@ import FacebookShare
 class PhotosViewController: ParentViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, ServiceUtility {
     @IBOutlet weak var collViewPhotos: UICollectionView!
     @IBOutlet weak var lblNoPhotos: UILabel!
+    @IBOutlet weak var lblPostLeft: UILabel!
+    @IBOutlet weak var lblPostRight: UILabel!
     
     let photosIdentifier = "cellPhotos"
     let photoDetailSegue = "showPhotoDetailSegue"
@@ -27,6 +29,7 @@ class PhotosViewController: ParentViewController, UICollectionViewDataSource, UI
     var isDelete = false
     @IBOutlet weak var btnBlueBack: UIButton!
     @IBOutlet weak var btnSelectDelete: button!
+    @IBOutlet weak var constraintImgVwLogoX: NSLayoutConstraint!
     
     @IBOutlet weak var uvTopCube: UIView!
     var topCube: AITransformView?
@@ -39,11 +42,18 @@ class PhotosViewController: ParentViewController, UICollectionViewDataSource, UI
         if isFromPublicPhoto {
             btnBlueBack.isHidden = true
             btnSelectDelete.isHidden = true
+            
+            lblPostRight.isHidden = true
+            lblPostLeft.isHidden = true
+            uvTopCube.isHidden = true
+            constraintImgVwLogoX.constant = (view.frame.size.width - 120)/2
 
         } else {
             btnBlueBack.isHidden = false
             btnSelectDelete.isHidden = false
-
+            lblPostRight.isHidden = false
+            lblPostLeft.isHidden = false
+            topCube?.isHidden = false
             
             btnSelectDelete.setTitle("Select", for: .normal)
             btnSelectDelete.setTitleColor(UIColor(hexString: "00C7FF"), for: .normal)
@@ -73,6 +83,29 @@ class PhotosViewController: ParentViewController, UICollectionViewDataSource, UI
 
         
         collViewPhotos.allowsMultipleSelection = false
+        
+        lblPostLeft.numberOfLines = 0
+        lblPostRight.numberOfLines = 0
+        
+        let postTitle: NSMutableAttributedString = NSMutableAttributedString.init(string: "posts\nfollowers\nfamily")
+        postTitle.addAttribute(NSFontAttributeName, value: UIFont.systemFont(ofSize: 10), range: NSMakeRange(0, postTitle.length))
+        postTitle.addAttribute(NSForegroundColorAttributeName, value: UIColor.white, range: NSMakeRange(0, postTitle.length))
+        
+        let style = NSMutableParagraphStyle()
+        style.alignment = .right
+        postTitle.addAttribute(NSParagraphStyleAttributeName, value: style, range: NSMakeRange(0, postTitle.length))
+        
+        lblPostLeft.attributedText = postTitle
+        
+        
+        let postDetail: NSMutableAttributedString = NSMutableAttributedString.init(string: "\(objSing.post_count)\n\(objSing.follower_count)\n\(objSing.family_count)")
+        postDetail.addAttribute(NSFontAttributeName, value: UIFont.systemFont(ofSize: 10), range: NSMakeRange(0, postDetail.length))
+        postDetail.addAttribute(NSForegroundColorAttributeName, value: UIColor.white, range: NSMakeRange(0, postDetail.length))
+        style.alignment = .left
+        
+        postDetail.addAttribute(NSParagraphStyleAttributeName, value: style, range: NSMakeRange(0, postDetail.length))
+        
+        lblPostRight.attributedText = postDetail
         
     }
     
