@@ -11,8 +11,10 @@ import FacebookShare
 import FacebookCore
 import FacebookLogin
 import MessageUI
+import TwitterKit
+import Social
 
-class SharePhotoViewController: ParentViewController, MFMailComposeViewControllerDelegate {
+class SharePhotoViewController: ParentViewController, MFMailComposeViewControllerDelegate, UIDocumentInteractionControllerDelegate {
 
     @IBOutlet weak var btnEmail: UIButton!
     @IBOutlet weak var btnFlickr: UIButton!
@@ -28,6 +30,8 @@ class SharePhotoViewController: ParentViewController, MFMailComposeViewControlle
     var topCube: AITransformView?
     
     var imageToShare: UIImage?
+    
+    var documentController : UIDocumentInteractionController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,6 +96,13 @@ class SharePhotoViewController: ParentViewController, MFMailComposeViewControlle
                 }
             }
             
+//            if let vc = SLComposeViewController(forServiceType: SLServiceTypeFacebook) {
+//                vc.setInitialText("")
+//                vc.add(img)
+////                vc.add(URL(string: "http://www.photolib.noaa.gov/nssl"))
+//                present(vc, animated: true)
+//            }
+            
         }
         
     }
@@ -102,23 +113,85 @@ class SharePhotoViewController: ParentViewController, MFMailComposeViewControlle
         let content = PhotoShareContent(photos: [photo])
         let sharer = GraphSharer(content: content)
         sharer.failsOnInvalidData = true
+
+
         sharer.completion = { result in
             // Handle share results
+            print(result)
+            switch result {
+            case .success:
+                self.objUtil.showToast(strMsg: "Share Success")
+            case .cancelled:
+                self.objUtil.showToast(strMsg: "Sharing was cancelled by user.")
+            case .failed(let error):
+                self.objUtil.showToast(strMsg: "Sharing failed with error \(error)")
+                
+            }
         }
         do {
             try sharer.share()
-        } catch let error {
+        } catch _ {
             
         }
     }
     
     @IBAction func btnTappedTwitter(_ sender: UIButton) {
+        if let img = imageToShare {
+            let composer = TWTRComposer()
+            
+//            composer.setText("")
+            composer.setImage(img)
+            
+            
+            composer.show(from: self) { (result) in
+                if (result == .done) {
+                    print("Successfully composed Tweet")
+                } else {
+                    print("Cancelled composing")
+                }
+            }
+        }
+        
     }
-    @IBAction func btnTappedTumblr(_ sender: UIButton) {
-    }
-    @IBAction func btnTappedFlickr(_ sender: UIButton) {
-    }
+    @IBAction func btnTappedInstagram(_ sender: UIButton) {
+        guard let img = imageToShare else { return }
+        DispatchQueue.main.async {
+            
+            //Share To Instagrma:
+            
+            let instagramURL = URL(string: "instagram://app")
+            
+            if UIApplication.shared.canOpenURL(instagramURL!) {
+                
+                let imageData = UIImageJPEGRepresentation(img, 100)
+                
+                let writePath = (NSTemporaryDirectory() as NSString).appendingPathComponent("instagram.igo")
+                
+                do {
+                    try imageData?.write(to: URL(fileURLWithPath: writePath), options: .atomic)
+                    
+                } catch {
+                    
+                    print(error)
+                }
+                
+                let fileURL = URL(fileURLWithPath: writePath)
+                
+                self.documentController = UIDocumentInteractionController(url: fileURL)
+                
+                self.documentController?.delegate = self
+                
+                self.documentController?.uti = "com.instagram.exlusivegram"
+                
+                self.documentController?.presentOpenInMenu(from: self.view.bounds, in: self.view, animated: true)
+                
+            } else {
+                
+                print(" Instagram is not installed ")
+            }
+        }
 
+    }
     
     func mailComposeController(_ controller: MFMailComposeViewController,
                                didFinishWith result: MFMailComposeResult, error: Error?) {
