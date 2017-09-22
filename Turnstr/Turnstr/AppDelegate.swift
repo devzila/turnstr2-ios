@@ -10,6 +10,7 @@ import UIKit
 import FacebookCore
 import FacebookLogin
 import SendBirdSDK
+import TwitterKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -53,6 +54,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         registerForAPNS(application)
         
         registerVOIP()
+        
+        //Twitter
+        Twitter.sharedInstance().start(withConsumerKey:"ooB5hkXlA5M2InA33KiLEkEww", consumerSecret:"EqyxL5K3egjBuYoghZ3FtTBFqrB4Il7F1b9hIrJM1PVbvE9uH3")
+
         
         return true
     }
@@ -138,7 +143,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if url.scheme != nil && url.scheme!.hasPrefix("fb\(appId)") && url.host ==  "authorize" { // facebook
             return SDKApplicationDelegate.shared.application(app, open: url, options: options)
         }
-        return false
+        if Twitter.sharedInstance().application(app, open:url, options: options) {
+            return true
+        }
+        return true
     }
     
     
