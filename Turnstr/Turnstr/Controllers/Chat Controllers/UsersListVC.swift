@@ -44,6 +44,14 @@ class UsersListVC: ParentViewController {
         dataSource?.selectAtIndex = { [weak self] (_ indexPath: IndexPath) in
             self?.didSelectCellAt(indexPath)
         }
+        
+        let footerView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: screenWidth, height: 120))
+        footerView.backgroundColor = .clear
+        let imgView = UIImageView(frame: footerView.bounds)
+        imgView.contentMode = .center
+        imgView.image = #imageLiteral(resourceName: "cube")
+        footerView.addSubview(imgView)
+        tableView?.tableFooterView = footerView
     }
     
     func initUserInfo() {
