@@ -45,8 +45,12 @@ class EditProfileHeader: UIView, UICollectionViewDataSource, UICollectionViewDel
     
     func CollectionViewSetting() -> Void {
         
-        flowLayout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        flowLayout.itemSize = CGSize(width: 75, height: 75)
+        
+        flowLayout?.minimumInteritemSpacing = 0
+        flowLayout?.minimumLineSpacing = 2
+        
+        //flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: 0)
+        flowLayout.itemSize = PhotoSize()
         
         flowLayout.scrollDirection = .horizontal
         uvCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
@@ -61,6 +65,10 @@ class EditProfileHeader: UIView, UICollectionViewDataSource, UICollectionViewDel
         return 1
     }
     
+    func PhotoSize() -> CGSize {
+        let photoCellSize = (kWidth/6)
+        return CGSize(width: photoCellSize, height: photoCellSize)
+    }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
@@ -68,7 +76,9 @@ class EditProfileHeader: UIView, UICollectionViewDataSource, UICollectionViewDel
         
         cell.backgroundColor = UIColor.init("F3F3F3")
         
-        let frame: CGRect = CGRect.init(x: 0, y: 0, width: 75, height: 75)
+        
+        
+        let frame: CGRect = CGRect.init(x: 0, y: 0, width: PhotoSize().width, height: PhotoSize().height)
         
         
         var imgBigImage = cell.contentView.viewWithTag(-111) as? UIImageView

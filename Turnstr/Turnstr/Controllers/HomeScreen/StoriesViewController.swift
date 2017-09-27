@@ -132,6 +132,27 @@ class StoriesViewController: ParentViewController, UICollectionViewDelegate, UIC
             uvCollectionView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
         }
         
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongGesture(gesture:)))
+        uvCollectionView?.addGestureRecognizer(longPressGesture)
+        
+    }
+    
+    func handleLongGesture(gesture: UILongPressGestureRecognizer) {
+        switch(gesture.state) {
+            
+        case .began:
+            guard let selectedIndexPath = uvCollectionView?.indexPathForItem(at: gesture.location(in: uvCollectionView)) else {
+                break
+            }
+            uvCollectionView?.beginInteractiveMovementForItem(at: selectedIndexPath)
+        case .changed:
+            uvCollectionView?.updateInteractiveMovementTargetPosition(gesture.location(in: gesture.view!))
+        case .ended:
+            uvCollectionView?.endInteractiveMovement()
+        default:
+            uvCollectionView?.cancelInteractiveMovement()
+        }
+        
     }
     
     func PhotoSize() -> CGSize {
@@ -186,6 +207,7 @@ class StoriesViewController: ParentViewController, UICollectionViewDelegate, UIC
             cube?.setScroll(CGPoint.init(x: w/2, y: 0), end: CGPoint.init(x: w/2, y: 2))
             
         }
+        cube?.isUserInteractionEnabled = false
         let tap = UITapGestureRecognizer.init(target: self, action: #selector(handleTap(sender:)))
         tap.delegate = self
         tap.accessibilityElements = [indexPath]
@@ -204,12 +226,19 @@ class StoriesViewController: ParentViewController, UICollectionViewDelegate, UIC
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let mvc = StoryPreviewViewController()
-        mvc.dictInfo = arrList[indexPath.row] as! Dictionary<String, Any>
-        self.navigationController?.pushViewController(mvc, animated: true)
-        
+        GotoDetailScreen(indexPath: indexPath)
     }
     
+    //MARK:- Move cells delegates
+    
+    func collectionView(_ collectionView: UICollectionView, canMoveItemAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        print(sourceIndexPath.item)
+        print(destinationIndexPath.item)
+    }
     //MARK:- Action Methods
     
     func handleTap(sender: UITapGestureRecognizer? = nil) {
@@ -218,11 +247,13 @@ class StoriesViewController: ParentViewController, UICollectionViewDelegate, UIC
         
         let indexPath: IndexPath = (sender?.accessibilityElements![0] as? IndexPath)!
         
+        GotoDetailScreen(indexPath: indexPath)
+    }
+    
+    func GotoDetailScreen(indexPath: IndexPath) {
         let mvc = StoryPreviewViewController()
         mvc.dictInfo = arrList[indexPath.item] as! Dictionary<String, Any>
         mvc.userTYpe = screenType
-        //self.navigationController?.pushViewController(mvc, animated: true)
-        
         topVC?.navigationController?.pushViewController(mvc, animated: true)
     }
     
@@ -292,9 +323,16 @@ class StoriesViewController: ParentViewController, UICollectionViewDelegate, UIC
                         kAppDelegate.hideLoadingIndicator()
                     }
                 }
+                else {
+                    kAppDelegate.hideLoadingIndicator()
+                }
             }
             
         }
     }
+    
+    
+    //MARK:- Move cells
+    
     
 }
