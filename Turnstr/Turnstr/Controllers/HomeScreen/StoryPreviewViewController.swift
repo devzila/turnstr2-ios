@@ -173,14 +173,14 @@ class StoryPreviewViewController: ParentViewController, UIGestureRecognizerDeleg
             
             dictInfo["likes_count"] = objStory.likes_count-1
             objStory.likes_count = objStory.likes_count-1
-            objCommentFooter?.btnTotalLike.setTitle("\(objStory.likes_count) Likes", for: .normal)
+            objCommentFooter?.btnTotalLike.setTitle("Liked by \(objStory.likes_count) people", for: .normal)
             objStory.has_liked = false
             dictInfo["has_liked"] = false
         }
         else{
             dictInfo["likes_count"] = objStory.likes_count+1
             objStory.likes_count = objStory.likes_count+1
-            objCommentFooter?.btnTotalLike.setTitle("\(objStory.likes_count) Likes", for: .normal)
+            objCommentFooter?.btnTotalLike.setTitle("Liked by \(objStory.likes_count) people", for: .normal)
             objStory.has_liked = true
             dictInfo["has_liked"] = true
             

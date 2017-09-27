@@ -404,6 +404,10 @@ class DataServiceModal: NSObject {
                         objSingl?.strUserWebsite = "\(str)"
                     }
                     
+                    if let str = objUser["address"] as? String {
+                        objSingl?.address = "\(str)"
+                    }
+                    
                     if let str = objUser["bio"] as? String {
                         objSingl?.strUserBio = "\(str)"
                     }
@@ -414,6 +418,18 @@ class DataServiceModal: NSObject {
                     
                     if let str = objUser["online"] as? Bool {
                         objSingl?.strUserOnline = str
+                    }
+                    
+                    if let str = objUser["follower_count"] as? Int {
+                        objSingl?.follower_count = str
+                    }
+                    
+                    if let str = objUser["post_count"] as? Int {
+                        objSingl?.post_count = str
+                    }
+                    
+                    if let str = objUser["family_count"] as? Int {
+                        objSingl?.family_count = str
                     }
                     
                 }

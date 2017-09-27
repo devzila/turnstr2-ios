@@ -40,25 +40,7 @@ class HomeViewController: ParentViewController {
         lblPostLeft.numberOfLines = 0
         lblPostRight.numberOfLines = 0
         
-        let postTitle: NSMutableAttributedString = NSMutableAttributedString.init(string: "posts\nfollowers\nfamily")
-        postTitle.addAttribute(NSFontAttributeName, value: UIFont.systemFont(ofSize: 10), range: NSMakeRange(0, postTitle.length))
-        postTitle.addAttribute(NSForegroundColorAttributeName, value: UIColor.white, range: NSMakeRange(0, postTitle.length))
         
-        let style = NSMutableParagraphStyle()
-        style.alignment = .right
-        postTitle.addAttribute(NSParagraphStyleAttributeName, value: style, range: NSMakeRange(0, postTitle.length))
-        
-        lblPostLeft.attributedText = postTitle
-        
-        
-        let postDetail: NSMutableAttributedString = NSMutableAttributedString.init(string: "\(objSing.post_count)\n\(objSing.follower_count)\n\(objSing.family_count)")
-        postDetail.addAttribute(NSFontAttributeName, value: UIFont.systemFont(ofSize: 10), range: NSMakeRange(0, postDetail.length))
-        postDetail.addAttribute(NSForegroundColorAttributeName, value: UIColor.white, range: NSMakeRange(0, postDetail.length))
-        style.alignment = .left
-        
-        postDetail.addAttribute(NSParagraphStyleAttributeName, value: style, range: NSMakeRange(0, postDetail.length))
-        
-        lblPostRight.attributedText = postDetail
         
         //transformView = AITransformView.init(frame: CGRect.init(x: 0, y: 5, width: kWidth, height: uvCenterCube.frame.size.height-10))
         //uvCenterCube.addSubview(transformView!)
@@ -73,11 +55,47 @@ class HomeViewController: ParentViewController {
         
         lblUserName.text = "@"+objSing.strUserName.lowercased()
         
-        //lblDescription.text = objSing.strUserBio
         
-        let bio = objSing.strUserBio+""+objSing.strUserPhone
-        btnDesc.setTitle(objSing.strUserBio, for: .normal)
-        btnDesc.titleLabel?.textAlignment = .center
+        //
+        // Family Count
+        //
+        let postTitle1: NSMutableAttributedString = NSMutableAttributedString.init(string: "posts\nfollowers\nfamily")
+        postTitle1.addAttribute(NSFontAttributeName, value: UIFont.systemFont(ofSize: 10), range: NSMakeRange(0, postTitle1.length))
+        postTitle1.addAttribute(NSForegroundColorAttributeName, value: UIColor.white, range: NSMakeRange(0, postTitle1.length))
+        
+        let style1 = NSMutableParagraphStyle()
+        style1.alignment = .right
+        postTitle1.addAttribute(NSParagraphStyleAttributeName, value: style1, range: NSMakeRange(0, postTitle1.length))
+        
+        lblPostLeft.attributedText = postTitle1
+        
+        
+        let postDetail: NSMutableAttributedString = NSMutableAttributedString.init(string: "\(objSing.post_count)\n\(objSing.follower_count)\n\(objSing.family_count)")
+        postDetail.addAttribute(NSFontAttributeName, value: UIFont.systemFont(ofSize: 10), range: NSMakeRange(0, postDetail.length))
+        postDetail.addAttribute(NSForegroundColorAttributeName, value: UIColor.white, range: NSMakeRange(0, postDetail.length))
+        style1.alignment = .left
+        
+        postDetail.addAttribute(NSParagraphStyleAttributeName, value: style1, range: NSMakeRange(0, postDetail.length))
+        
+        lblPostRight.attributedText = postDetail
+        
+        //
+        // Bio INformation
+        //
+        
+        let bio = objSing.strUserBio+"\n"+objSing.address+"\n"+objSing.strUserWebsite
+        
+        let postTitle: NSMutableAttributedString = NSMutableAttributedString.init(string: bio)
+        postTitle.addAttribute(NSFontAttributeName, value: UIFont.systemFont(ofSize: 14), range: NSMakeRange(0, postTitle.length))
+        postTitle.addAttribute(NSForegroundColorAttributeName, value: kBlueColor, range: NSMakeRange(postTitle.length-objSing.strUserWebsite.length, objSing.strUserWebsite.length))
+        let style = NSMutableParagraphStyle()
+        style.alignment = .center
+        postTitle.addAttribute(NSParagraphStyleAttributeName, value: style, range: NSMakeRange(0, postTitle.length))
+        
+        lblDescription.attributedText = postTitle
+        
+        //btnDesc.setTitle(objSing.strUserBio, for: .normal)
+        //btnDesc.titleLabel?.textAlignment = .center
         
         //
         //Top Cube View

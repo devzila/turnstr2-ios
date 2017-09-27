@@ -254,10 +254,11 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
         }
         topCube?.backgroundColor = UIColor.clear
         let arrFaces = [objModel.avatar_face1 ?? "", objModel.avatar_face2 ?? "", objModel.avatar_face3 ?? "", objModel.avatar_face4 ?? "", objModel.avatar_face5 ?? "", objModel.avatar_face6 ?? ""]
+        
         topCube?.setup(withUrls: arrFaces)
         
         uvTopCube.addSubview(topCube!)
-        uvTopCube.isUserInteractionEnabled = false
+        //uvTopCube.isUserInteractionEnabled = false
         topCube?.setScroll(CGPoint.init(x: 0, y: h/2), end: CGPoint.init(x: 20, y: h/2))
         topCube?.setScroll(CGPoint.init(x: w/2, y: 0), end: CGPoint.init(x: w/2, y: 1))
 
