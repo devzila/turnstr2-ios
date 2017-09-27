@@ -64,6 +64,11 @@ class DataServiceModal: NSObject {
             strPostUrl = String(format: "user/stories/%d", dictAction["id"] as! Int)
             strParType = kAPIDELETEStory
         }
+        else if action == kAPIArrangeStory {
+            
+            strRequest = String(format: "{\"ids\":\"%@\"}", dictAction["ids"] as! String)
+            strPostUrl = kAPIArrangeStory
+        }
         
         
         
