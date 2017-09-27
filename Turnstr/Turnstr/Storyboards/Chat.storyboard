@@ -122,20 +122,20 @@
                                             <action selector="btnBackAction" destination="Zaq-K5-qei" eventType="touchUpInside" id="g04-W1-l5w"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Posts" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Lc-Sp-mH3">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="posts" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Lc-Sp-mH3">
                                         <rect key="frame" x="291.5" y="88.5" width="31.5" height="14.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" red="0.21468845010000001" green="0.76125419139999995" blue="0.97772854570000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Followers" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8cN-6M-Tqj">
-                                        <rect key="frame" x="269" y="107" width="54" height="14.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="followers" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8cN-6M-Tqj">
+                                        <rect key="frame" x="272" y="107" width="51" height="14.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" red="0.21468845010000001" green="0.76125419139999995" blue="0.97772854570000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Family" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VdS-Wa-CB1">
-                                        <rect key="frame" x="286.5" y="125.5" width="36.5" height="14.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="family" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VdS-Wa-CB1">
+                                        <rect key="frame" x="289" y="125.5" width="34" height="14.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" red="0.21468845010000001" green="0.76125419139999995" blue="0.97772854570000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -216,11 +216,21 @@
                                         <color key="textColor" red="0.933848083" green="0.96601492170000003" blue="0.97958594560000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JQ4-A2-RYd">
+                                        <rect key="frame" x="0.0" y="42" width="375" height="1"/>
+                                        <color key="backgroundColor" white="1" alpha="0.74138974471830987" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="TSF-jw-aNt"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" red="0.21468845010000001" green="0.76125419139999995" blue="0.97772854570000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstItem="JQ4-A2-RYd" firstAttribute="leading" secondItem="cEA-WU-g26" secondAttribute="leading" id="5V9-Oo-M8P"/>
+                                    <constraint firstAttribute="bottom" secondItem="JQ4-A2-RYd" secondAttribute="bottom" id="DC9-vw-zIM"/>
                                     <constraint firstAttribute="height" constant="43" id="FnL-GB-7Cd"/>
                                     <constraint firstItem="568-C2-oxp" firstAttribute="centerX" secondItem="cEA-WU-g26" secondAttribute="centerX" id="M9c-cE-QqK"/>
+                                    <constraint firstAttribute="trailing" secondItem="JQ4-A2-RYd" secondAttribute="trailing" id="UXc-w2-Odl"/>
                                     <constraint firstItem="568-C2-oxp" firstAttribute="centerY" secondItem="cEA-WU-g26" secondAttribute="centerY" id="uFN-kg-Xrc"/>
                                 </constraints>
                             </view>
