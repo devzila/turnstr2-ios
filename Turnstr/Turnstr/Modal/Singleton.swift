@@ -20,6 +20,7 @@ class Singleton: NSObject {
     var strUserBio: String = ""
     var strUserContactMe: String = ""
     var strUserOnline: Bool = false
+    var address: String = ""
     
     var strUserPic1: String = ""
     var strUserPic2: String = ""
@@ -66,6 +67,7 @@ class Singleton: NSObject {
         strUserPic4 = ""
         strUserPic5 = ""
         strUserPic6 = ""
+        address = ""
         
         follower_count = 0
         post_count = 0

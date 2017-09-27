@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -30,10 +30,10 @@
                         <constraint firstAttribute="height" constant="40" id="Ecb-is-9e3"/>
                         <constraint firstAttribute="width" constant="40" id="dZt-KT-Yy2"/>
                     </constraints>
-                    <state key="normal" image="ic_like">
+                    <state key="normal" image="likePhoto">
                         <color key="titleColor" red="1" green="0.60784313729999995" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
-                    <state key="selected" image="ic_like_active"/>
+                    <state key="selected" image="likeSelected"/>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f4Y-Bx-Nbr">
                     <rect key="frame" x="56" y="8" width="40" height="40"/>
@@ -41,7 +41,7 @@
                         <constraint firstAttribute="width" constant="40" id="A2U-hB-f6B"/>
                         <constraint firstAttribute="height" constant="40" id="tUm-uv-kpC"/>
                     </constraints>
-                    <state key="normal" image="ic_coment">
+                    <state key="normal" image="commentPhoto">
                         <color key="titleColor" red="1" green="0.60784313729999995" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                 </button>
@@ -51,7 +51,7 @@
                         <constraint firstAttribute="height" constant="40" id="BER-2f-Qlk"/>
                         <constraint firstAttribute="width" constant="40" id="aBY-vv-qi2"/>
                     </constraints>
-                    <state key="normal" image="ic_share">
+                    <state key="normal" image="sharePhoto">
                         <color key="titleColor" red="1" green="0.60784313729999995" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                 </button>
@@ -61,7 +61,7 @@
                         <constraint firstAttribute="height" constant="30" id="6Sf-Rq-zK7"/>
                     </constraints>
                     <state key="normal" title="Liked by 3 poeple">
-                        <color key="titleColor" red="1" green="0.60784313729999995" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                 </button>
                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="83G-uh-OV6">
@@ -78,7 +78,6 @@
                         <constraint firstAttribute="height" constant="27" id="Ky3-9Q-fK4"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                    <color key="textColor" red="1" green="0.60784313729999995" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
@@ -102,9 +101,9 @@
         </view>
     </objects>
     <resources>
-        <image name="ic_coment" width="24" height="23"/>
-        <image name="ic_like" width="25" height="22"/>
-        <image name="ic_like_active" width="23" height="20"/>
-        <image name="ic_share" width="22" height="16"/>
+        <image name="commentPhoto" width="128" height="128"/>
+        <image name="likePhoto" width="128" height="128"/>
+        <image name="likeSelected" width="128" height="128"/>
+        <image name="sharePhoto" width="128" height="128"/>
     </resources>
 </document>

@@ -22,6 +22,8 @@ class EditProfileViewController: ParentViewController, UITableViewDelegate, UITa
     var txtBio = IQTextView()
     var txtMail = UITextField()
     var txtPhone = UITextField()
+    var txtAddress = UITextField()
+    
     var lblOnline = UILabel()
     var lblContactMe = UILabel()
     var swtOnline = UISwitch()
@@ -43,8 +45,10 @@ class EditProfileViewController: ParentViewController, UITableViewDelegate, UITa
         let uvNavBar = MenuBar.init(frame: self.view.frame)
         self.view.addSubview(uvNavBar)
         objNav.navTitle(title: "Edit Profile", inView: uvNavBar)
+        objNav.lblTitle.font = UIFont.boldSystemFont(ofSize: 16.0)
         objNav.lblTitle.textColor = kBlueColor
         uvNavBar.addSubview(objNav.rightButton(title: "Done"))
+        objNav.btnRightMenu.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15.0)
         objNav.btnRightMenu.setTitleColor(kBlueColor, for: .normal)
         
         objNav.btnRightMenu.addTarget(self, action: #selector(DoneClicked(sender:)), for: .touchUpInside)
@@ -53,6 +57,7 @@ class EditProfileViewController: ParentViewController, UITableViewDelegate, UITa
             uvNavBar.addSubview(objNav.backButonMenu())
             objNav.btnBack.setTitle("Cancel", for: .normal)
             objNav.btnBack.setTitleColor(kBlueColor, for: .normal)
+            objNav.btnBack.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15.0)
             objNav.btnBack.addTarget(self, action: #selector(goBack), for: .touchUpInside)
             
         }
@@ -74,6 +79,7 @@ class EditProfileViewController: ParentViewController, UITableViewDelegate, UITa
         txtBio.text = objSing.strUserBio
         txtMail.text = objSing.strUserEmail
         txtPhone.text = objSing.strUserPhone
+        txtAddress.text = objSing.address
         
         swtOnline.isOn = objSing.strUserOnline
         
@@ -159,6 +165,10 @@ class EditProfileViewController: ParentViewController, UITableViewDelegate, UITa
         txtPhone.textColor = kOrangeColor
         txtPhone.font = font
         
+        txtAddress.placeholder = "Address"
+        txtAddress.textColor = kOrangeColor
+        txtAddress.font = font
+        
     }
     //MARK:- Table View
     func createTableView() -> Void {
@@ -191,6 +201,8 @@ class EditProfileViewController: ParentViewController, UITableViewDelegate, UITa
         switch section {
         case 0:
             return 5
+        case 2:
+            return 3
         default:
             break
         }
@@ -233,6 +245,10 @@ class EditProfileViewController: ParentViewController, UITableViewDelegate, UITa
     {
         switch indexPath.section {
         case 0:
+            if indexPath.row == 1 {
+                txtLName.isHidden = true
+                return 0
+            }
             if indexPath.row == 4 {
                 return 90
             }
@@ -245,7 +261,7 @@ class EditProfileViewController: ParentViewController, UITableViewDelegate, UITa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         
-        let identifier = "Cell"
+        let identifier = "Cell\(indexPath.section)_\(indexPath.row)"
         var cell: EditProfileCell! = tableView.dequeueReusableCell(withIdentifier: identifier) as? EditProfileCell
         if cell == nil {
             tableView.register(UINib(nibName: "EditProfileCell", bundle: nil), forCellReuseIdentifier: identifier)
@@ -264,9 +280,10 @@ class EditProfileViewController: ParentViewController, UITableViewDelegate, UITa
                 txtFName.frame = frame
                 cell.uvContent.addSubview(txtFName)
             case 1:
-                cell?.imgPic?.image = #imageLiteral(resourceName: "ic_id")
-                txtLName.frame = frame
-                cell.uvContent.addSubview(txtLName)
+                //cell?.imgPic?.image = #imageLiteral(resourceName: "ic_id")
+                //txtLName.frame = frame
+                //cell.uvContent.addSubview(txtLName)
+                break
             case 2:
                 cell?.imgPic?.image = #imageLiteral(resourceName: "ic_user")
                 txtUserName.frame = frame
@@ -343,6 +360,11 @@ class EditProfileViewController: ParentViewController, UITableViewDelegate, UITa
                 txtPhone.frame = frame
                 txtPhone.keyboardType = .phonePad
                 cell.uvContent.addSubview(txtPhone)
+                //cell.contentView.addSubview(objUtil.createView(xCo: 0, forY: rowHeight(indexPath: indexPath as NSIndexPath)-2, forW: kWidth, forH: 2, backColor: kSeperatorColor))
+            case 2:
+                cell?.imgPic?.image = #imageLiteral(resourceName: "ic_id")
+                txtAddress.frame = frame
+                cell.uvContent.addSubview(txtAddress)
                 cell.contentView.addSubview(objUtil.createView(xCo: 0, forY: rowHeight(indexPath: indexPath as NSIndexPath)-2, forW: kWidth, forH: 2, backColor: kSeperatorColor))
             default:
                 break
@@ -397,7 +419,7 @@ class EditProfileViewController: ParentViewController, UITableViewDelegate, UITa
                 pickerView.lblHEading.text = "Who Can Conatact Me?"
                 pickerView.lblHEading.textColor = kBlueColor
                 pickerView.lblHEading.backgroundColor = kLightGray
-                pickerView.arrRows = ["All", "Family", "Friends"]
+                pickerView.arrRows = ["Everyone", "Family", "Friends"]
                 pickerView.loadPIcker()
             default:
                 break
@@ -411,7 +433,7 @@ class EditProfileViewController: ParentViewController, UITableViewDelegate, UITa
         
         IQKeyboardDismiss()
         
-        let (status, field) = objUtil.validationsWithField(fields: [txtFName, txtLName, txtUserName, txtWeb, txtMail])
+        let (status, field) = objUtil.validationsWithField(fields: [txtFName, txtUserName, txtWeb, txtMail])
         
         if status == false {
             objUtil.showToast(strMsg: "Please enter "+field)
@@ -535,17 +557,19 @@ class EditProfileViewController: ParentViewController, UITableViewDelegate, UITa
         DispatchQueue.global().async {
             
             if sType == kAPIUpdateProfile {
+                
                 let dictAction: NSDictionary = [
                     "action": kAPIUpdateProfile,
                     "user[username]": "\(self.txtUserName.text!)",
                     "user[first_name]": "\(self.txtFName.text!)",
-                    "user[last_name]": "\(self.txtLName.text!)",
+                    "user[last_name]": " ",//"\(self.txtLName.text!)",
                     "user[website]" : "\(self.txtWeb.text!)",
                     "user[bio]" : "\(self.txtBio.text!)",
                     "user[email]" : "\(self.txtMail.text!)",
                     "user[online]" : self.swtOnline.isOn == true ? "true" : "false",
                     "user[phone]" : "\(self.txtPhone.text!)",
-                    "user[contact_me]" : "All"
+                    "user[address]" : "\(self.txtAddress.text ?? "")",
+                    "user[contact_me]" : self.btnContactMe.titleLabel?.text ?? "Everyone"
                     
                 ]
                 
