@@ -30,6 +30,7 @@ extension ChatVC {
                 guard let urls = member.profileUrl?.components(separatedBy: ",") else {
                     return
                 }
+                lblName?.text = member.nickname
                 createCubeWithUrls(urls)
             }
         }

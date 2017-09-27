@@ -14,6 +14,7 @@ class ChatVC: ChatParentVC  {
     var channel: SBDGroupChannel?
     var dataSource: ChatDataSource?
     
+    @IBOutlet weak var lblName: UILabel?
     @IBOutlet weak var cubeView: UIView?
     
     override func viewDidLoad() {
