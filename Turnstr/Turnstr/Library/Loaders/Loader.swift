@@ -25,7 +25,10 @@ class Loader: UIActivityIndicatorView {
     }
     
     func stop() -> Void {
-        self.stopAnimating()
+        DispatchQueue.main.async {
+            self.stopAnimating()
+        }
+        
     }
     
 }

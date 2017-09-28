@@ -112,6 +112,16 @@ class StoriesViewController: ParentViewController, UICollectionViewDelegate, UIC
     
     //MARK:- Collection Grid for Story Setup
     
+    func reloadGrid() {
+        defer {
+            current_page = 0
+            objLoader.start(inView: self.view)
+            APIRequest(sType: kAPIGetAllStories, data: [:])
+        }
+        
+        self.arrList.removeAllObjects()
+        uvCollectionView?.reloadData()
+    }
     func createCollectionView() -> Void {
         
         if flowLayout == nil {
@@ -132,28 +142,15 @@ class StoriesViewController: ParentViewController, UICollectionViewDelegate, UIC
             uvCollectionView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
         }
         
-        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongGesture(gesture:)))
-        uvCollectionView?.addGestureRecognizer(longPressGesture)
-        
-    }
-    
-    func handleLongGesture(gesture: UILongPressGestureRecognizer) {
-        switch(gesture.state) {
+        if self.screenType == .myStories {
+            let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongGesture(gesture:)))
+            uvCollectionView?.addGestureRecognizer(longPressGesture)
             
-        case .began:
-            guard let selectedIndexPath = uvCollectionView?.indexPathForItem(at: gesture.location(in: uvCollectionView)) else {
-                break
-            }
-            uvCollectionView?.beginInteractiveMovementForItem(at: selectedIndexPath)
-        case .changed:
-            uvCollectionView?.updateInteractiveMovementTargetPosition(gesture.location(in: gesture.view!))
-        case .ended:
-            uvCollectionView?.endInteractiveMovement()
-        default:
-            uvCollectionView?.cancelInteractiveMovement()
         }
         
     }
+    
+    
     
     func PhotoSize() -> CGSize {
         let photoCellSize = (kWidth/3)
@@ -192,7 +189,7 @@ class StoriesViewController: ParentViewController, UICollectionViewDelegate, UIC
             var arrMedia: [String] = []
             
             for item in objStory.media {
-                print(item)
+                //print(item)
                 objStory.ParseMedia(media: item)
                 if objStory.media_type.isEmpty == false {
                     arrMedia.append(objStory.thumb_url)
@@ -238,6 +235,38 @@ class StoriesViewController: ParentViewController, UICollectionViewDelegate, UIC
     func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         print(sourceIndexPath.item)
         print(destinationIndexPath.item)
+        swapCellIds(source: sourceIndexPath.item, destination: destinationIndexPath.item)
+    }
+    
+    func handleLongGesture(gesture: UILongPressGestureRecognizer) {
+        switch(gesture.state) {
+            
+        case .began:
+            guard let selectedIndexPath = uvCollectionView?.indexPathForItem(at: gesture.location(in: uvCollectionView)) else {
+                break
+            }
+            uvCollectionView?.beginInteractiveMovementForItem(at: selectedIndexPath)
+        case .changed:
+            uvCollectionView?.updateInteractiveMovementTargetPosition(gesture.location(in: gesture.view!))
+        case .ended:
+            uvCollectionView?.endInteractiveMovement()
+        default:
+            uvCollectionView?.cancelInteractiveMovement()
+        }
+        
+    }
+    
+    func swapCellIds(source: Int, destination: Int) {
+        let ids = arrList.value(forKey: "id") as? NSArray ?? []
+        let arrNewIds = NSMutableArray.init(array: ids)
+        
+        print(arrNewIds)
+        swap(&arrNewIds[source], &arrNewIds[destination])
+        
+        print(arrNewIds)
+        
+        kAppDelegate.loadingIndicationCreationMSG(msg: "Updating")
+        APIUpdateCellPosition(arrIds: arrNewIds)
     }
     //MARK:- Action Methods
     
@@ -272,7 +301,7 @@ class StoriesViewController: ParentViewController, UICollectionViewDelegate, UIC
             return
         }
         
-        DispatchQueue.global().async {
+        kBQ_MyStoryQueue.async {
             
             if sType == kAPIGetAllStories {
                 
@@ -315,16 +344,18 @@ class StoriesViewController: ParentViewController, UICollectionViewDelegate, UIC
                                     
                                 }
                             }
-                            
+                            kAppDelegate.hideLoadingIndicator()
                             //self.arrList = NSMutableArray.init(array: stories)
                         }
                         self.isLoading = false
                         //self.tblMainTable?.reloadData()
                         kAppDelegate.hideLoadingIndicator()
+                        self.objLoader.stop()
                     }
                 }
                 else {
                     kAppDelegate.hideLoadingIndicator()
+                    self.objLoader.stop()
                 }
             }
             
@@ -332,7 +363,39 @@ class StoriesViewController: ParentViewController, UICollectionViewDelegate, UIC
     }
     
     
-    //MARK:- Move cells
+    //MARK:- Move cells API
     
-    
+    func APIUpdateCellPosition(arrIds: NSMutableArray) {
+        
+        if kAppDelegate.checkNetworkStatus() == false {
+            kAppDelegate.hideLoadingIndicator()
+            return
+        }
+        
+        kBQ_UpdatePosition.async {
+            let dictAction: NSDictionary
+            
+            if self.screenType == .myStories {
+                dictAction = [
+                    "action": kAPIArrangeStory,
+                    "ids": arrIds.componentsJoined(by: ",")
+                ]
+                
+                let arrResponse = self.objDataS.PostRequestToServer(dictAction: dictAction)
+                
+                if (arrResponse.count) > 0 {
+                    kAppDelegate.hideLoadingIndicator()
+                    DispatchQueue.main.async {
+                        self.reloadGrid()
+                    }
+                }
+                else {
+                    kAppDelegate.hideLoadingIndicator()
+                    DispatchQueue.main.async {
+                        self.reloadGrid()
+                    }
+                }
+            }
+        }
+    }
 }

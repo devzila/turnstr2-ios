@@ -37,6 +37,8 @@ let kAPIPhotoDetail = "photos"
 let kAPIGetAllPhotos = "photos"
 let kAPIGetSpecificStory = "stories/"
 let kAPIFollowUnfollowUser = "members"
+let kAPIArrangeStory = "user/stories/arrange"
+
 
 let kAPIDELETEStory = "DELETE user/stories/<story-id>"
 let kAPILikeStory = "stories/<story-id>/likes"
@@ -45,7 +47,11 @@ let kAPIGetStoriesComments = "stories/<story-id>/comments"
 
 
 
-
+/*
+ Background queues
+ */
+let kBQ_UpdatePosition = DispatchQueue(label: "queue_arrange_position", attributes: .concurrent)
+let kBQ_MyStoryQueue = DispatchQueue(label: "queue_my_story", attributes: .concurrent)
 
 
 
