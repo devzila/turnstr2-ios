@@ -25,7 +25,8 @@ class UserCell: UITableViewCell {
         lblName?.text = user.name
         lblSubTitle?.text = user.email
         
-        createCube(user)
+//        createCube(user)
+        cubeView?.backgroundColor = .clear
         lblName?.textColor = .white
         lblName?.font = UIFont.boldSystemFont(ofSize: 14.0)
         lblSubTitle?.textColor = .white
