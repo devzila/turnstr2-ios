@@ -134,7 +134,7 @@ class StoriesViewController: ParentViewController, UICollectionViewDelegate, UIC
         }
         
         if uvCollectionView == nil {
-            uvCollectionView = UICollectionView.init(frame: CGRect.init(x: 0, y: uvTopCube.frame.maxY+10, width: kWidth, height: kHeight-120), collectionViewLayout: flowLayout!)
+            uvCollectionView = UICollectionView.init(frame: CGRect.init(x: 0, y: uvTopCube.frame.maxY+10, width: kWidth, height: kHeight-(uvTopCube.frame.maxY+10)), collectionViewLayout: flowLayout!)
             uvCollectionView?.dataSource = self
             uvCollectionView?.delegate = self
             uvCollectionView?.backgroundColor = UIColor.white
@@ -220,6 +220,14 @@ class StoriesViewController: ParentViewController, UICollectionViewDelegate, UIC
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if indexPath.row == arrList.count - 1, isLoading == false {
+            //current_page = current_page+1
+            isLoading = true
+            kAppDelegate.loadingIndicationCreation()
+            APIRequest(sType: kAPIGetAllStories, data: [:])
+        }
+    }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         

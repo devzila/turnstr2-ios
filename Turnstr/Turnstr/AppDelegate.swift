@@ -11,6 +11,7 @@ import FacebookCore
 import FacebookLogin
 import SendBirdSDK
 import TwitterKit
+import SVProgressHUD
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -94,18 +95,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //MARK:- Loaders
     
     func loadingIndicationCreation() -> Void {
-        hud = MBProgressHUD.showAdded(to: window, animated: true)
-        hud.labelText = "Loading"
+        SVProgressHUD.show()
+        
+        
+        //hud = MBProgressHUD.showAdded(to: window, animated: true)
+        //hud.labelText = "Loading"
     }
     
     func loadingIndicationCreationMSG(msg: String) -> Void {
-        hud = MBProgressHUD.showAdded(to: window, animated: true)
-        hud.labelText = msg
+        SVProgressHUD.show(withStatus: msg)
+        //hud = MBProgressHUD.showAdded(to: window, animated: true)
+        //hud.labelText = msg
     }
     
     func hideLoadingIndicator() -> Void {
         DispatchQueue.main.async {
-            MBProgressHUD.hide(for: self.window, animated: true)
+            SVProgressHUD.dismiss()
+            //MBProgressHUD.hide(for: self.window, animated: true)
         }
     }
     

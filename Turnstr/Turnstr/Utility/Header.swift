@@ -84,7 +84,7 @@ let kNotiSessionExpired = "noti_SessionExpired"
 let kTabBarHeight: CGFloat = 60
 
 let kWidth = UIScreen.main.bounds.size.width
-let kHeight = UIScreen.main.bounds.size.height-kTabBarHeight
+let kHeight = UIScreen.main.bounds.size.height
 let kCenterW = kWidth/2
 let kCenterH = kHeight/2
 
