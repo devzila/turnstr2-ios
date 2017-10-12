@@ -176,7 +176,7 @@ class HomeViewController: ParentViewController {
         let storyboard = UIStoryboard(name: Storyboards.storyStoryboard.rawValue, bundle: nil)
         let homeVC: StoriesViewController = storyboard.instantiateViewController(withIdentifier: "StoriesViewController") as! StoriesViewController
         homeVC.screenType = .myStories
-        self.navigationController?.pushViewController(homeVC, animated: true)
+        topVC?.navigationController?.pushViewController(homeVC, animated: true)
         
     }
     

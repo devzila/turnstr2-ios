@@ -37,6 +37,7 @@ PODS:
   - ObjectMapper (2.2.8)
   - RMMapper (1.1.5)
   - SendBirdSDK (3.0.63)
+  - SVProgressHUD (2.1.2)
   - SwiftyJSON (3.1.4)
   - TwitterCore (3.0.0)
   - TwitterKit (3.1.0):
@@ -65,6 +66,7 @@ DEPENDENCIES:
   - ObjectMapper
   - RMMapper
   - SendBirdSDK
+  - SVProgressHUD
   - SwiftyJSON
   - TwitterKit
 
@@ -85,6 +87,7 @@ SPEC CHECKSUMS:
   ObjectMapper: 3d571bb5af471c779e1160828cd9ad5c4ef90958
   RMMapper: 21122d753c736d975f6c61e674afce8db73579af
   SendBirdSDK: 3529802c3ecc652a6f278327984bc349b7fe0430
+  SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
   TwitterCore: 8ce250be1eb34633a0e6acc89520d4165ec52c10
   TwitterKit: 21d0b22d67cb9a568cd8053972d0da7df2e0e9a0
@@ -92,6 +95,6 @@ SPEC CHECKSUMS:
   YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
   YYWebImage: 5f7f36aee2ae293f016d418c7d6ba05c4863e928
 
-PODFILE CHECKSUM: 353e321ce2e3b79f0820420168f4a17a17061acb
+PODFILE CHECKSUM: abeaf0c9abbd6fd71222f7e889e7ae9feb57d7ac
 
 COCOAPODS: 1.3.1
