@@ -10,30 +10,30 @@ import Foundation
 import SendBirdSDK
 import UserNotifications
 import PushKit
+import Firebase
 
 extension AppDelegate: UNUserNotificationCenterDelegate{
     
     //MARK: - NSNotification Methods
     func registerForAPNS(_ application: UIApplication){
         
-//        if #available(iOS 10.0, *) {
-//            // For iOS 10 display notification (sent via APNS)
-//            UNUserNotificationCenter.current().delegate = self
-//            
-//            let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
-//            UNUserNotificationCenter.current().requestAuthorization(
-//                options: authOptions,
-//                completionHandler: {_, _ in })
-//            application.registerForRemoteNotifications()
-//            
-//        } else {
-//            let settings: UIUserNotificationSettings =
-//                UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
-//            application.registerUserNotificationSettings(settings)
-//        }
+        FirebaseApp.configure()
+        Messaging.messaging().delegate = self
         
-        let notificaitonSettings = UIUserNotificationSettings(types: [.badge, .sound, .alert], categories: nil)
-        application.registerUserNotificationSettings(notificaitonSettings)
+        if #available(iOS 10.0, *) {
+            let center  = UNUserNotificationCenter.current()
+            center.delegate = self
+            center.requestAuthorization(options: [.sound, .alert, .badge]) {  (granted, error) in
+                if error == nil{
+                    DispatchQueue.main.async {
+                        UIApplication.shared.registerForRemoteNotifications()
+                    }
+                }
+            }
+        }else {
+            UIApplication.shared.registerUserNotificationSettings(UIUserNotificationSettings(types: [.sound, .alert, .badge], categories: nil))
+            UIApplication.shared.registerForRemoteNotifications()
+        }
     }
     
     func registerVOIP() {
@@ -54,8 +54,12 @@ extension AppDelegate: UNUserNotificationCenterDelegate{
         var token = NSString(format: "%@",deviceToken as CVarArg) as String
         token = token.trimmingCharacters(in: CharacterSet(charactersIn: "<>")) as String
         token = token.replacingOccurrences(of: " ", with: "")
-        print("TOKEN = \(token)")
+        KBLog.log(message: "device token", object: token)
         UDKeys.deviceToken.save(value: deviceToken)
+        
+        let fcmToken = Messaging.messaging().fcmToken ?? ""
+        KBLog.log(message: "fcm token", object: fcmToken)
+        Messaging.messaging().apnsToken = deviceToken
         
         SBDMain.registerDevicePushToken(deviceToken, unique: true) { (status, error) in
             if error == nil {
@@ -143,5 +147,22 @@ extension AppDelegate: PKPushRegistryDelegate {
     func displayIncomingCall(uuid: UUID, handle: String, hasVideo: Bool = true, completion: ((NSError?) -> Void)? = nil) {
         
         providerDelegate?.reportIncomingCall(uuid: uuid, handle: handle, hasVideo: hasVideo, completion: completion)
+    }
+}
+
+//MARK: ------ Firebase
+extension AppDelegate: MessagingDelegate {
+    
+    func messaging(_ messaging: Messaging, didRefreshRegistrationToken fcmToken: String){
+        
+        KBLog.log(message: "fcm token ", object: fcmToken)
+        UDKeys.fcm.save(value: fcmToken)
+        updateFcm(fcmToken)
+    }
+    
+    func updateFcm(_ token: String) {
+        if isLoggedIn {
+            
+        }
     }
 }

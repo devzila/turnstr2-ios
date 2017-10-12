@@ -9,11 +9,15 @@
 import UIKit
 import Alamofire
 
-class APIManager: NSObject {
 
+class APIManager: NSObject {
+    
+    typealias Response = (_ response: Any, _ error: String) -> ()
+    
     static let sharedInstance: APIManager = {
         let instance = APIManager()
         
         return instance
     }()
+    
 }

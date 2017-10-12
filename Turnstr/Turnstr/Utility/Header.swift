@@ -38,6 +38,7 @@ let kAPIGetAllPhotos = "photos"
 let kAPIGetSpecificStory = "stories/"
 let kAPIFollowUnfollowUser = "members"
 let kAPIArrangeStory = "user/stories/arrange"
+let kSaveTokenToServer = "user/devices"
 
 
 let kAPIDELETEStory = "DELETE user/stories/<story-id>"

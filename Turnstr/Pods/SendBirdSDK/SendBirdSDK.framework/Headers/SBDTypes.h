@@ -43,17 +43,18 @@ typedef NS_ENUM(NSInteger, SDBErrorCode) {
     SBDErrorUnusableCharacterIncluded = 400151,
     SBDErrorNotFoundInDatabase = 400201,
     SBDErrorDuplicatedData = 400202,
+    
+    SBDErrorUserDeactivated = 400300,
+    SBDErrorUserNotExist = 400301,
+    SBDErrorAccessTokenNotValid = 400302,
+    SBDErrorAuthUnknownError = 400303,
+    SBDErrorAppIdNotValid = 400304,
+    SBDErrorAuthUserIdTooLong = 400305,
+    SBDErrorAuthPlanQuotaExceeded = 400306,
+    
     SBDErrorInvalidApiToken = 400401,
     SBDErrorParameterMissing = 400402,
     SBDErrorInvalidJsonBody = 400403,
-    
-    // RESTful API Errors for SDK
-    SBDErrorAppIdNotValid = 400404,
-    SBDErrorAccessTokenEmpty = 400500,
-    SBDErrorAccessTokenNotValid = 400501,
-    SBDErrorUserNotExist = 400502,
-    SBDErrorUserDeactivated = 400503,
-    SBDErrorUserCreationFailed = 400504,
     
     SBDErrorInternalServerError = 500901,
     
@@ -164,12 +165,27 @@ typedef NS_ENUM(NSInteger, SBDMessageTypeFilter) {
     SBDMessageTypeFilterAdmin = 3,
 };
 
+
+/**
+ Member state filter for group channel list query and group channel count
+
+ - SBDMemberStateFilterAll: All.
+ - SBDMemberStateFilterJoinedOnly: Joined state only.
+ - SBDMemberStateFilterInvitedOnly: Invited state only.
+ */
 typedef NS_ENUM(NSInteger, SBDMemberStateFilter) {
     SBDMemberStateFilterAll = 0,
     SBDMemberStateFilterJoinedOnly = 1,
     SBDMemberStateFilterInvitedOnly = 2,
 };
 
+
+/**
+ Member state in group channel.
+
+ - SBDMemberStateJoined: Joined member in a group channel.
+ - SBDMemberStateInvited: Invited member in a group channel.
+ */
 typedef NS_ENUM(NSInteger, SBDMemberState) {
     SBDMemberStateJoined = 0,
     SBDMemberStateInvited = 1,

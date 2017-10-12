@@ -14,6 +14,7 @@ enum UDKeys: String {
     case deviceToken = "Device Token"
     case user = "user"
     case theme = "Current Theme"
+    case fcm = "fcm token"
     
     func save(value: Any?) {
         guard let value = value else {

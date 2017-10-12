@@ -30,8 +30,6 @@ class WebServices: NSObject {
     //MARK: ------ POST DATA TO SERVER -------
     func PostDataToserver(JSONString:String, PostURL:String, parType: String) -> Dictionary<String,AnyObject>{
         
-        
-        
         let request = NSMutableURLRequest(url: URL.init(string: kBaseURL.appending(PostURL))!)
         
         print("\(request.url! as URL)")

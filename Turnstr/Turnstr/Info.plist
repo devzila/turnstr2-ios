@@ -19,10 +19,13 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>fb304253466719391</string>
 				<string>twitterkit-ooB5hkXlA5M2InA33KiLEkEww</string>
+				<string>com.googleusercontent.apps.1035371032311-02q2d0mp460lljeqpcm7gmqqmboo17s7</string>
 			</array>
 		</dict>
 	</array>
@@ -57,6 +60,10 @@
 	<string>For Profile and Stories</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>For Profile and Stories</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
