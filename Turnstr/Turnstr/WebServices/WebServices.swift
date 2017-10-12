@@ -27,7 +27,7 @@ class WebServices: NSObject {
         return [:]
     }
     
-    //MARK: ------ POST DATA TO SERVER -------
+    //MARK:- ------ POST DATA TO SERVER -------
     func PostDataToserver(JSONString:String, PostURL:String, parType: String) -> Dictionary<String,AnyObject>{
         
         let request = NSMutableURLRequest(url: URL.init(string: kBaseURL.appending(PostURL))!)
@@ -116,7 +116,120 @@ class WebServices: NSObject {
         
     }
     
-    //MARK: ------ GET DATA FROM SERVER WITH GET METHOD -------
+    //MARK:- Post Methods FormData
+    
+    func PostRequestWith(PostURL:String, dictData: Dictionary<String, Any>?) -> Dictionary<String,AnyObject> {
+        
+        print(kBaseURL)
+        
+        
+        let boundaryConstant  = "----------V2y2HFg03eptjbaKO0j1"
+        
+        let requestUrl = NSURL(string:kBaseURL.appending(PostURL))
+        
+        let request = NSMutableURLRequest()
+        
+        request.cachePolicy = NSURLRequest.CachePolicy.reloadIgnoringLocalCacheData
+        request.httpShouldHandleCookies=false
+        request.timeoutInterval = 60.0
+        request.httpMethod = "POST"
+        
+        let contentType = "multipart/form-data; boundary=\(boundaryConstant)"
+        
+        request.addValue(contentType, forHTTPHeaderField: "Content-Type")
+        
+        if Singleton.sharedInstance.strUserSessionId != "" {
+            request .setValue(Singleton.sharedInstance.strUserSessionId, forHTTPHeaderField: "auth_token")
+        }
+        
+        
+        let body = NSMutableData()
+        
+        
+        
+        if dictData != nil {
+            
+            for (key, value) in dictData! {
+                
+                // parameters
+                body.append("--\(boundaryConstant)\r\n" .data(using: String.Encoding.utf8)! )
+                body.append("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n" .data(using: String.Encoding.utf8)!)
+                body.append("\(value)\r\n" .data(using: String.Encoding.utf8)!)
+            }
+            
+        }
+        body.append("--\(boundaryConstant)--\r\n".data(using: String.Encoding.utf8)!)
+        
+        request.httpBody  = body as Data
+        // let postLength = "\(body.length)"
+        // request.setValue(postLength, forHTTPHeaderField: "Content-Length")
+        request.url = requestUrl as URL?
+        
+        let semaphore = DispatchSemaphore(value: 0)
+        var ResponseData: NSData = NSData()
+        var statusCode: Int = 403
+        
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest) { data, response, error in
+            guard error == nil && data != nil else {  // check for fundamental networking error
+                print("error=\(error)")
+                DispatchQueue.main.async {
+                    Utility.sharedInstance.showAlert(title: "Error", forMsg: "Server Error")
+                    kAppDelegate.hideLoadingIndicator()
+                    //Loader.sharedInstance.stop()
+                    return
+                }
+                return
+            }
+            
+            if let httpStatus = response as? HTTPURLResponse {// check for http errors
+                
+                statusCode = httpStatus.statusCode
+                print(statusCode)
+                
+                if statusCode != 200 {
+                    print("statusCode should be 200, but is \(httpStatus.statusCode)")
+                    //print("response = \(response)")
+                }
+                
+            }
+            
+            ResponseData = data! as NSData
+            semaphore.signal()
+        }
+        task.resume()
+        
+        semaphore.wait()
+        
+        let reply = String(data: ResponseData as Data, encoding: String.Encoding.utf8)
+        
+        
+        var json:Dictionary = [String: AnyObject]()
+        
+        
+        do {
+            json = try JSONSerialization.jsonObject(with: ResponseData as Data, options: []) as! [String: AnyObject]
+            //print(json)
+            
+        } catch let error as NSError {
+            print(reply!)
+            print("Failed to load: \(error.localizedDescription)")
+            DispatchQueue.main.async {
+                kAppDelegate.hideLoadingIndicator()
+            }
+        }
+        
+        var jsonResponse:Dictionary = [String: AnyObject]()
+        
+        jsonResponse = [
+            "data" : json as AnyObject,
+            "statusCode" : statusCode as AnyObject
+        ]
+        return jsonResponse
+    }
+    
+    //MARK:- ------ GET DATA FROM SERVER WITH GET METHOD -------
+    
     func GetMethodServerData(strRequest:String, GetURL:String, parType: String) -> Dictionary<String,AnyObject>{
         
         
