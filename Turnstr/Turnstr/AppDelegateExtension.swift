@@ -66,8 +66,8 @@ extension AppDelegate: UNUserNotificationCenterDelegate{
         
         let fcmToken = Messaging.messaging().fcmToken ?? ""
         KBLog.log(message: "fcm token", object: fcmToken)
-        
-        updateFcm(fcmToken)
+        UDKeys.fcm.save(value: fcmToken)
+        updateFcm()
         
         SBDMain.registerDevicePushToken(deviceToken, unique: true) { (status, error) in
             if error == nil {
@@ -127,7 +127,8 @@ extension AppDelegate: PKPushRegistryDelegate {
         for i in 0..<token.count {
             pushToken = pushToken + String(format: "%02.2hhx", arguments: [token[i]])
         }
-        KBLog.log("push token: \(pushToken)")
+        UDKeys.voip.save(value: pushToken)
+        updateFcm()
     }
     func pushRegistry(_ registry: PKPushRegistry, didReceiveIncomingPushWith payload: PKPushPayload, forType type: PKPushType) {
         let info = payload.dictionaryPayload
@@ -166,18 +167,20 @@ extension AppDelegate: MessagingDelegate {
         
         KBLog.log(message: "fcm token ", object: fcmToken)
         UDKeys.fcm.save(value: fcmToken)
-        updateFcm(fcmToken)
+        updateFcm()
     }
     
-    func updateFcm(_ token: String) {
+    func updateFcm() {
         if isLoggedIn {
             kBQ_FCMTokenUpdate.async {
-                let response = DataServiceModal.sharedInstance.ApiPostRequest(PostURL: kSaveTokenToServer, dictData: [
-                    "device[device_udid]" : Device.udid.value,
-                    "device[device_push_token]" : token,
-                    "device[device_name]" : Device.name.value,
-                    "device[device_ios]" : Device.version.value
-                    ])
+                let dict = ["device[device_udid]" : Device.udid.value,
+                "device[device_push_token]" : Device.deviceToken.value,
+                "device[device_name]" : Device.name.value,
+                "device[device_ios]" : Device.version.value,
+                "device[voip_token]": Device.voip.value
+                ]
+                KBLog.log(message: "dict param", object: dict)
+                let response = DataServiceModal.sharedInstance.ApiPostRequest(PostURL: kSaveTokenToServer, dictData: dict)
                 print(response)
             }
             

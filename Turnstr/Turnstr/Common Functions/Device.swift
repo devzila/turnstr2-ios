@@ -17,6 +17,7 @@ enum Device {
     case appVersion
     case udid
     case deviceToken
+    case voip
 }
 
 
@@ -44,7 +45,11 @@ extension Device {
             return UIDevice.current.identifierForVendor?.uuidString ?? ""
         
         case .deviceToken:
-            guard let token = UserDefaults.standard.value(forKey: "deviceToken") as? String else { return "12345"}
+            guard let token = UDKeys.fcm.fetch() as? String else { return "12345"}
+            return token
+            
+        case .voip:
+            guard let token = UDKeys.voip.fetch() as? String else { return "12345"}
             return token
         }
         
