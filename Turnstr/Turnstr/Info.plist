@@ -62,7 +62,9 @@
 	<string>For Profile and Stories</string>
 	<key>UIBackgroundModes</key>
 	<array>
+		<string>audio</string>
 		<string>remote-notification</string>
+		<string>voip</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

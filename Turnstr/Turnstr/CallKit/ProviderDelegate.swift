@@ -26,7 +26,7 @@ final class ProviderDelegate: NSObject, CXProviderDelegate {
 
     /// The app's provider configuration, representing its CallKit capabilities
     static var providerConfiguration: CXProviderConfiguration {
-        let localizedName = NSLocalizedString("Workcocoon", comment: "Provider")
+        let localizedName = NSLocalizedString("Turnstr", comment: "Turnstr")
         let providerConfiguration = CXProviderConfiguration(localizedName: localizedName)
 
         providerConfiguration.supportsVideo = true
@@ -34,14 +34,14 @@ final class ProviderDelegate: NSObject, CXProviderDelegate {
         providerConfiguration.maximumCallsPerCallGroup = 1
         providerConfiguration.maximumCallGroups = 1
         providerConfiguration.supportedHandleTypes = [.phoneNumber]
-        if let iconMaskImage = UIImage(named: "IconMask")
+        if let iconMaskImage = UIImage(named: "AppIcon")
         {
             
             providerConfiguration.iconTemplateImageData = UIImagePNGRepresentation(iconMaskImage)
             
         }
 
-        providerConfiguration.ringtoneSound = "preeti.mp3"
+        providerConfiguration.ringtoneSound = "Ringtone.aif"
 
         return providerConfiguration
     }

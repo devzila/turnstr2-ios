@@ -38,6 +38,8 @@ extension AppDelegate: UNUserNotificationCenterDelegate{
     
     func registerVOIP() {
         
+        providerDelegate = ProviderDelegate(callManager: callManager)
+        
         let mainQueue = DispatchQueue.main
         // Create a push registry object
         let voipRegistry: PKPushRegistry = PKPushRegistry(queue: mainQueue)
@@ -50,6 +52,8 @@ extension AppDelegate: UNUserNotificationCenterDelegate{
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        
+        registerVOIP()
         
         var token = NSString(format: "%@",deviceToken as CVarArg) as String
         token = token.trimmingCharacters(in: CharacterSet(charactersIn: "<>")) as String
@@ -119,6 +123,7 @@ extension AppDelegate: PKPushRegistryDelegate {
         for i in 0..<token.count {
             pushToken = pushToken + String(format: "%02.2hhx", arguments: [token[i]])
         }
+        KBLog.log("push token: \(pushToken)")
     }
     func pushRegistry(_ registry: PKPushRegistry, didReceiveIncomingPushWith payload: PKPushPayload, forType type: PKPushType) {
         let info = payload.dictionaryPayload
