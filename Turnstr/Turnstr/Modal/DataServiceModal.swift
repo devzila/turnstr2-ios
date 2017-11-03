@@ -82,6 +82,23 @@ class DataServiceModal: NSObject {
         
     }
     
+    //MARK:- Post Request
+    
+    func ApiPostRequest(PostURL:String, dictData: Dictionary<String, Any>?) -> Dictionary<String,AnyObject>  {
+        self.allSharedInstance()
+        
+        if kAppDelegate.checkNetworkStatus() == false {
+            
+            return [String: AnyObject]()
+        }
+        
+        let dictResponse = WebServices.sharedInstance.PostRequestWith(PostURL: PostURL, dictData: dictData)
+        print(dictResponse)
+        
+        return self.validateData(response: dictResponse)
+        
+    }
+    
     //MARK:- GET METHODS
     
     func GetRequestToServer(dictAction:NSDictionary) -> Dictionary<String,AnyObject>  {

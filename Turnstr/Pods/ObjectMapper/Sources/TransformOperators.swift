@@ -300,8 +300,7 @@ public func <- <Transform: TransformType>(left: inout Dictionary<String, [Transf
 	let (map, transform) = right
 	
 	if let dictionary = map.currentValue as? [String : [Any]], map.mappingType == .fromJSON && map.isKeyPresent {
-		let transformedDictionary = dictionary.map { (arg: (key: String, values: [Any])) -> (String, [Transform.Object]) in
-			let (key, values) = arg
+		let transformedDictionary = dictionary.map { (key: String, values: [Any]) -> (String, [Transform.Object]) in
 			if let jsonArray = fromJSONArrayWithTransform(values, transform: transform) {
 				return (key, jsonArray)
 			}
@@ -321,9 +320,8 @@ public func >>> <Transform: TransformType>(left: Dictionary<String, [Transform.O
 	let (map, transform) = right
 	
 	if map.mappingType == .toJSON {
-		
-		let transformedDictionary = left.map { (arg: (key: String, value: [Transform.Object])) in
-			return (arg.key, toJSONArrayWithTransform(arg.value, transform: transform) ?? [])
+		let transformedDictionary = left.map { (key, values) in
+			return (key, toJSONArrayWithTransform(values, transform: transform) ?? [])
 		}
 		
 		ToJSON.basicType(transformedDictionary, map: map)
@@ -337,8 +335,7 @@ public func <- <Transform: TransformType>(left: inout Dictionary<String, [Transf
 	
 	if let dictionary = map.currentValue as? [String : [Any]], map.mappingType == .fromJSON && map.isKeyPresent {
 		
-		let transformedDictionary = dictionary.map { (arg: (key: String, values: [Any])) -> (String, [Transform.Object]) in
-			let (key, values) = arg
+		let transformedDictionary = dictionary.map { (key: String, values: [Any]) -> (String, [Transform.Object]) in
 			if let jsonArray = fromJSONArrayWithTransform(values, transform: transform) {
 				return (key, jsonArray)
 			}
@@ -346,6 +343,7 @@ public func <- <Transform: TransformType>(left: inout Dictionary<String, [Transf
 				return (key, leftValue)
 			}
 			return (key, [])
+			
 		}
 		
 		FromJSON.optionalBasicType(&left, object: transformedDictionary)
@@ -358,8 +356,8 @@ public func >>> <Transform: TransformType>(left: Dictionary<String, [Transform.O
 	let (map, transform) = right
 	
 	if map.mappingType == .toJSON {
-		let transformedDictionary = left?.map { (arg: (key: String, values: [Transform.Object])) in
-			return (arg.key, toJSONArrayWithTransform(arg.values, transform: transform) ?? [])
+		let transformedDictionary = left?.map { (key, values) in
+			return (key, toJSONArrayWithTransform(values, transform: transform) ?? [])
 		}
 		
 		ToJSON.optionalBasicType(transformedDictionary, map: map)
@@ -372,8 +370,7 @@ public func <- <Transform: TransformType>(left: inout Dictionary<String, [Transf
 	let (map, transform) = right
 	
 	if let dictionary = map.currentValue as? [String : [Any]], map.mappingType == .fromJSON && map.isKeyPresent {
-		let transformedDictionary = dictionary.map { (arg: (key: String, values: [Any])) -> (String, [Transform.Object]) in
-			let (key, values) = arg
+		let transformedDictionary = dictionary.map { (key: String, values: [Any]) -> (String, [Transform.Object]) in
 			if let jsonArray = fromJSONArrayWithTransform(values, transform: transform) {
 				return (key, jsonArray)
 			}
@@ -522,10 +519,10 @@ public func <- <Transform: TransformType>(left: inout [[Transform.Object]]!, rig
 	}
 }
 
-// MARK:- Set of Mappable objects with a transform - Set<T: BaseMappable>
+// MARK:- Set of Mappable objects with a transform - Set<T: BaseMappable where T: Hashable>
 
 /// Set of Mappable objects with transform
-public func <- <Transform: TransformType>(left: inout Set<Transform.Object>, right: (Map, Transform)) where Transform.Object: BaseMappable {
+public func <- <Transform: TransformType>(left: inout Set<Transform.Object>, right: (Map, Transform)) where Transform.Object: Hashable & BaseMappable {
 	let (map, transform) = right
 	switch map.mappingType {
 	case .fromJSON where map.isKeyPresent:
@@ -538,7 +535,7 @@ public func <- <Transform: TransformType>(left: inout Set<Transform.Object>, rig
 	}
 }
 
-public func >>> <Transform: TransformType>(left: Set<Transform.Object>, right: (Map, Transform)) where Transform.Object: BaseMappable {
+public func >>> <Transform: TransformType>(left: Set<Transform.Object>, right: (Map, Transform)) where Transform.Object: Hashable & BaseMappable {
 	let (map, transform) = right
 	if map.mappingType == .toJSON {
 		let transformedValues = toJSONArrayWithTransform(Array(left), transform: transform)
@@ -548,7 +545,7 @@ public func >>> <Transform: TransformType>(left: Set<Transform.Object>, right: (
 
 
 /// Optional Set of Mappable objects with transform
-public func <- <Transform: TransformType>(left: inout Set<Transform.Object>?, right: (Map, Transform)) where Transform.Object: BaseMappable {
+public func <- <Transform: TransformType>(left: inout Set<Transform.Object>?, right: (Map, Transform)) where Transform.Object: Hashable & BaseMappable {
 	let (map, transform) = right
 	switch map.mappingType {
 	case .fromJSON where map.isKeyPresent:
@@ -561,7 +558,7 @@ public func <- <Transform: TransformType>(left: inout Set<Transform.Object>?, ri
 	}
 }
 
-public func >>> <Transform: TransformType>(left: Set<Transform.Object>?, right: (Map, Transform)) where Transform.Object: BaseMappable {
+public func >>> <Transform: TransformType>(left: Set<Transform.Object>?, right: (Map, Transform)) where Transform.Object: Hashable & BaseMappable {
 	let (map, transform) = right
 	if map.mappingType == .toJSON {
 		if let values = left {
@@ -573,7 +570,7 @@ public func >>> <Transform: TransformType>(left: Set<Transform.Object>?, right: 
 
 
 /// Implicitly unwrapped Optional set of Mappable objects with transform
-public func <- <Transform: TransformType>(left: inout Set<Transform.Object>!, right: (Map, Transform)) where Transform.Object: BaseMappable {
+public func <- <Transform: TransformType>(left: inout Set<Transform.Object>!, right: (Map, Transform)) where Transform.Object: Hashable & BaseMappable {
 	let (map, transform) = right
 	switch map.mappingType {
 	case .fromJSON where map.isKeyPresent:

@@ -94,7 +94,7 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/Messaging
   - GrowingTextView
-  - Kingfisher (~> 3.0)
+  - Kingfisher
   - KSPhotoBrowser
   - NVActivityIndicatorView
   - ObjectMapper

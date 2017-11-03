@@ -61,9 +61,13 @@ extension AppDelegate: UNUserNotificationCenterDelegate{
         KBLog.log(message: "device token", object: token)
         UDKeys.deviceToken.save(value: deviceToken)
         
+        
+        Messaging.messaging().apnsToken = deviceToken
+        
         let fcmToken = Messaging.messaging().fcmToken ?? ""
         KBLog.log(message: "fcm token", object: fcmToken)
-        Messaging.messaging().apnsToken = deviceToken
+        
+        updateFcm(fcmToken)
         
         SBDMain.registerDevicePushToken(deviceToken, unique: true) { (status, error) in
             if error == nil {
@@ -167,6 +171,15 @@ extension AppDelegate: MessagingDelegate {
     
     func updateFcm(_ token: String) {
         if isLoggedIn {
+            kBQ_FCMTokenUpdate.async {
+                let response = DataServiceModal.sharedInstance.ApiPostRequest(PostURL: kSaveTokenToServer, dictData: [
+                    "device[device_udid]" : Device.udid.value,
+                    "device[device_push_token]" : token,
+                    "device[device_name]" : Device.name.value,
+                    "device[device_ios]" : Device.version.value
+                    ])
+                print(response)
+            }
             
         }
     }

@@ -53,7 +53,7 @@ let kAPIGetStoriesComments = "stories/<story-id>/comments"
  */
 let kBQ_UpdatePosition = DispatchQueue(label: "queue_arrange_position", attributes: .concurrent)
 let kBQ_MyStoryQueue = DispatchQueue(label: "queue_my_story", attributes: .concurrent)
-
+let kBQ_FCMTokenUpdate = DispatchQueue(label: "queue_fcm_update", attributes: .concurrent)
 
 
 
