@@ -97,8 +97,9 @@ CGFloat DegreesToRadians(CGFloat degrees)
         //arrURLs = [[NSMutableArray alloc] initWithArray:urls];
         
         if (arrURLs.count == 0) {
+            [arrURLs addObject:@""];
             NSLog(@"There should be atleast one media url");
-            return;
+            //return;
         }
         
         if (arrURLs.count < 6) {

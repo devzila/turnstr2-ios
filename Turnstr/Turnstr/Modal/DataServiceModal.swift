@@ -87,6 +87,7 @@ class DataServiceModal: NSObject {
     func ApiPostRequest(PostURL:String, dictData: Dictionary<String, Any>?) -> Dictionary<String,AnyObject>  {
         self.allSharedInstance()
         
+        print(PostURL)
         if kAppDelegate.checkNetworkStatus() == false {
             
             return [String: AnyObject]()

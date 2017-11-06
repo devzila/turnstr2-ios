@@ -23,6 +23,23 @@ let IS_IPHONE_6P = UIDevice.current.userInterfaceIdiom == .phone && ScreenSize.S
 let kBaseURL = "https://fathomless-retreat-45620.herokuapp.com/v1/"
 let kImageBaseUrl = ""
 
+// *** Fill the following variables using your own Project info  ***
+// ***            https://tokbox.com/account/#/                  ***
+// Replace with your OpenTok API key
+let kTokBoxApiKey = "45910392"
+// Replace with your generated session ID
+let kTokBoxSessionId = "2_MX40NTkxMDM5Mn5-MTUwOTc1ODQ1OTI5M35ZcS9RY2ZNNXpwU1AwNWtIREZGMTh3bGd-fg"
+// Replace with your generated token
+let kPublisherToken = "T1==cGFydG5lcl9pZD00NTkxMDM5MiZzaWc9NGFmZmY2Yzg5ZTA0ZTI5NjQyMTQ3MDg5Y2EzZTE3MGE2YmU3NmNlNTpzZXNzaW9uX2lkPTJfTVg0ME5Ua3hNRE01TW41LU1UVXdPVGMxT0RRMU9USTVNMzVaY1M5UlkyWk5OWHB3VTFBd05XdElSRVpHTVRoM2JHZC1mZyZjcmVhdGVfdGltZT0xNTA5NzU4NTU5Jm5vbmNlPTAuMDkyMjMzMDgyNDI5MzUxMzUmcm9sZT1wdWJsaXNoZXImZXhwaXJlX3RpbWU9MTUxMjM1MDU1OCZpbml0aWFsX2xheW91dF9jbGFzc19saXN0PQ=="
+
+let kSubscriberToken = "T1==cGFydG5lcl9pZD00NTkxMDM5MiZzaWc9YzM1NDEyZmYyODYzZGJiY2I2NmYwZGE4ZTcxYmY0YmE1YjRhODU3ZTpzZXNzaW9uX2lkPTJfTVg0ME5Ua3hNRE01TW41LU1UVXdPVGMxT0RRMU9USTVNMzVaY1M5UlkyWk5OWHB3VTFBd05XdElSRVpHTVRoM2JHZC1mZyZjcmVhdGVfdGltZT0xNTEwMDA1NjQ4Jm5vbmNlPTAuNTAxMTYzMTE0Nzg0MjcyMSZyb2xlPXB1Ymxpc2hlciZleHBpcmVfdGltZT0xNTEyNTk3NjQ3JmluaXRpYWxfbGF5b3V0X2NsYXNzX2xpc3Q9"
+//"T1==cGFydG5lcl9pZD00NTkxMDM5MiZzaWc9M2I4MWE3NzFlZmQ0YmY4Nzc0ZjZiYzI2NWQ1NzdjOTZkMWJkZWI1ZjpzZXNzaW9uX2lkPTJfTVg0ME5Ua3hNRE01TW41LU1UVXdPVGMxT0RRMU9USTVNMzVaY1M5UlkyWk5OWHB3VTFBd05XdElSRVpHTVRoM2JHZC1mZyZjcmVhdGVfdGltZT0xNTA5NzU4NjIyJm5vbmNlPTAuMTMxNDAzNjMyNjE5NjU4ODImcm9sZT1zdWJzY3JpYmVyJmV4cGlyZV90aW1lPTE1MTIzNTA2MjEmaW5pdGlhbF9sYXlvdXRfY2xhc3NfbGlzdD0="
+
+/*
+ *-----------------------------------
+ */
+
+
 
 let kAPILogin = "sessions"
 let kAPISignUp = "signup"
@@ -54,7 +71,7 @@ let kAPIGetStoriesComments = "stories/<story-id>/comments"
 let kBQ_UpdatePosition = DispatchQueue(label: "queue_arrange_position", attributes: .concurrent)
 let kBQ_MyStoryQueue = DispatchQueue(label: "queue_my_story", attributes: .concurrent)
 let kBQ_FCMTokenUpdate = DispatchQueue(label: "queue_fcm_update", attributes: .concurrent)
-
+let kBQ_startCall = DispatchQueue(label: "queue_start_call", attributes: .concurrent)
 
 
 

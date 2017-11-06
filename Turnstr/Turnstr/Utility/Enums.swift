@@ -13,6 +13,10 @@ enum enumScreenType {
     case normal
 }
 
+enum callType: String {
+    case OneOneCall = "OneOneCall"
+}
+
 //MARK:- DropDown TOP RIght Menu
 enum showMsgs: String {
     case msgAttention = "Attention!!!"

@@ -7,11 +7,12 @@ target 'Turnstr' do
 
   # Pods for Turnstr
 pod 'SwiftyJSON'
-pod 'Alamofire', '~> 4.3’
-pod 'AlamofireImage', '~> 3.0’
+pod 'Alamofire'
+pod 'AlamofireImage'
 pod 'RMMapper'
 pod 'NVActivityIndicatorView'
 pod 'ObjectMapper'
+#pod 'Kingfisher'
 pod 'Kingfisher'
 pod 'KSPhotoBrowser'
 pod 'SVProgressHUD'
@@ -34,5 +35,8 @@ pod 'TwitterKit'
 #SendBird
 pod 'SendBirdSDK'
 pod 'GrowingTextView'
+
+#Open Tok
+pod 'OpenTok'
 
 end

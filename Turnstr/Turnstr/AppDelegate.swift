@@ -59,6 +59,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //Twitter
         Twitter.sharedInstance().start(withConsumerKey:"ooB5hkXlA5M2InA33KiLEkEww", consumerSecret:"EqyxL5K3egjBuYoghZ3FtTBFqrB4Il7F1b9hIrJM1PVbvE9uH3")
 
+        //CallSession.sharedInstance.connectSession()
+        
         
         return true
     }

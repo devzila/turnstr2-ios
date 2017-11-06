@@ -109,6 +109,7 @@ class SignUpViewController: ParentViewController {
                             }
                             
                             kAppDelegate.connectSendBirdSession()
+                            AppDelegate.shared?.updateFcm()
                         }
                         kAppDelegate.hideLoadingIndicator()
                     }
