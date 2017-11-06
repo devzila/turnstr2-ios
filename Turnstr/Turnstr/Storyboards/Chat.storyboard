@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Rxi-zi-6EK">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Rxi-zi-6EK">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -120,7 +120,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="160"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qlT-Vr-BVc">
-                                        <rect key="frame" x="311" y="25" width="56" height="56"/>
+                                        <rect key="frame" x="326" y="25" width="41" height="41"/>
                                         <inset key="contentEdgeInsets" minX="8" minY="8" maxX="8" maxY="8"/>
                                         <state key="normal" image="close-icon"/>
                                         <connections>
@@ -312,6 +312,17 @@
                                             <action selector="btnBackAction" destination="bxc-eO-jSw" eventType="touchUpInside" id="Ar3-ov-PN0"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SGE-uI-u06">
+                                        <rect key="frame" x="327" y="73" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="wDd-Yl-F6b"/>
+                                            <constraint firstAttribute="width" constant="40" id="wYJ-d8-FTj"/>
+                                        </constraints>
+                                        <state key="normal" image="video"/>
+                                        <connections>
+                                            <action selector="VideoCallClick:" destination="bxc-eO-jSw" eventType="touchUpInside" id="iI1-Ii-CV5"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.933848083" green="0.96601492170000003" blue="0.97958594560000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -321,7 +332,9 @@
                                     <constraint firstItem="bZ5-jb-NHG" firstAttribute="centerY" secondItem="pv4-4J-Fvb" secondAttribute="centerY" id="JGO-FO-VQs"/>
                                     <constraint firstItem="pv4-4J-Fvb" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="bZ5-jb-NHG" secondAttribute="trailing" constant="8" id="OQu-Ss-yLi"/>
                                     <constraint firstAttribute="trailing" secondItem="pv4-4J-Fvb" secondAttribute="trailing" constant="16" id="QkU-Jr-idn"/>
+                                    <constraint firstAttribute="trailing" secondItem="SGE-uI-u06" secondAttribute="trailing" constant="8" id="nJK-zf-nNy"/>
                                     <constraint firstItem="bZ5-jb-NHG" firstAttribute="leading" secondItem="AIt-da-Yt2" secondAttribute="trailing" constant="8" id="nxO-z9-5Xr"/>
+                                    <constraint firstItem="SGE-uI-u06" firstAttribute="top" secondItem="pv4-4J-Fvb" secondAttribute="bottom" constant="8" id="oBe-1A-SX3"/>
                                     <constraint firstItem="AIt-da-Yt2" firstAttribute="leading" secondItem="dWm-qf-qF9" secondAttribute="leading" constant="16" id="p7K-Q7-Z3Y"/>
                                 </constraints>
                             </view>
@@ -342,6 +355,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="VideoCallClick" destination="SGE-uI-u06" id="j81-Mp-c27"/>
                         <outlet property="bottomConstraintTableView" destination="cI3-Tv-rjw" id="GYR-AA-oOv"/>
                         <outlet property="btnSend" destination="Ih5-AX-mc4" id="NiA-rw-LJz"/>
                         <outlet property="cubeView" destination="AIt-da-Yt2" id="uay-Tf-hrQ"/>
@@ -445,8 +459,9 @@
         <image name="camera" width="66" height="66"/>
         <image name="chat-icon" width="60" height="27"/>
         <image name="chat-plus-icon" width="30" height="30"/>
-        <image name="close-icon" width="40" height="40"/>
+        <image name="close-icon" width="25" height="25"/>
         <image name="mystory" width="50" height="42"/>
         <image name="send" width="40" height="40"/>
+        <image name="video" width="66" height="66"/>
     </resources>
 </document>

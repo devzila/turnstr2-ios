@@ -139,6 +139,7 @@ class WebServices: NSObject {
         request.addValue(contentType, forHTTPHeaderField: "Content-Type")
         
         if Singleton.sharedInstance.strUserSessionId != "" {
+            print(Singleton.sharedInstance.strUserSessionId)
             request .setValue(Singleton.sharedInstance.strUserSessionId, forHTTPHeaderField: "auth_token")
         }
         

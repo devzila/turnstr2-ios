@@ -115,7 +115,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate{
     }
     
     func redirectApns(_ userInfo: [AnyHashable: Any]){
-        
+        Utility.sharedInstance.showAlert(title: "Alert", forMsg: "\(userInfo)")
     }
 }
 
@@ -156,7 +156,24 @@ extension AppDelegate: PKPushRegistryDelegate {
     
     func displayIncomingCall(uuid: UUID, handle: String, hasVideo: Bool = true, completion: ((NSError?) -> Void)? = nil) {
         
-        providerDelegate?.reportIncomingCall(uuid: uuid, handle: handle, hasVideo: hasVideo, completion: completion)
+        let toast = UIAlertController(title: "Call Received", message: "Do you want to answer?", preferredStyle: .alert)
+        let OKAction: UIAlertAction = UIAlertAction(title: "YES", style: .default) { action -> Void in
+            //Just dismiss the action sheet
+            let vc = OneOneCallVC()
+            vc.userType = .receiver
+            if let navigation = kAppDelegate.window?.rootViewController as? UINavigationController {
+                navigation.pushViewController(vc, animated: true)
+            }
+            
+        }
+        let cancelAction: UIAlertAction = UIAlertAction(title: "NO", style: .cancel) { action -> Void in
+            //Just dismiss the action sheet
+        }
+        toast.addAction(OKAction)
+        toast.addAction(cancelAction)
+        kAppDelegate.window?.rootViewController?.present(toast, animated: true, completion: nil)
+        
+        //providerDelegate?.reportIncomingCall(uuid: uuid, handle: handle, hasVideo: hasVideo, completion: completion)
     }
 }
 

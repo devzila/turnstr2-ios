@@ -16,6 +16,7 @@ class HomeViewController: ParentViewController {
     var btnMyStory = UIButton()
     
     @IBOutlet weak var btnDesc: UIButton!
+    @IBOutlet weak var txtDescr: UITextView!
     
     @IBOutlet weak var lblUserName: UILabel!
     @IBOutlet weak var lblDescription: UILabel!
@@ -92,7 +93,7 @@ class HomeViewController: ParentViewController {
         style.alignment = .center
         postTitle.addAttribute(NSParagraphStyleAttributeName, value: style, range: NSMakeRange(0, postTitle.length))
         
-        lblDescription.attributedText = postTitle
+        txtDescr.attributedText = postTitle
         
         //btnDesc.setTitle(objSing.strUserBio, for: .normal)
         //btnDesc.titleLabel?.textAlignment = .center

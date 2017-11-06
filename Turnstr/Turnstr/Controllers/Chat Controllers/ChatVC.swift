@@ -16,6 +16,7 @@ class ChatVC: ChatParentVC  {
     
     @IBOutlet weak var lblName: UILabel?
     @IBOutlet weak var cubeView: UIView?
+    @IBOutlet weak var VideoCallClick: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,6 +60,26 @@ class ChatVC: ChatParentVC  {
                 self?.dismissAlert(title: "Error", message: error?.localizedDescription)
             }
         })
+    }
+    
+    //MARK:
+    //MARK:- ActionMethods
+    //MARK:
+    
+    @IBAction func VideoCallClick(_ sender: UIButton) {
+        
+        guard let members = channel?.members as? [SBDUser] else {
+            return
+        }
+        for member in members {
+            if member.userId != loginUser.id {
+                let vc = OneOneCallVC()
+                vc.userType = .caller
+                vc.recieverId = member.userId
+                self.navigationController?.pushViewController(vc, animated: true)
+                break
+            }
+        }
     }
     
     //MARK: ------- Custom Message

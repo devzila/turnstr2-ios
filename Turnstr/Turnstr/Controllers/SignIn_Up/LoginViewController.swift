@@ -115,6 +115,7 @@ class LoginViewController: ParentViewController {
                             }
                             
                             kAppDelegate.connectSendBirdSession()
+                            kAppDelegate.updateFcm()
                         }
                         
                         kAppDelegate.hideLoadingIndicator()
@@ -141,6 +142,7 @@ class LoginViewController: ParentViewController {
                             }
                             
                             kAppDelegate.connectSendBirdSession()
+                            kAppDelegate.updateFcm()
                         }
                         
                         kAppDelegate.hideLoadingIndicator()
@@ -148,6 +150,7 @@ class LoginViewController: ParentViewController {
                 }
             }
             AppDelegate.shared?.connectSendBirdSession()
+            AppDelegate.shared?.updateFcm()
         }
     }
     
