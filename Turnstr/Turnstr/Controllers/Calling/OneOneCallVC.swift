@@ -20,9 +20,9 @@ class OneOneCallVC: ParentViewController {
         case caller
         case receiver
     }
-    var userType: CallUserType = .caller
-    var kToken = kPublisherToken
-    var callsession = CallSession.sharedInstance.session
+    var userType: CallUserType = .receiver
+    var kToken = ""
+    
     var btnEndCall = UIButton()
     var recieverId = ""
     
@@ -39,13 +39,16 @@ class OneOneCallVC: ParentViewController {
         // Do any additional setup after loading the view.
         switch userType {
         case .caller:
+            kAppDelegate.loadingIndicationCreationMSG(msg: "Calling...")
             kToken = kPublisherToken
             callApi()
+            break
         case .receiver:
             kToken = kSubscriberToken
+            break
         }
         
-        kAppDelegate.loadingIndicationCreationMSG(msg: "Calling...")
+        
         doConnect()
         
         EndCallButton()
@@ -101,6 +104,9 @@ class OneOneCallVC: ParentViewController {
             processError(error)
         }
         
+        if kToken.isEmpty == true {
+            Utility.sharedInstance.showAlert(title: "Erro", forMsg: "Token empty")
+        }
         session.connect(withToken: kToken, error: &error)
         
         print("Connect error: \(String(describing: error?.localizedDescription))")
