@@ -39,15 +39,29 @@ class MultiCallViewController: ParentViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        switch userType {
+        /*switch userType {
         case .caller:
             kAppDelegate.loadingIndicationCreationMSG(msg: "Calling...")
-            kToken = kPublisherToken
+            kToken = kPublisherToken1
             callApi()
             break
         case .receiver:
-            kToken = kSubscriberToken
+            kToken = kPublisherToken2
             break
+        }*/
+        
+        if Singleton.sharedInstance.strUserID == "106" {
+            kToken = kPublisherToken1
+            
+        } else if Singleton.sharedInstance.strUserID == "108" {
+            kToken = kPublisherToken2
+            
+        } else if Singleton.sharedInstance.strUserID == "104" {
+            kToken = kPublisherToken3
+            
+        } else {
+            kToken = kPublisherToken4
+            
         }
         
         session.connect(withToken: kToken, error: &error)
@@ -65,8 +79,8 @@ class MultiCallViewController: ParentViewController {
         guard let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
             return
         }
-        layout.itemSize = CGSize(width: collectionView.bounds.size.width ,/// 2
-                                 height: collectionView.bounds.size.height-60)
+        layout.itemSize = CGSize(width: collectionView.bounds.size.width/2 ,/// 2
+                                 height: collectionView.bounds.size.height/2)
     }
     
     override func didReceiveMemoryWarning() {
