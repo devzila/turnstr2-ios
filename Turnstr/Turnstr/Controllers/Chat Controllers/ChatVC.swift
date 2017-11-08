@@ -73,7 +73,8 @@ class ChatVC: ChatParentVC  {
         }
         for member in members {
             if member.userId != loginUser.id {
-                let vc = OneOneCallVC()
+                let storyboard = UIStoryboard(name: "Chat", bundle: nil)
+                let vc: MultiCallViewController = storyboard.instantiateViewController(withIdentifier: "MultiCallViewController") as! MultiCallViewController
                 vc.userType = .caller
                 vc.recieverId = member.userId
                 self.navigationController?.pushViewController(vc, animated: true)

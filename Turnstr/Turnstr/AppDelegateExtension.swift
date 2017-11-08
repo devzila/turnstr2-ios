@@ -159,7 +159,8 @@ extension AppDelegate: PKPushRegistryDelegate {
         let toast = UIAlertController(title: "Call Received", message: "Do you want to answer?", preferredStyle: .alert)
         let OKAction: UIAlertAction = UIAlertAction(title: "YES", style: .default) { action -> Void in
             //Just dismiss the action sheet
-            let vc = OneOneCallVC()
+            let storyboard = UIStoryboard(name: "Chat", bundle: nil)
+            let vc: MultiCallViewController = storyboard.instantiateViewController(withIdentifier: "MultiCallViewController") as! MultiCallViewController
             vc.userType = .receiver
             if let navigation = kAppDelegate.window?.rootViewController as? UINavigationController {
                 navigation.pushViewController(vc, animated: true)

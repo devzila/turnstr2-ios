@@ -173,11 +173,11 @@
 		D9B41AF01F677E3E000E4849 /* NavBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9B41AEF1F677E3E000E4849 /* NavBar.xib */; };
 		D9B41AF21F678013000E4849 /* NavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B41AF11F678013000E4849 /* NavBar.swift */; };
 		D9C3E1DD1FB0F5A9000A9F7A /* DefaultAudioDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C3E1DC1FB0F5A9000A9F7A /* DefaultAudioDevice.swift */; };
+		D9C3E1E11FB1D604000A9F7A /* MultiCallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C3E1E01FB1D604000A9F7A /* MultiCallViewController.swift */; };
 		D9D36B5F1F110B6D000C66CD /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D36B5E1F110B6D000C66CD /* Story.swift */; };
 		D9D3DF4F1F1130E100173FFD /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D3DF4D1F1130E100173FFD /* CameraViewController.swift */; };
 		D9D3DF501F1130E100173FFD /* CameraViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9D3DF4E1F1130E100173FFD /* CameraViewController.xib */; };
 		D9E5F5F51FAD3BAE0070ECA8 /* OneOneCallVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E5F5F41FAD3BAE0070ECA8 /* OneOneCallVC.swift */; };
-		D9E5F5F91FAD58410070ECA8 /* CallSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E5F5F81FAD58410070ECA8 /* CallSession.swift */; };
 		D9FA59DA1F0F26FC001A38B6 /* CubePageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FA59D91F0F26FC001A38B6 /* CubePageView.m */; };
 		D9FA59DC1F0F3365001A38B6 /* StoryPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FA59DB1F0F3365001A38B6 /* StoryPreviewViewController.swift */; };
 		D9FDE6121EC2263C009D5BE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FDE6111EC2263C009D5BE3 /* AppDelegate.swift */; };
@@ -400,11 +400,11 @@
 		D9B41AEF1F677E3E000E4849 /* NavBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NavBar.xib; sourceTree = "<group>"; };
 		D9B41AF11F678013000E4849 /* NavBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavBar.swift; sourceTree = "<group>"; };
 		D9C3E1DC1FB0F5A9000A9F7A /* DefaultAudioDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultAudioDevice.swift; sourceTree = "<group>"; };
+		D9C3E1E01FB1D604000A9F7A /* MultiCallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiCallViewController.swift; sourceTree = "<group>"; };
 		D9D36B5E1F110B6D000C66CD /* Story.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Story.swift; sourceTree = "<group>"; };
 		D9D3DF4D1F1130E100173FFD /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		D9D3DF4E1F1130E100173FFD /* CameraViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CameraViewController.xib; sourceTree = "<group>"; };
 		D9E5F5F41FAD3BAE0070ECA8 /* OneOneCallVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneOneCallVC.swift; sourceTree = "<group>"; };
-		D9E5F5F81FAD58410070ECA8 /* CallSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallSession.swift; sourceTree = "<group>"; };
 		D9FA59D81F0F26FC001A38B6 /* CubePageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CubePageView.h; sourceTree = "<group>"; };
 		D9FA59D91F0F26FC001A38B6 /* CubePageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CubePageView.m; sourceTree = "<group>"; };
 		D9FA59DB1F0F3365001A38B6 /* StoryPreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryPreviewViewController.swift; sourceTree = "<group>"; };
@@ -933,7 +933,7 @@
 			children = (
 				D9C3E1DC1FB0F5A9000A9F7A /* DefaultAudioDevice.swift */,
 				D9E5F5F41FAD3BAE0070ECA8 /* OneOneCallVC.swift */,
-				D9E5F5F81FAD58410070ECA8 /* CallSession.swift */,
+				D9C3E1E01FB1D604000A9F7A /* MultiCallViewController.swift */,
 			);
 			path = Calling;
 			sourceTree = "<group>";
@@ -1369,6 +1369,7 @@
 				7EDC728C1F4DF0D000A00316 /* PullToRefreshOption.swift in Sources */,
 				8A2630111F30EB9800F55C2B /* ChatBudsVC.swift in Sources */,
 				D91C3AF81F001D78005F945C /* IQUIView+Hierarchy.swift in Sources */,
+				D9C3E1E11FB1D604000A9F7A /* MultiCallViewController.swift in Sources */,
 				D96366681F035BD100784A58 /* UIImage+MultiFormat.m in Sources */,
 				D9FDE6491EC236F5009D5BE3 /* view.swift in Sources */,
 				8A1104D81F5DC0D9009FFE0C /* CallDurationFormatter.swift in Sources */,
@@ -1382,7 +1383,6 @@
 				D963666C1F035BD100784A58 /* UIView+WebCacheOperation.m in Sources */,
 				7ED058A71F5F2073009DBF36 /* PublicProfileCollectionViewController.swift in Sources */,
 				8AE0E2C01F291AFB00A28422 /* User.swift in Sources */,
-				D9E5F5F91FAD58410070ECA8 /* CallSession.swift in Sources */,
 				7EBFF7EC1F46204800A8574D /* PhotoAlbum.swift in Sources */,
 				7EDC728D1F4DF0D000A00316 /* PullToRefreshView.swift in Sources */,
 				7ED0589E1F5F2073009DBF36 /* CommentsViewController.swift in Sources */,
