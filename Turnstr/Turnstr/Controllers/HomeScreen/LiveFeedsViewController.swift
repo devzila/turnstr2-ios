@@ -10,19 +10,23 @@ import UIKit
 
 class LiveFeedsViewController: UIViewController {
 
+    var uvVideo: VideoView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.view.backgroundColor = UIColor.red
         
-        let transformView = AITransformView.init(frame: CGRect.init(x: 0, y: 0, width: kWidth, height: 300), cube_size: 100)
         
-        transformView?.backgroundColor = UIColor.white
         
-        transformView?.setup(withUrls: ["https://s3-us-west-2.amazonaws.com/turnstr2-staging/users/avatar_face1s/000/000/003/medium/user_avatar_face1_?1499875613", "https://s3-us-west-2.amazonaws.com/turnstr2-staging/stories/face1_media/000/000/007/thumb/img2.png?1499097845", "https://s3-us-west-2.amazonaws.com/turnstr2-staging/stories/face1_media/000/000/016/thumb/dairies.jpg?1499980195", "https://s3-us-west-2.amazonaws.com/turnstr2-staging/stories/face4_media/000/000/016/thumb/icecrm.jpeg?1499980196"])
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("go live screen")
+        setupVideoView()
         
-        self.view.addSubview(transformView!)
-        
+        goLIveAlert()
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,6 +34,36 @@ class LiveFeedsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    //MARK:-
+    //MARK: Video View
+    //MARK:
+    
+    func setupVideoView() {
+        if uvVideo == nil {
+            uvVideo = VideoView.init(frame: CGRect.init(x: 0, y: 0, width: kWidth, height: kHeight))
+            //uvVideo?.delegate = self
+            uvVideo?.progressView.isHidden = true
+            uvVideo?.btnVideoCap.isHidden = true
+            uvVideo?.btnSelfiCap.isHidden = true
+            uvVideo?.SelfyCaptureClicked(sender:(uvVideo?.btnSelfiCap)!)
+        }
+        self.view.addSubview(uvVideo!)
+        uvVideo?.StartSession()
+    }
+    
+    func goLIveAlert() {
+        let alertView = UIAlertController(title: "", message: "Do you want to Go-Live?", preferredStyle: .alert)
+        let action = UIAlertAction(title: "YES", style: .default, handler: { (alert) in
+            self.uvVideo?.StopSession()
+        })
+        alertView.addAction(action)
+        
+        let cancel = UIAlertAction(title: "NO", style: .destructive, handler: { (alert) in
+            
+        })
+        alertView.addAction(cancel)
+        self.present(alertView, animated: true, completion: nil)
+    }
 
     /*
     // MARK: - Navigation

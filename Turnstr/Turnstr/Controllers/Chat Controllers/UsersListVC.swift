@@ -9,10 +9,21 @@
 import UIKit
 import SendBirdSDK
 
+@objc protocol UserListDelegate {
+    @objc optional func UserSelected(userId: String)
+}
+
 class UsersListVC: ParentViewController {
+    
+    enum screenType {
+        case normal
+        case calling
+    }
     
     var dataSource: TableViewDataSources?
     lazy var users: [User] = [User]()
+    var screenTYpe: screenType = .normal
+    var delegate:UserListDelegate?
     
     @IBOutlet weak var tableView: UITableView?
     @IBOutlet weak var lblPosts: UILabel?
@@ -84,6 +95,14 @@ class UsersListVC: ParentViewController {
     func didSelectCellAt(_ indexPath: IndexPath) {
         
         guard let userId = users[indexPath.row].id else { return }
+        
+        if self.screenTYpe == .calling {
+            delegate?.UserSelected!(userId: userId)
+            self.dismiss(animated: false, completion: {
+            })
+            return
+        }
+        
         SBDGroupChannel.createChannel(withUserIds: [userId], isDistinct: true) {[weak self] (channel, error) in
             if error != nil {
                 self?.dismissAlert(title: "Error", message: error?.description)

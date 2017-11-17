@@ -137,7 +137,7 @@ extension AppDelegate: PKPushRegistryDelegate {
             let name = aps["alert"] as? String
             else {return}
         var caller = Caller(name: name)
-        caller.sessionId = "\(info["sessionId"] ?? "")"
+        caller.sessionId = "\(info["caller_tokbox_session_id"] ?? "")"
         caller.token = "\(info["token"] ?? "")"
         caller.udid = "\(info["udid"] ?? "")"
         caller.isCalling = false
@@ -148,20 +148,22 @@ extension AppDelegate: PKPushRegistryDelegate {
         else {
             caller.isVideo = true
         }
-        displayIncomingCall(uuid: UUID(), handle: name, hasVideo: caller.isVideo)
+        displayIncomingCall(uuid: UUID(), handle: name, hasVideo: caller.isVideo, callerObj: caller)
     }
     func pushRegistry(_ registry: PKPushRegistry, didInvalidatePushTokenForType type: PKPushType) {
         print("Invalid token")
     }
     
-    func displayIncomingCall(uuid: UUID, handle: String, hasVideo: Bool = true, completion: ((NSError?) -> Void)? = nil) {
+    func displayIncomingCall(uuid: UUID, handle: String, hasVideo: Bool = true, callerObj: Caller, completion: ((NSError?) -> Void)? = nil) {
         
-        let toast = UIAlertController(title: "Call Received", message: "Do you want to answer?", preferredStyle: .alert)
+        let toast = UIAlertController(title: handle, message: "Do you want to answer?", preferredStyle: .alert)
         let OKAction: UIAlertAction = UIAlertAction(title: "YES", style: .default) { action -> Void in
             //Just dismiss the action sheet
             let storyboard = UIStoryboard(name: "Chat", bundle: nil)
             let vc: MultiCallViewController = storyboard.instantiateViewController(withIdentifier: "MultiCallViewController") as! MultiCallViewController
             vc.userType = .receiver
+            vc.kPublisherToken = callerObj.token!
+            vc.kTokBoxSessionID = callerObj.sessionId!
             if let navigation = kAppDelegate.window?.rootViewController as? UINavigationController {
                 navigation.pushViewController(vc, animated: true)
             }

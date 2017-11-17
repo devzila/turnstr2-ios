@@ -55,7 +55,7 @@ class TurntStoriesCollectionViewCell: UICollectionViewCell, UICollectionViewData
             }
             cube?.setup(withUrls: arrFaces)
             cell.contentView.addSubview(cube!)
-            cube?.setScroll(CGPoint.init(x: 0, y: h/2), end: CGPoint.init(x: 20, y: h/2))
+            cube?.setScroll(CGPoint.init(x: 0, y: h/2), end: CGPoint.init(x: 5, y: h/2))//20
             cube?.setScroll(CGPoint.init(x: w/2, y: 0), end: CGPoint.init(x: w/2, y: 1))
             
             let tap = UITapGestureRecognizer.init(target: self, action: #selector(handleTap(sender:)))

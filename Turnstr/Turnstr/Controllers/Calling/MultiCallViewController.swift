@@ -9,8 +9,30 @@
 import UIKit
 import OpenTok
 
-class MultiCallViewController: ParentViewController {
+class MultiCallViewController: ParentViewController, UserListDelegate {
 
+    // *** Fill the following variables using your own Project info  ***
+    // ***            https://tokbox.com/account/#/                  ***
+    
+    
+    // Replace with your generated session ID
+    //let kTokBoxSessionId = "1_MX40NTkxMDM5Mn5-MTUxMDA1Mjk1MTA0NX5lM0JlQXZFdlpBMXZUWnlqa1kxVitFcjZ-fg"
+    // Replace with your generated token
+    //let kPublisherToken1 = "T1==cGFydG5lcl9pZD00NTkxMDM5MiZzaWc9NzlmODBmNGMzYmU5NDZjYWY1ODJkMGQwZDFmNTQ4MjBiZDIyMzMyMjpzZXNzaW9uX2lkPTFfTVg0ME5Ua3hNRE01TW41LU1UVXhNREExTWprMU1UQTBOWDVsTTBKbFFYWkZkbHBCTVhaVVdubHFhMWt4Vml0RmNqWi1mZyZjcmVhdGVfdGltZT0xNTEwMDUyOTc4Jm5vbmNlPTAuODAyMzkwNjI3NjEwMjk2MSZyb2xlPXB1Ymxpc2hlciZleHBpcmVfdGltZT0xNTEyNjQ0OTc2JmluaXRpYWxfbGF5b3V0X2NsYXNzX2xpc3Q9"
+    
+    //let kPublisherToken2 = "T1==cGFydG5lcl9pZD00NTkxMDM5MiZzaWc9MjgwOTVkZGM5NzQ3NmQ1MjEzM2Q5ZWUxZmI4YjhkYTgyNTc3ZjA5ZDpzZXNzaW9uX2lkPTFfTVg0ME5Ua3hNRE01TW41LU1UVXhNREExTWprMU1UQTBOWDVsTTBKbFFYWkZkbHBCTVhaVVdubHFhMWt4Vml0RmNqWi1mZyZjcmVhdGVfdGltZT0xNTEwMDUzMDI3Jm5vbmNlPTAuNjc0MjMwNDQwNDg0MzE0NyZyb2xlPXB1Ymxpc2hlciZleHBpcmVfdGltZT0xNTEyNjQ1MDI1JmluaXRpYWxfbGF5b3V0X2NsYXNzX2xpc3Q9"
+    
+    //let kPublisherToken3 = "T1==cGFydG5lcl9pZD00NTkxMDM5MiZzaWc9NTIxYzE2YjMzYTA2NGUxNzIxODgxZDBiNGU4OGIwZjc2ZWJhMDUxZTpzZXNzaW9uX2lkPTFfTVg0ME5Ua3hNRE01TW41LU1UVXhNREExTWprMU1UQTBOWDVsTTBKbFFYWkZkbHBCTVhaVVdubHFhMWt4Vml0RmNqWi1mZyZjcmVhdGVfdGltZT0xNTEwMTU3ODM1Jm5vbmNlPTAuMTc5NTU4MzcxNTQyNzgwNDMmcm9sZT1wdWJsaXNoZXImZXhwaXJlX3RpbWU9MTUxMjc0OTgzNCZpbml0aWFsX2xheW91dF9jbGFzc19saXN0PQ=="
+    
+    //let kPublisherToken4 = "T1==cGFydG5lcl9pZD00NTkxMDM5MiZzaWc9MzUwNmQyOGNlMzc3Nzc2YmQ3N2JjMWI2Yzg5ZDcxZWU5MjZkOTIxZDpzZXNzaW9uX2lkPTFfTVg0ME5Ua3hNRE01TW41LU1UVXhNREExTWprMU1UQTBOWDVsTTBKbFFYWkZkbHBCTVhaVVdubHFhMWt4Vml0RmNqWi1mZyZjcmVhdGVfdGltZT0xNTEwMTU3ODY5Jm5vbmNlPTAuNTE0MzE1NjQwMjA5MzkzOCZyb2xlPXB1Ymxpc2hlciZleHBpcmVfdGltZT0xNTEyNzQ5ODY3JmluaXRpYWxfbGF5b3V0X2NsYXNzX2xpc3Q9"
+    
+    /*
+     *-----------------------------------
+     */
+    
+    var kTokBoxSessionID = ""
+    var kPublisherToken = ""
+    
     enum CallUserType {
         case caller
         case receiver
@@ -24,10 +46,11 @@ class MultiCallViewController: ParentViewController {
     @IBOutlet var muteMicButton: UIButton!
     @IBOutlet var userName: UILabel!
     @IBOutlet var collectionView: UICollectionView!
+    @IBOutlet weak var btnAddUser: UIButton!
     
     var subscribers: [IndexPath: OTSubscriber] = [:]
     lazy var session: OTSession = {
-        return OTSession(apiKey: kTokBoxApiKey, sessionId: kTokBoxSessionId, delegate: self)!
+        return OTSession(apiKey: kTokBoxApiKey, sessionId: self.kTokBoxSessionID, delegate: self)!
     }()
     lazy var publisher: OTPublisher = {
         let settings = OTPublisherSettings()
@@ -39,18 +62,22 @@ class MultiCallViewController: ParentViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        /*switch userType {
+        self.view.backgroundColor = UIColor.black
+        endCallButton.isEnabled = true
+        
+        switch userType {
         case .caller:
             kAppDelegate.loadingIndicationCreationMSG(msg: "Calling...")
-            kToken = kPublisherToken1
+            
             callApi()
             break
         case .receiver:
-            kToken = kPublisherToken2
+            
             break
-        }*/
+        }
+        //kToken = kPublisherToken
         
-        if Singleton.sharedInstance.strUserID == "106" {
+        /*if Singleton.sharedInstance.strUserID == "106" {
             kToken = kPublisherToken1
             
         } else if Singleton.sharedInstance.strUserID == "108" {
@@ -62,10 +89,11 @@ class MultiCallViewController: ParentViewController {
         } else {
             kToken = kPublisherToken4
             
-        }
+        }*/
         
-        session.connect(withToken: kToken, error: &error)
+        //session.connect(withToken: kToken, error: &error)
         
+        startConnectingTokBox()
         userName.text = UIDevice.current.name
     }
     
@@ -124,18 +152,85 @@ class MultiCallViewController: ParentViewController {
         collectionView.isHidden = subscribers.count == 0
         collectionView.reloadData()
     }
+    @IBAction func AddUserInCall(_ sender: UIButton) {
+        
+        if subscribers.count == 3 {
+            Utility.sharedInstance.showAlert(title: "Limit Reached", forMsg: "Maximum 4 users can join the call!!!")
+            return
+        }
+        
+        guard let vc = Storyboards.chatStoryboard.initialVC(with: .usersList) else { return }
+        let vcc = vc as! UsersListVC
+        vcc.screenTYpe = .calling
+        vcc.delegate = self
+        present(vcc, animated: true, completion: nil)
+    }
+    
+    func UserSelected(userId: String) {
+        self.recieverId = userId
+        kAppDelegate.loadingIndicationCreation()
+        AddUserInCall()
+    }
     
     //MARK:- APi
+    
+    func AddUserInCall() {
+        
+        print(self.recieverId)
+        kBQ_startCall .async {
+            let response = DataServiceModal.sharedInstance.ApiPostRequest(PostURL: "user/live_session", dictData: ["invitees[]":"\(self.recieverId)"])
+            print(response)
+            if response.count > 0 {
+                DispatchQueue.main.async {
+                    kAppDelegate.hideLoadingIndicator()
+                }
+                
+            }
+        }
+        
+    }
     
     func callApi() {
         print(self.recieverId)
         kBQ_startCall .async {
-            let response = DataServiceModal.sharedInstance.ApiPostRequest(PostURL: "members/\(self.recieverId)/invite", dictData: [:])
-            //let response = DataServiceModal.sharedInstance.ApiPostRequest(PostURL: "user/live_session", dictData: ["invitees[]":"\(self.recieverId)"])
+            //let response = DataServiceModal.sharedInstance.ApiPostRequest(PostURL: "members/\(self.recieverId)/invite", dictData: [:])
+            let response = DataServiceModal.sharedInstance.ApiPostRequest(PostURL: "user/live_session", dictData: ["invitees[]":"\(self.recieverId)"])
             print(response)
+            if response.count > 0 {
+                DispatchQueue.main.async {
+                    if let session = response["session"] as? Dictionary<String, Any> {
+                        let objSession = Session.init(session: session)
+                        self.kPublisherToken = objSession.token
+                        self.kTokBoxSessionID = objSession.session_id
+                        
+                        print(self.kPublisherToken)
+                        print(self.kTokBoxSessionID)
+                        
+                        self.startConnectingTokBox()
+                        kAppDelegate.hideLoadingIndicator()
+                    }
+                     kAppDelegate.hideLoadingIndicator()
+                }
+                
+            }
         }
     }
     
+    func startConnectingTokBox() {
+        
+        if kPublisherToken.isEmpty == true || kTokBoxSessionID.isEmpty == true {
+            //Utility.sharedInstance.showAlert(title: "Error", forMsg: "Session not valid")
+            return
+        }
+        
+        kToken = kPublisherToken
+        //kTokBoxSessionID = "2_MX40NTkxMDM5Mn5-MTUxMDA4MDA0MDc1OX5vYXNveWZzVVZwazk3L1ZUVVErZHEvUUh-fg"
+        //kToken = "T1==cGFydG5lcl9pZD00NTkxMDM5MiZzaWc9ZGViOGZlYTQ1ZDUyNGZmNjA1ZmEyZjgyMmYxY2NmZDI3ZjcyNGU0Mzpyb2xlPXB1Ymxpc2hlciZzZXNzaW9uX2lkPTJfTVg0ME5Ua3hNRE01TW41LU1UVXhNREE0TURBME1EYzFPWDV2WVhOdmVXWnpWVlp3YXprM0wxWlVWVkVyWkhFdlVVaC1mZyZjcmVhdGVfdGltZT0xNTEwMTQwMzc4Jm5vbmNlPTAuODc3MTIxOTU3NzU4NzgwMg=="
+        
+        print("TokenTok: \(kToken)")
+        print("SessionTok: \(kTokBoxSessionID)")
+        session.connect(withToken: kToken, error: &error)
+    }
     
 }
 
@@ -193,8 +288,9 @@ extension MultiCallViewController {
         endCallButton.isEnabled = true
         
         if let pubView = publisher.view {
-            let publisherDimensions = CGSize(width: view.bounds.size.width / 4,
-                                             height: view.bounds.size.height / 6)
+            let publisherDimensions = CGSize(width: collectionView.bounds.size.width/2 ,/// 2
+                height: collectionView.bounds.size.height/2) //CGSize(width: view.bounds.size.width / 2,
+                                             //height: view.bounds.size.height / 2)
             pubView.frame = CGRect(origin: CGPoint(x:collectionView.bounds.size.width - publisherDimensions.width,
                                                    y:collectionView.bounds.size.height - publisherDimensions.height + collectionView.frame.origin.y),
                                    size: publisherDimensions)
@@ -304,4 +400,27 @@ extension MultiCallViewController: OTSubscriberDelegate {
     }
 }
 
+struct Session {
+    var session_id: String
+    var token: String
+    
+    init(session: Dictionary<String, Any>) {
+        
+        self.session_id = ""
+        self.token = ""
+        
+        if let session_id = session["session_id"] as? String {
+            self.session_id = session_id
+        } else {
+            self.session_id = ""
+        }
+        
+        if let token = session["token"] as? String {
+            self.token = token
+        } else {
+            self.token = ""
+        }
+    }
+    
+}
 
