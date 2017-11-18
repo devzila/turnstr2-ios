@@ -27,19 +27,8 @@ let kImageBaseUrl = ""
 // ***            https://tokbox.com/account/#/                  ***
 // Replace with your OpenTok API key
 let kTokBoxApiKey = "45910392"
-// Replace with your generated session ID
-let kTokBoxSessionId = "1_MX40NTkxMDM5Mn5-MTUxMDA1Mjk1MTA0NX5lM0JlQXZFdlpBMXZUWnlqa1kxVitFcjZ-fg"
-// Replace with your generated token
-let kPublisherToken1 = "T1==cGFydG5lcl9pZD00NTkxMDM5MiZzaWc9NzlmODBmNGMzYmU5NDZjYWY1ODJkMGQwZDFmNTQ4MjBiZDIyMzMyMjpzZXNzaW9uX2lkPTFfTVg0ME5Ua3hNRE01TW41LU1UVXhNREExTWprMU1UQTBOWDVsTTBKbFFYWkZkbHBCTVhaVVdubHFhMWt4Vml0RmNqWi1mZyZjcmVhdGVfdGltZT0xNTEwMDUyOTc4Jm5vbmNlPTAuODAyMzkwNjI3NjEwMjk2MSZyb2xlPXB1Ymxpc2hlciZleHBpcmVfdGltZT0xNTEyNjQ0OTc2JmluaXRpYWxfbGF5b3V0X2NsYXNzX2xpc3Q9"
 
-let kPublisherToken2 = "T1==cGFydG5lcl9pZD00NTkxMDM5MiZzaWc9MjgwOTVkZGM5NzQ3NmQ1MjEzM2Q5ZWUxZmI4YjhkYTgyNTc3ZjA5ZDpzZXNzaW9uX2lkPTFfTVg0ME5Ua3hNRE01TW41LU1UVXhNREExTWprMU1UQTBOWDVsTTBKbFFYWkZkbHBCTVhaVVdubHFhMWt4Vml0RmNqWi1mZyZjcmVhdGVfdGltZT0xNTEwMDUzMDI3Jm5vbmNlPTAuNjc0MjMwNDQwNDg0MzE0NyZyb2xlPXB1Ymxpc2hlciZleHBpcmVfdGltZT0xNTEyNjQ1MDI1JmluaXRpYWxfbGF5b3V0X2NsYXNzX2xpc3Q9"
-
-let kPublisherToken3 = "T1==cGFydG5lcl9pZD00NTkxMDM5MiZzaWc9NTIxYzE2YjMzYTA2NGUxNzIxODgxZDBiNGU4OGIwZjc2ZWJhMDUxZTpzZXNzaW9uX2lkPTFfTVg0ME5Ua3hNRE01TW41LU1UVXhNREExTWprMU1UQTBOWDVsTTBKbFFYWkZkbHBCTVhaVVdubHFhMWt4Vml0RmNqWi1mZyZjcmVhdGVfdGltZT0xNTEwMTU3ODM1Jm5vbmNlPTAuMTc5NTU4MzcxNTQyNzgwNDMmcm9sZT1wdWJsaXNoZXImZXhwaXJlX3RpbWU9MTUxMjc0OTgzNCZpbml0aWFsX2xheW91dF9jbGFzc19saXN0PQ=="
-
-let kPublisherToken4 = "T1==cGFydG5lcl9pZD00NTkxMDM5MiZzaWc9MzUwNmQyOGNlMzc3Nzc2YmQ3N2JjMWI2Yzg5ZDcxZWU5MjZkOTIxZDpzZXNzaW9uX2lkPTFfTVg0ME5Ua3hNRE01TW41LU1UVXhNREExTWprMU1UQTBOWDVsTTBKbFFYWkZkbHBCTVhaVVdubHFhMWt4Vml0RmNqWi1mZyZjcmVhdGVfdGltZT0xNTEwMTU3ODY5Jm5vbmNlPTAuNTE0MzE1NjQwMjA5MzkzOCZyb2xlPXB1Ymxpc2hlciZleHBpcmVfdGltZT0xNTEyNzQ5ODY3JmluaXRpYWxfbGF5b3V0X2NsYXNzX2xpc3Q9"
-/*
- *-----------------------------------
- */
+/************************************************/
 
 
 

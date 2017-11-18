@@ -78,7 +78,7 @@ class Fave5CollectionViewCell: UICollectionViewCell, UICollectionViewDataSource,
 //            let arrFaces = [arrFave.avatar_face1 ?? "", arrFave.avatar_face2 ?? "", arrFave.avatar_face3 ?? "", arrFave.avatar_face4 ?? "", arrFave.avatar_face5 ?? "", arrFave.avatar_face6 ?? ""]
             cube?.setup(withUrls: arrFaces)
             cell.contentView.addSubview(cube!)
-            cube?.setScroll(CGPoint.init(x: 0, y: w/2), end: CGPoint.init(x: 10, y: w/2))
+            cube?.setScroll(CGPoint.init(x: 0, y: w/2), end: CGPoint.init(x: 5, y: w/2))//10
             cube?.setScroll(CGPoint.init(x: w/2, y: 0), end: CGPoint.init(x: w/2, y: 1))
             
             let tap = UITapGestureRecognizer.init(target: self, action: #selector(handleTap(sender:)))

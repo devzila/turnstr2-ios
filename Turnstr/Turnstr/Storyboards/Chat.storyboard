@@ -479,14 +479,14 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BJ7-f5-KVH">
-                                        <rect key="frame" x="351" y="14" width="16" height="22"/>
+                                        <rect key="frame" x="343" y="13" width="24" height="24"/>
                                         <state key="normal" image="mic-24"/>
                                         <connections>
                                             <action selector="muteMicAction:" destination="fvz-dK-Wtm" eventType="touchUpInside" id="0Gd-eQ-7oA"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fJk-ov-QNE">
-                                        <rect key="frame" x="8" y="14" width="16" height="22"/>
+                                        <rect key="frame" x="8" y="8.5" width="33" height="33"/>
                                         <state key="normal" image="camera_switch-33"/>
                                         <connections>
                                             <action selector="swapCameraAction:" destination="fvz-dK-Wtm" eventType="touchUpInside" id="v92-pI-dDT"/>
@@ -503,12 +503,6 @@
                                     <constraint firstItem="fJk-ov-QNE" firstAttribute="centerY" secondItem="LXq-kv-B2g" secondAttribute="centerY" id="p1y-mk-jkF"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subscriber Area" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dFY-FW-BEO">
-                                <rect key="frame" x="119.5" y="322" width="136.5" height="23"/>
-                                <fontDescription key="fontDescription" type="italicSystem" pointSize="19"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <collectionView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="8Hw-QI-de9">
                                 <rect key="frame" x="0.0" y="70" width="375" height="547"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -569,12 +563,28 @@
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UmY-Nz-n6e">
+                                        <rect key="frame" x="321" y="10" width="46" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="46" id="QmB-ZH-xHN"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="35"/>
+                                        <state key="normal" title="+">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="AddUserInCall:" destination="fvz-dK-Wtm" eventType="touchUpInside" id="3ab-AJ-i1M"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="UmY-Nz-n6e" secondAttribute="bottom" constant="10" id="7az-rV-rKb"/>
                                     <constraint firstAttribute="height" constant="50" id="b5p-ND-uee"/>
                                     <constraint firstItem="Nmf-U6-8H1" firstAttribute="leading" secondItem="TZU-Hc-suV" secondAttribute="leading" constant="8" id="bQb-5D-WAn"/>
                                     <constraint firstItem="J8H-FF-LW1" firstAttribute="centerY" secondItem="TZU-Hc-suV" secondAttribute="centerY" id="f1d-8x-iNq"/>
+                                    <constraint firstItem="UmY-Nz-n6e" firstAttribute="top" secondItem="TZU-Hc-suV" secondAttribute="top" constant="10" id="gQM-9P-shS"/>
+                                    <constraint firstAttribute="trailing" secondItem="UmY-Nz-n6e" secondAttribute="trailing" constant="8" id="mBF-oO-hPo"/>
                                     <constraint firstItem="J8H-FF-LW1" firstAttribute="centerX" secondItem="TZU-Hc-suV" secondAttribute="centerX" id="slg-CB-TR4"/>
                                     <constraint firstItem="Nmf-U6-8H1" firstAttribute="centerY" secondItem="TZU-Hc-suV" secondAttribute="centerY" id="vhq-8v-xUN"/>
                                 </constraints>
@@ -583,10 +593,8 @@
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="TZU-Hc-suV" firstAttribute="centerX" secondItem="iSJ-NO-e6T" secondAttribute="centerX" id="2HG-qb-EgR"/>
-                            <constraint firstItem="dFY-FW-BEO" firstAttribute="centerX" secondItem="iSJ-NO-e6T" secondAttribute="centerX" id="Boj-AV-zhz"/>
                             <constraint firstItem="8Hw-QI-de9" firstAttribute="top" secondItem="TZU-Hc-suV" secondAttribute="bottom" id="ExR-ip-gy8"/>
                             <constraint firstItem="TZU-Hc-suV" firstAttribute="top" secondItem="eRc-gT-tcW" secondAttribute="bottom" id="M7c-X4-L6p"/>
-                            <constraint firstItem="dFY-FW-BEO" firstAttribute="centerY" secondItem="iSJ-NO-e6T" secondAttribute="centerY" id="TFg-nY-kxE"/>
                             <constraint firstItem="LXq-kv-B2g" firstAttribute="height" secondItem="TZU-Hc-suV" secondAttribute="height" id="VQQ-JT-IuE"/>
                             <constraint firstItem="8Hw-QI-de9" firstAttribute="centerX" secondItem="iSJ-NO-e6T" secondAttribute="centerX" id="Vwi-ed-Brl"/>
                             <constraint firstItem="LXq-kv-B2g" firstAttribute="top" secondItem="8Hw-QI-de9" secondAttribute="bottom" id="ZUf-Zk-NyY"/>
@@ -598,6 +606,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnAddUser" destination="UmY-Nz-n6e" id="hvM-KZ-6S3"/>
                         <outlet property="collectionView" destination="8Hw-QI-de9" id="B8i-iM-onJ"/>
                         <outlet property="endCallButton" destination="jje-q4-sGM" id="pSc-1f-WrF"/>
                         <outlet property="muteMicButton" destination="BJ7-f5-KVH" id="HtW-Uq-1Nm"/>
@@ -611,14 +620,14 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Subscriber-Speaker-35" width="16" height="16"/>
+        <image name="Subscriber-Speaker-35" width="35" height="35"/>
         <image name="arrow_right-1" width="15" height="27"/>
         <image name="camera" width="66" height="66"/>
-        <image name="camera_switch-33" width="16" height="16"/>
+        <image name="camera_switch-33" width="33" height="33"/>
         <image name="chat-icon" width="60" height="27"/>
         <image name="chat-plus-icon" width="30" height="30"/>
         <image name="close-icon" width="25" height="25"/>
-        <image name="mic-24" width="16" height="16"/>
+        <image name="mic-24" width="24" height="24"/>
         <image name="mystory" width="50" height="42"/>
         <image name="send" width="40" height="40"/>
         <image name="video" width="66" height="66"/>
