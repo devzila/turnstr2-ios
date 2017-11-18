@@ -148,35 +148,16 @@ extension AppDelegate: PKPushRegistryDelegate {
         else {
             caller.isVideo = true
         }
-        displayIncomingCall(uuid: UUID(), handle: name, hasVideo: caller.isVideo, callerObj: caller)
+        AppDelegate.shared?.caller = caller
+        displayIncomingCall(uuid: UUID(), handle: name, hasVideo: caller.isVideo)
     }
     func pushRegistry(_ registry: PKPushRegistry, didInvalidatePushTokenForType type: PKPushType) {
         print("Invalid token")
     }
     
-    func displayIncomingCall(uuid: UUID, handle: String, hasVideo: Bool = true, callerObj: Caller, completion: ((NSError?) -> Void)? = nil) {
+    func displayIncomingCall(uuid: UUID, handle: String, hasVideo: Bool = true, completion: ((NSError?) -> Void)? = nil) {
         
-        let toast = UIAlertController(title: handle, message: "Do you want to answer?", preferredStyle: .alert)
-        let OKAction: UIAlertAction = UIAlertAction(title: "YES", style: .default) { action -> Void in
-            //Just dismiss the action sheet
-            let storyboard = UIStoryboard(name: "Chat", bundle: nil)
-            let vc: MultiCallViewController = storyboard.instantiateViewController(withIdentifier: "MultiCallViewController") as! MultiCallViewController
-            vc.userType = .receiver
-            vc.kPublisherToken = callerObj.token!
-            vc.kTokBoxSessionID = callerObj.sessionId!
-            if let navigation = kAppDelegate.window?.rootViewController as? UINavigationController {
-                navigation.pushViewController(vc, animated: true)
-            }
-            
-        }
-        let cancelAction: UIAlertAction = UIAlertAction(title: "NO", style: .cancel) { action -> Void in
-            //Just dismiss the action sheet
-        }
-        toast.addAction(OKAction)
-        toast.addAction(cancelAction)
-        kAppDelegate.window?.rootViewController?.present(toast, animated: true, completion: nil)
-        
-        //providerDelegate?.reportIncomingCall(uuid: uuid, handle: handle, hasVideo: hasVideo, completion: completion)
+        providerDelegate?.reportIncomingCall(uuid: uuid, handle: handle, hasVideo: hasVideo, completion: completion)
     }
 }
 

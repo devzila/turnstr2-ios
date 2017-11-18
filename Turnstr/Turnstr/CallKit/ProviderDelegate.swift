@@ -184,16 +184,19 @@ final class ProviderDelegate: NSObject, CXProviderDelegate {
         AppDelegate.shared?.onGoingCall = call
         AppDelegate.shared?.callManager = callManager
         
-//        
-//        guard let vc = StoryboardScene.Camera.callVCScene.viewController() as? CallVC,
-//            let topVC = AppDelegate.shared?.window?.topViewController(),
-//        let caller = AppDelegate.shared?.caller
-//        else {
-//            self.callManager.end(call: call)
-//            return
-//        }
-//        vc.caller = caller
-//        topVC.present(vc, animated: true, completion: nil)
+        let storyboard = UIStoryboard(name: "Chat", bundle: nil)
+        let vc: MultiCallViewController = storyboard.instantiateViewController(withIdentifier: "MultiCallViewController") as! MultiCallViewController
+        vc.userType = .receiver
+        guard let caller = AppDelegate.shared?.caller,
+            let token = caller.token,
+            let sessionId = caller.sessionId
+            else {return}
+        
+        vc.kPublisherToken = token
+        vc.kTokBoxSessionID = sessionId
+        if let navigation = kAppDelegate.window?.rootViewController as? UINavigationController {
+            navigation.pushViewController(vc, animated: true)
+        }
         
     }
 

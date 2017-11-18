@@ -8,9 +8,10 @@
 
 import UIKit
 
-class LiveFeedsViewController: UIViewController {
+class LiveFeedsViewController: UIViewController, UserListDelegate {
 
     var uvVideo: VideoView?
+    var showAlert: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +27,10 @@ class LiveFeedsViewController: UIViewController {
         print("go live screen")
         setupVideoView()
         
-        goLIveAlert()
+        if showAlert == true {
+            goLIveAlert()
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -55,6 +59,8 @@ class LiveFeedsViewController: UIViewController {
         let alertView = UIAlertController(title: "", message: "Do you want to Go-Live?", preferredStyle: .alert)
         let action = UIAlertAction(title: "YES", style: .default, handler: { (alert) in
             self.uvVideo?.StopSession()
+            self.showAlert = false
+            self.AddUserInCall()
         })
         alertView.addAction(action)
         
@@ -63,6 +69,26 @@ class LiveFeedsViewController: UIViewController {
         })
         alertView.addAction(cancel)
         self.present(alertView, animated: true, completion: nil)
+    }
+    
+    func AddUserInCall() {
+        guard let vc = Storyboards.chatStoryboard.initialVC(with: .usersList) else { return }
+        let vcc = vc as! UsersListVC
+        vcc.screenTYpe = .calling
+        vcc.delegate = self
+        present(vcc, animated: true, completion: nil)
+    }
+    
+    func UserSelected(userId: String) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.showAlert = true
+            let storyboard = UIStoryboard(name: "Chat", bundle: nil)
+            let vc: MultiCallViewController = storyboard.instantiateViewController(withIdentifier: "MultiCallViewController") as! MultiCallViewController
+            vc.userType = .caller
+            vc.recieverId = userId
+            self.topVC?.navigationController?.pushViewController(vc, animated: false)
+        }
+        
     }
 
     /*
