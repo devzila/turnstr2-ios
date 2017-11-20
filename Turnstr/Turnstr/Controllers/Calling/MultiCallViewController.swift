@@ -37,9 +37,16 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
         case caller
         case receiver
     }
+    enum callType {
+        case goLive
+        case videoCall
+    }
+    
     var userType: CallUserType = .receiver
+    var screenTYPE: callType = .videoCall
     var kToken = ""
     var recieverId = ""
+    var publisherView = UIView()
     
     @IBOutlet var endCallButton: UIButton!
     @IBOutlet var swapCameraButton: UIButton!
@@ -59,6 +66,9 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
     }()
     var error: OTError?
     
+    //MARK:-
+    //MARK: View Life cycle
+    //
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -67,7 +77,7 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
         
         switch userType {
         case .caller:
-            kAppDelegate.loadingIndicationCreationMSG(msg: "Calling...")
+            kAppDelegate.loadingIndicationCreationMSG(msg: "")
             
             callApi()
             break
@@ -104,13 +114,24 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         UIApplication.shared.isIdleTimerDisabled = true
+        resetSubscriberViews()
+    }
+    
+    func resetSubscriberViews() {
         guard let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
             return
         }
-        layout.itemSize = CGSize(width: collectionView.bounds.size.width/2 ,/// 2
-                                 height: collectionView.bounds.size.height/2)
+        
+        if subscribers.count == 1 {
+            layout.itemSize = CGSize(width: collectionView.bounds.size.width ,/// 2
+                height: collectionView.bounds.size.height/2)
+        }
+        else {
+            layout.itemSize = CGSize(width: collectionView.bounds.size.width/2 ,/// 2
+                height: collectionView.bounds.size.height/2)
+        }
+        
     }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -149,15 +170,19 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
     }
     
     func reloadCollectionView() {
+        resetSubscriberViews()
         collectionView.isHidden = subscribers.count == 0
         collectionView.reloadData()
     }
     @IBAction func AddUserInCall(_ sender: UIButton) {
         
-        if subscribers.count == 3 {
-            Utility.sharedInstance.showAlert(title: "Limit Reached", forMsg: "Maximum 4 users can join the call!!!")
-            return
+        if screenTYPE == .videoCall {
+            if subscribers.count == 3 {
+                Utility.sharedInstance.showAlert(title: "Limit Reached", forMsg: "Maximum 4 users can join the call!!!")
+                return
+            }
         }
+        
         
         guard let vc = Storyboards.chatStoryboard.initialVC(with: .usersList) else { return }
         let vcc = vc as! UsersListVC
@@ -236,6 +261,7 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
 
 extension MultiCallViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        resetPublisherView()
         return subscribers.count
     }
     
@@ -288,17 +314,38 @@ extension MultiCallViewController {
         endCallButton.isEnabled = true
         
         if let pubView = publisher.view {
-            let publisherDimensions = CGSize(width: collectionView.bounds.size.width/2 ,/// 2
-                height: collectionView.bounds.size.height/2) //CGSize(width: view.bounds.size.width / 2,
-                                             //height: view.bounds.size.height / 2)
-            pubView.frame = CGRect(origin: CGPoint(x:collectionView.bounds.size.width - publisherDimensions.width,
-                                                   y:collectionView.bounds.size.height - publisherDimensions.height + collectionView.frame.origin.y),
-                                   size: publisherDimensions)
-            view.addSubview(pubView)
+            publisherView = pubView
+            
+            resetPublisherView()
+            view.addSubview(publisherView)
             
         }
         
         session.publish(publisher, error: &error)
+    }
+    
+    func resetPublisherView() {
+        if subscribers.count == 0 {
+            let publisherDimensions = CGSize(width: collectionView.bounds.size.width ,
+                height: collectionView.bounds.size.height)
+            publisherView.frame = CGRect(origin: CGPoint(x:collectionView.bounds.size.width - publisherDimensions.width,
+                                                         y:collectionView.bounds.size.height - publisherDimensions.height + collectionView.frame.origin.y),
+                                         size: publisherDimensions)
+        }
+        else if subscribers.count == 1 {
+            let publisherDimensions = CGSize(width: collectionView.bounds.size.width ,
+                                             height: collectionView.bounds.size.height/2)
+            publisherView.frame = CGRect(origin: CGPoint(x:collectionView.bounds.size.width - publisherDimensions.width,
+                                                         y:collectionView.bounds.size.height - publisherDimensions.height + collectionView.frame.origin.y),
+                                         size: publisherDimensions)
+        }
+        else {
+            let publisherDimensions = CGSize(width: collectionView.bounds.size.width/2 ,
+                height: collectionView.bounds.size.height/2)
+            publisherView.frame = CGRect(origin: CGPoint(x:collectionView.bounds.size.width - publisherDimensions.width,
+                                                         y:collectionView.bounds.size.height - publisherDimensions.height + collectionView.frame.origin.y),
+                                         size: publisherDimensions)
+        }
     }
     
     func doSubscribe(to stream: OTStream) {
