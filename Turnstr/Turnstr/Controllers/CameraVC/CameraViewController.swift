@@ -8,7 +8,7 @@
 
 import UIKit
 import Photos
-
+import Sharaku
 
 class CameraViewController: ParentViewController, UICollectionViewDelegate, UICollectionViewDataSource, CameraViewDelegates, VideoDelegate {
     
@@ -397,9 +397,12 @@ class CameraViewController: ParentViewController, UICollectionViewDelegate, UICo
             objUtil.showToast(strMsg: "You can select maximum six files")
         }
         else{
+            let vc = SHViewController(image: photoArray[indexPath.item])
+            vc.delegate = self
+            present(vc, animated: true, completion: nil)
             
-            arrSelectedImages.append(NewStoryMedia.init(image: photoArray[indexPath.item], url: nil, type: .image))
-            reloadSelectedImages()
+//            arrSelectedImages.append(NewStoryMedia.init(image: photoArray[indexPath.item], url: nil, type: .image))
+//            reloadSelectedImages()
         }
     }
     
@@ -446,7 +449,7 @@ class CameraViewController: ParentViewController, UICollectionViewDelegate, UICo
         let option = PHImageRequestOptions()
         var thumbnail = UIImage()
         option.isSynchronous = true
-        manager.requestImage(for: asset, targetSize: CGSize(width: 100, height: 100), contentMode: .aspectFit, options: option, resultHandler: {(result, info)->Void in
+        manager.requestImage(for: asset, targetSize: CGSize(width: 200 , height: 200 ), contentMode: .aspectFit, options: option, resultHandler: {(result, info)->Void in
             thumbnail = result!
         })
         return thumbnail
@@ -460,8 +463,9 @@ class CameraViewController: ParentViewController, UICollectionViewDelegate, UICo
             return
         }
         
-        arrSelectedImages.append(NewStoryMedia.init(image: image, url: nil, type: .image))
-        reloadSelectedImages()
+        let vc = SHViewController(image: image)
+        vc.delegate = self
+        present(vc, animated: true, completion: nil)
     }
     
     //MARK:- Video Delegates
@@ -530,4 +534,17 @@ struct NewStoryMedia {
         self.type = type
     }
     
+}
+
+extension CameraViewController: SHViewControllerDelegate {
+    
+    func shViewControllerImageDidFilter(image: UIImage) {
+        arrSelectedImages.append(NewStoryMedia.init(image: image, url: nil, type: .image))
+        reloadSelectedImages()
+
+    }
+    
+    func shViewControllerDidCancel() {
+//        dismissVC()
+    }
 }

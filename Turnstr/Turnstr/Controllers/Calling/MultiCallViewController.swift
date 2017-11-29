@@ -166,6 +166,9 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
     @IBAction func endCallAction(_ sender: AnyObject) {
         session.disconnect(&error)
         kAppDelegate.hideLoadingIndicator()
+        if let call = kAppDelegate.onGoingCall {
+            kAppDelegate.callManager.end(call: call)
+        }
         self.goBack()
     }
     

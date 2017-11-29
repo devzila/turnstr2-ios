@@ -43,10 +43,10 @@ class MyStoriesViewController: ParentViewController, UITableViewDataSource, UITa
     
     //MARK:- Navigation Methods
     
-    func LoadEProfile() -> Void {
+    func LoadEProfile() {
         let mvc = EditProfileViewController()
         mvc.showBack = .yes
-        self.navigationController?.pushViewController(mvc, animated: true)
+        navigationController?.pushViewController(mvc, animated: true)
     }
     
     //MARK:- Table View

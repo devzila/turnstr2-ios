@@ -39,6 +39,9 @@ pod 'GrowingTextView'
 #Open Tok
 pod 'OpenTok'
 
+#Filter
+pod 'Sharaku'
+
 
 
 end
