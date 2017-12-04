@@ -142,14 +142,13 @@ extension AppDelegate: PKPushRegistryDelegate {
         caller.udid = "\(info["udid"] ?? "")"
         caller.isCalling = false
         let callType = "\(info["callType"] ?? "")"
-        if callType == "CALLING" {
+        if callType == "go_live_subscription" {
             caller.isVideo = false
         }
         else {
-            caller.isVideo = true
+            AppDelegate.shared?.caller = caller
+            displayIncomingCall(uuid: UUID(), handle: name, hasVideo: caller.isVideo)
         }
-        AppDelegate.shared?.caller = caller
-        displayIncomingCall(uuid: UUID(), handle: name, hasVideo: caller.isVideo)
     }
     func pushRegistry(_ registry: PKPushRegistry, didInvalidatePushTokenForType type: PKPushType) {
         print("Invalid token")

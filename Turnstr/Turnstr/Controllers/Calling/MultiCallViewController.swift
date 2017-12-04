@@ -82,26 +82,8 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
             callApi()
             break
         case .receiver:
-            
             break
         }
-        //kToken = kPublisherToken
-        
-        /*if Singleton.sharedInstance.strUserID == "106" {
-            kToken = kPublisherToken1
-            
-        } else if Singleton.sharedInstance.strUserID == "108" {
-            kToken = kPublisherToken2
-            
-        } else if Singleton.sharedInstance.strUserID == "104" {
-            kToken = kPublisherToken3
-            
-        } else {
-            kToken = kPublisherToken4
-            
-        }*/
-        
-        //session.connect(withToken: kToken, error: &error)
         
         startConnectingTokBox()
         userName.text = UIDevice.current.name
@@ -224,6 +206,7 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
             //let response = DataServiceModal.sharedInstance.ApiPostRequest(PostURL: "members/\(self.recieverId)/invite", dictData: [:])
             let response = DataServiceModal.sharedInstance.ApiPostRequest(PostURL: "user/live_session", dictData: ["invitees[]":"\(self.recieverId)"])
             print(response)
+            self.broadcastItself()
             if response.count > 0 {
                 DispatchQueue.main.async {
                     if let session = response["session"] as? Dictionary<String, Any> {
@@ -240,6 +223,30 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
                      kAppDelegate.hideLoadingIndicator()
                 }
                 
+            }
+        }
+    }
+    
+    func broadcastItself() {
+        kBQ_startCall .async {
+            //let response = DataServiceModal.sharedInstance.ApiPostRequest(PostURL: "members/\(self.recieverId)/invite", dictData: [:])
+            let response = DataServiceModal.sharedInstance.ApiPostRequest(PostURL: "user/live_notify", dictData: nil)
+            print(response)
+            if response.count > 0 {
+                DispatchQueue.main.async {
+                    if let session = response["session"] as? Dictionary<String, Any> {
+                        let objSession = Session.init(session: session)
+                        self.kPublisherToken = objSession.token
+                        self.kTokBoxSessionID = objSession.session_id
+                        
+                        print(self.kPublisherToken)
+                        print(self.kTokBoxSessionID)
+                        
+                        self.startConnectingTokBox()
+                        kAppDelegate.hideLoadingIndicator()
+                    }
+                    kAppDelegate.hideLoadingIndicator()
+                }
             }
         }
     }
