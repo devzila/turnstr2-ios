@@ -141,14 +141,46 @@ extension AppDelegate: PKPushRegistryDelegate {
         caller.token = "\(info["token"] ?? "")"
         caller.udid = "\(info["udid"] ?? "")"
         caller.isCalling = false
-        let callType = "\(info["callType"] ?? "")"
-        if callType == "go_live_subscription" {
+        
+        if let call = info["call_type"] as? String {
+            print(call)
+        }
+        
+        let callType = "\(info["call_type"] ?? "")"
+        if callType == "CALLING" {
             caller.isVideo = false
         }
-        else {
+        else if callType == "go_live_subscription" {
             AppDelegate.shared?.caller = caller
-            displayIncomingCall(uuid: UUID(), handle: name, hasVideo: caller.isVideo)
+            
+            let alertView = UIAlertController(title: "\(name)", message: "Do you want to join?", preferredStyle: .alert)
+            let action = UIAlertAction(title: "YES", style: .default, handler: { (alert) in
+                
+                let storyboard = UIStoryboard(name: "Chat", bundle: nil)
+                let vc: MultiCallViewController = storyboard.instantiateViewController(withIdentifier: "MultiCallViewController") as! MultiCallViewController
+                vc.userType = .receiver
+                vc.screenTYPE = .goLive
+                vc.kPublisherToken = caller.token ?? ""
+                vc.kTokBoxSessionID = caller.sessionId ?? ""
+                self.topVC?.navigationController?.pushViewController(vc, animated: false)
+                
+            })
+            alertView.addAction(action)
+            
+            let cancel = UIAlertAction(title: "NO", style: .destructive, handler: { (alert) in
+                
+            })
+            alertView.addAction(cancel)
+            self.topVC?.navigationController?.present(alertView, animated: true, completion: nil)
+            
+            
+            return
         }
+        else {
+            caller.isVideo = true
+        }
+        AppDelegate.shared?.caller = caller
+        displayIncomingCall(uuid: UUID(), handle: name, hasVideo: caller.isVideo)
     }
     func pushRegistry(_ registry: PKPushRegistry, didInvalidatePushTokenForType type: PKPushType) {
         print("Invalid token")

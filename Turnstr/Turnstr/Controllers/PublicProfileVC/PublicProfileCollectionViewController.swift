@@ -574,7 +574,23 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
     }
     
     func cellTurntStoryTappedAtIndex(index: Int) {
+        //arrUserStories
+        /*
+         var id: Int?
+         var caption: String?
+         var comments_count: Int?
+         var likes_count: Int?
+         var user: UserModel?
+         var media: [MediaModel]?
+         */
         
+        let story = arrUserStories[index]
+        
+        let storyboard = UIStoryboard(name: "PhotoAlbum", bundle: nil)
+        if let profileVC = storyboard.instantiateViewController(withIdentifier: "PublicProfileCollectionViewController") as? PublicProfileCollectionViewController {
+            profileVC.profileId = story.user?.id
+            self.navigationController?.pushViewController(profileVC, animated: true)
+        }
     }
     
     func getAllMembersData() {

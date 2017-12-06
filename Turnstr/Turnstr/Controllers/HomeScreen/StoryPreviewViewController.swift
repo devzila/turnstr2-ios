@@ -52,8 +52,8 @@ class StoryPreviewViewController: ParentViewController, UIGestureRecognizerDeleg
         transformView?.backgroundColor = UIColor.white
         transformView?.setup(withUrls: arrMedia)
         uvCube.addSubview(transformView!)
-        transformView?.setScroll(CGPoint.init(x: 0, y: h/2), end: CGPoint.init(x: IS_IPHONE_6 ? 70 : 85, y: h/2))
-        transformView?.setScroll(CGPoint.init(x: w/2, y: 0), end: CGPoint.init(x: w/2, y: kNavBarHeight + w.getDW(SP: 20, S: 10, F: 10)))//(IS_IPHONE_6P ? 45 :28)
+        transformView?.setScroll(CGPoint.init(x: 0, y: h/2), end: CGPoint.init(x: IS_IPHONE_6 ? 20 : 85, y: h/2))
+        transformView?.setScroll(CGPoint.init(x: w/2, y: 0), end: CGPoint.init(x: w/2, y: kNavBarHeight + w.getDW(SP: 20, S: 35, F: 10)))//(IS_IPHONE_6P ? 45 :28)
         
         let tap = UITapGestureRecognizer.init(target: self, action: #selector(handleTap(sender:)))
         tap.delegate = self
@@ -115,7 +115,7 @@ class StoryPreviewViewController: ParentViewController, UIGestureRecognizerDeleg
         topCube?.setup(withUrls: urls)
         uvCube.addSubview(topCube!)
         
-        topCube?.setScroll(CGPoint.init(x: 0, y: h/2), end: CGPoint.init(x: 10, y: h/2))
+        topCube?.setScroll(CGPoint.init(x: 0, y: h/2), end: CGPoint.init(x: 3, y: h/2))
         topCube?.setScroll(CGPoint.init(x: w/2, y: 0), end: CGPoint.init(x: w/2, y: 2))
         topCube?.isUserInteractionEnabled = false
         

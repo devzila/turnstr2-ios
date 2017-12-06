@@ -320,7 +320,7 @@ class CameraViewController: ParentViewController, UICollectionViewDelegate, UICo
     }
     
     func nextClicked() -> Void {
-        if arrSelectedImages.count < 4 {
+        if arrSelectedImages.count < 1 {
             return
         }
         
@@ -379,7 +379,7 @@ class CameraViewController: ParentViewController, UICollectionViewDelegate, UICo
         if imgBigImage == nil {
             imgBigImage = UIImageView.init(frame: frame)
             imgBigImage?.tag = -111
-            imgBigImage?.contentMode = .scaleToFill
+            imgBigImage?.contentMode = .scaleAspectFit // .scaleToFill
             
         }
         imgBigImage?.image = nil
@@ -449,7 +449,7 @@ class CameraViewController: ParentViewController, UICollectionViewDelegate, UICo
         let option = PHImageRequestOptions()
         var thumbnail = UIImage()
         option.isSynchronous = true
-        manager.requestImage(for: asset, targetSize: CGSize(width: 200 , height: 200 ), contentMode: .aspectFit, options: option, resultHandler: {(result, info)->Void in
+        manager.requestImage(for: asset, targetSize: CGSize(width: 300 , height: 300 ), contentMode: .aspectFit, options: option, resultHandler: {(result, info)->Void in
             thumbnail = result!
         })
         return thumbnail

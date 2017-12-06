@@ -130,8 +130,10 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate {
                             let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(imageSampleBuffer)
                             let image: UIImage? = UIImage(data: imageData!)!
                             
-                            let square = image!.size.width < image!.size.height ? CGSize(width: image!.size.width, height: image!.size.width) : CGSize(width: image!.size.height, height: image!.size.height)
-                            let imageView = UIImageView(frame: CGRect.init(x: 0, y: 0, width: square.width/2, height: square.height/2))
+                            //let square = image!.size.width < image!.size.height ? CGSize(width: image!.size.width, height: image!.size.width) : CGSize(width: image!.size.height, height: image!.size.height)
+                            let square = CGSize.init(width: kWidth*2, height: kHeight*2)
+                            //let imageView = UIImageView(frame: CGRect.init(x: 0, y: 0, width: square.width/2, height: square.height/2))
+                            let imageView = UIImageView(frame: CGRect.init(x: 0, y: 0, width: square.width, height: square.height))
                             imageView.contentMode = .scaleAspectFill
                             imageView.image = image
                             UIGraphicsBeginImageContext(imageView.bounds.size)

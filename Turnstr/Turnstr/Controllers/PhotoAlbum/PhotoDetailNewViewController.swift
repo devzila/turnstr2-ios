@@ -268,7 +268,7 @@ extension PhotoDetailNewViewController: UITableViewDelegate, UITableViewDataSour
                     let arrFaces = [det.user?.avatar_face1 ?? "thumb", det.user?.avatar_face2 ?? "thumb", det.user?.avatar_face3 ?? "thumb", det.user?.avatar_face4 ?? "thumb", det.user?.avatar_face5 ?? "thumb", det.user?.avatar_face6 ?? "thumb"]
                     cube?.setup(withUrls: arrFaces)
                     cell.contentView.addSubview(cube!)
-                    cube?.setScroll(CGPoint.init(x: 0, y: 50/2), end: CGPoint.init(x: 7, y: 50/2))
+                    cube?.setScroll(CGPoint.init(x: 0, y: 50/2), end: CGPoint.init(x: 2.5, y: 50/2))
                     cube?.setScroll(CGPoint.init(x: 50/2, y: 0), end: CGPoint.init(x: 50/2, y: 1))
                 }
                 
@@ -304,7 +304,7 @@ extension PhotoDetailNewViewController: UITableViewDelegate, UITableViewDataSour
                 let arrFaces = [user?.avatar_face1 ?? "thumb", user?.avatar_face2 ?? "thumb", user?.avatar_face3 ?? "thumb", user?.avatar_face4 ?? "thumb", user?.avatar_face5 ?? "thumb", user?.avatar_face6 ?? "thumb"]
                 cube?.setup(withUrls: arrFaces)
                 cell.contentView.addSubview(cube!)
-                cube?.setScroll(CGPoint.init(x: 0, y: 50/2), end: CGPoint.init(x: 7, y: 50/2))
+                cube?.setScroll(CGPoint.init(x: 0, y: 50/2), end: CGPoint.init(x: 2.5, y: 50/2))
                 cube?.setScroll(CGPoint.init(x: 50/2, y: 0), end: CGPoint.init(x: 50/2, y: 1))
             }
 

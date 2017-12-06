@@ -117,7 +117,7 @@ class EditProfileViewController: ParentViewController, UITableViewDelegate, UITa
             }
             
             objHeader?.uvCube.addSubview(transformView!)
-            transformView?.setScroll(CGPoint.init(x: 0, y: 88/2), end: CGPoint.init(x: 20, y: 88/2))
+            transformView?.setScroll(CGPoint.init(x: 0, y: 88/2), end: CGPoint.init(x: 15, y: 88/2))
             transformView?.setScroll(CGPoint.init(x: 110/2, y: 0), end: CGPoint.init(x: 110/2, y: 1))
             
             objHeader?.uvCube.backgroundColor = UIColor.clear

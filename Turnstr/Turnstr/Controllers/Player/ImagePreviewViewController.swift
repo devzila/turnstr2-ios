@@ -34,15 +34,17 @@ class ImagePreviewViewController: ParentViewController, UIScrollViewDelegate {
         /*
          * Navigation Bar
          */
-        createNavBar()
-        navBar?.btnBack.addTarget(self, action: #selector(DismissBack), for: .touchUpInside)
+        setupPages()
+        let btnBack = UIButton.init(frame: CGRect.init(x: 0, y: 20, width: 50, height: 40))
+        btnBack.setImage(#imageLiteral(resourceName: "back_arrow"), for: .normal)
+        self.view.addSubview(btnBack)
+        btnBack.addTarget(self, action: #selector(DismissBack), for: .touchUpInside)
         objStory.ParseStoryData(dict: dictInfo)
         
+        //setupScrollView()
+        //PagingButtons()
         
-        setupScrollView()
-        PagingButtons()
         
-        setupPages()
     }
     
     func DismissBack() {
@@ -80,6 +82,9 @@ class ImagePreviewViewController: ParentViewController, UIScrollViewDelegate {
     
     func setupPages() {
         
+        var arrPages: [Any] = []
+        let frame = CGRect.init(x: 0, y: 0, width: kWidth, height: kHeight)
+        
         var j = 0
         
         for item in objStory.media {
@@ -89,13 +94,15 @@ class ImagePreviewViewController: ParentViewController, UIScrollViewDelegate {
             print(objStory.media_type)
             if objStory.media_type == storyContentType.video.rawValue {
                 
-                let frame = CGRect.init(x: kWidth*CGFloat(j), y: 0, width: kWidth, height: scrScrollView.frame.height)
+                //let frame = CGRect.init(x: kWidth*CGFloat(j), y: 0, width: kWidth, height: scrScrollView.frame.height)
+                let frame = CGRect.init(x: 0, y: 0, width: kWidth, height: frame.height)
                 
                 let imgView = UIImageView.init(frame: frame)
+                imgView.backgroundColor = UIColor.black
                 imgView.sd_setImage(with: URL.init(string: objStory.thumb_url), placeholderImage: #imageLiteral(resourceName: "thumb"))
                 imgView.contentMode = .scaleAspectFit
                 imgView.isUserInteractionEnabled = true
-                scrScrollView.addSubview(imgView)
+                //scrScrollView.addSubview(imgView)
                 
                 //CGRect.init(x: imgView.frame.midX-25, y: imgView.frame.midY-25, width: 50, height: 50)
                 let btnPlay = UIButton.init(frame: CGRect.init(x: frame.midX-25, y: frame.midY-25, width: 50, height: 50))
@@ -105,15 +112,22 @@ class ImagePreviewViewController: ParentViewController, UIScrollViewDelegate {
                 btnPlay.layer.masksToBounds = true
                 btnPlay.accessibilityElements = [objStory.media_url]
                 btnPlay.addTarget(self, action: #selector(PlayVideo(sender:)), for: .touchUpInside)
-                scrScrollView.addSubview(btnPlay)
+                imgView.addSubview(btnPlay)
                 
+                arrPages.append(imgView)
+            }
+            else if objStory.media_type.isEmpty == true {
                 
             }
             else{
-                let imgView = UIImageView.init(frame: CGRect.init(x: kWidth*CGFloat(j), y: 0, width: kWidth, height: scrScrollView.frame.height))
+                let frame = CGRect.init(x: 0, y: 0, width: kWidth, height: frame.height)
+                
+                let imgView = UIImageView.init(frame: frame)//CGRect.init(x: kWidth*CGFloat(j), y: 0, width: kWidth, height: scrScrollView.frame.height)
                 imgView.sd_setImage(with: URL.init(string: objStory.media_url), placeholderImage: #imageLiteral(resourceName: "thumb"))
                 imgView.contentMode = .scaleAspectFit
-                scrScrollView.addSubview(imgView)
+                imgView.backgroundColor = UIColor.black
+                
+                //scrScrollView.addSubview(imgView)
                 
                 imgView.isUserInteractionEnabled = true
                 
@@ -122,11 +136,16 @@ class ImagePreviewViewController: ParentViewController, UIScrollViewDelegate {
                 tap.numberOfTapsRequired = 1
                 imgView.addGestureRecognizer(tap)
                 
+                arrPages.append(imgView)
             }
             
             j = j+1
         }
         
+        
+        let cv = CubePageView.init(frame: frame)
+        cv?.setPages(arrPages)
+        self.view.addSubview(cv!)
     }
     
     func scrollToPage(page: Int, animated: Bool) {

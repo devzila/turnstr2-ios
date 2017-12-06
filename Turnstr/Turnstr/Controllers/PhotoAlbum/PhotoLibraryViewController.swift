@@ -49,8 +49,8 @@ class PhotoLibraryViewController: ParentViewController, UICollectionViewDataSour
         topCube?.setup(withUrls: [objSing.strUserPic1.urlWithThumb, objSing.strUserPic2.urlWithThumb, objSing.strUserPic3.urlWithThumb, objSing.strUserPic4.urlWithThumb, objSing.strUserPic5.urlWithThumb, objSing.strUserPic6.urlWithThumb])
         uvTopCube.addSubview(topCube!)
         
-        topCube?.setScroll(CGPoint.init(x: 0, y: h/2), end: CGPoint.init(x: 9, y: h/2))
-        topCube?.setScroll(CGPoint.init(x: w/2, y: 0), end: CGPoint.init(x: w/2, y: 5))
+        topCube?.setScroll(CGPoint.init(x: 0, y: h/2), end: CGPoint.init(x: 5, y: h/2))
+        topCube?.setScroll(CGPoint.init(x: w/2, y: 0), end: CGPoint.init(x: w/2, y: 1))
     }
     @IBAction func btnBackTapped(_ sender: Any) {
         goBack()

@@ -12,6 +12,7 @@ class NavBar: UIView {
 
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnLogo: UIButton!
+    @IBOutlet weak var orangeBar: UIView!
     
     
     override init(frame: CGRect) {

@@ -116,7 +116,7 @@ class HomeViewController: ParentViewController {
         topCube?.setup(withUrls: [objSing.strUserPic1.urlWithThumb, objSing.strUserPic2.urlWithThumb, objSing.strUserPic3.urlWithThumb, objSing.strUserPic4.urlWithThumb, objSing.strUserPic5.urlWithThumb, objSing.strUserPic6.urlWithThumb])
         uvTopCube.addSubview(topCube!)
         
-        topCube?.setScroll(CGPoint.init(x: 0, y: h/2), end: CGPoint.init(x: 20, y: h/2))
+        topCube?.setScroll(CGPoint.init(x: 0, y: h/2), end: CGPoint.init(x: 10, y: h/2))
         topCube?.setScroll(CGPoint.init(x: w/2, y: 0), end: CGPoint.init(x: w/2, y: 1))
         /*
          CGPoint location =  CGPointMake(0, self.center.y+90);
@@ -137,14 +137,15 @@ class HomeViewController: ParentViewController {
         
         if transformView == nil {
             
-            transformView = AITransformView.init(frame: CGRect.init(x: 0, y: 20, width: w, height: h), cube_size: w.getDW(SP: 230, S: 180, F: 180))//w > h ?h-100:w-100
+            //transformView = AITransformView.init(frame: CGRect.init(x: 0, y: 20, width: w, height: h), cube_size: w.getDW(SP: 230, S: 180, F: 180))
+            transformView = AITransformView.init(frame: CGRect.init(x: 0, y: 25, width: w, height: h), cube_size: w.getDW(SP: 230, S: 150, F: 180))
         }
         transformView?.backgroundColor = UIColor.clear
         transformView?.setup(withUrls: [objSing.strUserPic1.urlWithThumb, objSing.strUserPic2.urlWithThumb, objSing.strUserPic3.urlWithThumb, objSing.strUserPic4.urlWithThumb, objSing.strUserPic5.urlWithThumb, objSing.strUserPic6.urlWithThumb])
         uvCenterCube.addSubview(transformView!)
-        transformView?.setScroll(CGPoint.init(x: 0, y: h/2), end: CGPoint.init(x: w.getDW(SP: 115, S: 105, F: 105), y: h/2))
+        transformView?.setScroll(CGPoint.init(x: 0, y: h/2), end: CGPoint.init(x: w.getDW(SP: 115, S: 85, F: 105), y: h/2))
         transformView?.setScroll(CGPoint.init(x: w/2, y: 0), end: CGPoint.init(x: w/2, y: 1))
-        
+        uvCenterCube.layer.masksToBounds = true
         MyStoryBUtton()
     }
     

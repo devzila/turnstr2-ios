@@ -164,7 +164,7 @@ extension CommentsViewController: UITableViewDelegate, UITableViewDataSource {
         var cube = cell.contentView.viewWithTag(indexPath.item) as? AITransformView
         if cube == nil {
             
-            cube = AITransformView.init(frame: CGRect.init(x: 8, y: 8, width: 48, height: 48), cube_size: 30)
+            cube = AITransformView.init(frame: CGRect.init(x: 0, y: 0, width: 48, height: 48), cube_size: 30)
             cube?.tag = indexPath.item
             cube?.backgroundColor = UIColor.clear
             cube?.isUserInteractionEnabled = false
@@ -172,7 +172,7 @@ extension CommentsViewController: UITableViewDelegate, UITableViewDataSource {
             let arrFaces = [objComment?.avatar_face1 ?? "", objComment?.avatar_face2 ?? "", objComment?.avatar_face3 ?? "", objComment?.avatar_face4 ?? "", objComment?.avatar_face5 ?? "", objComment?.avatar_face6 ?? ""]
             cube?.setup(withUrls: arrFaces)
             cell.contentView.addSubview(cube!)
-            cube?.setScroll(CGPoint.init(x: 0, y: 48/2), end: CGPoint.init(x: 10, y: 48/2))
+            cube?.setScroll(CGPoint.init(x: 0, y: 48/2), end: CGPoint.init(x: 2.5, y: 48/2))
             cube?.setScroll(CGPoint.init(x: 48/2, y: 0), end: CGPoint.init(x: 48/2, y: 1))
 
         }

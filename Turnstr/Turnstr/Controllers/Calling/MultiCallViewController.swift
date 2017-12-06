@@ -11,24 +11,6 @@ import OpenTok
 
 class MultiCallViewController: ParentViewController, UserListDelegate {
 
-    // *** Fill the following variables using your own Project info  ***
-    // ***            https://tokbox.com/account/#/                  ***
-    
-    
-    // Replace with your generated session ID
-    //let kTokBoxSessionId = "1_MX40NTkxMDM5Mn5-MTUxMDA1Mjk1MTA0NX5lM0JlQXZFdlpBMXZUWnlqa1kxVitFcjZ-fg"
-    // Replace with your generated token
-    //let kPublisherToken1 = "T1==cGFydG5lcl9pZD00NTkxMDM5MiZzaWc9NzlmODBmNGMzYmU5NDZjYWY1ODJkMGQwZDFmNTQ4MjBiZDIyMzMyMjpzZXNzaW9uX2lkPTFfTVg0ME5Ua3hNRE01TW41LU1UVXhNREExTWprMU1UQTBOWDVsTTBKbFFYWkZkbHBCTVhaVVdubHFhMWt4Vml0RmNqWi1mZyZjcmVhdGVfdGltZT0xNTEwMDUyOTc4Jm5vbmNlPTAuODAyMzkwNjI3NjEwMjk2MSZyb2xlPXB1Ymxpc2hlciZleHBpcmVfdGltZT0xNTEyNjQ0OTc2JmluaXRpYWxfbGF5b3V0X2NsYXNzX2xpc3Q9"
-    
-    //let kPublisherToken2 = "T1==cGFydG5lcl9pZD00NTkxMDM5MiZzaWc9MjgwOTVkZGM5NzQ3NmQ1MjEzM2Q5ZWUxZmI4YjhkYTgyNTc3ZjA5ZDpzZXNzaW9uX2lkPTFfTVg0ME5Ua3hNRE01TW41LU1UVXhNREExTWprMU1UQTBOWDVsTTBKbFFYWkZkbHBCTVhaVVdubHFhMWt4Vml0RmNqWi1mZyZjcmVhdGVfdGltZT0xNTEwMDUzMDI3Jm5vbmNlPTAuNjc0MjMwNDQwNDg0MzE0NyZyb2xlPXB1Ymxpc2hlciZleHBpcmVfdGltZT0xNTEyNjQ1MDI1JmluaXRpYWxfbGF5b3V0X2NsYXNzX2xpc3Q9"
-    
-    //let kPublisherToken3 = "T1==cGFydG5lcl9pZD00NTkxMDM5MiZzaWc9NTIxYzE2YjMzYTA2NGUxNzIxODgxZDBiNGU4OGIwZjc2ZWJhMDUxZTpzZXNzaW9uX2lkPTFfTVg0ME5Ua3hNRE01TW41LU1UVXhNREExTWprMU1UQTBOWDVsTTBKbFFYWkZkbHBCTVhaVVdubHFhMWt4Vml0RmNqWi1mZyZjcmVhdGVfdGltZT0xNTEwMTU3ODM1Jm5vbmNlPTAuMTc5NTU4MzcxNTQyNzgwNDMmcm9sZT1wdWJsaXNoZXImZXhwaXJlX3RpbWU9MTUxMjc0OTgzNCZpbml0aWFsX2xheW91dF9jbGFzc19saXN0PQ=="
-    
-    //let kPublisherToken4 = "T1==cGFydG5lcl9pZD00NTkxMDM5MiZzaWc9MzUwNmQyOGNlMzc3Nzc2YmQ3N2JjMWI2Yzg5ZDcxZWU5MjZkOTIxZDpzZXNzaW9uX2lkPTFfTVg0ME5Ua3hNRE01TW41LU1UVXhNREExTWprMU1UQTBOWDVsTTBKbFFYWkZkbHBCTVhaVVdubHFhMWt4Vml0RmNqWi1mZyZjcmVhdGVfdGltZT0xNTEwMTU3ODY5Jm5vbmNlPTAuNTE0MzE1NjQwMjA5MzkzOCZyb2xlPXB1Ymxpc2hlciZleHBpcmVfdGltZT0xNTEyNzQ5ODY3JmluaXRpYWxfbGF5b3V0X2NsYXNzX2xpc3Q9"
-    
-    /*
-     *-----------------------------------
-     */
     
     var kTokBoxSessionID = ""
     var kPublisherToken = ""
@@ -54,6 +36,10 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
     @IBOutlet var userName: UILabel!
     @IBOutlet var collectionView: UICollectionView!
     @IBOutlet weak var btnAddUser: UIButton!
+    @IBOutlet weak var uvTopBar: UIView!
+    @IBOutlet weak var btnBack: UIButton!
+    @IBOutlet weak var uvBottomBar: UIView!
+    @IBOutlet weak var bottomBarHeight: NSLayoutConstraint!
     
     var subscribers: [IndexPath: OTSubscriber] = [:]
     lazy var session: OTSession = {
@@ -69,6 +55,7 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
     //MARK:-
     //MARK: View Life cycle
     //
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -78,12 +65,29 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
         switch userType {
         case .caller:
             kAppDelegate.loadingIndicationCreationMSG(msg: "")
-            
             callApi()
             break
         case .receiver:
+            
             break
         }
+        
+        if screenTYPE == .goLive {
+            btnAddUser.isHidden = true
+            btnBack.isHidden = false
+            btnBack.imageView?.contentMode = .scaleAspectFit
+            //uvTopBar.backgroundColor = UIColor.clear
+            endCallButton.setTitle("End Session", for: .normal)
+        }
+        
+        if screenTYPE == .goLive && userType == .receiver {
+            uvBottomBar.isHidden = true
+            bottomBarHeight.constant = 1
+            uvBottomBar.layoutIfNeeded()
+            collectionView.layoutIfNeeded()
+        }
+        
+        //session.connect(withToken: kToken, error: &error)
         
         startConnectingTokBox()
         userName.text = UIDevice.current.name
@@ -101,6 +105,13 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
     
     func resetSubscriberViews() {
         guard let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
+            return
+        }
+        
+        print("suscriber count: \(subscribers.count)")
+        if screenTYPE == .goLive && userType == .receiver {
+            layout.itemSize = CGSize(width: collectionView.bounds.size.width ,
+                height: collectionView.bounds.size.height)
             return
         }
         
@@ -128,7 +139,8 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
     
     @IBAction func tokboxButtonAction(_ sender: AnyObject) {
         
-        UIApplication.shared.open(URL(string: "https://www.tokbox.com/developer/")!, options: [:], completionHandler: nil)
+        endCallAction(sender)
+        //UIApplication.shared.open(URL(string: "https://www.tokbox.com/developer/")!, options: [:], completionHandler: nil)
     }
     
     @IBAction func muteMicAction(_ sender: AnyObject) {
@@ -178,7 +190,7 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
     
     func UserSelected(userId: String) {
         self.recieverId = userId
-        kAppDelegate.loadingIndicationCreation()
+        //kAppDelegate.loadingIndicationCreation()
         AddUserInCall()
     }
     
@@ -204,9 +216,11 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
         print(self.recieverId)
         kBQ_startCall .async {
             //let response = DataServiceModal.sharedInstance.ApiPostRequest(PostURL: "members/\(self.recieverId)/invite", dictData: [:])
+            if self.screenTYPE == .goLive {
+                self.recieverId = "0"
+            }
             let response = DataServiceModal.sharedInstance.ApiPostRequest(PostURL: "user/live_session", dictData: ["invitees[]":"\(self.recieverId)"])
             print(response)
-            self.broadcastItself()
             if response.count > 0 {
                 DispatchQueue.main.async {
                     if let session = response["session"] as? Dictionary<String, Any> {
@@ -219,6 +233,9 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
                         
                         self.startConnectingTokBox()
                         kAppDelegate.hideLoadingIndicator()
+                        if self.screenTYPE == .goLive {
+                            self.callSubscriberApi()
+                        }
                     }
                      kAppDelegate.hideLoadingIndicator()
                 }
@@ -226,30 +243,25 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
             }
         }
     }
+    //MARK:-
+    //MARK: Go lIve subscriber Api
+    //MARK:
     
-    func broadcastItself() {
+    func callSubscriberApi() {
+        print(self.recieverId)
         kBQ_startCall .async {
             //let response = DataServiceModal.sharedInstance.ApiPostRequest(PostURL: "members/\(self.recieverId)/invite", dictData: [:])
-            let response = DataServiceModal.sharedInstance.ApiPostRequest(PostURL: "user/live_notify", dictData: nil)
+            let response = DataServiceModal.sharedInstance.ApiPostRequest(PostURL: "user/live_notify", dictData: [:])
             print(response)
             if response.count > 0 {
-                DispatchQueue.main.async {
-                    if let session = response["session"] as? Dictionary<String, Any> {
-                        let objSession = Session.init(session: session)
-                        self.kPublisherToken = objSession.token
-                        self.kTokBoxSessionID = objSession.session_id
-                        
-                        print(self.kPublisherToken)
-                        print(self.kTokBoxSessionID)
-                        
-                        self.startConnectingTokBox()
-                        kAppDelegate.hideLoadingIndicator()
-                    }
-                    kAppDelegate.hideLoadingIndicator()
-                }
+                
             }
         }
     }
+    
+    //MARK:-
+    //MARK: startConnectingTokBox
+    //MARK:
     
     func startConnectingTokBox() {
         
@@ -331,10 +343,18 @@ extension MultiCallViewController {
             
         }
         
+        if screenTYPE == .goLive && userType == .receiver {
+            swapCameraButton.isHidden = true
+            muteMicButton.isHidden = true
+        }
         session.publish(publisher, error: &error)
     }
     
     func resetPublisherView() {
+        if screenTYPE == .goLive && userType == .receiver {
+            publisherView.isHidden = true
+            return
+        }
         if subscribers.count == 0 {
             let publisherDimensions = CGSize(width: collectionView.bounds.size.width ,
                 height: collectionView.bounds.size.height)
@@ -396,6 +416,7 @@ extension MultiCallViewController: OTSessionDelegate {
     func sessionDidConnect(_ session: OTSession) {
         print("Session connected")
         doPublish()
+        
     }
     
     func sessionDidDisconnect(_ session: OTSession) {
@@ -432,6 +453,7 @@ extension MultiCallViewController: OTSessionDelegate {
 // MARK: - OTPublisher delegate callbacks
 extension MultiCallViewController: OTPublisherDelegate {
     func publisher(_ publisher: OTPublisherKit, streamCreated stream: OTStream) {
+        print("458 line: streamCreated")
     }
     
     func publisher(_ publisher: OTPublisherKit, streamDestroyed stream: OTStream) {
