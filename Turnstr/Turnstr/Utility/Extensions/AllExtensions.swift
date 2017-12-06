@@ -55,3 +55,33 @@ extension CGFloat {
         
     }
 }
+
+extension UIImage {
+    
+    func getDataFromUrl(url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            completion(data, response, error)
+            }.resume()
+    }
+    
+    func downloadImage(url: URL, completion:@escaping (_ data: Data?) ->()) {
+        print("Download Started")
+        getDataFromUrl(url: url) { data, response, error in
+            guard let data = data, error == nil else { return }
+            print(response?.suggestedFilename ?? url.lastPathComponent)
+            print("Download Finished")
+            completion(data)
+        }
+    }
+}
+
+extension UITableView {
+    func scrollToBottom(){
+        let nor = self.numberOfRows(inSection: 0)
+        if nor > 0 {
+            let indexPath = IndexPath(row: nor-1, section: 0)
+            self.scrollToRow(at: indexPath, at: .bottom, animated: true)
+        }
+        
+    }
+}

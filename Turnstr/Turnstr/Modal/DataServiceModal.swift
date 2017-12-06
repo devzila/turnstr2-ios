@@ -443,6 +443,10 @@ class DataServiceModal: NSObject {
                         objSingl?.strUserOnline = str
                     }
                     
+                    if let is_verified = objUser["is_verified"] as? Bool {
+                        objSingl?.isVerified = is_verified
+                    }
+                    
                     if let str = objUser["follower_count"] as? Int {
                         objSingl?.follower_count = str
                     }

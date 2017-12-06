@@ -25,6 +25,7 @@ class HomeViewController: ParentViewController {
     
     @IBOutlet weak var uvCenterCube: UIView!
     @IBOutlet weak var uvTopCube: UIView!
+    @IBOutlet weak var imgVerified: UIImageView!
     
     
     override func viewDidLayoutSubviews() {
@@ -53,6 +54,8 @@ class HomeViewController: ParentViewController {
         super.viewWillAppear(animated)
         
         //kAppDelegate.isTabChanges = true
+        
+        imgVerified.isHidden = !objSing.isVerified
         
         lblUserName.text = "@"+objSing.strUserName.lowercased()
         

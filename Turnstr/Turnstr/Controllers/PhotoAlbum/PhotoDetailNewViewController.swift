@@ -144,7 +144,13 @@ class PhotoDetailNewViewController: ParentViewController, UITextViewDelegate, Se
             (image : UIImage?, error : Error?, cacheType : SDImageCacheType, finished : Bool, url : URL?) in
             kAppDelegate.hideLoadingIndicator()
             if image != nil {
-                self.performSegue(withIdentifier: "SharePhoto", sender: image)
+                let objectsToShare = [image]
+                let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+                
+                self.present(activityVC, animated: true, completion: {
+                    print("shared")
+                })
+                //self.performSegue(withIdentifier: "SharePhoto", sender: image)
             }
             
             //                    let shareItems:Array = [image]

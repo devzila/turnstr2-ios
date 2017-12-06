@@ -32,7 +32,7 @@ class Singleton: NSObject {
     var follower_count: Int = 0
     var post_count: Int = 0
     var family_count: Int = 0
-    
+    var isVerified: Bool = false
     
     
     var strDeviceToken = String()
@@ -68,6 +68,7 @@ class Singleton: NSObject {
         strUserPic5 = ""
         strUserPic6 = ""
         address = ""
+        isVerified = false
         
         follower_count = 0
         post_count = 0

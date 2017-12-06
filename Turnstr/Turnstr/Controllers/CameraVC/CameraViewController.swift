@@ -431,6 +431,10 @@ class CameraViewController: ParentViewController, UICollectionViewDelegate, UICo
                         self.uvCollectionView?.reloadData()
                         if self.photoArray.count == totalImages {
                             self.objLoader.stop()
+                            
+                            let item = self.photoArray.count - 1
+                            let lastItemIndex = IndexPath.init(item: item, section: 0)
+                            self.uvCollectionView?.scrollToItem(at: lastItemIndex, at: .bottom, animated: true)
                         }
                     })
                 }

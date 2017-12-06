@@ -12,25 +12,45 @@ class LiveFeedsViewController: UIViewController, UserListDelegate {
 
     var uvVideo: VideoView?
     var showAlert: Bool = true
+    var btnGolive = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.view.backgroundColor = UIColor.black
         
+        setupVideoView()
         
-        
+        btnGolive.frame = CGRect.init(x: 20, y: kHeight-110, width: kWidth - 40, height: 40)
+        btnGolive.setTitle("Start public video", for: .normal)
+        btnGolive.backgroundColor = kOrangeColor
+        btnGolive.setTitleColor(UIColor.white, for: .normal)
+        btnGolive.layer.cornerRadius = 5.0
+        btnGolive.layer.masksToBounds = true
+        btnGolive.layer.borderWidth = 1.0
+        btnGolive.layer.borderColor = kBlueColor.cgColor
+        btnGolive.addTarget(self, action: #selector(goLIveAlert), for: .touchUpInside)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("go live screen")
-        setupVideoView()
         
-        if showAlert == true {
-            goLIveAlert()
-        }
+        uvVideo?.StartSession()
         
+        self.view.addSubview(btnGolive)
+        
+        
+//        if showAlert == true {
+//            goLIveAlert()
+//        }
+//
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        uvVideo?.StopSession()
     }
 
     override func didReceiveMemoryWarning() {
@@ -52,31 +72,31 @@ class LiveFeedsViewController: UIViewController, UserListDelegate {
             uvVideo?.SelfyCaptureClicked(sender:(uvVideo?.btnSelfiCap)!)
         }
         self.view.addSubview(uvVideo!)
-        uvVideo?.StartSession()
+        
     }
     
     func goLIveAlert() {
-        let alertView = UIAlertController(title: "", message: "Do you want to Go-Live?", preferredStyle: .alert)
-        let action = UIAlertAction(title: "YES", style: .default, handler: { (alert) in
+//        let alertView = UIAlertController(title: "", message: "Do you want to Go-Live?", preferredStyle: .alert)
+//        let action = UIAlertAction(title: "YES", style: .default, handler: { (alert) in
             self.uvVideo?.StopSession()
             //self.showAlert = false
             //self.AddUserInCall()
             
-            self.showAlert = true
+            //self.showAlert = true
             let storyboard = UIStoryboard(name: "Chat", bundle: nil)
             let vc: MultiCallViewController = storyboard.instantiateViewController(withIdentifier: "MultiCallViewController") as! MultiCallViewController
             vc.userType = .caller
             vc.screenTYPE = .goLive
             self.topVC?.navigationController?.pushViewController(vc, animated: false)
             
-        })
-        alertView.addAction(action)
-        
-        let cancel = UIAlertAction(title: "NO", style: .destructive, handler: { (alert) in
-            
-        })
-        alertView.addAction(cancel)
-        self.present(alertView, animated: true, completion: nil)
+//        })
+//        alertView.addAction(action)
+//
+//        let cancel = UIAlertAction(title: "NO", style: .destructive, handler: { (alert) in
+//
+//        })
+//        alertView.addAction(cancel)
+//        self.present(alertView, animated: true, completion: nil)
     }
     
     func AddUserInCall() {

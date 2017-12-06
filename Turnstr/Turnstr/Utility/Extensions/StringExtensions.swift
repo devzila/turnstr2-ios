@@ -54,4 +54,13 @@ extension String {
         return self
     }
     
+    func encode() -> String {
+        let data = self.data(using: .nonLossyASCII, allowLossyConversion: true)!
+        return String(data: data, encoding: .utf8)!
+    }
+    
+    func decode() -> String? {
+        let data = self.data(using: .utf8)!
+        return String(data: data, encoding: .nonLossyASCII)
+    }
 }

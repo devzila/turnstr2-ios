@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Rxi-zi-6EK">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Rxi-zi-6EK">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -491,7 +491,7 @@
                                             <action selector="swapCameraAction:" destination="fvz-dK-Wtm" eventType="touchUpInside" id="v92-pI-dDT"/>
                                         </connections>
                                     </button>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wn1-20-mNP">
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wn1-20-mNP">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                         <subviews>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="bUt-Pa-bZq">
@@ -586,7 +586,7 @@
                                     <outlet property="delegate" destination="fvz-dK-Wtm" id="A53-l8-dbv"/>
                                 </connections>
                             </collectionView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fSu-Yp-ysX">
+                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fSu-Yp-ysX">
                                 <rect key="frame" x="0.0" y="417" width="375" height="200"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.2986675941780822" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -596,17 +596,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TZU-Hc-suV">
                                 <rect key="frame" x="0.0" y="20" width="375" height="50"/>
                                 <subviews>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nmf-U6-8H1">
-                                        <rect key="frame" x="8" y="8" width="48" height="34"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="48" id="CqZ-oe-6BB"/>
-                                            <constraint firstAttribute="height" constant="34" id="Gxs-DL-mcq"/>
-                                        </constraints>
-                                        <state key="normal" image="back_arrow"/>
-                                        <connections>
-                                            <action selector="tokboxButtonAction:" destination="fvz-dK-Wtm" eventType="touchUpInside" id="0aU-Kp-4fW"/>
-                                        </connections>
-                                    </button>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J8H-FF-LW1">
                                         <rect key="frame" x="166" y="16" width="42" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -626,17 +615,28 @@
                                             <action selector="AddUserInCall:" destination="fvz-dK-Wtm" eventType="touchUpInside" id="3ab-AJ-i1M"/>
                                         </connections>
                                     </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nmf-U6-8H1">
+                                        <rect key="frame" x="319" y="8" width="48" height="34"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="34" id="TES-NO-PdZ"/>
+                                            <constraint firstAttribute="width" constant="48" id="pyj-9v-H9k"/>
+                                        </constraints>
+                                        <state key="normal" image="arrow_right"/>
+                                        <connections>
+                                            <action selector="tokboxButtonAction:" destination="fvz-dK-Wtm" eventType="touchUpInside" id="0aU-Kp-4fW"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.16078431369999999" green="0.16078431369999999" blue="0.16078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="UmY-Nz-n6e" secondAttribute="bottom" constant="10" id="7az-rV-rKb"/>
+                                    <constraint firstAttribute="trailing" secondItem="Nmf-U6-8H1" secondAttribute="trailing" constant="8" id="PGI-8A-llN"/>
                                     <constraint firstAttribute="height" constant="50" id="b5p-ND-uee"/>
-                                    <constraint firstItem="Nmf-U6-8H1" firstAttribute="leading" secondItem="TZU-Hc-suV" secondAttribute="leading" constant="8" id="bQb-5D-WAn"/>
                                     <constraint firstItem="J8H-FF-LW1" firstAttribute="centerY" secondItem="TZU-Hc-suV" secondAttribute="centerY" id="f1d-8x-iNq"/>
                                     <constraint firstItem="UmY-Nz-n6e" firstAttribute="top" secondItem="TZU-Hc-suV" secondAttribute="top" constant="10" id="gQM-9P-shS"/>
+                                    <constraint firstItem="Nmf-U6-8H1" firstAttribute="centerY" secondItem="TZU-Hc-suV" secondAttribute="centerY" id="i20-ER-Gtp"/>
                                     <constraint firstAttribute="trailing" secondItem="UmY-Nz-n6e" secondAttribute="trailing" constant="8" id="mBF-oO-hPo"/>
                                     <constraint firstItem="J8H-FF-LW1" firstAttribute="centerX" secondItem="TZU-Hc-suV" secondAttribute="centerX" id="slg-CB-TR4"/>
-                                    <constraint firstItem="Nmf-U6-8H1" firstAttribute="centerY" secondItem="TZU-Hc-suV" secondAttribute="centerY" id="vhq-8v-xUN"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -677,8 +677,8 @@
     </scenes>
     <resources>
         <image name="Subscriber-Speaker-35" width="35" height="35"/>
+        <image name="arrow_right" width="36" height="36"/>
         <image name="arrow_right-1" width="15" height="27"/>
-        <image name="back_arrow" width="115" height="84"/>
         <image name="camera" width="66" height="66"/>
         <image name="camera_switch-33" width="33" height="33"/>
         <image name="chat-icon" width="60" height="27"/>

@@ -120,7 +120,7 @@ class StoryCommentVC: ParentViewController, UITableViewDelegate, UITableViewData
         objCom.ParseCommentData(dict: arrComments[indexPath.row] as! Dictionary<String, Any>)
         
         cell.lblName.text = objCom.strUserFname+" "+objCom.strUserLName
-        cell.lblMsg.text = objCom.body
+        cell.lblMsg.text = objCom.body.decode()
         cell.lblTime.text = self.convertStringToDate(dateString: objCom.created_at)?.timeAgoDisplay()
         
         var cube = cell.uvImage.viewWithTag(indexPath.item) as? AITransformView
@@ -198,6 +198,7 @@ class StoryCommentVC: ParentViewController, UITableViewDelegate, UITableViewData
                         self.tblMainTable?.reloadData()
                         self.objLoader.stop()
                         kAppDelegate.hideLoadingIndicator()
+                        self.tblMainTable?.scrollToBottom()
                     }
                 }
             }
@@ -213,15 +214,17 @@ class StoryCommentVC: ParentViewController, UITableViewDelegate, UITableViewData
             return
         }
         
+        self.objStory.ParseStoryData(dict: self.dictInfo)
+        
+        let txtMsg = self.txtComment.text ?? ""
+        
+        let dictAction: NSDictionary = [
+            "action": kAPIGetStoriesComments,
+            "id": "\(self.objStory.storyID)",
+            "comment[body]" : txtMsg.encode() //"\(self.txtComment.text!)"
+        ]
+        
         DispatchQueue.global().async {
-            
-            self.objStory.ParseStoryData(dict: self.dictInfo)
-            
-            let dictAction: NSDictionary = [
-                "action": kAPIGetStoriesComments,
-                "id": "\(self.objStory.storyID)",
-                "comment[body]" : "\(self.txtComment.text!)"
-            ]
             
             let arrResponse = self.objDataS.uploadFilesToServer(dictAction: dictAction, arrImages: [])
             
@@ -232,10 +235,14 @@ class StoryCommentVC: ParentViewController, UITableViewDelegate, UITableViewData
                         self.arrComments.add(com)
                     }
                     self.tblMainTable?.reloadData()
+                    self.tblMainTable?.scrollToBottom()
                 }
                 
             }
         }
     }
+    
+    
+    
     
 }

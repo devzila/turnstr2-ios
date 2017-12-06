@@ -554,24 +554,24 @@ class EditProfileViewController: ParentViewController, UITableViewDelegate, UITa
             return
         }
         
-        DispatchQueue.global().async {
+        if sType == kAPIUpdateProfile {
             
-            if sType == kAPIUpdateProfile {
+            let dictAction: NSDictionary = [
+                "action": kAPIUpdateProfile,
+                "user[username]": "\(self.txtUserName.text!)",
+                "user[first_name]": "\(self.txtFName.text!)",
+                "user[last_name]": " ",//"\(self.txtLName.text!)",
+                "user[website]" : "\(self.txtWeb.text!)",
+                "user[bio]" : "\(self.txtBio.text!)",
+                "user[email]" : "\(self.txtMail.text!)",
+                "user[online]" : self.swtOnline.isOn == true ? "true" : "false",
+                "user[phone]" : "\(self.txtPhone.text!)",
+                "user[address]" : "\(self.txtAddress.text ?? "")",
+                "user[contact_me]" : self.btnContactMe.titleLabel?.text ?? "Everyone"
                 
-                let dictAction: NSDictionary = [
-                    "action": kAPIUpdateProfile,
-                    "user[username]": "\(self.txtUserName.text!)",
-                    "user[first_name]": "\(self.txtFName.text!)",
-                    "user[last_name]": " ",//"\(self.txtLName.text!)",
-                    "user[website]" : "\(self.txtWeb.text!)",
-                    "user[bio]" : "\(self.txtBio.text!)",
-                    "user[email]" : "\(self.txtMail.text!)",
-                    "user[online]" : self.swtOnline.isOn == true ? "true" : "false",
-                    "user[phone]" : "\(self.txtPhone.text!)",
-                    "user[address]" : "\(self.txtAddress.text ?? "")",
-                    "user[contact_me]" : self.btnContactMe.titleLabel?.text ?? "Everyone"
-                    
-                ]
+            ]
+            
+            DispatchQueue.global().async {
                 
                 let arrResponse = self.objDataS.uploadFilesToServer(dictAction: dictAction, arrImages: (self.objHeader?.arrImage)!)
                 
@@ -589,6 +589,7 @@ class EditProfileViewController: ParentViewController, UITableViewDelegate, UITa
                         kAppDelegate.hideLoadingIndicator()
                     }
                 }
+                
             }
             
         }

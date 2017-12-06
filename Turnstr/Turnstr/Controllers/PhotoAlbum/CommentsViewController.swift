@@ -81,7 +81,7 @@ class CommentsViewController: UIViewController, UITextViewDelegate, ServiceUtili
             return
         }
         kAppDelegate.loadingIndicationCreationMSG(msg: "Posting...")
-        self.postPhotoComment(id: (objPhoto?.id)!, comment: txtViewAddComment.text) { (response) in
+        self.postPhotoComment(id: (objPhoto?.id)!, comment: txtViewAddComment.text.encode()) { (response) in
             if let comment = response?.response {
                 self.arrComments.append(comment)
                 self.txtViewAddComment.text = ""
@@ -154,7 +154,7 @@ extension CommentsViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         if let lblComment = cell.viewWithTag(1003) as? UILabel {
-            lblComment.text = arrComments[indexPath.row].body
+            lblComment.text = arrComments[indexPath.row].body?.decode()
         }
         
         if let lblTime = cell.viewWithTag(1002) as? UILabel {
