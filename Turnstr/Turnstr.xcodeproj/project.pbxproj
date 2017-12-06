@@ -1148,7 +1148,7 @@
 				TargetAttributes = {
 					D9FDE60D1EC2263C009D5BE3 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = XXPSXL3JLY;
+						DevelopmentTeam = 23XBCM8RPS;
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -1594,12 +1594,12 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Turnstr/Turnstr.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = XXPSXL3JLY;
+				DEVELOPMENT_TEAM = 23XBCM8RPS;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Turnstr/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.rocky.turnstr;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sleekgeek.turnstr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1617,12 +1617,12 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Turnstr/Turnstr.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = XXPSXL3JLY;
+				DEVELOPMENT_TEAM = 23XBCM8RPS;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Turnstr/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.rocky.turnstr;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sleekgeek.turnstr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";

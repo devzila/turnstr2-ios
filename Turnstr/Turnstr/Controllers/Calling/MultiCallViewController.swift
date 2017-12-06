@@ -38,6 +38,8 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
     @IBOutlet weak var btnAddUser: UIButton!
     @IBOutlet weak var uvTopBar: UIView!
     @IBOutlet weak var btnBack: UIButton!
+    @IBOutlet weak var btnSend: UIButton?
+    @IBOutlet weak var tblView: UITableView?
     @IBOutlet weak var uvBottomBar: UIView!
     @IBOutlet weak var bottomBarHeight: NSLayoutConstraint!
     
@@ -71,6 +73,7 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
             
             break
         }
+        
         
         if screenTYPE == .goLive {
             btnAddUser.isHidden = true
@@ -250,7 +253,6 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
     func callSubscriberApi() {
         print(self.recieverId)
         kBQ_startCall .async {
-            //let response = DataServiceModal.sharedInstance.ApiPostRequest(PostURL: "members/\(self.recieverId)/invite", dictData: [:])
             let response = DataServiceModal.sharedInstance.ApiPostRequest(PostURL: "user/live_notify", dictData: [:])
             print(response)
             if response.count > 0 {
@@ -271,12 +273,15 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
         }
         
         kToken = kPublisherToken
-        //kTokBoxSessionID = "2_MX40NTkxMDM5Mn5-MTUxMDA4MDA0MDc1OX5vYXNveWZzVVZwazk3L1ZUVVErZHEvUUh-fg"
-        //kToken = "T1==cGFydG5lcl9pZD00NTkxMDM5MiZzaWc9ZGViOGZlYTQ1ZDUyNGZmNjA1ZmEyZjgyMmYxY2NmZDI3ZjcyNGU0Mzpyb2xlPXB1Ymxpc2hlciZzZXNzaW9uX2lkPTJfTVg0ME5Ua3hNRE01TW41LU1UVXhNREE0TURBME1EYzFPWDV2WVhOdmVXWnpWVlp3YXprM0wxWlVWVkVyWkhFdlVVaC1mZyZjcmVhdGVfdGltZT0xNTEwMTQwMzc4Jm5vbmNlPTAuODc3MTIxOTU3NzU4NzgwMg=="
-        
         print("TokenTok: \(kToken)")
         print("SessionTok: \(kTokBoxSessionID)")
         session.connect(withToken: kToken, error: &error)
+        
+        var err: OTError?
+        session.signal(withType: "Chat", string: "hi", connection: session.connection, error: &err)
+        if let err = err {
+            KBLog.log(err.debugDescription)
+        }
     }
     
 }
@@ -447,6 +452,13 @@ extension MultiCallViewController: OTSessionDelegate {
     
     func session(_ session: OTSession, didFailWithError error: OTError) {
         print("session Failed to connect: \(error.localizedDescription)")
+    }
+    
+    func session(_ session: OTSession, receivedSignalType type: String?, from connection: OTConnection?, with string: String?) {
+        if type == "Chat" {
+            KBLog.log(message: "chat message", object: string)
+            KBLog.log(message: "chat message", object: session.connection?.connectionId)
+        }
     }
 }
 
