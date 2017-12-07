@@ -38,7 +38,7 @@ class LoginViewController: ParentViewController {
     
     @IBAction func LoginClicked(_ sender: Any) {
         //LoadHomeScreen()
-        return
+//        return
         IQKeyboardDismiss()
         
         let (status, field) = objUtil.validationsWithField(fields: [txtUsername, txtPassword])
@@ -61,7 +61,7 @@ class LoginViewController: ParentViewController {
     
     @IBAction func FbLogin(_ sender: Any) {
         
-        return
+//        return
         // Facebook login **Ketan**
         let loginManager = LoginManager()
         loginManager.loginBehavior = .native

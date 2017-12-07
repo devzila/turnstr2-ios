@@ -42,6 +42,10 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
     @IBOutlet weak var tblView: UITableView?
     @IBOutlet weak var uvBottomBar: UIView!
     @IBOutlet weak var bottomBarHeight: NSLayoutConstraint!
+    @IBOutlet weak var commentView: UIView?
+    @IBOutlet weak var txtCommentView: UITextView?
+    
+    lazy var comments: [String] = [String]()
     
     var subscribers: [IndexPath: OTSubscriber] = [:]
     lazy var session: OTSession = {
@@ -79,7 +83,6 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
             btnAddUser.isHidden = true
             btnBack.isHidden = false
             btnBack.imageView?.contentMode = .scaleAspectFit
-            //uvTopBar.backgroundColor = UIColor.clear
             endCallButton.setTitle("End Session", for: .normal)
         }
         
@@ -90,7 +93,6 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
             collectionView.layoutIfNeeded()
         }
         
-        //session.connect(withToken: kToken, error: &error)
         
         startConnectingTokBox()
         userName.text = UIDevice.current.name
@@ -452,13 +454,6 @@ extension MultiCallViewController: OTSessionDelegate {
     
     func session(_ session: OTSession, didFailWithError error: OTError) {
         print("session Failed to connect: \(error.localizedDescription)")
-    }
-    
-    func session(_ session: OTSession, receivedSignalType type: String?, from connection: OTConnection?, with string: String?) {
-        if type == "Chat" {
-            KBLog.log(message: "chat message", object: string)
-            KBLog.log(message: "chat message", object: session.connection?.connectionId)
-        }
     }
 }
 
