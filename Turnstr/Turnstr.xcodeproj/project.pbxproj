@@ -72,6 +72,7 @@
 		8A26302F1F33B3CA00F55C2B /* ChatParentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A26302E1F33B3CA00F55C2B /* ChatParentVC.swift */; };
 		8A9C6B071F5745560095230B /* AppDelegateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9C6B061F5745560095230B /* AppDelegateExtension.swift */; };
 		8AA228471F8F849200D4313E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8AA228461F8F7FBF00D4313E /* GoogleService-Info.plist */; };
+		8AB03AD01FD94BAA00D39662 /* MultiCallChatHandlingExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB03ACF1FD94BAA00D39662 /* MultiCallChatHandlingExtension.swift */; };
 		8AE0E2BE1F29007900A28422 /* Costant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE0E2BD1F29007900A28422 /* Costant.swift */; };
 		8AE0E2C01F291AFB00A28422 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE0E2BF1F291AFB00A28422 /* User.swift */; };
 		8AEC2C751F1693E9008DF3BB /* TabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEC2C741F1693E9008DF3BB /* TabbarController.swift */; };
@@ -279,6 +280,7 @@
 		8A8796B91F55F7A7001B01D6 /* Turnstr.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Turnstr.entitlements; sourceTree = "<group>"; };
 		8A9C6B061F5745560095230B /* AppDelegateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegateExtension.swift; sourceTree = "<group>"; };
 		8AA228461F8F7FBF00D4313E /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		8AB03ACF1FD94BAA00D39662 /* MultiCallChatHandlingExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiCallChatHandlingExtension.swift; sourceTree = "<group>"; };
 		8AE0E2BD1F29007900A28422 /* Costant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Costant.swift; sourceTree = "<group>"; };
 		8AE0E2BF1F291AFB00A28422 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		8AEC2C741F1693E9008DF3BB /* TabbarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabbarController.swift; sourceTree = "<group>"; };
@@ -931,6 +933,7 @@
 			children = (
 				D9C3E1DC1FB0F5A9000A9F7A /* DefaultAudioDevice.swift */,
 				D9C3E1E01FB1D604000A9F7A /* MultiCallViewController.swift */,
+				8AB03ACF1FD94BAA00D39662 /* MultiCallChatHandlingExtension.swift */,
 			);
 			path = Calling;
 			sourceTree = "<group>";
@@ -1150,7 +1153,7 @@
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = XXPSXL3JLY;
 						LastSwiftMigration = 0820;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -1462,6 +1465,7 @@
 				D957F3211F436D0300307968 /* AllExtensions.swift in Sources */,
 				D9FDE63D1EC22C55009D5BE3 /* Header.swift in Sources */,
 				8A2630161F30EBF600F55C2B /* TableViewDataSources.swift in Sources */,
+				8AB03AD01FD94BAA00D39662 /* MultiCallChatHandlingExtension.swift in Sources */,
 				8A1104DD1F5DC0D9009FFE0C /* StartCallConvertible.swift in Sources */,
 				D9C3E1DD1FB0F5A9000A9F7A /* DefaultAudioDevice.swift in Sources */,
 				D963665F1F035BD100784A58 /* SDImageCache.m in Sources */,
@@ -1594,8 +1598,8 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Turnstr/Turnstr.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = XXPSXL3JLY;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Turnstr/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -1603,7 +1607,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.rocky.turnstr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = Turnstr_5dec17;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Turnstr/Turnstr-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -1618,8 +1622,8 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Turnstr/Turnstr.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = XXPSXL3JLY;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Turnstr/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
