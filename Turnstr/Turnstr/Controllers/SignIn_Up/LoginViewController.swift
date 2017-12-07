@@ -25,8 +25,8 @@ class LoginViewController: ParentViewController {
             return
         }
         
-        txtUsername.text = "bb@bb.bb"
-        txtPassword.text = "12345678"
+        //txtUsername.text = "bb@bb.bb"
+        //txtPassword.text = "12345678"
     }
     
     override func didReceiveMemoryWarning() {
