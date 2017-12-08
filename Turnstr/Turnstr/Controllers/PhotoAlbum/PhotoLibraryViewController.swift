@@ -93,6 +93,7 @@ extension PhotoLibraryViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: photoAlbumIdentifier, for: indexPath as IndexPath) as UICollectionViewCell
         if let imgView = cell.viewWithTag(1001) as? UIImageView {
             if let coverImage = self.arrPhotoAlbum[indexPath.row].cover_image_url {
+                print(coverImage)
                 imgView.sd_setImage(with: URL(string: coverImage), placeholderImage: #imageLiteral(resourceName: "placeholder"))
             }
         }

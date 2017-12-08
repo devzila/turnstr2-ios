@@ -8,7 +8,7 @@
 
 import UIKit
 import Photos
-import Sharaku
+
 
 class CameraViewController: ParentViewController, UICollectionViewDelegate, UICollectionViewDataSource, CameraViewDelegates, VideoDelegate {
     

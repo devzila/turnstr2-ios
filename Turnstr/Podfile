@@ -39,7 +39,7 @@ pod 'GrowingTextView'
 pod 'OpenTok'
 
 #Filter
-pod 'Sharaku'
+#pod 'Sharaku'
 
 
 
