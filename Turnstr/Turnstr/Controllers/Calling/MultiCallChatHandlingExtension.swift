@@ -63,17 +63,18 @@ extension MultiCallViewController: UITableViewDelegate {
 
 
 extension MultiCallViewController: UITextViewDelegate {
-    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         if textView.text == "Write here" {
             textView.text = ""
         }
         return true
     }
     
-    func textViewDidEndEditing(_ textView: UITextView) {
+    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
         if textView.text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) == "" {
             textView.text = "Write here"
         }
+        return true
     }
 }
 
