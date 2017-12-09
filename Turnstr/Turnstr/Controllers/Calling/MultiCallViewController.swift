@@ -44,6 +44,7 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
     @IBOutlet weak var bottomBarHeight: NSLayoutConstraint!
     @IBOutlet weak var commentView: UIView?
     @IBOutlet weak var txtCommentView: UITextView?
+    @IBOutlet weak var bottomConstraintCommentView: NSLayoutConstraint?
     
     lazy var comments: [String] = [String]()
     
@@ -77,13 +78,14 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
             
             break
         }
-        
-        
+        tblView?.backgroundColor = .clear
+        tblView?.transform = CGAffineTransform(rotationAngle: -.pi)
         if screenTYPE == .goLive {
             btnAddUser.isHidden = true
             btnBack.isHidden = false
             btnBack.imageView?.contentMode = .scaleAspectFit
             endCallButton.setTitle("End Session", for: .normal)
+            commentView?.isHidden = true
         }
         
         if screenTYPE == .goLive && userType == .receiver {
@@ -91,21 +93,27 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
             bottomBarHeight.constant = 1
             uvBottomBar.layoutIfNeeded()
             collectionView.layoutIfNeeded()
+            commentView?.isHidden = false
         }
         
         
         startConnectingTokBox()
         userName.text = UIDevice.current.name
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: .UIKeyboardWillShow, object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         UIApplication.shared.isIdleTimerDisabled = false
+        IQKeyboardManager.sharedManager().enable = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
         UIApplication.shared.isIdleTimerDisabled = true
         resetSubscriberViews()
+        IQKeyboardManager.sharedManager().enable = false
     }
     
     func resetSubscriberViews() {
