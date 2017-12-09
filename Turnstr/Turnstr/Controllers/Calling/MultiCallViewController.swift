@@ -224,6 +224,7 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
             if self.screenTYPE == .goLive {
                 self.recieverId = "0"
             }
+            //call_type
             let response = DataServiceModal.sharedInstance.ApiPostRequest(PostURL: "user/live_session", dictData: ["invitees[]":"\(self.recieverId)"])
             print(response)
             if response.count > 0 {
