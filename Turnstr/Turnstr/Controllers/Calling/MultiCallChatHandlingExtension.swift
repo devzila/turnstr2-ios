@@ -46,6 +46,7 @@ extension MultiCallViewController: UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "comment") else { return UITableViewCell() }
+        cell.contentView.backgroundColor = .clear
         cell.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         cell.textLabel?.textColor = UIColor.white
         cell.textLabel?.font = UIFont.systemFont(ofSize: 14)

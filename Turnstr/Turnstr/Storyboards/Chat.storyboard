@@ -554,6 +554,16 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="sbi-6W-euW"/>
                                 </constraints>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="comment" id="DXT-zZ-gkn">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DXT-zZ-gkn" id="TBt-Ep-SoM">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="fvz-dK-Wtm" id="DqX-dV-h9F"/>
                                     <outlet property="delegate" destination="fvz-dK-Wtm" id="E71-mm-Wfu"/>
