@@ -21,11 +21,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+import Foundation
 import UIKit
 
 /**
-UIView.subviews sorting category.
-*/
+ UIView.subviews sorting category.
+ */
 internal extension Array {
     
     ///--------------
@@ -33,8 +34,8 @@ internal extension Array {
     ///--------------
     
     /**
-    Returns the array by sorting the UIView's by their tag property.
-    */
+     Returns the array by sorting the UIView's by their tag property.
+     */
     internal func sortedArrayByTag() -> [Element] {
         
         return sorted(by: { (obj1 : Element, obj2 : Element) -> Bool in
@@ -47,8 +48,8 @@ internal extension Array {
     }
     
     /**
-    Returns the array by sorting the UIView's by their tag property.
-    */
+     Returns the array by sorting the UIView's by their tag property.
+     */
     internal func sortedArrayByPosition() -> [Element] {
         
         return sorted(by: { (obj1 : Element, obj2 : Element) -> Bool in

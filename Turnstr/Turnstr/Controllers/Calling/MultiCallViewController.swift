@@ -11,6 +11,8 @@ import OpenTok
 
 class MultiCallViewController: ParentViewController, UserListDelegate {
 
+    let kDisconnectGoLive = "DisconnectGo_Live"
+    let kDisconnectVideoCall = "Disconnect_videoCall"
     
     var kTokBoxSessionID = ""
     var kPublisherToken = ""
@@ -100,20 +102,20 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
         startConnectingTokBox()
         userName.text = UIDevice.current.name
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: .UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: .UIKeyboardWillShow, object: nil)
+        //NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: .UIKeyboardWillShow, object: nil)
+        //NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: .UIKeyboardWillShow, object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         UIApplication.shared.isIdleTimerDisabled = false
-        IQKeyboardManager.sharedManager().enable = true
+        //IQKeyboardManager.sharedManager().enable = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
         UIApplication.shared.isIdleTimerDisabled = true
         resetSubscriberViews()
-        IQKeyboardManager.sharedManager().enable = false
+        //IQKeyboardManager.sharedManager().enable = false
     }
     
     func resetSubscriberViews() {
@@ -171,12 +173,38 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
     }
     
     @IBAction func endCallAction(_ sender: AnyObject) {
-        session.disconnect(&error)
-        kAppDelegate.hideLoadingIndicator()
-        if let call = kAppDelegate.onGoingCall {
-            kAppDelegate.callManager.end(call: call)
+        
+        if screenTYPE == .goLive && userType == .caller {
+            //
+            // Disconnect the call
+            //
+            var err: OTError?
+            session.signal(withType: kDisconnectGoLive, string: objSing.strUserID, connection: nil, error: &err)
+            if let err = err {
+                KBLog.log(err.debugDescription)
+            }
         }
-        self.goBack()
+        else if screenTYPE == .videoCall {
+            
+            //
+            // Disconnect the call
+            //
+            var err: OTError?
+            session.signal(withType: kDisconnectVideoCall, string: objSing.strUserID, connection: nil, error: &err)
+            if let err = err {
+                KBLog.log(err.debugDescription)
+            }
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.session.disconnect(&self.error)
+            kAppDelegate.hideLoadingIndicator()
+            if let call = kAppDelegate.onGoingCall {
+                kAppDelegate.callManager.end(call: call)
+            }
+            self.goBack()
+        }
+        
     }
     
     func reloadCollectionView() {

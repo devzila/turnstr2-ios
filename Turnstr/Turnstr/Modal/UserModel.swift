@@ -75,6 +75,7 @@ struct UserModel: Mappable {
         avatar_face4 <- map["avatar_face4"]
         avatar_face5 <- map["avatar_face5"]
         avatar_face6 <- map["avatar_face6"]
+        is_verified <- map["is_verified"]
     }
     
     func encodeToJSON() -> [String : Any] {

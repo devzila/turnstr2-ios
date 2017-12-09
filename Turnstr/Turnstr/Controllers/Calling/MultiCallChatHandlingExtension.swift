@@ -18,15 +18,17 @@ extension MultiCallViewController {
             dismissAlert(title: "Alert!", message: "Enter comment to post")
             return
         }
-        let message = "\(loginUser.name):  \(txtCommentView?.text ?? "")"
+        let message = "\(loginUser.name ?? ""):  \(txtCommentView?.text ?? "")"
         var err: OTError?
         session.signal(withType: "Chat", string: message, connection: nil, error: &err)
         if let err = err {
             KBLog.log(err.debugDescription)
         }
+        txtCommentView?.text = ""
     }
     
     func session(_ session: OTSession, receivedSignalType type: String?, from connection: OTConnection?, with string: String?) {
+        print("Signal received. \(type ?? "")")
         if type == "Chat" {
             KBLog.log(message: "chat message", object: string)
             KBLog.log(message: "chat message", object: session.connection?.connectionId)
@@ -35,6 +37,21 @@ extension MultiCallViewController {
                 view.bringSubview(toFront: tbl)
             }
             tblView?.reloadData()
+            tblView?.scrollToBottom()
+            
+        }
+        else if type == kDisconnectGoLive {
+            if string != objSing.strUserID {
+                self.endCallAction(endCallButton)
+            }
+        }
+        else if type == kDisconnectVideoCall {
+            if subscribers.count <= 1 {
+                if string != objSing.strUserID {
+                    self.endCallAction(endCallButton)
+                }
+            }
+            
         }
     }
 }

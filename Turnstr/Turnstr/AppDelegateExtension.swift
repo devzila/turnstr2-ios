@@ -106,16 +106,66 @@ extension AppDelegate: UNUserNotificationCenterDelegate{
     
     @available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        print("didReceive response: \(response.notification.request.content.userInfo)")
+        redirectApns(response.notification.request.content.userInfo)
         completionHandler()
     }
     
     @available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.alert, .sound])
+        print("willPresent notification: \(notification.request.content.userInfo)")
+        redirectApns(notification.request.content.userInfo)
+        //completionHandler([.alert, .sound])
     }
     
     func redirectApns(_ userInfo: [AnyHashable: Any]){
-        Utility.sharedInstance.showAlert(title: "Alert", forMsg: "\(userInfo)")
+        
+        if userInfo.count > 0 {
+            let info = userInfo
+            KBLog.log(message: "Receive Push redirectApns: ", object: info)
+            guard let aps = info["aps"] as? [String: Any],
+                let alert = aps["alert"] as? [String: Any],
+                let name = alert["body"] as? String
+                else {return}
+            var caller = Caller(name: name)
+            caller.sessionId = "\(info["caller_tokbox_session_id"] ?? "")"
+            caller.token = "\(info["token"] ?? "")"
+            caller.udid = "\(info["udid"] ?? "")"
+            caller.isCalling = false
+            
+            let callType = "\(info["call_type"] ?? "")"
+            
+            if callType == "go_live_subscription" {
+                AppDelegate.shared?.caller = caller
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+                    let alertView = UIAlertController(title: "\(name)", message: "Do you want to join?", preferredStyle: .alert)
+                    let action = UIAlertAction(title: "YES", style: .default, handler: { (alert) in
+                        
+                        let storyboard = UIStoryboard(name: "Chat", bundle: nil)
+                        let vc: MultiCallViewController = storyboard.instantiateViewController(withIdentifier: "MultiCallViewController") as! MultiCallViewController
+                        vc.userType = .receiver
+                        vc.screenTYPE = .goLive
+                        vc.kPublisherToken = caller.token ?? ""
+                        vc.kTokBoxSessionID = caller.sessionId ?? ""
+                        self.topVC?.navigationController?.pushViewController(vc, animated: false)
+                        
+                    })
+                    alertView.addAction(action)
+                    
+                    let cancel = UIAlertAction(title: "NO", style: .destructive, handler: { (alert) in
+                        
+                    })
+                    alertView.addAction(cancel)
+                    self.topVC?.navigationController?.present(alertView, animated: true, completion: nil)
+                    
+                }
+                
+                
+                return
+            }
+        }
+        
     }
 }
 

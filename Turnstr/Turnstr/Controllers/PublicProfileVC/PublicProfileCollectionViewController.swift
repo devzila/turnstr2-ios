@@ -16,6 +16,8 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
     var profileDict = [[String:Any]]()
     var profileId: Int?
     
+    var imgVerified = UIImageView()
+    
     @IBOutlet weak var collViewPublicProfile: UICollectionView!
     @IBOutlet weak var viewPreferences: UIView!
     
@@ -49,6 +51,8 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupVerifiedMark()
+        
         // Do any additional setup after loading the view.
         pageNumberFave5 = 1
         arrFav5.removeAll()
@@ -85,9 +89,11 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
             uvTopCube.isHidden = true
             lblPostLeft.isHidden = true
             lblPostRight.isHidden = true
+            imgVerified.isHidden = true
         } else {
             viewPreferences.isHidden = false
             uvTopCube.isHidden = false
+            imgVerified.isHidden = false
         }
         
         searchBar.isHidden = !isFromFeeds
@@ -117,6 +123,16 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
                 self.lblPostRight.attributedText = postDetail
                 
                 self.setUserCube(objModel: objModel)
+                
+                if objModel.is_verified == 0 {
+                    self.imgVerified.isHidden = true
+                } else {
+                    self.imgVerified.isHidden = false
+                }
+                if self.getUserId() == userID {
+                    self.imgVerified.isHidden = true
+                }
+                
                 
                 if objModel.favourite! {
                     self.btnFave5.backgroundColor = UIColor(hexString: "00C7FF")
@@ -265,6 +281,13 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
         
     }
     
+    //MARK:-
+    func setupVerifiedMark() {
+        imgVerified.frame = CGRect.init(x: uvTopCube.frame.maxX-25, y: uvTopCube.frame.minY-5, width: 30, height: 30)
+        imgVerified.image = #imageLiteral(resourceName: "verify")
+        imgVerified.contentMode = .scaleAspectFit
+        self.view.addSubview(imgVerified)
+    }
     // MARK: - UICollectionViewDataSource protocol
     
     // tell the collection view how many cells to make

@@ -15,7 +15,7 @@ import UIKit
 class PickerView: UIPickerView, UIPickerViewDataSource, UIPickerViewDelegate {
 
     
-    var keyboardToolbar = UIToolbar()
+    var keyboardToolbar1 = UIToolbar()
     var arrRows = NSArray()
     
     var lblHEading = UILabel()
@@ -83,11 +83,11 @@ class PickerView: UIPickerView, UIPickerViewDataSource, UIPickerViewDelegate {
     }
     
     func addDoneAndCancelButton(inView: UIView, yCo: CGFloat) -> Void {
-        self.keyboardToolbar.removeFromSuperview()
+        self.keyboardToolbar1.removeFromSuperview()
         self.resignFirstResponder()
-        keyboardToolbar = UIToolbar.init(frame: CGRect.init(x: 0, y: yCo, width: kWidth, height: 44))
-        keyboardToolbar.barStyle = .blackTranslucent
-        keyboardToolbar.sizeToFit()
+        keyboardToolbar1 = UIToolbar.init(frame: CGRect.init(x: 0, y: yCo, width: kWidth, height: 44))
+        keyboardToolbar1.barStyle = .blackTranslucent
+        keyboardToolbar1.sizeToFit()
         
         let flexButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: self, action: nil)
         
@@ -95,20 +95,20 @@ class PickerView: UIPickerView, UIPickerViewDataSource, UIPickerViewDelegate {
         doneButton.tintColor = UIColor.white
         
         let itemsArray:Array = [flexButton, doneButton]
-        keyboardToolbar.items = itemsArray
-        inView.addSubview(keyboardToolbar)
+        keyboardToolbar1.items = itemsArray
+        inView.addSubview(keyboardToolbar1)
         
     }
 
     func closePicker() -> Void {
-        self.keyboardToolbar.removeFromSuperview()
+        self.keyboardToolbar1.removeFromSuperview()
         self.removeFromSuperview()
         
         delegatePicker?.MyPIckerViewdidselectRow!(controller: self, selectedINdex: self.selectedRow(inComponent: 0))
     }
     
     func cancelPicker() -> Void {
-        self.keyboardToolbar.removeFromSuperview()
+        self.keyboardToolbar1.removeFromSuperview()
         self.removeFromSuperview()
     }
 }

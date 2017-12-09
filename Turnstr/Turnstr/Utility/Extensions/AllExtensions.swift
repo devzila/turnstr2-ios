@@ -84,4 +84,14 @@ extension UITableView {
         }
         
     }
+    
+    func scrollTableToTop(){
+        let nor = self.numberOfRows(inSection: 0)
+        if nor > 0 {
+            let indexPath = IndexPath(row: 0, section: 0)
+            self.scrollToRow(at: indexPath, at: .top, animated: true)
+        }
+        
+    }
+    
 }

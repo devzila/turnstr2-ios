@@ -29,15 +29,15 @@ import Foundation
 ///-----------------------------------
 
 /**
-`IQAutoToolbarBySubviews`
-Creates Toolbar according to subview's hirarchy of Textfield's in view.
-
-`IQAutoToolbarByTag`
-Creates Toolbar according to tag property of TextField's.
-
-`IQAutoToolbarByPosition`
-Creates Toolbar according to the y,x position of textField in it's superview coordinate.
-*/
+ `IQAutoToolbarBySubviews`
+ Creates Toolbar according to subview's hirarchy of Textfield's in view.
+ 
+ `IQAutoToolbarByTag`
+ Creates Toolbar according to tag property of TextField's.
+ 
+ `IQAutoToolbarByPosition`
+ Creates Toolbar according to the y,x position of textField in it's superview coordinate.
+ */
 public enum IQAutoToolbarManageBehaviour : Int {
     case bySubviews
     case byTag
@@ -64,7 +64,7 @@ public enum IQPreviousNextDisplayMode : Int {
  
  /---------------------------------------------------------------------------------------------------\
  \---------------------------------------------------------------------------------------------------/
- |                                   iOS NSNotification Mechanism                                    |
+ |                                   iOS Notification Mechanism                                    |
  /---------------------------------------------------------------------------------------------------\
  \---------------------------------------------------------------------------------------------------/
  
@@ -134,3 +134,4 @@ public enum IQPreviousNextDisplayMode : Int {
  - UIKeyboardDidShowNotification
  
  */
+

@@ -25,30 +25,17 @@
 import UIKit
 
 /**
-UIView hierarchy category.
-*/
+ UIView hierarchy category.
+ */
 public extension UIView {
     
-    ///------------------------------
-    /// MARK: canBecomeFirstResponder
-    ///------------------------------
-    
-    /**
-    Returns YES if IQKeyboardManager asking for `canBecomeFirstResponder. Useful when doing custom work in `textFieldShouldBeginEditing:` delegate.
-    */
-    @available(*,deprecated, message: "isAskingCanBecomeFirstResponder property was come to existence as a workaround to handle `textFieldShouldBeginEditing:` multiple call issue, but we removed `canBecomeFirstResponder` method call from library, now this property make no sense and will be removed in future releases. From now this property will always return false because of not calling `canBecomeFirstResponder` method. Please update your code/logic in `textFieldShouldBeginEditing:` method.")
-    public var isAskingCanBecomeFirstResponder: Bool {
-        
-        return false
-    }
-
     ///----------------------
     /// MARK: viewControllers
     ///----------------------
-
+    
     /**
-    Returns the UIViewController object that manages the receiver.
-    */
+     Returns the UIViewController object that manages the receiver.
+     */
     public func viewController()->UIViewController? {
         
         var nextResponder: UIResponder? = self
@@ -66,29 +53,29 @@ public extension UIView {
     }
     
     /**
-    Returns the topMost UIViewController object in hierarchy.
-    */
+     Returns the topMost UIViewController object in hierarchy.
+     */
     public func topMostController()->UIViewController? {
         
         var controllersHierarchy = [UIViewController]()
-
+        
         if var topController = window?.rootViewController {
             controllersHierarchy.append(topController)
-
+            
             while topController.presentedViewController != nil {
                 
                 topController = topController.presentedViewController!
-
+                
                 controllersHierarchy.append(topController)
             }
             
             var matchController :UIResponder? = viewController()
-
+            
             while matchController != nil && controllersHierarchy.contains(matchController as! UIViewController) == false {
                 
                 repeat {
                     matchController = matchController?.next
-
+                    
                 } while matchController != nil && matchController is UIViewController == false
             }
             
@@ -105,10 +92,10 @@ public extension UIView {
     ///-----------------------------------
     
     /**
-    Returns the superView of provided class type.
-    */
+     Returns the superView of provided class type.
+     */
     public func superviewOfClassType(_ classType:UIView.Type)->UIView? {
-
+        
         var superView = superview
         
         while let unwrappedSuperView = superView {
@@ -119,14 +106,18 @@ public extension UIView {
                 if unwrappedSuperView.isKind(of: UIScrollView.self) {
                     
                     let classNameString = NSStringFromClass(type(of:unwrappedSuperView.self))
-
-                    //UITableViewCellScrollView, UITableViewWrapperView, _UIQueuingScrollView
-                    if ((classNameString.hasPrefix("UITableView") && (classNameString.hasSuffix("CellScrollView") || classNameString.hasSuffix("WrapperView"))) || classNameString.hasPrefix("_") == true) == false {
-                        return superView;
+                    
+                    //  If it's not UITableViewWrapperView class, this is internal class which is actually manage in UITableview. The speciality of this class is that it's superview is UITableView.
+                    //  If it's not UITableViewCellScrollView class, this is internal class which is actually manage in UITableviewCell. The speciality of this class is that it's superview is UITableViewCell.
+                    //If it's not _UIQueuingScrollView class, actually we validate for _ prefix which usually used by Apple internal classes
+                    if unwrappedSuperView.superview?.isKind(of: UITableView.self) == false &&
+                        unwrappedSuperView.superview?.isKind(of: UITableViewCell.self) == false &&
+                        classNameString.hasPrefix("_") == false {
+                        return superView
                     }
                 }
                 else {
-                    return superView;
+                    return superView
                 }
             }
             
@@ -135,32 +126,32 @@ public extension UIView {
         
         return nil
     }
-
+    
     /**
-    Returns all siblings of the receiver which canBecomeFirstResponder.
-    */
+     Returns all siblings of the receiver which canBecomeFirstResponder.
+     */
     public func responderSiblings()->[UIView] {
-
+        
         //Array of (UITextField/UITextView's).
         var tempTextFields = [UIView]()
-
-        //	Getting all siblings
+        
+        //    Getting all siblings
         if let siblings = superview?.subviews {
             
             for textField in siblings {
                 
-                if textField._IQcanBecomeFirstResponder() == true {
+                if (textField == self || textField.ignoreSwitchingByNextPrevious == false) && textField._IQcanBecomeFirstResponder() == true {
                     tempTextFields.append(textField)
                 }
             }
         }
-
+        
         return tempTextFields
     }
     
     /**
-    Returns all deep subViews of the receiver which canBecomeFirstResponder.
-    */
+     Returns all deep subViews of the receiver which canBecomeFirstResponder.
+     */
     public func deepResponderViews()->[UIView] {
         
         //Array of (UITextField/UITextView's).
@@ -168,10 +159,10 @@ public extension UIView {
         
         for textField in subviews {
             
-            if textField._IQcanBecomeFirstResponder() == true {
+            if (textField == self || textField.ignoreSwitchingByNextPrevious == false) && textField._IQcanBecomeFirstResponder() == true {
                 textfields.append(textField)
             }
-
+            
             //Sometimes there are hidden or disabled views and textField inside them still recorded, so we added some more validations here (Bug ID: #458)
             //Uncommented else (Bug ID: #625)
             if textField.subviews.count != 0  && isUserInteractionEnabled == true && isHidden == false && alpha != 0.0 {
@@ -186,7 +177,7 @@ public extension UIView {
             
             let frame1 = view1.convert(view1.bounds, to: self)
             let frame2 = view2.convert(view2.bounds, to: self)
-
+            
             let x1 = frame1.minX
             let y1 = frame1.minY
             let x2 = frame2.minX
@@ -212,19 +203,19 @@ public extension UIView {
         }
         
         if _IQcanBecomeFirstResponder == true {
-            _IQcanBecomeFirstResponder = (isUserInteractionEnabled == true && isHidden == false && alpha != 0.0 && isAlertViewTextField() == false && isSearchBarTextField() == false) as Bool
+            _IQcanBecomeFirstResponder = isUserInteractionEnabled == true && isHidden == false && alpha != 0.0 && isAlertViewTextField() == false && isSearchBarTextField() == false
         }
-
+        
         return _IQcanBecomeFirstResponder
     }
-
+    
     ///-------------------------
     /// MARK: Special TextFields
     ///-------------------------
     
     /**
-    Returns YES if the receiver object is UISearchBarTextField, otherwise return NO.
-    */
+     Returns YES if the receiver object is UISearchBarTextField, otherwise return NO.
+     */
     public func isSearchBarTextField()-> Bool {
         
         var searchBar : UIResponder? = self.next
@@ -247,8 +238,8 @@ public extension UIView {
     }
     
     /**
-    Returns YES if the receiver object is UIAlertSheetTextField, otherwise return NO.
-    */
+     Returns YES if the receiver object is UIAlertSheetTextField, otherwise return NO.
+     */
     public func isAlertViewTextField()->Bool {
         
         var alertViewController : UIResponder? = self.viewController()
@@ -268,14 +259,14 @@ public extension UIView {
         return isAlertViewTextField
     }
     
-
+    
     ///----------------
     /// MARK: Transform
     ///----------------
     
     /**
-    Returns current view transform with respect to the 'toView'.
-    */
+     Returns current view transform with respect to the 'toView'.
+     */
     public func convertTransformToView(_ toView:UIView?)->CGAffineTransform {
         
         var newView = toView
@@ -292,7 +283,7 @@ public extension UIView {
         } else {
             myTransform = transform
         }
-    
+        
         var viewTransform = CGAffineTransform.identity
         
         //view Transform
@@ -314,27 +305,27 @@ public extension UIView {
     /// TODO: Hierarchy
     ///-----------------
     
-//    /**
-//    Returns a string that represent the information about it's subview's hierarchy. You can use this method to debug the subview's positions.
-//    */
-//    func subHierarchy()->NSString {
-//        
-//    }
-//    
-//    /**
-//    Returns an string that represent the information about it's upper hierarchy. You can use this method to debug the superview's positions.
-//    */
-//    func superHierarchy()->NSString {
-//        
-//    }
-//    
-//    /**
-//    Returns an string that represent the information about it's frame positions. You can use this method to debug self positions.
-//    */
-//    func debugHierarchy()->NSString {
-//        
-//    }
-
+    //    /**
+    //    Returns a string that represent the information about it's subview's hierarchy. You can use this method to debug the subview's positions.
+    //    */
+    //    func subHierarchy()->NSString {
+    //        
+    //    }
+    //    
+    //    /**
+    //    Returns an string that represent the information about it's upper hierarchy. You can use this method to debug the superview's positions.
+    //    */
+    //    func superHierarchy()->NSString {
+    //        
+    //    }
+    //    
+    //    /**
+    //    Returns an string that represent the information about it's frame positions. You can use this method to debug self positions.
+    //    */
+    //    func debugHierarchy()->NSString {
+    //        
+    //    }
+    
     fileprivate func depth()->Int {
         var depth : Int = 0
         
