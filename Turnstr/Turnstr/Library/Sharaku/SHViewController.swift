@@ -71,7 +71,7 @@ open class SHViewController: UIViewController {
 
     override open func viewDidLoad() {
         super.viewDidLoad()
-        let nib = UINib(nibName: "SHCollectionViewCell", bundle: Bundle(for: self.classForCoder))
+        let nib = UINib(nibName: "SHCollectionViewCell", bundle: nil)
         collectionView?.register(nib, forCellWithReuseIdentifier: "cell")
     }
 
