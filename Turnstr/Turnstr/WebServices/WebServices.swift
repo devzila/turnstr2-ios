@@ -48,7 +48,7 @@ class WebServices: NSObject {
         request .setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         if Singleton.sharedInstance.strUserSessionId != "" {
-            request .setValue(Singleton.sharedInstance.strUserSessionId, forHTTPHeaderField: "auth_token")
+            request .setValue(Singleton.sharedInstance.strUserSessionId, forHTTPHeaderField: "auth-token")
         }
         
         
@@ -140,7 +140,7 @@ class WebServices: NSObject {
         
         if Singleton.sharedInstance.strUserSessionId != "" {
             print(Singleton.sharedInstance.strUserSessionId)
-            request .setValue(Singleton.sharedInstance.strUserSessionId, forHTTPHeaderField: "auth_token")
+            request .setValue(Singleton.sharedInstance.strUserSessionId, forHTTPHeaderField: "auth-token")
         }
         
         
@@ -256,7 +256,7 @@ class WebServices: NSObject {
         // Create URL Request
         let request = NSMutableURLRequest(url:myUrl! as URL);
         if Singleton.sharedInstance.strUserSessionId != "" {
-            request .setValue(Singleton.sharedInstance.strUserSessionId, forHTTPHeaderField: "auth_token")
+            request .setValue(Singleton.sharedInstance.strUserSessionId, forHTTPHeaderField: "auth-token")
         }
         // Set request HTTP method to GET. It could be POST as well
         request.httpMethod = "GET"
@@ -358,7 +358,7 @@ class WebServices: NSObject {
         
         if Singleton.sharedInstance.strUserSessionId != "" {
             request .setValue(Singleton.sharedInstance.strUserSessionId, forHTTPHeaderField: "Authorization")
-            request .setValue(Singleton.sharedInstance.strUserSessionId, forHTTPHeaderField: "auth_token")
+            request .setValue(Singleton.sharedInstance.strUserSessionId, forHTTPHeaderField: "auth-token")
         }
         print(Singleton.sharedInstance.strUserSessionId)
         
@@ -544,7 +544,8 @@ class WebServices: NSObject {
         
         if Singleton.sharedInstance.strUserSessionId != "" {
             request .setValue(Singleton.sharedInstance.strUserSessionId, forHTTPHeaderField: "Authorization")
-            request .setValue(Singleton.sharedInstance.strUserSessionId, forHTTPHeaderField: "auth_token")
+            //request .setValue(Singleton.sharedInstance.strUserSessionId, forHTTPHeaderField: "auth_token")
+            request .setValue(Singleton.sharedInstance.strUserSessionId, forHTTPHeaderField: "auth-token")
         }
         print(Singleton.sharedInstance.strUserSessionId)
         
@@ -657,7 +658,7 @@ class WebServices: NSObject {
         request .setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         if Singleton.sharedInstance.strUserSessionId != "" {
-            request .setValue(Singleton.sharedInstance.strUserSessionId, forHTTPHeaderField: "auth_token")
+            request .setValue(Singleton.sharedInstance.strUserSessionId, forHTTPHeaderField: "auth-token")
         }
         
         
@@ -752,7 +753,7 @@ class WebServices: NSObject {
         
         if Singleton.sharedInstance.strUserSessionId != "" {
             request .setValue(Singleton.sharedInstance.strUserSessionId, forHTTPHeaderField: "Authorization")
-            request .setValue(Singleton.sharedInstance.strUserSessionId, forHTTPHeaderField: "auth_token")
+            request .setValue(Singleton.sharedInstance.strUserSessionId, forHTTPHeaderField: "auth-token")
         }
         print(Singleton.sharedInstance.strUserSessionId)
         

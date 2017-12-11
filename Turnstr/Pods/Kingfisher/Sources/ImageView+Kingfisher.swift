@@ -54,7 +54,6 @@ extension Kingfisher where Base: ImageView {
      `completionHandler` will be called with both `error` and `image` being `nil`.
      */
     @discardableResult
-    
     public func setImage(with resource: Resource?,
                          placeholder: Placeholder? = nil,
                          options: KingfisherOptionsInfo? = nil,
