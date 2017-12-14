@@ -33,7 +33,7 @@ extension MultiCallViewController {
             KBLog.log(message: "chat message", object: string)
             KBLog.log(message: "chat message", object: session.connection?.connectionId)
             if let comment = string, let tbl = tblView {
-                comments.append(comment)
+                comments.insert(comment, at: 0)
                 view.bringSubview(toFront: tbl)
             }
             tblView?.reloadData()
@@ -64,7 +64,7 @@ extension MultiCallViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "comment") else { return UITableViewCell() }
         cell.contentView.backgroundColor = .clear
-        cell.backgroundColor = UIColor.clear
+        cell.backgroundColor = .clear
         cell.textLabel?.textColor = UIColor.white
         cell.textLabel?.font = UIFont.systemFont(ofSize: 14)
         cell.textLabel?.text = comments[indexPath.row]

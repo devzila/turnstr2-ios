@@ -76,3 +76,19 @@ public enum SwapRootVCAnimationType {
     case present
     case dismiss
 }
+
+
+extension UIDevice {
+    
+    var isIPhoneX: Bool {
+        if self.userInterfaceIdiom == .phone {
+            switch UIScreen.main.nativeBounds.height {
+            case 2436:
+                return true
+            default:
+                return false
+            }
+        }
+        return false
+    }
+}

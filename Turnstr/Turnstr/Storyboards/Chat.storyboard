@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Rxi-zi-6EK">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Rxi-zi-6EK">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -50,7 +51,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D9e-Eh-MU4">
-                                        <rect key="frame" x="291" y="20" width="68" height="43"/>
+                                        <rect key="frame" x="291" y="28" width="68" height="43"/>
                                         <inset key="contentEdgeInsets" minX="8" minY="8" maxX="0.0" maxY="8"/>
                                         <state key="normal" image="chat-icon"/>
                                     </button>
@@ -60,7 +61,7 @@
                                     <constraint firstItem="1y7-zs-kFc" firstAttribute="centerX" secondItem="ceu-gD-hTS" secondAttribute="centerX" id="4rl-jc-ByC"/>
                                     <constraint firstItem="1y7-zs-kFc" firstAttribute="centerY" secondItem="ceu-gD-hTS" secondAttribute="centerY" id="6nw-Cd-NaM"/>
                                     <constraint firstAttribute="trailing" secondItem="D9e-Eh-MU4" secondAttribute="trailing" constant="16" id="9ve-db-FhQ"/>
-                                    <constraint firstItem="D9e-Eh-MU4" firstAttribute="top" secondItem="ceu-gD-hTS" secondAttribute="top" constant="20" id="IEy-hO-2jE"/>
+                                    <constraint firstItem="D9e-Eh-MU4" firstAttribute="top" secondItem="ceu-gD-hTS" secondAttribute="topMargin" id="IEy-hO-2jE"/>
                                     <constraint firstItem="XE0-22-SIO" firstAttribute="bottom" secondItem="1y7-zs-kFc" secondAttribute="bottom" id="Nw7-ZX-mFj"/>
                                     <constraint firstItem="XE0-22-SIO" firstAttribute="centerX" secondItem="1y7-zs-kFc" secondAttribute="centerX" constant="4" id="VUu-7f-JNh"/>
                                     <constraint firstAttribute="bottom" secondItem="LeX-jl-1w4" secondAttribute="bottom" constant="8" id="aDY-cu-CJt"/>
@@ -187,7 +188,7 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.933848083" green="0.96601492170000003" blue="0.97958594560000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="qlT-Vr-BVc" firstAttribute="top" secondItem="QBy-v3-t0d" secondAttribute="top" constant="25" id="0Cr-IN-B8g"/>
+                                    <constraint firstItem="qlT-Vr-BVc" firstAttribute="top" secondItem="QBy-v3-t0d" secondAttribute="topMargin" constant="-3" id="0Cr-IN-B8g"/>
                                     <constraint firstItem="5Lc-Sp-mH3" firstAttribute="centerY" secondItem="F5U-GN-E0c" secondAttribute="centerY" id="1r2-7W-woT"/>
                                     <constraint firstAttribute="trailing" secondItem="qlT-Vr-BVc" secondAttribute="trailing" constant="8" id="4hS-iN-DG2"/>
                                     <constraint firstItem="F5U-GN-E0c" firstAttribute="leading" secondItem="5Lc-Sp-mH3" secondAttribute="trailing" constant="8" id="9X9-fD-mdK"/>
@@ -548,7 +549,7 @@
                                     <outlet property="delegate" destination="fvz-dK-Wtm" id="A53-l8-dbv"/>
                                 </connections>
                             </collectionView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fSu-Yp-ysX">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fSu-Yp-ysX">
                                 <rect key="frame" x="0.0" y="417" width="375" height="200"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.2986675941780822" colorSpace="calibratedWhite"/>
                                 <constraints>
