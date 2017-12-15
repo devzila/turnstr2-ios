@@ -99,11 +99,11 @@ let kCenterW = kWidth/2
 let kCenterH = kHeight/2
 
 
-let kNavBarHeight: CGFloat = 60
+let kNavBarHeight: CGFloat = UIDevice.current.isIPhoneX ? 80 : 60
 let kNavBarHeightNew: CGFloat = 112
 
 
-let kNavBarHeightWithLogo: CGFloat = 60
+let kNavBarHeightWithLogo: CGFloat = UIDevice.current.isIPhoneX ? 80 : 60
 
 
 

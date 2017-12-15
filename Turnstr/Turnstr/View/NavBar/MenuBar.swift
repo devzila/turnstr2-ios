@@ -21,7 +21,6 @@ class MenuBar: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         self.frame = CGRect.init(x: 0, y: 0, width: kWidth, height: kNavBarHeight)
         //self.backgroundColor = UIColor.init(red: 73, green: 108, blue: 194)
         self.backgroundColor = kMenuBG
@@ -61,7 +60,8 @@ class MenuBar: UIView {
         return btnRightMenu
     }
     func navTitle(title: String, inView: UIView) -> Void {
-        lblTitle = UILabel.init(frame: CGRect.init(x: 50, y: 10, width: kWidth-100, height: kNavBarHeight-10))
+        let top: CGFloat = UIDevice.current.isIPhoneX ? 30 : 10
+        lblTitle = UILabel.init(frame: CGRect.init(x: 50, y: top, width: kWidth-100, height: kNavBarHeight-10))
         lblTitle.text = title
         lblTitle.textColor = UIColor.white
         lblTitle.textAlignment = .center
@@ -72,49 +72,57 @@ class MenuBar: UIView {
     
     
     func backButonMenu() -> UIButton {
-        btnBack = Utility.sharedInstance.createButton(xCo: 10, forY: 10, forW: 50, forH: kNavBarHeight-10, forText: "Back", textColor: UIColor.white, wifthFont: UIFont.systemFont(ofSize: 14), backColor: krgbClear)
+        let top: CGFloat = UIDevice.current.isIPhoneX ? 30 : 10
+        btnBack = Utility.sharedInstance.createButton(xCo: 10, forY: top, forW: 50, forH: kNavBarHeight-10, forText: "Back", textColor: UIColor.white, wifthFont: UIFont.systemFont(ofSize: 14), backColor: krgbClear)
         return btnBack
     }
     
     func backButonIcon() -> UIButton {
-        btnBack = Utility.sharedInstance.createButton(xCo: 0, forY: 0, forW: 40, forH: kNavBarHeight, forText: "", textColor: UIColor.white, wifthFont: UIFont.systemFont(ofSize: 12), backColor: krgbClear)
+        let top: CGFloat = UIDevice.current.isIPhoneX ? 30 : 10
+        btnBack = Utility.sharedInstance.createButton(xCo: 0, forY: top, forW: 40, forH: kNavBarHeight, forText: "", textColor: UIColor.white, wifthFont: UIFont.systemFont(ofSize: 12), backColor: krgbClear)
         btnBack.setImage(UIImage(named: "back_arrow"), for: .normal)
         return btnBack
     }
     
     func RightButonIcon() -> UIButton {
-        btnRightMenu = Utility.sharedInstance.createButton(xCo: kWidth - 45, forY: 10, forW: 40, forH: self.frame.height, forText: "", textColor: UIColor.white, wifthFont: UIFont.systemFont(ofSize: 12), backColor: krgbClear)
+        let top: CGFloat = UIDevice.current.isIPhoneX ? 30 : 10
+        btnRightMenu = Utility.sharedInstance.createButton(xCo: kWidth - 45, forY: top, forW: 40, forH: self.frame.height, forText: "", textColor: UIColor.white, wifthFont: UIFont.systemFont(ofSize: 12), backColor: krgbClear)
         btnRightMenu.setImage(#imageLiteral(resourceName: "user_icon"), for: .normal)
         btnRightMenu.backgroundColor = UIColor.clear
         return btnRightMenu
     }
     
     func LeftMenuButonIcon() -> UIButton {
-        btnBack = Utility.sharedInstance.createButton(xCo: 0, forY: 0, forW: 40, forH: kNavBarHeight, forText: "", textColor: UIColor.white, wifthFont: UIFont.systemFont(ofSize: 12), backColor:krgbClear)
+        let top: CGFloat = UIDevice.current.isIPhoneX ? 30 : 10
+        btnBack = Utility.sharedInstance.createButton(xCo: 0, forY: top, forW: 40, forH: kNavBarHeight, forText: "", textColor: UIColor.white, wifthFont: UIFont.systemFont(ofSize: 12), backColor:krgbClear)
         btnBack.setImage(UIImage(named: "toggle"), for: .normal)
         return btnBack
     }
     
     func rightMenuButton() -> UIButton {
-        btnRightMenu = Utility.sharedInstance.createButton(xCo: kWidth - 50, forY: 0, forW: 40, forH: kNavBarHeight, forText: "", textColor: UIColor.white, wifthFont: UIFont.systemFont(ofSize: 12), backColor: krgbClear)
+        let top: CGFloat = UIDevice.current.isIPhoneX ? 30 : 10
+        btnRightMenu = Utility.sharedInstance.createButton(xCo: kWidth - 50, forY: top, forW: 40, forH: kNavBarHeight, forText: "", textColor: UIColor.white, wifthFont: UIFont.systemFont(ofSize: 12), backColor: krgbClear)
         btnRightMenu.setImage(UIImage.init(named: "toggle"), for: .normal)
         return btnRightMenu
     }
     
     func leftButton(title: String) -> UIButton {
-        btnBack = Utility.sharedInstance.createButton(xCo: 0, forY: 0, forW: 60, forH: kNavBarHeight, forText: title, textColor: UIColor.white, wifthFont: UIFont.systemFont(ofSize: 14), backColor: krgbClear)
+        let top: CGFloat = UIDevice.current.isIPhoneX ? 30 : 10
+        btnBack = Utility.sharedInstance.createButton(xCo: 0, forY: top, forW: 60, forH: kNavBarHeight, forText: title, textColor: UIColor.white, wifthFont: UIFont.systemFont(ofSize: 14), backColor: krgbClear)
         
         return btnBack
     }
     
     func rightButton(title: String) -> UIButton {
-        btnRightMenu = Utility.sharedInstance.createButton(xCo: kWidth - 70, forY: 10, forW: 60, forH: kNavBarHeight-10, forText: title, textColor: UIColor.white, wifthFont: UIFont.systemFont(ofSize: 14), backColor: krgbClear)
+        let top: CGFloat = UIDevice.current.isIPhoneX ? 30 : 10
+        btnRightMenu = Utility.sharedInstance.createButton(xCo: kWidth - 70, forY: top, forW: 60, forH: kNavBarHeight-10, forText: title, textColor: UIColor.white, wifthFont: UIFont.systemFont(ofSize: 14), backColor: krgbClear)
         
         return btnRightMenu
     }
     
     func rightPhotoButton() -> UIButton {
-        btnRightMenu = Utility.sharedInstance.createButton(xCo: kWidth - 100, forY: 10, forW: 90, forH: kNavBarHeight, forText: "", textColor: UIColor.white, wifthFont: UIFont.boldSystemFont(ofSize: 13), backColor: krgbClear)
+        let top: CGFloat = UIDevice.current.isIPhoneX ? 30 : 10
+        btnRightMenu = Utility.sharedInstance.createButton(xCo: kWidth - 100, forY: top, forW: 90, forH: kNavBarHeight, forText: "", textColor: UIColor.white, wifthFont: UIFont.boldSystemFont(ofSize: 13), backColor: krgbClear)
         return btnRightMenu
     }
     

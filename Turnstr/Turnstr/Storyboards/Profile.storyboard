@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="QAR-YR-6iA">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="QAR-YR-6iA">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -225,15 +226,15 @@
                             <constraint firstAttribute="trailing" secondItem="msf-In-bdf" secondAttribute="trailing" id="CE6-eP-jCh"/>
                             <constraint firstItem="56R-sj-QA2" firstAttribute="leading" secondItem="Sqa-f6-Xl5" secondAttribute="leading" constant="16" id="DpR-Tj-7Xk"/>
                             <constraint firstAttribute="trailing" secondItem="xwE-Kk-xWs" secondAttribute="trailing" constant="16" id="EUW-ha-BnE"/>
-                            <constraint firstItem="o81-DL-E9p" firstAttribute="top" secondItem="Sqa-f6-Xl5" secondAttribute="top" constant="20" id="FF2-SG-8DG"/>
+                            <constraint firstItem="o81-DL-E9p" firstAttribute="top" secondItem="Sqa-f6-Xl5" secondAttribute="topMargin" id="FF2-SG-8DG"/>
                             <constraint firstItem="xwE-Kk-xWs" firstAttribute="top" secondItem="Mzj-a0-hzb" secondAttribute="bottom" constant="6" id="GrK-BS-EXl"/>
                             <constraint firstItem="9Ok-hY-bJF" firstAttribute="top" secondItem="Sqa-f6-Xl5" secondAttribute="top" constant="42" id="H4V-ke-nQc"/>
                             <constraint firstItem="xF2-i2-D7A" firstAttribute="top" secondItem="6rh-cE-7hr" secondAttribute="bottom" constant="2" id="Hbt-88-xId"/>
                             <constraint firstAttribute="trailing" secondItem="Pht-7z-6dd" secondAttribute="trailing" id="HpO-aq-HaS"/>
-                            <constraint firstItem="BFq-MW-LaZ" firstAttribute="top" secondItem="Sqa-f6-Xl5" secondAttribute="top" constant="20" id="IEh-84-WKL"/>
                             <constraint firstItem="Mzj-a0-hzb" firstAttribute="top" secondItem="Pht-7z-6dd" secondAttribute="bottom" constant="12" id="Js0-s2-Tkr"/>
                             <constraint firstItem="9Ok-hY-bJF" firstAttribute="leading" secondItem="qeh-V6-UTG" secondAttribute="trailing" constant="-14" id="Mp4-t3-HKb"/>
                             <constraint firstAttribute="trailing" secondItem="o81-DL-E9p" secondAttribute="trailing" id="PTE-qe-PKv"/>
+                            <constraint firstItem="BFq-MW-LaZ" firstAttribute="centerY" secondItem="o81-DL-E9p" secondAttribute="centerY" id="QmM-c5-gXl"/>
                             <constraint firstAttribute="trailing" secondItem="GdT-fd-K2z" secondAttribute="trailing" constant="16" id="Qo6-NU-oIo"/>
                             <constraint firstItem="zJf-iw-a1c" firstAttribute="top" secondItem="GdT-fd-K2z" secondAttribute="bottom" constant="4" id="UDJ-oo-oHf"/>
                             <constraint firstItem="msf-In-bdf" firstAttribute="top" secondItem="o81-DL-E9p" secondAttribute="bottom" constant="3" id="XYj-2S-Aid"/>
@@ -271,6 +272,6 @@
     <resources>
         <image name="header_bg" width="375" height="111"/>
         <image name="logo_login" width="120" height="33"/>
-        <image name="verify" width="36" height="36"/>
+        <image name="verify" width="36" height="38"/>
     </resources>
 </document>
