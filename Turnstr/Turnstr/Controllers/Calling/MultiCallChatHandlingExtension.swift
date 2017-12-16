@@ -30,28 +30,29 @@ extension MultiCallViewController {
     func session(_ session: OTSession, receivedSignalType type: String?, from connection: OTConnection?, with string: String?) {
         print("Signal received. \(type ?? "")")
         if type == "Chat" {
-            KBLog.log(message: "chat message", object: string)
-            KBLog.log(message: "chat message", object: session.connection?.connectionId)
             if let comment = string, let tbl = tblView {
                 comments.insert(comment, at: 0)
                 view.bringSubview(toFront: tbl)
             }
             tblView?.reloadData()
             tblView?.scrollToBottom()
-            
         }
-        else if type == kDisconnectGoLive {
-            if string != objSing.strUserID {
-                self.endCallAction(endCallButton)
+        else {
+            if let manager = AppDelegate.shared?.callManager, let call = AppDelegate.shared?.onGoingCall {
+                manager.end(call: call)
             }
-        }
-        else if type == kDisconnectVideoCall {
-            if subscribers.count <= 1 {
+            if type == kDisconnectGoLive {
                 if string != objSing.strUserID {
                     self.endCallAction(endCallButton)
                 }
             }
-            
+            else if type == kDisconnectVideoCall {
+                if subscribers.count <= 1 {
+                    if string != objSing.strUserID {
+                        self.endCallAction(endCallButton)
+                    }
+                }
+            }
         }
     }
 }
