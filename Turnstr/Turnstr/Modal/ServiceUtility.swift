@@ -400,7 +400,7 @@ extension ServiceUtility {
         checkNetworkConnection()
         DispatchQueue.global().async {
             let strRequest = String(format: "?page=%d", page)
-            let strPostUrl = kAPIGetAllStories + "?search=\(strSearch)"
+            let strPostUrl = "search?keyword=\(strSearch)" //kAPIGetAllStories + "?search=\(strSearch)"
             let strParType = ""
             
             let dictResponse = WebServices.sharedInstance.GetMethodServerData(strRequest: strRequest, GetURL: strPostUrl, parType: strParType)

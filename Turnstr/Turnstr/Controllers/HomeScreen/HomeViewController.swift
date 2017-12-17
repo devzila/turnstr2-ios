@@ -15,6 +15,8 @@ class HomeViewController: ParentViewController {
     
     var btnMyStory = UIButton()
     
+    @IBOutlet weak var centerCubeTop: NSLayoutConstraint!
+    @IBOutlet weak var uvCenterCubeUpper: view!
     @IBOutlet weak var btnDesc: UIButton!
     @IBOutlet weak var txtDescr: UITextView!
     
@@ -30,10 +32,25 @@ class HomeViewController: ParentViewController {
     
     override func viewDidLayoutSubviews() {
         MyStoryBUtton()
+        if IS_IPHONEX {
+            objUtil.setFrames(xCo: 0, yCo: 85, width: 0, height: 0, view: uvCenterCube)
+        }
+        uvCenterCube.layoutIfNeeded()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if IS_IPHONEX {
+            centerCubeTop.constant = 85
+            uvCenterCube.layoutIfNeeded()
+        } else if IS_IPHONE_6 {
+            centerCubeTop.constant = 35
+            uvCenterCube.layoutIfNeeded()
+        } else if IS_IPHONE_6P {
+            centerCubeTop.constant = 45
+            uvCenterCube.layoutIfNeeded()
+        }
         
         btnDesc.addTarget(self, action: #selector(DescriptionClicked(sender:)), for: .touchUpInside)
         btnMyStory.addTarget(self, action: #selector(MyStoryClicked(sender:)), for: .touchUpInside)
@@ -141,14 +158,14 @@ class HomeViewController: ParentViewController {
         if transformView == nil {
             
             //transformView = AITransformView.init(frame: CGRect.init(x: 0, y: 20, width: w, height: h), cube_size: w.getDW(SP: 230, S: 180, F: 180))
-            transformView = AITransformView.init(frame: CGRect.init(x: 0, y: 25, width: w, height: h), cube_size: w.getDW(SP: 230, S: 150, F: 180))
+            transformView = AITransformView.init(frame: CGRect.init(x: 0, y: 0, width: w, height: h), cube_size: w.getDW(SP: 210, S: 150, F: 180))
         }
         transformView?.backgroundColor = UIColor.clear
         transformView?.setup(withUrls: [objSing.strUserPic1.urlWithThumb, objSing.strUserPic2.urlWithThumb, objSing.strUserPic3.urlWithThumb, objSing.strUserPic4.urlWithThumb, objSing.strUserPic5.urlWithThumb, objSing.strUserPic6.urlWithThumb])
         uvCenterCube.addSubview(transformView!)
         transformView?.setScroll(CGPoint.init(x: 0, y: h/2), end: CGPoint.init(x: w.getDW(SP: 115, S: 85, F: 105), y: h/2))
         transformView?.setScroll(CGPoint.init(x: w/2, y: 0), end: CGPoint.init(x: w/2, y: 1))
-        uvCenterCube.layer.masksToBounds = true
+        uvCenterCubeUpper.layer.masksToBounds = true
         MyStoryBUtton()
     }
     
