@@ -24,6 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var onGoingCall : SpeakerboxCall? = nil
     var caller: Caller?
     
+    let objCustomAlert:CustomAlertView? = CustomAlertView()
+    let lblText = UILabel()
     //var isTabChanges = false
     
     static var shared: AppDelegate? {

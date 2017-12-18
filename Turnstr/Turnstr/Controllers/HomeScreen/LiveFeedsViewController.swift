@@ -21,7 +21,12 @@ class LiveFeedsViewController: UIViewController, UserListDelegate {
         
         setupVideoView()
         
-        btnGolive.frame = CGRect.init(x: 20, y: kHeight-110, width: kWidth - 40, height: 40)
+        if IS_IPHONEX {
+            btnGolive.frame = CGRect.init(x: 20, y: kHeight-160, width: kWidth - 40, height: 40)
+        } else {
+            btnGolive.frame = CGRect.init(x: 20, y: kHeight-110, width: kWidth - 40, height: 40)
+        }
+        
         btnGolive.setTitle("Start public video", for: .normal)
         btnGolive.backgroundColor = kOrangeColor
         btnGolive.setTitleColor(UIColor.white, for: .normal)

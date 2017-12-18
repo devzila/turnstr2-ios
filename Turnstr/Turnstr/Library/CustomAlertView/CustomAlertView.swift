@@ -410,7 +410,10 @@ class CustomAlertView: UIView {
     private func calculateDialogSize() -> CGSize {
         switch alertButtonDirection {
         case .buttonDirectionHorizontal:
-            return CGSize.init(width:  containerView.frame.size.width, height: containerView.frame.size.height + buttonHeight + buttonsDividerHeight)
+            if containerView != nil {
+                return CGSize.init(width:  containerView.frame.size.width, height: containerView.frame.size.height + buttonHeight + buttonsDividerHeight)
+            }
+            return CGSize.init(width:  kWidth, height: 0 + buttonHeight + buttonsDividerHeight)
         case .buttonDirectionVertical:
             var height = (buttonHeight * CGFloat((buttonTitles?.count)!))+(CGFloat(((buttonTitles?.count)! - 1)) * CGFloat(buttonMargin))
             height = containerView.frame.size.height + height + CGFloat(buttonMargin*2)
@@ -485,7 +488,10 @@ class CustomAlertView: UIView {
         }
         
         UIView.animate(withDuration: 0.2, delay: 0, options: [], animations: {
-            self.alertView.transform = rotation
+            if self.alertView != nil && rotation != nil {
+                self.alertView.transform = rotation
+            }
+            
             }, completion: nil)
         
         // Fix errors caused by being rotated one too many times
@@ -511,7 +517,10 @@ class CustomAlertView: UIView {
         }
         
         UIView.animate(withDuration: 0.2, delay: 0, options: [], animations: {
-            self.alertView.frame = CGRect.init(x: (screenSize.width - dialogSize.width) / 2, y: (screenSize.height - keyboardSize.height - dialogSize.height) / 2, width: dialogSize.width, height: dialogSize.height)
+            if self.alertView != nil {
+                self.alertView.frame = CGRect.init(x: (screenSize.width - dialogSize.width) / 2, y: (screenSize.height - keyboardSize.height - dialogSize.height) / 2, width: dialogSize.width, height: dialogSize.height)
+            }
+            
             }, completion: nil)
     }
     
@@ -521,8 +530,11 @@ class CustomAlertView: UIView {
         let dialogSize = self.calculateDialogSize()
         
         UIView.animate(withDuration: 0.2, delay: 0, options: [], animations: {
-            self.alertView.frame = CGRect.init(x:  (screenSize.width - dialogSize.width) / 2, y: (screenSize.height - dialogSize.height) / 2, width: dialogSize.width, height: dialogSize.height)
+            if self.alertView != nil {
+                self.alertView.frame = CGRect.init(x:  (screenSize.width - dialogSize.width) / 2, y: (screenSize.height - dialogSize.height) / 2, width: dialogSize.width, height: dialogSize.height)
                 
+            }
+            
             }, completion: nil)
     }
     

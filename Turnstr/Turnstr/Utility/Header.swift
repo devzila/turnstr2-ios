@@ -15,6 +15,7 @@ let IS_IPHONE_4_OR_LESS =  UIDevice.current.userInterfaceIdiom == .phone && Scre
 let IS_IPHONE_5 = UIDevice.current.userInterfaceIdiom == .phone && ScreenSize.SCREEN_MAX_LENGTH == 568.0
 let IS_IPHONE_6 = UIDevice.current.userInterfaceIdiom == .phone && ScreenSize.SCREEN_MAX_LENGTH == 667.0
 let IS_IPHONE_6P = UIDevice.current.userInterfaceIdiom == .phone && ScreenSize.SCREEN_MAX_LENGTH == 736.0
+let IS_IPHONEX = UIDevice.current.isIPhoneX
 
 /*
  * API Urls
@@ -91,6 +92,7 @@ let kNotiSessionExpired = "noti_SessionExpired"
 /*
  * General Methods
  */
+
 let kTabBarHeight: CGFloat = 60
 
 let kWidth = UIScreen.main.bounds.size.width

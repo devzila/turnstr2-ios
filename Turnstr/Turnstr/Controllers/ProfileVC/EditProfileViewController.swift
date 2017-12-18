@@ -175,7 +175,7 @@ class EditProfileViewController: ParentViewController, UITableViewDelegate, UITa
         
         btnContactMe.setTitle("All", for: .normal)
         
-        tblMainTable = UITableView.init(frame: CGRect.init(x: 0, y: kNavBarHeight, width: kWidth, height: kHeight-kNavBarHeight), style: .grouped)
+        tblMainTable = UITableView.init(frame: CGRect.init(x: 0, y: kNavBarHeight, width: kWidth, height: kHeight-kNavBarHeight-40), style: .grouped)
         tblMainTable?.delegate = self
         tblMainTable?.dataSource = self
         tblMainTable?.backgroundColor = kLightGray

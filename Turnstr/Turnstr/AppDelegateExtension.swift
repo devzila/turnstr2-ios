@@ -139,7 +139,40 @@ extension AppDelegate: UNUserNotificationCenterDelegate{
                 AppDelegate.shared?.caller = caller
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
-                    let alertView = UIAlertController(title: "\(name)", message: "Do you want to join?", preferredStyle: .alert)
+                    
+                    self.lblText.frame = CGRect.init(x: 0, y: 0, width: kWidth, height: 150)
+                    self.lblText.text = "\(name)"
+                    self.lblText.textAlignment = .center
+                    self.lblText.textColor = UIColor.white
+                    self.lblText.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+                    
+                    self.objCustomAlert!.containerView = self.lblText
+                    
+                    self.objCustomAlert!.alertBGColor = ["#181818", "#181818"]
+                    self.objCustomAlert!.alertDismiss = onTouchDismiss.touchDismissNO
+                    self.objCustomAlert?.buttonTitles = ["YES", "NO"]
+                    self.objCustomAlert?.buttonColor = UIColor.white
+                    
+                    self.objCustomAlert?.onButtonTouchUpInside = { (alertView: CustomAlertView, buttonIndex: Int) -> Void in
+                        if buttonIndex == 0 {
+                            let storyboard = UIStoryboard(name: "Chat", bundle: nil)
+                            let vc: MultiCallViewController = storyboard.instantiateViewController(withIdentifier: "MultiCallViewController") as! MultiCallViewController
+                            vc.userType = .receiver
+                            vc.screenTYPE = .goLive
+                            vc.kPublisherToken = caller.token ?? ""
+                            vc.kTokBoxSessionID = caller.sessionId ?? ""
+                            self.topVC?.navigationController?.pushViewController(vc, animated: false)
+                            
+                        } else {
+                            
+                        }
+                        alertView.close()
+                    }
+                    
+                    self.objCustomAlert!.show()
+                    
+                    
+                    /*let alertView = UIAlertController(title: "\(name)", message: "Do you want to join?", preferredStyle: .alert)
                     let action = UIAlertAction(title: "YES", style: .default, handler: { (alert) in
                         
                         let storyboard = UIStoryboard(name: "Chat", bundle: nil)
@@ -157,7 +190,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate{
                         
                     })
                     alertView.addAction(cancel)
-                    self.topVC?.navigationController?.present(alertView, animated: true, completion: nil)
+                    self.topVC?.navigationController?.present(alertView, animated: true, completion: nil)*/
                     
                 }
                 

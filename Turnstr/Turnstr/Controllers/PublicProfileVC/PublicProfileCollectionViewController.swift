@@ -143,11 +143,13 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
                     self.btnFave5.setTitleColor(UIColor(hexString: "00C7FF"), for: .normal)
                     self.btnFave5.isSelected = false
                 }
-                
-                if objModel.following_me! {
-                    self.btnFamily.isHidden = false
+                self.btnFamily.isHidden = "\(objModel.id!)" == self.objSing.strUserID ? true : false
+                if objModel.following == true {
+                    self.btnFamily.isSelected = true
+                    //self.btnFamily.isHidden = false
                 } else {
-                    self.btnFamily.isHidden = true
+                    self.btnFamily.isSelected = false
+                    //self.btnFamily.isHidden = true
                 }
                 self.getFave5List(page: self.pageNumberFave5)
                 self.getAllStories(page: self.pageNumberUserStories, isAllStories: self.isFromFeeds)
@@ -442,9 +444,20 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
         guard let userID = profileDetail?.id else {
             return
         }
-        addUserAsFamily(id: userID) { (response) in
-            self.updateUserData()
+        
+        kAppDelegate.loadingIndicationCreation()
+        if btnFamily.isSelected == true { //user already followed now unfollow him
+            self.btnFamily.isSelected = false
+            self.unFollowUser(id: userID)
+            
+        } else{ // user not followed , follow him
+            
+            self.btnFamily.isSelected = true
+            self.followUser(id: userID)
         }
+//        addUserAsFamily(id: userID) { (response) in
+//            self.updateUserData()
+//        }
     }
 
     @IBAction func btnTappedFave5(_ sender: UIButton) {
@@ -649,5 +662,41 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
     */
 
 }
-
+extension PublicProfileCollectionViewController {
+    func followUser(id: Int) {
+        kBQ_FCMTokenUpdate.async {
+            
+            let response = DataServiceModal.sharedInstance.ApiPostRequest(PostURL: "members/\(id)/follow", dictData: [:])
+            print("API Response:: \(response)")
+            if response.count > 0 {
+                DispatchQueue.main.async {
+                    if let success = response["success"] as? Bool {
+                        self.btnFamily.isSelected = success
+                    }
+                    kAppDelegate.hideLoadingIndicator()
+                }
+                
+            }
+            
+        }
+    }
+    
+    func unFollowUser(id: Int) {
+        kBQ_FCMTokenUpdate.async {
+            
+            let response = DataServiceModal.sharedInstance.ApiPostRequest(PostURL: "members/\(id)/unfollow", dictData: [:])
+            print("API Response:: \(response)")
+            if response.count > 0 {
+                DispatchQueue.main.async {
+                    if let success = response["success"] as? Bool {
+                        self.btnFamily.isSelected = !success
+                    }
+                    kAppDelegate.hideLoadingIndicator()
+                }
+                
+            }
+            
+        }
+    }
+}
 
