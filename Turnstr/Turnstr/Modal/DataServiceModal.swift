@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class DataServiceModal: NSObject {
     var objUtil:Utility?
@@ -470,5 +471,21 @@ class DataServiceModal: NSObject {
         return false
     }
     //MARK:-------------------------------------------------------
+    
+    
+    func deleteRequest(_ endPoint: String, completion:@escaping ((_ data: Data?, _ error: Error?) -> Void?)) {
+        let string = kBaseURL + endPoint
+        guard let url = URL(string: string) else { return }
+        var urlRequest = URLRequest(url: url , cachePolicy: URLRequest.CachePolicy.reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 30.0)
+        urlRequest.httpMethod = "DELETE"
+        URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
+            if error == nil {
+                completion(data!, nil)
+            }
+        else {
+                completion(nil, error)
+            }
+        }.resume()
+    }
 }
 

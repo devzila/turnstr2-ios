@@ -234,7 +234,6 @@ extension AppDelegate: PKPushRegistryDelegate {
             caller.isVideo = false
         }
         else if callType == "go_live_subscription" {
-            AppDelegate.shared?.caller = caller
             
             let alertView = UIAlertController(title: "\(name)", message: "Do you want to join?", preferredStyle: .alert)
             let action = UIAlertAction(title: "YES", style: .default, handler: { (alert) in
@@ -262,7 +261,9 @@ extension AppDelegate: PKPushRegistryDelegate {
         else {
             caller.isVideo = true
         }
+        
         AppDelegate.shared?.caller = caller
+        AppDelegate.shared?.callManager = callManager
         displayIncomingCall(uuid: UUID(), handle: name, hasVideo: caller.isVideo)
     }
     func pushRegistry(_ registry: PKPushRegistry, didInvalidatePushTokenForType type: PKPushType) {
