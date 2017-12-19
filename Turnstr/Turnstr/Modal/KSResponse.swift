@@ -20,6 +20,8 @@ struct KSResponse<T>: Mappable {
     mutating func mapping(map: Map) {
         status <- map["statusCode"]
         message <- map["message"]
+        
+        print(map.JSON)
         switch T.self {
             
         case is PhotoAlbum.Type: response = Mapper<PhotoAlbum>().map(JSONObject: map["albums"].currentValue) as? T

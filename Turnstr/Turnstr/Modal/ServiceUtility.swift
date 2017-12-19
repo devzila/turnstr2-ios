@@ -408,10 +408,45 @@ extension ServiceUtility {
             DispatchQueue.main.async {
                 if let statusCode = dictResponse["statusCode"] as? Int, statusCode == 200 {
                     kAppDelegate.hideLoadingIndicator()
+                    
                     if let dictComments = dictResponse["data"]?["data"] as? [String: AnyObject] {
+                        
                         let dictMapper = ["statusCode": statusCode, "stories": dictComments["stories"] ?? ""] as [String : Any]
                         let ksResponse = KSResponse<[StoryModel]>(JSON: dictMapper)
                         handler(ksResponse, dictComments)
+                    }
+                } else {
+                    self.validateResponseData(response: dictResponse)
+                }
+            }
+        }
+    }
+    
+    //
+    //MARK:- Search home screen
+    //
+    func searchHomeStories(page: Int, strSearch: String, withHandler handler: @escaping (_ responseMembers: KSResponse<[UserModel]>?, _ response: KSResponse<[StoryModel]>?, _ dict: Dictionary<String, Any>) -> Void) {
+        checkNetworkConnection()
+        DispatchQueue.global().async {
+            let strRequest = String(format: "&page=%d", page)
+            let strPostUrl = "search?keyword=\(strSearch)" //kAPIGetAllStories + "?search=\(strSearch)"
+            let strParType = ""
+            
+            let dictResponse = WebServices.sharedInstance.GetMethodServerData(strRequest: strRequest, GetURL: strPostUrl, parType: strParType)
+            print(dictResponse)
+            DispatchQueue.main.async {
+                if let statusCode = dictResponse["statusCode"] as? Int, statusCode == 200 {
+                    kAppDelegate.hideLoadingIndicator()
+                    
+                    if let dictComments = dictResponse["data"]?["data"] as? [String: AnyObject] {
+                        
+                        let dictMapper1 = ["statusCode": statusCode, "user": dictComments["members"] ?? ""] as [String : Any]
+                        let ksResponse1 = KSResponse<[UserModel]>(JSON: dictMapper1)
+                        
+                        
+                        let dictMapper = ["statusCode": statusCode, "stories": dictComments["stories"] ?? ""] as [String : Any]
+                        let ksResponse = KSResponse<[StoryModel]>(JSON: dictMapper)
+                        handler(ksResponse1, ksResponse, dictComments)
                     }
                 } else {
                     self.validateResponseData(response: dictResponse)

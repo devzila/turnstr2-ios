@@ -33,6 +33,7 @@ class UserStoryCollectionViewCell: UICollectionViewCell, UICollectionViewDataSou
         if arrMembers == nil {
             return arrStories == nil ? 0 : arrStories!.count
         }
+        print(arrMembers!.count)
         return arrMembers!.count
     }
     
