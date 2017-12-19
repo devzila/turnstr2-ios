@@ -342,7 +342,14 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
                     if let userID = profileId {
                         if isFromFeeds {
                             lblName.text = isSearching ? "SEARCH" : "GENERAL"
-                            cell?.arrStories = self.arrUserStories
+                            if isSearching == true {
+                                print(self.arrMembers.count)
+                                print(self.arrMembers)
+                                cell?.arrMembers = self.arrMembers
+                            } else {
+                                cell?.arrStories = self.arrUserStories
+                            }
+                            
                         } else if getUserId() == userID {
                             lblName.text = "GENERAL"
                             cell?.arrMembers = self.arrMembers
@@ -584,8 +591,27 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
     
     func searchStoryResults() {
         kAppDelegate.loadingIndicationCreationMSG(msg: "Searching...")
-        searchStories(page: pageSearchResult, strSearch: searchBar.text!) { (response, dictResponse) in
+        searchHomeStories(page: pageSearchResult, strSearch: searchBar.text!) { (responseMember, response, dictResponse) in
             kAppDelegate.hideLoadingIndicator()
+            
+            if let memberArray = responseMember?.response {
+                
+                for object in memberArray {
+                    self.arrMembers.append(object)
+                }
+                
+                if let _ = dictResponse["next_page"] as? Int {
+                    self.isMemberLoadNext = true
+                } else {
+                    self.isMemberLoadNext = false
+                    
+                }
+                
+                //print(self.arrMembers)
+                self.collViewPublicProfile.dg_stopLoading()
+                self.collViewPublicProfile.reloadItems(at: [IndexPath(row: 2, section: 0)])
+                
+            }
             
             if let storyArray = response?.response {
                 print(storyArray)
@@ -607,6 +633,29 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
                 self.collViewPublicProfile.reloadData()
             }
         }
+        /*searchStories(page: pageSearchResult, strSearch: searchBar.text!) { (response, dictResponse) in
+            kAppDelegate.hideLoadingIndicator()
+            
+            if let storyArray = response?.response {
+                print(storyArray)
+                for object in storyArray {
+                    self.arrUserStories.append(object)
+                }
+                if let arrStories = dictResponse["stories"] as? Array<Dictionary<String, Any>> {
+                    for object in arrStories {
+                        self.profileDict.append(object)
+                    }
+                    
+                }
+                if let _ = dictResponse["next_page"] as? Int {
+                    self.isSearchingStoriesLoadNext = false
+                } else {
+                    self.isSearchingStoriesLoadNext = false
+                    
+                }
+                self.collViewPublicProfile.reloadData()
+            }
+        }*/
     }
     
     func cellTurntStoryTappedAtIndex(index: Int) {

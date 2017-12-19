@@ -48,7 +48,7 @@ class HomeViewController: ParentViewController {
             centerCubeTop.constant = 35
             uvCenterCube.layoutIfNeeded()
         } else if IS_IPHONE_6P {
-            centerCubeTop.constant = 45
+            centerCubeTop.constant = 48
             uvCenterCube.layoutIfNeeded()
         }
         
