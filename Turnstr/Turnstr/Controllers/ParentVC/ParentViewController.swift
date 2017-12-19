@@ -27,8 +27,8 @@ class ParentViewController: UIViewController, PickerDelegate, CustomAlertViewDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        btnNavBack.frame = CGRect.init(x: 0, y: 20, width: 60, height: 40)
+        let top: CGFloat = UIDevice.current.isIPhoneX ? 40 : 20
+        btnNavBack.frame = CGRect.init(x: 0, y: top, width: 60, height: 40)
         btnNavBack.setImage(#imageLiteral(resourceName: "back_arrow"), for: .normal)
         //btnNavBack.tintColor = UIColor.black
 
@@ -94,6 +94,8 @@ class ParentViewController: UIViewController, PickerDelegate, CustomAlertViewDel
     }
     
     func LogoutClicked() -> Void {
+        
+        
         kAppDelegate.LogoutFromApp()
         /*objUtil.removeUserDefaults(key: kUDLoginData)
         objUtil.removeUserDefaults(key: kUDSessionData)

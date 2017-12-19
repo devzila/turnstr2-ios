@@ -588,7 +588,7 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
             kAppDelegate.hideLoadingIndicator()
             
             if let storyArray = response?.response {
-                print(storyArray)
+                KBLog.log(message: "stories", object: storyArray)
                 for object in storyArray {
                     self.arrUserStories.append(object)
                 }

@@ -399,7 +399,7 @@ extension ServiceUtility {
     func searchStories(page: Int, strSearch: String, withHandler handler: @escaping (_ response: KSResponse<[StoryModel]>?, _ dict: Dictionary<String, Any>) -> Void) {
         checkNetworkConnection()
         DispatchQueue.global().async {
-            let strRequest = String(format: "?page=%d", page)
+            let strRequest = String(format: "&page=%d", page)
             let strPostUrl = "search?keyword=\(strSearch)" //kAPIGetAllStories + "?search=\(strSearch)"
             let strParType = ""
             

@@ -190,6 +190,8 @@ class HomeViewController: ParentViewController {
         self.navigationController?.pushViewController(mvc, animated: true)
     }
     @IBAction func LogoutClicked(_ sender: UIButton) {
+        
+        
         LogoutClicked()
     }
     

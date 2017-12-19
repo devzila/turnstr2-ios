@@ -164,6 +164,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func LogoutFromApp() -> Void {
         
+        let response = DataServiceModal.sharedInstance.ApiPostRequest(PostURL: logout, dictData: nil)
+        KBLog.log(message: "Logout request ==> \(logout)", object: response)
         
         guard let navC = self.window?.rootViewController as? UINavigationController else { return }
         Utility.sharedInstance.removeUserDefaults(key: kUDLoginData)

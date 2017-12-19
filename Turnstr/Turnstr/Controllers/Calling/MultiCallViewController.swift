@@ -52,7 +52,7 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
     
     var subscribers: [IndexPath: OTSubscriber] = [:]
     lazy var session: OTSession = {
-        return OTSession(apiKey: kTokBoxApiKey, sessionId: self.kTokBoxSessionID, delegate: self)!
+        return OTSession(apiKey: kTokBoxApiKey, sessionId: self.kTokBoxSessionID, delegate: self) ?? OTSession()
     }()
     lazy var publisher: OTPublisher = {
         let settings = OTPublisherSettings()
@@ -279,9 +279,19 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
                             self.callSubscriberApi()
                         }
                     }
-                     kAppDelegate.hideLoadingIndicator()
+                    else {
+                        self.openAlert(title: "Error!", message: "Error in making a call, please try again.", with: "OK", didSelect: { (index) in
+                            self.goBack()
+                        })
+                    }
+                    kAppDelegate.hideLoadingIndicator()
                 }
                 
+            }
+            else {
+                self.openAlert(title: "Error!", message: "Error in making a call, please try again.", with: "OK", didSelect: { (index) in
+                    self.goBack()
+                })
             }
         }
     }

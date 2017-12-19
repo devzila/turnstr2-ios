@@ -31,6 +31,8 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>4</string>
+	<key>Development Mode</key>
+	<false/>
 	<key>FacebookAppID</key>
 	<string>304253466719391</string>
 	<key>FacebookDisplayName</key>
