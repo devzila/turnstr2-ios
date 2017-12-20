@@ -45,11 +45,11 @@ extension Device {
             return UIDevice.current.identifierForVendor?.uuidString ?? ""
         
         case .deviceToken:
-            guard let token = UDKeys.fcm.fetch() as? String else { return "12345"}
+            guard let token = UDKeys.fcm.fetch() as? String else { return ""}
             return token
             
         case .voip:
-            guard let token = UDKeys.voip.fetch() as? String else { return "12345"}
+            guard let token = UDKeys.voip.fetch() as? String else { return ""}
             return token
         }
         

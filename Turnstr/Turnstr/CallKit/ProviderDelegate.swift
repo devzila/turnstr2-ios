@@ -92,7 +92,7 @@ final class ProviderDelegate: NSObject, CXProviderDelegate {
                 Only add incoming call to the app's list of calls if the call was allowed (i.e. there was no error)
                 since calls may be "denied" for various legitimate reasons. See CXErrorCodeIncomingCallError.
              */
-            if error == nil {
+            if error == nil && self.isLoggedIn {
                 let call = SpeakerboxCall(uuid: uuid)
                 call.handle = handle
 

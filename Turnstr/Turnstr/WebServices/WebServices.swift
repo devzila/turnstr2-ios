@@ -8,6 +8,12 @@
 
 import UIKit
 
+var isDevelopmentMode: Bool {
+
+    guard let enable = Bundle.main.infoDictionary?["Development Mode"] as? Bool else { return true}
+    return enable
+}
+
 class WebServices: NSObject {
 
     static let sharedInstance: WebServices = {
