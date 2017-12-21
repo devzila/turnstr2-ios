@@ -183,6 +183,8 @@
 		D9D36B5F1F110B6D000C66CD /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D36B5E1F110B6D000C66CD /* Story.swift */; };
 		D9D3DF4F1F1130E100173FFD /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D3DF4D1F1130E100173FFD /* CameraViewController.swift */; };
 		D9D3DF501F1130E100173FFD /* CameraViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9D3DF4E1F1130E100173FFD /* CameraViewController.xib */; };
+		D9DEF50F1FEA25CB0024E8F9 /* ASSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DEF50E1FEA25CB0024E8F9 /* ASSearchVC.swift */; };
+		D9DEF5111FEAFD710024E8F9 /* FooterCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DEF5101FEAFD710024E8F9 /* FooterCollectionReusableView.swift */; };
 		D9FA59DA1F0F26FC001A38B6 /* CubePageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FA59D91F0F26FC001A38B6 /* CubePageView.m */; };
 		D9FA59DC1F0F3365001A38B6 /* StoryPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FA59DB1F0F3365001A38B6 /* StoryPreviewViewController.swift */; };
 		D9FDE6121EC2263C009D5BE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FDE6111EC2263C009D5BE3 /* AppDelegate.swift */; };
@@ -415,6 +417,8 @@
 		D9D36B5E1F110B6D000C66CD /* Story.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Story.swift; sourceTree = "<group>"; };
 		D9D3DF4D1F1130E100173FFD /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		D9D3DF4E1F1130E100173FFD /* CameraViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CameraViewController.xib; sourceTree = "<group>"; };
+		D9DEF50E1FEA25CB0024E8F9 /* ASSearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASSearchVC.swift; sourceTree = "<group>"; };
+		D9DEF5101FEAFD710024E8F9 /* FooterCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterCollectionReusableView.swift; sourceTree = "<group>"; };
 		D9FA59D81F0F26FC001A38B6 /* CubePageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CubePageView.h; sourceTree = "<group>"; };
 		D9FA59D91F0F26FC001A38B6 /* CubePageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CubePageView.m; sourceTree = "<group>"; };
 		D9FA59DB1F0F3365001A38B6 /* StoryPreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryPreviewViewController.swift; sourceTree = "<group>"; };
@@ -487,6 +491,7 @@
 			children = (
 				7ED058991F5F2073009DBF36 /* CollectionViewCell */,
 				7ED0589D1F5F2073009DBF36 /* PublicProfileCollectionViewController.swift */,
+				D9DEF50E1FEA25CB0024E8F9 /* ASSearchVC.swift */,
 			);
 			path = PublicProfileVC;
 			sourceTree = "<group>";
@@ -646,6 +651,7 @@
 				8A2630231F3110F600F55C2B /* UserCell.xib */,
 				D957F3181F435E1A00307968 /* CommentCell.swift */,
 				D957F3191F435E1A00307968 /* CommentCell.xib */,
+				D9DEF5101FEAFD710024E8F9 /* FooterCollectionReusableView.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1453,6 +1459,7 @@
 				7ED058A21F5F2073009DBF36 /* PublicProfileViewController.swift in Sources */,
 				D9AC63001F019A050055ED3D /* NSObjectExtensions.swift in Sources */,
 				8A1104D61F5DC0D9009FFE0C /* CAStreamBasicDescription.cpp in Sources */,
+				D9DEF5111FEAFD710024E8F9 /* FooterCollectionReusableView.swift in Sources */,
 				8AEC2C8C1F169DFE008DF3BB /* Storyboards.swift in Sources */,
 				D91C3AF91F001D78005F945C /* IQUIViewController+Additions.swift in Sources */,
 				8A26302D1F339A5200F55C2B /* ChatVC.swift in Sources */,
@@ -1498,6 +1505,7 @@
 				D96366621F035BD100784A58 /* SDWebImageDownloader.m in Sources */,
 				8A1104DA1F5DC0D9009FFE0C /* ProviderDelegate.swift in Sources */,
 				D9D3DF4F1F1130E100173FFD /* CameraViewController.swift in Sources */,
+				D9DEF50F1FEA25CB0024E8F9 /* ASSearchVC.swift in Sources */,
 				D9357CEC1FDD67D700987E7C /* SHViewController.swift in Sources */,
 				D96366691F035BD100784A58 /* UIImage+WebP.m in Sources */,
 				D9AC63031F019E350055ED3D /* EditProfileViewController.swift in Sources */,

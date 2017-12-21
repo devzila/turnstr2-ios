@@ -567,11 +567,21 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.searchBar.endEditing(true)
-        isSearching = true
-        self.arrUserStories.removeAll()
-        self.profileDict.removeAll()
-        searchStoryResults()
-        collViewPublicProfile.reloadData()
+        //isSearching = true
+        //self.arrUserStories.removeAll()
+        //self.profileDict.removeAll()
+        //searchStoryResults()
+        //collViewPublicProfile.reloadData()
+        
+        let storyboard = UIStoryboard(name: "PhotoAlbum", bundle: nil)
+        let homeVC = storyboard.instantiateViewController(withIdentifier: "ASSearchVC") as! ASSearchVC
+        
+        if let txt = self.searchBar.text {
+            homeVC.txtSearchText = txt
+        }
+        homeVC.delegates = self
+        self.navigationController?.pushViewController(homeVC, animated: false)
+        //self.present(homeVC, animated: false, completion: nil)
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
@@ -610,6 +620,7 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
                 //print(self.arrMembers)
                 self.collViewPublicProfile.dg_stopLoading()
                 self.collViewPublicProfile.reloadItems(at: [IndexPath(row: 2, section: 0)])
+                //self.collViewPublicProfile.reloadData()
                 
             }
             
@@ -748,4 +759,8 @@ extension PublicProfileCollectionViewController {
         }
     }
 }
-
+extension PublicProfileCollectionViewController: ASSearchDelegate {
+    func ASSEarchCanceled () {
+        searchBarCancelButtonClicked(searchBar)
+    }
+}
