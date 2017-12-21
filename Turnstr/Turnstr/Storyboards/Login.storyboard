@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="9oy-tX-ftj">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina3_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -24,17 +25,17 @@
                         <viewControllerLayoutGuide type="bottom" id="3TJ-bF-0l4"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="QzO-DD-Fzo">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg" translatesAutoresizingMaskIntoConstraints="NO" id="3P8-sf-11X">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aQU-2L-bRt">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="214"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="106.5"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_login" translatesAutoresizingMaskIntoConstraints="NO" id="qYw-OG-zk4">
-                                        <rect key="frame" x="128" y="173" width="120" height="33"/>
+                                        <rect key="frame" x="100.5" y="65.5" width="120" height="33"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="120" id="KCm-vO-U0f"/>
                                             <constraint firstAttribute="height" constant="33" id="yK3-Ua-5dM"/>
@@ -48,10 +49,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XYi-4l-iaH">
-                                <rect key="frame" x="0.0" y="214" width="375" height="240"/>
+                                <rect key="frame" x="0.0" y="106.5" width="320" height="280"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4FT-go-e4I" customClass="KBTextField" customModule="Turnstr" customModuleProvider="target">
-                                        <rect key="frame" x="30" y="23" width="315" height="40"/>
+                                        <rect key="frame" x="30" y="23" width="260" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="WGf-er-h5i"/>
                                         </constraints>
@@ -78,7 +79,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LYR-fB-PXr" customClass="KBTextField" customModule="Turnstr" customModuleProvider="target">
-                                        <rect key="frame" x="30" y="71" width="315" height="40"/>
+                                        <rect key="frame" x="30" y="71" width="260" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="2HN-Dz-V8I"/>
                                         </constraints>
@@ -105,7 +106,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="99s-Sc-xp0" customClass="button" customModule="Turnstr" customModuleProvider="target">
-                                        <rect key="frame" x="30" y="131" width="315" height="40"/>
+                                        <rect key="frame" x="30" y="131" width="260" height="40"/>
                                         <color key="backgroundColor" red="0.87450980389999999" green="0.37647058820000001" blue="0.090196078430000007" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="ybN-GF-VwO"/>
@@ -124,7 +125,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fvO-vC-1f6">
-                                        <rect key="frame" x="93" y="190" width="189" height="30"/>
+                                        <rect key="frame" x="65.5" y="190" width="189" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="189" id="LCk-1i-XrF"/>
                                             <constraint firstAttribute="height" constant="30" id="rHo-ly-Kt6"/>
@@ -148,7 +149,7 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="240" id="0Zy-YG-X4l"/>
+                                    <constraint firstAttribute="bottom" secondItem="fvO-vC-1f6" secondAttribute="bottom" constant="60" id="0EH-OC-H8k"/>
                                     <constraint firstItem="fvO-vC-1f6" firstAttribute="centerX" secondItem="XYi-4l-iaH" secondAttribute="centerX" id="CUC-qZ-rHL"/>
                                     <constraint firstAttribute="trailing" secondItem="99s-Sc-xp0" secondAttribute="trailing" constant="30" id="GMI-8j-tRn"/>
                                     <constraint firstAttribute="trailing" secondItem="LYR-fB-PXr" secondAttribute="trailing" constant="30" id="HzC-5W-p78"/>
@@ -163,10 +164,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x9R-Qv-0q9">
-                                <rect key="frame" x="0.0" y="462" width="375" height="205"/>
+                                <rect key="frame" x="0.0" y="318.5" width="320" height="161.5"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tzd-xT-Bb9" customClass="button" customModule="Turnstr" customModuleProvider="target">
-                                        <rect key="frame" x="30" y="15" width="315" height="40"/>
+                                        <rect key="frame" x="30" y="15" width="260" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="pi5-t0-9UH"/>
                                         </constraints>
@@ -192,7 +193,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aUL-Vz-E8F" customClass="button" customModule="Turnstr" customModuleProvider="target">
-                                        <rect key="frame" x="30" y="69.5" width="315" height="40"/>
+                                        <rect key="frame" x="30" y="69.5" width="260" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="OIu-Fr-evr"/>
                                         </constraints>
@@ -218,7 +219,10 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CQW-qm-e04">
-                                        <rect key="frame" x="30" y="167" width="315" height="30"/>
+                                        <rect key="frame" x="30" y="123.5" width="260" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="coT-3s-Sra"/>
+                                        </constraints>
                                         <state key="normal">
                                             <attributedString key="attributedTitle">
                                                 <fragment content="Don't have an account? ">
@@ -252,6 +256,7 @@
                                     <constraint firstItem="Tzd-xT-Bb9" firstAttribute="top" secondItem="x9R-Qv-0q9" secondAttribute="top" constant="15" id="9L8-dJ-0gA"/>
                                     <constraint firstAttribute="trailing" secondItem="CQW-qm-e04" secondAttribute="trailing" constant="30" id="C3Z-Zt-F7H"/>
                                     <constraint firstItem="CQW-qm-e04" firstAttribute="leading" secondItem="x9R-Qv-0q9" secondAttribute="leading" constant="30" id="NbY-SB-Hfd"/>
+                                    <constraint firstItem="CQW-qm-e04" firstAttribute="top" secondItem="aUL-Vz-E8F" secondAttribute="bottom" constant="14" id="P2I-ga-MPz"/>
                                     <constraint firstAttribute="trailing" secondItem="aUL-Vz-E8F" secondAttribute="trailing" constant="30" id="ZQW-sT-uZ3"/>
                                     <constraint firstItem="aUL-Vz-E8F" firstAttribute="top" secondItem="Tzd-xT-Bb9" secondAttribute="bottom" constant="14.5" id="cmw-XU-uCN"/>
                                     <constraint firstItem="Tzd-xT-Bb9" firstAttribute="leading" secondItem="x9R-Qv-0q9" secondAttribute="leading" constant="30" id="pcv-MK-nqo"/>
@@ -268,14 +273,13 @@
                             <constraint firstAttribute="trailing" secondItem="x9R-Qv-0q9" secondAttribute="trailing" id="Grx-Rx-w3f"/>
                             <constraint firstItem="3TJ-bF-0l4" firstAttribute="top" secondItem="x9R-Qv-0q9" secondAttribute="bottom" id="NWI-Nf-YMB"/>
                             <constraint firstItem="3TJ-bF-0l4" firstAttribute="top" secondItem="3P8-sf-11X" secondAttribute="bottom" id="OKg-7n-Kau"/>
+                            <constraint firstItem="aQU-2L-bRt" firstAttribute="height" secondItem="QzO-DD-Fzo" secondAttribute="height" multiplier="2:9" id="PSi-GH-xOd"/>
                             <constraint firstItem="XYi-4l-iaH" firstAttribute="top" secondItem="aQU-2L-bRt" secondAttribute="bottom" id="T8y-fT-G0E"/>
                             <constraint firstAttribute="trailing" secondItem="XYi-4l-iaH" secondAttribute="trailing" id="W4k-S5-fah"/>
                             <constraint firstItem="aQU-2L-bRt" firstAttribute="leading" secondItem="QzO-DD-Fzo" secondAttribute="leading" id="Zpv-PM-hrI"/>
-                            <constraint firstItem="x9R-Qv-0q9" firstAttribute="top" secondItem="XYi-4l-iaH" secondAttribute="bottom" constant="8" id="c1s-IP-4D4"/>
                             <constraint firstAttribute="trailing" secondItem="aQU-2L-bRt" secondAttribute="trailing" id="gBq-JC-sK0"/>
                             <constraint firstItem="XYi-4l-iaH" firstAttribute="centerX" secondItem="QzO-DD-Fzo" secondAttribute="centerX" id="lG2-9F-Zku"/>
                             <constraint firstItem="XYi-4l-iaH" firstAttribute="leading" secondItem="QzO-DD-Fzo" secondAttribute="leading" id="mEM-ZR-f3d"/>
-                            <constraint firstItem="XYi-4l-iaH" firstAttribute="centerY" secondItem="QzO-DD-Fzo" secondAttribute="centerY" id="t6F-vT-IQ0"/>
                             <constraint firstAttribute="trailing" secondItem="3P8-sf-11X" secondAttribute="trailing" id="wlO-mi-HHv"/>
                         </constraints>
                     </view>
@@ -298,14 +302,14 @@
                         <viewControllerLayoutGuide type="bottom" id="EmI-CC-Wb5"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="GdF-Gx-YWA">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_norm" translatesAutoresizingMaskIntoConstraints="NO" id="9Ky-g5-IK1">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0cF-hE-C4Z">
-                                <rect key="frame" x="127.5" y="40" width="120" height="33"/>
+                                <rect key="frame" x="100" y="40" width="120" height="33"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="120" id="AFB-Bx-ok1"/>
                                     <constraint firstAttribute="height" constant="33" id="LRr-sp-fIO"/>
@@ -313,10 +317,10 @@
                                 <state key="normal" image="logo_login"/>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bN3-PZ-cDK">
-                                <rect key="frame" x="30" y="134" width="315" height="533"/>
+                                <rect key="frame" x="30" y="134" width="260" height="346"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="First Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hDf-Tf-F3q" customClass="KBTextField" customModule="Turnstr" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="8" width="315" height="40"/>
+                                        <rect key="frame" x="0.0" y="8" width="260" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="7fR-By-nMX"/>
                                         </constraints>
@@ -343,7 +347,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Last Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hcG-Hl-aoG" customClass="KBTextField" customModule="Turnstr" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="56" width="315" height="40"/>
+                                        <rect key="frame" x="0.0" y="56" width="260" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="ne4-S9-1FM"/>
                                         </constraints>
@@ -370,7 +374,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dAN-mC-9Zw" customClass="KBTextField" customModule="Turnstr" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="104" width="315" height="40"/>
+                                        <rect key="frame" x="0.0" y="104" width="260" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="x99-ob-8Ip"/>
                                         </constraints>
@@ -397,7 +401,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4DT-Vb-Evz" customClass="KBTextField" customModule="Turnstr" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="152" width="315" height="40"/>
+                                        <rect key="frame" x="0.0" y="152" width="260" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="R2o-2Y-Yao"/>
                                         </constraints>
@@ -424,7 +428,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="48N-7W-p0x" customClass="KBTextField" customModule="Turnstr" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="200" width="315" height="40"/>
+                                        <rect key="frame" x="0.0" y="200" width="260" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="kn6-lL-pOY"/>
                                         </constraints>
@@ -451,7 +455,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Confirm Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="48q-gE-kdv" customClass="KBTextField" customModule="Turnstr" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="248" width="315" height="40"/>
+                                        <rect key="frame" x="0.0" y="248" width="260" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="Cv3-OB-L8q"/>
                                         </constraints>
@@ -478,7 +482,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </textField>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NrI-qU-jT5" customClass="button" customModule="Turnstr" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="309" width="315" height="40"/>
+                                        <rect key="frame" x="0.0" y="309" width="260" height="40"/>
                                         <color key="backgroundColor" red="0.87450980389999999" green="0.37647058820000001" blue="0.090196078430000007" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="YsP-QY-wEv"/>
@@ -494,7 +498,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Rb-ea-zR8">
-                                        <rect key="frame" x="0.0" y="495" width="315" height="30"/>
+                                        <rect key="frame" x="0.0" y="308" width="260" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="p2R-s2-IVA"/>
                                         </constraints>
@@ -549,7 +553,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SIGNUP" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k7e-fV-jD9">
-                                <rect key="frame" x="127.5" y="81" width="120" height="45"/>
+                                <rect key="frame" x="100" y="81" width="120" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="120" id="NpW-rl-YkY"/>
                                     <constraint firstAttribute="height" constant="45" id="dtg-F6-XoM"/>
@@ -559,7 +563,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H8b-79-6ym">
-                                <rect key="frame" x="313" y="40" width="46" height="33"/>
+                                <rect key="frame" x="258" y="40" width="46" height="33"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="46" id="sFA-El-M7H"/>
                                     <constraint firstAttribute="height" constant="33" id="xpt-Wm-RBt"/>
