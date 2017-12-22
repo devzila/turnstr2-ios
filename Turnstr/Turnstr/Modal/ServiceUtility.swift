@@ -312,6 +312,30 @@ extension ServiceUtility {
         }
     }
     
+    func getPopular(id: Int, page: Int, withHandler handler: @escaping (_ response: KSResponse<[UserModel]>?, _ dict: Dictionary<String, Any>) -> Void) {
+        checkNetworkConnection()
+        DispatchQueue.global().async {
+            let strRequest = String(format: "?page=%d", page)
+            let strPostUrl = "/populars"
+            let strParType = ""
+            
+            let dictResponse = WebServices.sharedInstance.GetMethodServerData(strRequest: strRequest, GetURL: strPostUrl, parType: strParType)
+            print(dictResponse)
+            DispatchQueue.main.async {
+                if let statusCode = dictResponse["statusCode"] as? Int, statusCode == 200 {
+                    kAppDelegate.hideLoadingIndicator()
+                    if let dictComments = dictResponse["data"]?["data"] as? [String: AnyObject] {
+                        let dictMapper = ["statusCode": statusCode, "user": dictComments["members"] ?? ""] as [String : Any]
+                        let ksResponse = KSResponse<[UserModel]>(JSON: dictMapper)
+                        handler(ksResponse, dictComments)
+                    }
+                } else {
+                    self.validateResponseData(response: dictResponse)
+                }
+            }
+        }
+    }
+    
     func addDeleteFave5(id: Int, type: FavouriteType, withHandler handler: @escaping (_ response: Dictionary<String, Any>) -> Void) {
         checkNetworkConnection()
         DispatchQueue.global().async {
