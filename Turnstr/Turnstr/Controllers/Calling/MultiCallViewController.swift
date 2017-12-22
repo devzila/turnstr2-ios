@@ -51,8 +51,8 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
     lazy var comments: [String] = [String]()
     
     var subscribers: [IndexPath: OTSubscriber] = [:]
-    lazy var session: OTSession = {
-        return OTSession(apiKey: kTokBoxApiKey, sessionId: self.kTokBoxSessionID, delegate: self) ?? OTSession()
+    lazy var session: OTSession? = {
+        return OTSession(apiKey: kTokBoxApiKey, sessionId: self.kTokBoxSessionID, delegate: self)
     }()
     lazy var publisher: OTPublisher = {
         let settings = OTPublisherSettings()
@@ -152,7 +152,7 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
         }
     }
     
-    @IBAction func tokboxButtonAction(_ sender: AnyObject) {
+    @IBAction func tokboxButtonAction(_ sender: UIButton) {
         
         endCallAction(sender)
         //UIApplication.shared.open(URL(string: "https://www.tokbox.com/developer/")!, options: [:], completionHandler: nil)
@@ -172,14 +172,14 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
         muteMicButton.setImage(buttonImage, for: .normal)
     }
     
-    @IBAction func endCallAction(_ sender: AnyObject) {
-        
+    @IBAction func endCallAction(_ sender: UIButton) {
+        sender.isEnabled = false
         if screenTYPE == .goLive && userType == .caller {
             //
             // Disconnect the call
             //
             var err: OTError?
-            session.signal(withType: kDisconnectGoLive, string: objSing.strUserID, connection: nil, error: &err)
+            session?.signal(withType: kDisconnectGoLive, string: objSing.strUserID, connection: nil, error: &err)
             if let err = err {
                 KBLog.log(err.debugDescription)
             }
@@ -190,14 +190,14 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
             // Disconnect the call
             //
             var err: OTError?
-            session.signal(withType: kDisconnectVideoCall, string: objSing.strUserID, connection: nil, error: &err)
+            session?.signal(withType: kDisconnectVideoCall, string: objSing.strUserID, connection: nil, error: &err)
             if let err = err {
                 KBLog.log(err.debugDescription)
             }
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            self.session.disconnect(&self.error)
+            self.session?.disconnect(&self.error)
             kAppDelegate.hideLoadingIndicator()
             if let call = kAppDelegate.onGoingCall {
                 kAppDelegate.callManager.end(call: call)
@@ -324,10 +324,10 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
         kToken = kPublisherToken
         print("TokenTok: \(kToken)")
         print("SessionTok: \(kTokBoxSessionID)")
-        session.connect(withToken: kToken, error: &error)
+        session?.connect(withToken: kToken, error: &error)
         
         var err: OTError?
-        session.signal(withType: "Chat", string: "hi", connection: session.connection, error: &err)
+        session?.signal(withType: "Chat", string: "hi", connection: session?.connection, error: &err)
         if let err = err {
             KBLog.log(err.debugDescription)
         }
@@ -401,7 +401,7 @@ extension MultiCallViewController {
             swapCameraButton.isHidden = true
             muteMicButton.isHidden = true
         }
-        session.publish(publisher, error: &error)
+        session?.publish(publisher, error: &error)
     }
     
     func resetPublisherView() {
@@ -436,7 +436,7 @@ extension MultiCallViewController {
         if let subscriber = OTSubscriber(stream: stream, delegate: self) {
             let indexPath = IndexPath(item: subscribers.count, section: 0)
             subscribers[indexPath] = subscriber
-            session.subscribe(subscriber, error: &error)
+            session?.subscribe(subscriber, error: &error)
             
             reloadCollectionView()
         }

@@ -20,7 +20,7 @@ extension MultiCallViewController {
         }
         let message = "\(loginUser.name ?? ""):  \(txtCommentView?.text ?? "")"
         var err: OTError?
-        session.signal(withType: "Chat", string: message, connection: nil, error: &err)
+        session?.signal(withType: "Chat", string: message, connection: nil, error: &err)
         if let err = err {
             KBLog.log(err.debugDescription)
         }
