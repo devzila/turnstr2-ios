@@ -126,7 +126,7 @@ class ChatParentVC: UIViewController {
     
     @IBAction func getFile() {
         
-        let options = ["Capture Image", "Chose Image", "Record Video", "Chose Video"]
+        let options = ["Capture Image", "Choose Image", "Record Video", "Choose Video"]
         
         let actionSheet = UIAlertController(title: L10n.selectSource.string, message: nil, preferredStyle: .actionSheet)
         for source in options {

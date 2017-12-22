@@ -1640,8 +1640,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sleekgeek.turnstr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "def25dad-5f67-43aa-93ed-2212c5784e27";
-				PROVISIONING_PROFILE_SPECIFIER = turn_2;
+				PROVISIONING_PROFILE = "33ba2f81-c8ef-44a8-a223-f447f3952f5a";
+				PROVISIONING_PROFILE_SPECIFIER = Turnstr_dev_21Dec;
 				SWIFT_OBJC_BRIDGING_HEADER = "Turnstr/Turnstr-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;

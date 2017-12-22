@@ -151,7 +151,13 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
                     self.btnFamily.isSelected = false
                     //self.btnFamily.isHidden = true
                 }
-                self.getFave5List(page: self.pageNumberFave5)
+                
+                
+                if self.objSing.strUserID == "\(userID)" {
+                    self.getPopularList(page: 0)
+                } else{
+                    self.getFave5List(page: self.pageNumberFave5)
+                }
                 self.getAllStories(page: self.pageNumberUserStories, isAllStories: self.isFromFeeds)
                 if self.getUserId() == userID && !self.isFromFeeds {
                     self.getAllMembersData()
@@ -185,9 +191,16 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
                 self?.profileDict.removeAll()
                 self?.arrMembers.removeAll()
                 
-                self?.getFave5List(page: (self?.pageNumberFave5)!)
+                //self?.getFave5List(page: (self?.pageNumberFave5)!)
                 self?.getAllStories(page: (self?.pageNumberUserStories)!, isAllStories: (self?.isFromFeeds)!)
                 guard let userID = self?.profileId else { return }
+                
+                if self?.objSing.strUserID == "\(userID)" {
+                    self?.getPopularList(page: 0)
+                } else{
+                    self?.getFave5List(page: (self?.pageNumberFave5)!)
+                }
+                
                 if self?.getUserId() == userID && !(self?.isFromFeeds)! {
                     self?.getAllMembersData()
                 }
@@ -487,6 +500,29 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
         }
 //        kAppDelegate.loadingIndicationCreationMSG(msg: "Loading...")
         getFave5(id: userID, page: page) { (response, dict) in
+            
+            if let faveArray = response?.response {
+                print(faveArray)
+                for object in faveArray {
+                    self.arrFav5.append(object)
+                }
+                if let _ = dict["next_page"] as? Int {
+                    self.isFave5LoadNext = true
+                } else {
+                    self.isFave5LoadNext = false
+                }
+                self.collViewPublicProfile.dg_stopLoading()
+                self.collViewPublicProfile.reloadItems(at: [IndexPath(row: 0, section: 0)])
+            }
+        }
+    }
+    
+    func getPopularList(page: Int) {
+        guard let userID = profileDetail?.id else {
+            return
+        }
+        //        kAppDelegate.loadingIndicationCreationMSG(msg: "Loading...")
+        getPopular(id: userID, page: page) { (response, dict) in
             
             if let faveArray = response?.response {
                 print(faveArray)
