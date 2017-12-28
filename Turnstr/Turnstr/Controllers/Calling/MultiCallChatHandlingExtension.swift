@@ -67,6 +67,7 @@ extension MultiCallViewController: UITableViewDataSource {
         cell.contentView.backgroundColor = .clear
         cell.backgroundColor = .clear
         cell.textLabel?.textColor = UIColor.white
+        cell.textLabel?.numberOfLines = 0
         cell.textLabel?.font = UIFont.systemFont(ofSize: 14)
         cell.textLabel?.text = comments[indexPath.row]
         cell.transform = CGAffineTransform(rotationAngle: .pi)

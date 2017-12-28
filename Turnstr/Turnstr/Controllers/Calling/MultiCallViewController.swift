@@ -83,7 +83,7 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
         tblView?.backgroundColor = .clear
         tblView?.transform = CGAffineTransform(rotationAngle: -.pi)
         if screenTYPE == .goLive {
-            btnAddUser.isHidden = true
+            btnAddUser.isHidden = false
             btnBack.isHidden = false
             btnBack.imageView?.contentMode = .scaleAspectFit
             endCallButton.setTitle("End Session", for: .normal)
@@ -92,6 +92,7 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
         
         if screenTYPE == .goLive && userType == .receiver {
             uvBottomBar.isHidden = true
+            btnAddUser.isHidden = true
             bottomBarHeight.constant = 1
             uvBottomBar.layoutIfNeeded()
             collectionView.layoutIfNeeded()
@@ -122,26 +123,34 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
         guard let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
             return
         }
+        btnAddUser.isHidden = subscribers.count == 3
         
         print("suscriber count: \(subscribers.count)")
-        if screenTYPE == .goLive && userType == .receiver {
-            layout.itemSize = CGSize(width: collectionView.bounds.size.width ,
-                height: collectionView.bounds.size.height)
-            return
+        var count = subscribers.count
+//        if screenTYPE != .goLive && userType != .receiver {
+//            count += 1
+//        }
+        switch count {
+        case 1:
+            layout.itemSize = CGSize(width: collectionView.bounds.size.width,
+                                     height: collectionView.bounds.size.height)
+        case 2:
+            layout.itemSize = CGSize(width: collectionView.bounds.size.width,
+                                     height: collectionView.bounds.size.height/2)
+             
+        default:
+            layout.itemSize = CGSize(width: collectionView.bounds.size.width/2,
+                                     height: collectionView.bounds.size.height/2)
         }
         
-        if subscribers.count == 1 {
-            layout.itemSize = CGSize(width: collectionView.bounds.size.width ,/// 2
-                height: collectionView.bounds.size.height/2)
+        if count == 1 {
+            
         }
         else {
             layout.itemSize = CGSize(width: collectionView.bounds.size.width/2 ,/// 2
                 height: collectionView.bounds.size.height/2)
         }
         
-    }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
     }
     
     @IBAction func swapCameraAction(_ sender: AnyObject) {
