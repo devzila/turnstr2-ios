@@ -28,17 +28,19 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
     @IBOutlet weak var btnFamily: button!
     @IBOutlet weak var btnFave5: button!
     @IBOutlet weak var constraintImgVwLogoX: NSLayoutConstraint!
-
+    
     
     var isFave5LoadNext = false
     var pageNumberFave5 = 1
     var arrFav5 = [UserModel]()
+    var arrVideoStories: [VideoStory] = []
+    
     
     var isUserStoriesLoadNext = false
     var isFromFeeds = false
     var pageNumberUserStories = 1
     var arrUserStories = [StoryModel]()
-
+    
     
     var pageSearchResult = 1
     var isSearching = false
@@ -50,7 +52,7 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupVerifiedMark()
         
         // Do any additional setup after loading the view.
@@ -155,8 +157,10 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
                 
                 if self.objSing.strUserID == "\(userID)" {
                     self.getPopularList(page: 0)
+                    self.getAllVideosforHomePage()
                 } else{
                     self.getFave5List(page: self.pageNumberFave5)
+                    self.getAllVideosforHomePage(userId: userID)
                 }
                 self.getAllStories(page: self.pageNumberUserStories, isAllStories: self.isFromFeeds)
                 if self.getUserId() == userID && !self.isFromFeeds {
@@ -169,7 +173,7 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
     deinit {
         self.collViewPublicProfile.dg_removePullToRefresh()
     }
-
+    
     // MARK: Pull to refresh & Infinite scrolling
     func setPullToRefreshOnCollView() {
         /// Set the loading view's indicator color
@@ -214,7 +218,7 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
         collViewPublicProfile.dg_setPullToRefreshFillColor(#colorLiteral(red: 0.9450980392, green: 0.9450980392, blue: 0.937254902, alpha: 1))
         collViewPublicProfile.dg_setPullToRefreshBackgroundColor(collViewPublicProfile.backgroundColor!)
     }
-
+    
     
     func addDeleteFave(favType: FavouriteType) {
         kAppDelegate.loadingIndicationCreationMSG(msg: "Loading...")
@@ -266,7 +270,7 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
             }
         }
     }
-
+    
     func setUserCube(objModel: UserModel) {
         
         //
@@ -292,7 +296,7 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
         //uvTopCube.isUserInteractionEnabled = false
         topCube?.setScroll(CGPoint.init(x: 0, y: h/2), end: CGPoint.init(x: 20, y: h/2))
         topCube?.setScroll(CGPoint.init(x: w/2, y: 0), end: CGPoint.init(x: w/2, y: 1))
-
+        
         
     }
     
@@ -315,7 +319,7 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
         switch indexPath.row {
         case 0:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellFave5", for: indexPath as IndexPath) as? Fave5CollectionViewCell
-
+            
             if let view = cell?.viewWithTag(2001) {
                 view.isHidden = !isFromFeeds
             }
@@ -345,7 +349,7 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
         case 1:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellTurntStory", for: indexPath as IndexPath) as? TurntStoriesCollectionViewCell
             cell?.delegateTurntStory = self
-            cell?.arrTurntStories = self.arrUserStories
+            cell?.arrTurntStories = self.arrVideoStories
             cell?.setupCollectionView()
             return cell!
         case 2:
@@ -455,9 +459,12 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
         let photoCellSize = (kWidth/3)
         return CGSize(width: photoCellSize, height: photoCellSize)
     }
-
+    
+    //
+    //MARK:- Action Methods
+    //
     @IBAction func btnTappedBack(_ sender: UIButton) {
-       _ = self.navigationController?.popViewController(animated: true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func btnTappedFamily(_ sender: UIButton) {
@@ -475,11 +482,11 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
             self.btnFamily.isSelected = true
             self.followUser(id: userID)
         }
-//        addUserAsFamily(id: userID) { (response) in
-//            self.updateUserData()
-//        }
+        //        addUserAsFamily(id: userID) { (response) in
+        //            self.updateUserData()
+        //        }
     }
-
+    
     @IBAction func btnTappedFave5(_ sender: UIButton) {
         if sender.isSelected {
             addDeleteFave(favType: .delete)
@@ -498,7 +505,7 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
         guard let userID = profileDetail?.id else {
             return
         }
-//        kAppDelegate.loadingIndicationCreationMSG(msg: "Loading...")
+        //        kAppDelegate.loadingIndicationCreationMSG(msg: "Loading...")
         getFave5(id: userID, page: page) { (response, dict) in
             
             if let faveArray = response?.response {
@@ -547,7 +554,7 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
         kAppDelegate.loadingIndicationCreationMSG(msg: "Loading...")
         getSpecificUserStories(id: userID, page: pageNumberUserStories, isAllStories: isAllStories) { (response, dict) in
             kAppDelegate.hideLoadingIndicator()
-
+            
             if let storyArray = response?.response {
                 print(storyArray)
                 for object in storyArray {
@@ -563,12 +570,12 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
                     self.isUserStoriesLoadNext = true
                 } else {
                     self.isUserStoriesLoadNext = false
-
+                    
                 }
                 self.collViewPublicProfile.dg_stopLoading()
-                self.collViewPublicProfile.reloadItems(at: [IndexPath(row: 1, section: 0)])
+                //self.collViewPublicProfile.reloadItems(at: [IndexPath(row: 1, section: 0)])
                 self.collViewPublicProfile.reloadItems(at: [IndexPath(row: 2, section: 0)])
-
+                
             }
         }
     }
@@ -681,28 +688,28 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
             }
         }
         /*searchStories(page: pageSearchResult, strSearch: searchBar.text!) { (response, dictResponse) in
-            kAppDelegate.hideLoadingIndicator()
-            
-            if let storyArray = response?.response {
-                print(storyArray)
-                for object in storyArray {
-                    self.arrUserStories.append(object)
-                }
-                if let arrStories = dictResponse["stories"] as? Array<Dictionary<String, Any>> {
-                    for object in arrStories {
-                        self.profileDict.append(object)
-                    }
-                    
-                }
-                if let _ = dictResponse["next_page"] as? Int {
-                    self.isSearchingStoriesLoadNext = false
-                } else {
-                    self.isSearchingStoriesLoadNext = false
-                    
-                }
-                self.collViewPublicProfile.reloadData()
-            }
-        }*/
+         kAppDelegate.hideLoadingIndicator()
+         
+         if let storyArray = response?.response {
+         print(storyArray)
+         for object in storyArray {
+         self.arrUserStories.append(object)
+         }
+         if let arrStories = dictResponse["stories"] as? Array<Dictionary<String, Any>> {
+         for object in arrStories {
+         self.profileDict.append(object)
+         }
+         
+         }
+         if let _ = dictResponse["next_page"] as? Int {
+         self.isSearchingStoriesLoadNext = false
+         } else {
+         self.isSearchingStoriesLoadNext = false
+         
+         }
+         self.collViewPublicProfile.reloadData()
+         }
+         }*/
     }
     
     func cellTurntStoryTappedAtIndex(index: Int) {
@@ -716,13 +723,11 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
          var media: [MediaModel]?
          */
         
-        let story = arrUserStories[index]
+        let story = arrVideoStories[index]
         
-        let storyboard = UIStoryboard(name: "PhotoAlbum", bundle: nil)
-        if let profileVC = storyboard.instantiateViewController(withIdentifier: "PublicProfileCollectionViewController") as? PublicProfileCollectionViewController {
-            profileVC.profileId = story.user?.id
-            self.navigationController?.pushViewController(profileVC, animated: true)
-        }
+        let mvc = ASVideoStoryVC()
+        mvc.videoStory = story
+        self.navigationController?.pushViewController(mvc, animated: true)
     }
     
     func getAllMembersData() {
@@ -748,15 +753,15 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
     }
     
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
 extension PublicProfileCollectionViewController {
     func followUser(id: Int) {
@@ -800,3 +805,42 @@ extension PublicProfileCollectionViewController: ASSearchDelegate {
         searchBarCancelButtonClicked(searchBar)
     }
 }
+
+//MARK:- Videos data for a user
+extension PublicProfileCollectionViewController {
+    func getAllVideosforHomePage(userId: Int = 0) {
+        kAppDelegate.loadingIndicationCreationMSG(msg: "Loading...")
+        
+        var strRequest = ""
+        if userId > 0 {
+            strRequest = "members/\(userId)"
+        }
+        let strPostUrl = "\(strRequest)/\(kAPIGetVideos)"
+        
+        
+        kBQ_getVideos.async {
+            
+            let dictResponse = WebServices.sharedInstance.GetMethodServerData(strRequest: "", GetURL: strPostUrl, parType: "")
+            print(dictResponse)
+            DispatchQueue.main.async {
+                if let statusCode = dictResponse["statusCode"] as? Int, statusCode == 200 {
+                    kAppDelegate.hideLoadingIndicator()
+                    
+                    if let dictComments = dictResponse["data"]?["data"] as? [String: AnyObject] {
+                        if let stories = dictComments["stories"] as? [Dictionary<String, Any>] {
+                            for dict in stories {
+                                let storyVideo = VideoStory.init(dict: dict)
+                                self.arrVideoStories.append(storyVideo)
+                            }
+                        }
+                    }
+                    self.collViewPublicProfile.reloadItems(at: [IndexPath(row: 1, section: 0)])
+                    
+                } else {
+                    kAppDelegate.hideLoadingIndicator()
+                }
+            }
+        }
+    }
+}
+

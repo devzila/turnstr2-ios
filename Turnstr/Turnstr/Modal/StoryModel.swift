@@ -38,3 +38,52 @@ struct StoryModel: Mappable {
         return self.toJSON()
     }
 }
+
+
+struct VideoStory {
+    
+    var comments_count: Int
+    var duration: Int
+    var event: String
+    var id: Int
+    var likes_count: Int
+    var url: String
+    
+    init(dict: Dictionary<String, Any>) {
+        if let obj = dict["comments_count"] as? Int {
+            self.comments_count = obj
+        } else{
+            self.comments_count = 0
+        }
+        
+        if let obj = dict["duration"] as? Int {
+            self.duration = obj
+        } else{
+            self.duration = 0
+        }
+        
+        if let obj = dict["event"] as? String {
+            self.event = obj
+        } else{
+            self.event = ""
+        }
+        
+        if let obj = dict["id"] as? Int {
+            self.id = obj
+        } else{
+            self.id = 0
+        }
+        
+        if let obj = dict["likes_count"] as? Int {
+            self.likes_count = obj
+        } else{
+            self.likes_count = 0
+        }
+        
+        if let obj = dict["url"] as? String {
+            self.url = obj
+        } else{
+            self.url = ""
+        }
+    }
+}

@@ -15,10 +15,12 @@ protocol TurntStoryDelegate {
 class TurntStoriesCollectionViewCell: UICollectionViewCell, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIGestureRecognizerDelegate {
     @IBOutlet weak var collViewTurntStory: UICollectionView!
     
-    var arrTurntStories = [StoryModel]()
+    var arrTurntStories: [VideoStory] = []
     var delegateTurntStory: TurntStoryDelegate?
     
     func setupCollectionView() {
+        collViewTurntStory.register(UINib(nibName: "TurntCell", bundle: nil), forCellWithReuseIdentifier: "myCell")
+        
         collViewTurntStory.delegate = self
         collViewTurntStory.dataSource = self
         collViewTurntStory.reloadData()
@@ -33,43 +35,29 @@ class TurntStoriesCollectionViewCell: UICollectionViewCell, UICollectionViewData
     
     // make a cell for each cell index path
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath as IndexPath)
+        //let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath as IndexPath)
+        let cell : TurntCell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath) as! TurntCell
+        
         // Use the outlet in our custom class to get a reference to the UILabel in the cell
         cell.layer.borderWidth = 1.0
         cell.layer.borderColor = UIColor.init("F3F3F3").cgColor
         
-        let w: CGFloat = PhotoSize().width
-        let h: CGFloat = PhotoSize().width
-        var cube = cell.contentView.viewWithTag(indexPath.item) as? AITransformView
+        let story = arrTurntStories[indexPath.item]
         
-        if cube == nil {
+        
+        if story.url.isEmpty == false {
+            let videoUrl = URL.init(string: story.url)
+            cell.imgMain.getThumbnailOfURLWith(url: videoUrl!)
             
-            cube = AITransformView.init(frame: CGRect.init(x: 0, y: (cell.frame.size.height-h)/2, width: w, height: h), cube_size: w/2)
-            cube?.tag = indexPath.item
-            cube?.backgroundColor = UIColor.clear
-            cube?.isUserInteractionEnabled = true
-            let arrFave = arrTurntStories[indexPath.row].media
-            var arrFaces = [String]()
-            for url in arrFave! {
-                arrFaces.append(url.thumb_url ?? "thumb")
-            }
-            cube?.setup(withUrls: arrFaces)
-            cell.contentView.addSubview(cube!)
-            cube?.setScroll(CGPoint.init(x: 0, y: h/2), end: CGPoint.init(x: 5, y: h/2))//20
-            cube?.setScroll(CGPoint.init(x: w/2, y: 0), end: CGPoint.init(x: w/2, y: 1))
-            
-            let tap = UITapGestureRecognizer.init(target: self, action: #selector(handleTap(sender:)))
-            tap.delegate = self
-            tap.accessibilityElements = [indexPath]
-            tap.numberOfTapsRequired = 1
-            cube?.addGestureRecognizer(tap)
+        } else{
+            cell.imgMain.image = #imageLiteral(resourceName: "placeholder")
         }
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        delegateTurntStory?.cellTurntStoryTappedAtIndex(index: indexPath.item)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -91,5 +79,6 @@ class TurntStoriesCollectionViewCell: UICollectionViewCell, UICollectionViewData
         }
         
     }
-
+    
 }
+

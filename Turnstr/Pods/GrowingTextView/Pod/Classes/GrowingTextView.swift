@@ -72,7 +72,7 @@ open class GrowingTextView: UITextView {
         return CGSize(width: UIViewNoIntrinsicMetric, height: 30)
     }
     
-    private func associateConstraints() {
+    func associateConstraints() {
         // iterate through all text view's constraints and identify
         // height,from: https://github.com/legranddamien/MBAutoGrowingTextView
         for constraint in constraints {
@@ -94,7 +94,6 @@ open class GrowingTextView: UITextView {
         layoutIfNeeded()
     }
     
-    private var shouldScrollAfterHeightChanged = false
     override open func layoutSubviews() {
         super.layoutSubviews()
         
@@ -118,23 +117,22 @@ open class GrowingTextView: UITextView {
         }
         
         // Update height constraint if needed
-        if height != heightConstraint!.constant {
-            shouldScrollAfterHeightChanged = true
+        if height != heightConstraint?.constant {
             heightConstraint!.constant = height
+            scrollToCorrectPosition()
             if let delegate = delegate as? GrowingTextViewDelegate {
                 delegate.textViewDidChangeHeight?(self, height: height)
             }
-        } else if shouldScrollAfterHeightChanged {
-            shouldScrollAfterHeightChanged = false
-            scrollToCorrectPosition()
         }
     }
-    
+
     private func scrollToCorrectPosition() {
-        if self.isFirstResponder {
-            self.scrollRangeToVisible(NSMakeRange(-1, 0)) // Scroll to bottom
-        } else {
-            self.scrollRangeToVisible(NSMakeRange(0, 0)) // Scroll to top
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
+            if self.isFirstResponder {
+                self.scrollRangeToVisible(NSMakeRange(-1, 0)) // Scroll to bottom
+            } else {
+                self.scrollRangeToVisible(NSMakeRange(0, 0)) // Scroll to top
+            }
         }
     }
     
@@ -155,12 +153,12 @@ open class GrowingTextView: UITextView {
                 // Otherwise user placeHolder and inherit `text` attributes
                 let paragraphStyle = NSMutableParagraphStyle()
                 paragraphStyle.alignment = textAlignment
-                var attributes: [NSAttributedStringKey: Any] = [
-                    .foregroundColor: placeHolderColor,
-                    .paragraphStyle: paragraphStyle
+                var attributes: [String: Any] = [
+                    NSForegroundColorAttributeName: placeHolderColor,
+                    NSParagraphStyleAttributeName: paragraphStyle
                 ]
                 if let font = font {
-                    attributes[.font] = font
+                    attributes[NSFontAttributeName] = font
                 }
                 
                 placeHolder.draw(in: placeHolderRect, withAttributes: attributes)
@@ -169,7 +167,7 @@ open class GrowingTextView: UITextView {
     }
     
     // Trim white space and new line characters when end editing.
-    @objc func textDidEndEditing(notification: Notification) {
+    func textDidEndEditing(notification: Notification) {
         if let notificationObject = notification.object as? GrowingTextView {
             if notificationObject === self {
                 if trimWhiteSpaceWhenEndEditing {
@@ -182,15 +180,17 @@ open class GrowingTextView: UITextView {
     }
     
     // Limit the length of text
-    @objc func textDidChange(notification: Notification) {
-        if let sender = notification.object as? GrowingTextView, sender == self {
-            if maxLength > 0 && text.count > maxLength {
-                let endIndex = text.index(text.startIndex, offsetBy: maxLength)
-                text = String(text[..<endIndex])
-                undoManager?.removeAllActions()
+    func textDidChange(notification: Notification) {
+        if let notificationObject = notification.object as? GrowingTextView {
+            if notificationObject === self {
+                if maxLength > 0 && text.characters.count > maxLength {
+                    
+                    let endIndex = text.index(text.startIndex, offsetBy: maxLength)
+                    text = text.substring(to: endIndex)
+                    undoManager?.removeAllActions()
+                }
+                setNeedsDisplay()
             }
-            setNeedsDisplay()
         }
     }
 }
-

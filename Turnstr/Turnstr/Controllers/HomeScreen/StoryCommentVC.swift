@@ -14,6 +14,14 @@ protocol StoryCommentsDelegate {
 
 class StoryCommentVC: ParentViewController, UITableViewDelegate, UITableViewDataSource {
     
+    enum screenT {
+        case normal
+        case videoStory
+    }
+    
+    var screen: screenT = .normal
+    var storyId: Int = 0
+    
     @IBOutlet weak var txtComment: UITextField!
     
     let objStory = Story.sharedInstance
@@ -216,11 +224,16 @@ class StoryCommentVC: ParentViewController, UITableViewDelegate, UITableViewData
         
         self.objStory.ParseStoryData(dict: self.dictInfo)
         
+        if screen == .videoStory {
+        } else{
+            storyId = self.objStory.storyID
+        }
+        
         let txtMsg = self.txtComment.text ?? ""
         
         let dictAction: NSDictionary = [
             "action": kAPIGetStoriesComments,
-            "id": "\(self.objStory.storyID)",
+            "id": "\(self.storyId)",
             "comment[body]" : txtMsg.encode() //"\(self.txtComment.text!)"
         ]
         
@@ -246,3 +259,4 @@ class StoryCommentVC: ParentViewController, UITableViewDelegate, UITableViewData
     
     
 }
+

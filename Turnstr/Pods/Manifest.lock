@@ -52,8 +52,8 @@ PODS:
     - GoogleToolboxForMac/Defines (= 2.1.3)
   - GoogleToolboxForMac/NSData+zlib (2.1.3):
     - GoogleToolboxForMac/Defines (= 2.1.3)
-  - GrowingTextView (0.5.3)
-  - Kingfisher (4.4.0)
+  - GrowingTextView (0.4.0)
+  - Kingfisher (4.6.1)
   - KSPhotoBrowser (0.1.4):
     - YYWebImage (~> 1.0.5)
   - nanopb (0.3.8):
@@ -71,9 +71,9 @@ PODS:
   - SendBirdSDK (3.0.74)
   - SVProgressHUD (2.2.2)
   - SwiftyJSON (4.0.0)
-  - TwitterCore (3.0.3)
-  - TwitterKit (3.2.2):
-    - TwitterCore (>= 3.0.3)
+  - TwitterCore (3.1.0)
+  - TwitterKit (3.3.0):
+    - TwitterCore (>= 3.1.0)
   - YYCache (1.0.4)
   - YYImage (1.0.4):
     - YYImage/Core (= 1.0.4)
@@ -93,7 +93,7 @@ DEPENDENCIES:
   - FBSDKShareKit (~> 4.22.1)
   - Firebase/Core
   - Firebase/Messaging
-  - GrowingTextView
+  - GrowingTextView (~> 0.4.0)
   - Kingfisher
   - KSPhotoBrowser
   - NVActivityIndicatorView
@@ -121,8 +121,8 @@ SPEC CHECKSUMS:
   FirebaseInstanceID: 148c25c986c8699e67304b114e365713dce467f2
   FirebaseMessaging: 1a11d1c0a9ed9b3f75a0685bb0ae5932e1062f5f
   GoogleToolboxForMac: 2501e2ad72a52eb3dfe7bd9aee7dad11b858bd20
-  GrowingTextView: fd5cd2af28d4ba60676bb15186edf3a6b36fa85b
-  Kingfisher: 62a43e03047a1ac5159d0be3ac62673ef4b99cc3
+  GrowingTextView: b84085f4527a29d077364329d43e612ce7f26f43
+  Kingfisher: 1f9157d9c02b380cbd0b7cc890161195164eb634
   KSPhotoBrowser: 768ac3d7b42623b42af0579a7a1bfd6877dfff41
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   NVActivityIndicatorView: 77ed6d7b571643e24899e7858bf9ae2ee4c21f31
@@ -133,12 +133,12 @@ SPEC CHECKSUMS:
   SendBirdSDK: 1677c5c51e4c9e287fb1d086233cfb733eded089
   SVProgressHUD: 59b2d3dabacbd051576d21d32293ca7228dc18b0
   SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
-  TwitterCore: 549c74ed5f3d6134392dc944c6d215e233e50ad8
-  TwitterKit: b9feccfc70bef86fe389c06a63a72fed9f020b9c
+  TwitterCore: 644d59e75abccb26cf0a9050d2c4dea0e5412241
+  TwitterKit: a2e60ddcedbf54091eac6f27685ca7a87681e1d7
   YYCache: 8105b6638f5e849296c71f331ff83891a4942952
   YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
   YYWebImage: 5f7f36aee2ae293f016d418c7d6ba05c4863e928
 
-PODFILE CHECKSUM: c476bfe9c6bd04509553247a5585f62c674818d3
+PODFILE CHECKSUM: ffb65ec7093d5ad07381e68e8c910bfe9012b541
 
 COCOAPODS: 1.3.1

@@ -33,7 +33,8 @@ pod 'TwitterKit'
 
 #SendBird
 pod 'SendBirdSDK'
-pod 'GrowingTextView'
+#pod 'GrowingTextView'
+pod 'GrowingTextView', '~> 0.4.0'
 
 #Open Tok
 pod 'OpenTok'

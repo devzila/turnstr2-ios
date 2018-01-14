@@ -31,6 +31,36 @@ extension URL {
     }
 }
 
+extension UIImageView {
+    func getThumbnailOfURLWith(url: URL) {
+        
+        let asset = AVURLAsset.init(url: url)
+        
+        kBQ_getVideosThumb.async {
+            let imgGenerator = AVAssetImageGenerator(asset: asset)
+            
+            do {
+                let cgImage = try imgGenerator.copyCGImage(at: CMTimeMake(0, 1), actualTime: nil)
+                
+                let uiImage = UIImage.init(cgImage: cgImage)
+                DispatchQueue.main.async(execute: {
+                    self.image = uiImage
+                })
+                
+                return
+                
+            } catch let error {
+                print(error.localizedDescription)
+                
+            }
+            DispatchQueue.main.async(execute: {
+                self.image = nil
+            })
+        }
+        
+    }
+}
+
 extension UIScrollView {
     var currentPage:Int{
         return Int((self.contentOffset.x+(0.5*self.frame.size.width))/self.frame.width)+1
