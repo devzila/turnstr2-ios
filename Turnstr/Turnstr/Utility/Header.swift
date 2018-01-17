@@ -69,7 +69,7 @@ let kBQ_FCMTokenUpdate = DispatchQueue(label: "queue_fcm_update", attributes: .c
 let kBQ_startCall = DispatchQueue(label: "queue_start_call", attributes: .concurrent)
 let kBQ_getVideos = DispatchQueue(label: "queue_get_Videos", attributes: .concurrent)
 let kBQ_getVideosThumb = DispatchQueue(label: "queue_get_VideosThumb", attributes: .concurrent)
-
+let kBQ_getUserData = DispatchQueue(label: "queue_get_UserData", attributes: .concurrent)
 
 
 

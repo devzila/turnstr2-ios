@@ -338,6 +338,112 @@ class DataServiceModal: NSObject {
         return data
     }
     
+    //MARK:- Get User Profile
+    
+    func getUserProfileData(completion: @escaping (_ received: Bool)-> Void) {
+        
+        
+        kBQ_getUserData.async {
+            
+            let dictResponse = WebServices.sharedInstance.GetMethodServerData(strRequest: "", GetURL: "user/profile", parType: "")
+            
+            DispatchQueue.main.async {
+                if let statusCode = dictResponse["statusCode"] as? Int, statusCode == 200 {
+                    kAppDelegate.hideLoadingIndicator()
+                    
+                    if let dictComments = dictResponse["data"]?["data"] as? [String: AnyObject] {
+                        if let objUser = dictComments["user"] as? [String: Any] {
+                            
+                            if let str = objUser["email"] as? String {
+                                self.objSingl?.strUserEmail = "\(str)"
+                            }
+                            
+                            if let str = objUser["username"] as? String {
+                                self.objSingl?.strUserName = "\(str)"
+                            }
+                            
+                            if let str = objUser["first_name"] as? String {
+                                self.objSingl?.strUserFname = "\(str)"
+                            }
+                            
+                            if let str = objUser["last_name"] as? String {
+                                self.objSingl?.strUserLName = "\(str)"
+                            }
+                            
+                            if let str = objUser["phone"] as? Int {
+                                self.objSingl?.strUserPhone = "\(str)"
+                            }
+                            
+                            if let str = objUser["avatar_face1"] as? String {
+                                self.objSingl?.strUserPic1 = "\(str)"
+                            }
+                            
+                            if let str = objUser["avatar_face2"] as? String {
+                                self.objSingl?.strUserPic2 = "\(str)"
+                            }
+                            
+                            if let str = objUser["avatar_face3"] as? String {
+                                self.objSingl?.strUserPic3 = "\(str)"
+                            }
+                            
+                            if let str = objUser["avatar_face4"] as? String {
+                                self.objSingl?.strUserPic4 = "\(str)"
+                            }
+                            
+                            if let str = objUser["avatar_face5"] as? String {
+                                self.objSingl?.strUserPic5 = "\(str)"
+                            }
+                            
+                            if let str = objUser["avatar_face6"] as? String {
+                                self.objSingl?.strUserPic6 = "\(str)"
+                            }
+                            
+                            if let str = objUser["website"] as? String {
+                                self.objSingl?.strUserWebsite = "\(str)"
+                            }
+                            
+                            if let str = objUser["address"] as? String {
+                                self.objSingl?.address = "\(str)"
+                            }
+                            
+                            if let str = objUser["bio"] as? String {
+                                self.objSingl?.strUserBio = "\(str)"
+                            }
+                            
+                            if let str = objUser["contact_me"] as? String {
+                               self.objSingl?.strUserContactMe = "\(str)"
+                            }
+                            
+                            if let str = objUser["online"] as? Bool {
+                                self.objSingl?.strUserOnline = str
+                            }
+                            
+                            if let is_verified = objUser["is_verified"] as? Bool {
+                                self.objSingl?.isVerified = is_verified
+                            }
+                            
+                            if let str = objUser["follower_count"] as? Int {
+                                self.objSingl?.follower_count = str
+                            }
+                            
+                            if let str = objUser["post_count"] as? Int {
+                                self.objSingl?.post_count = str
+                            }
+                            
+                            if let str = objUser["family_count"] as? Int {
+                                self.objSingl?.family_count = str
+                            }
+                        }
+                        
+                        completion(true)
+                    }
+                    
+                } else {
+                    completion(false)
+                }
+            }
+        }
+    }
     
     //MARK:- ------------------------------------------------------
     //MARK:-SAVE Login Data

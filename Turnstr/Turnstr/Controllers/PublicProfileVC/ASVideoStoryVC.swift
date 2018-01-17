@@ -36,6 +36,17 @@ class ASVideoStoryVC: ParentViewController {
         
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        if playerAV != nil {
+            playerAV?.play()
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        if playerAV != nil {
+            playerAV?.pause()
+        }
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -147,6 +158,13 @@ class ASVideoStoryVC: ParentViewController {
             print("shared")
         })
         
+    }
+    
+    override func goBack() -> Void {
+        playerAV?.isMuted = true
+        playerAV?.pause()
+        playerAV = nil
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
 }

@@ -53,6 +53,9 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        objDataS.getUserProfileData { (received) in
+            
+        }
         setupVerifiedMark()
         
         // Do any additional setup after loading the view.
@@ -321,9 +324,9 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellFave5", for: indexPath as IndexPath) as? Fave5CollectionViewCell
             
             if let view = cell?.viewWithTag(2001) {
-                view.isHidden = !isFromFeeds
+                view.isHidden = false //!isFromFeeds
             }
-            if isFromFeeds {
+            //if isFromFeeds {
                 if let view = cell?.viewWithTag(1001) {
                     for constraint in view.constraints as [NSLayoutConstraint] {
                         if constraint.identifier == "fave5lblWidthConstraint" {
@@ -331,9 +334,10 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
                         }
                     }
                 }
-            }
+            //}
             
-            if let lblName = cell?.viewWithTag(1001) as? UILabel {
+            //if let lblName = cell?.viewWithTag(1001) as? UILabel {
+            if let lblName = cell?.viewWithTag(2022) as? UILabel {
                 if isFromFeeds {
                     lblName.text = "POPULAR"
                 } else {
@@ -360,8 +364,8 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
                         if isFromFeeds {
                             lblName.text = isSearching ? "SEARCH" : "GENERAL"
                             if isSearching == true {
-                                print(self.arrMembers.count)
-                                print(self.arrMembers)
+                                //print(self.arrMembers.count)
+                                //print(self.arrMembers)
                                 cell?.arrMembers = self.arrMembers
                             } else {
                                 cell?.arrStories = self.arrUserStories
@@ -556,7 +560,7 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
             kAppDelegate.hideLoadingIndicator()
             
             if let storyArray = response?.response {
-                print(storyArray)
+                //print(storyArray)
                 for object in storyArray {
                     self.arrUserStories.append(object)
                 }
@@ -735,7 +739,7 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
             kAppDelegate.hideLoadingIndicator()
             
             if let memberArray = response?.response {
-                print(memberArray)
+                //print(memberArray)
                 for object in memberArray {
                     self.arrMembers.append(object)
                 }
@@ -768,7 +772,7 @@ extension PublicProfileCollectionViewController {
         kBQ_FCMTokenUpdate.async {
             
             let response = DataServiceModal.sharedInstance.ApiPostRequest(PostURL: "members/\(id)/follow", dictData: [:])
-            print("API Response:: \(response)")
+            //print("API Response:: \(response)")
             if response.count > 0 {
                 DispatchQueue.main.async {
                     if let success = response["success"] as? Bool {
@@ -786,7 +790,7 @@ extension PublicProfileCollectionViewController {
         kBQ_FCMTokenUpdate.async {
             
             let response = DataServiceModal.sharedInstance.ApiPostRequest(PostURL: "members/\(id)/unfollow", dictData: [:])
-            print("API Response:: \(response)")
+            //print("API Response:: \(response)")
             if response.count > 0 {
                 DispatchQueue.main.async {
                     if let success = response["success"] as? Bool {

@@ -70,6 +70,11 @@ class HomeViewController: ParentViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        objDataS.getUserProfileData { (received) in
+            if received == true {
+                self.FollowerCounts()
+            }
+        }
         //kAppDelegate.isTabChanges = true
         
         imgVerified.isHidden = !objSing.isVerified
@@ -77,28 +82,7 @@ class HomeViewController: ParentViewController {
         lblUserName.text = "@"+objSing.strUserName.lowercased()
         
         
-        //
-        // Family Count
-        //
-        let postTitle1: NSMutableAttributedString = NSMutableAttributedString.init(string: "posts\nfollowers\nfamily")
-        postTitle1.addAttribute(NSFontAttributeName, value: UIFont.systemFont(ofSize: 10), range: NSMakeRange(0, postTitle1.length))
-        postTitle1.addAttribute(NSForegroundColorAttributeName, value: UIColor.white, range: NSMakeRange(0, postTitle1.length))
-        
-        let style1 = NSMutableParagraphStyle()
-        style1.alignment = .right
-        postTitle1.addAttribute(NSParagraphStyleAttributeName, value: style1, range: NSMakeRange(0, postTitle1.length))
-        
-        lblPostLeft.attributedText = postTitle1
-        
-        
-        let postDetail: NSMutableAttributedString = NSMutableAttributedString.init(string: "\(objSing.post_count)\n\(objSing.follower_count)\n\(objSing.family_count)")
-        postDetail.addAttribute(NSFontAttributeName, value: UIFont.systemFont(ofSize: 10), range: NSMakeRange(0, postDetail.length))
-        postDetail.addAttribute(NSForegroundColorAttributeName, value: UIColor.white, range: NSMakeRange(0, postDetail.length))
-        style1.alignment = .left
-        
-        postDetail.addAttribute(NSParagraphStyleAttributeName, value: style1, range: NSMakeRange(0, postDetail.length))
-        
-        lblPostRight.attributedText = postDetail
+        FollowerCounts()
         
         //
         // Bio INformation
@@ -174,6 +158,30 @@ class HomeViewController: ParentViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func FollowerCounts() {
+        //
+        // Family Count
+        //
+        let postTitle1: NSMutableAttributedString = NSMutableAttributedString.init(string: "posts\nfollowers\nfamily")
+        postTitle1.addAttribute(NSFontAttributeName, value: UIFont.systemFont(ofSize: 10), range: NSMakeRange(0, postTitle1.length))
+        postTitle1.addAttribute(NSForegroundColorAttributeName, value: UIColor.white, range: NSMakeRange(0, postTitle1.length))
+        
+        let style1 = NSMutableParagraphStyle()
+        style1.alignment = .right
+        postTitle1.addAttribute(NSParagraphStyleAttributeName, value: style1, range: NSMakeRange(0, postTitle1.length))
+        
+        lblPostLeft.attributedText = postTitle1
+        
+        
+        let postDetail: NSMutableAttributedString = NSMutableAttributedString.init(string: "\(objSing.post_count)\n\(objSing.follower_count)\n\(objSing.family_count)")
+        postDetail.addAttribute(NSFontAttributeName, value: UIFont.systemFont(ofSize: 10), range: NSMakeRange(0, postDetail.length))
+        postDetail.addAttribute(NSForegroundColorAttributeName, value: UIColor.white, range: NSMakeRange(0, postDetail.length))
+        style1.alignment = .left
+        
+        postDetail.addAttribute(NSParagraphStyleAttributeName, value: style1, range: NSMakeRange(0, postDetail.length))
+        
+        lblPostRight.attributedText = postDetail
+    }
     //MARK:- UI
     
     func MyStoryBUtton() {
