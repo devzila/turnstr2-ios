@@ -134,7 +134,7 @@ class StoryPreviewViewController: ParentViewController, UIGestureRecognizerDeleg
     
     func SetupFooter() -> Void {
         if objCommentFooter == nil {
-            objCommentFooter = LikeCommetFooter.init(frame: CGRect.init(x: 0, y: kHeight+kTabBarHeight-120, width: kWidth, height: 120))
+            objCommentFooter = LikeCommetFooter.init(frame: CGRect.init(x: 0, y: kHeight+kTabBarHeight-140, width: kWidth, height: 140))
         }
         objCommentFooter?.btnLike.addTarget(self, action: #selector(LikeClicked(sender:)), for: .touchUpInside)
         objCommentFooter?.btnComment.addTarget(self, action: #selector(CommentClicked(sender:)), for: .touchUpInside)
@@ -151,7 +151,8 @@ class StoryPreviewViewController: ParentViewController, UIGestureRecognizerDeleg
         
         if objCommentFooter != nil {
             objCommentFooter?.lblCaption.text = objStory.strCaption.capitalized
-            objCommentFooter?.btnTotalLike.setTitle("Liked by \(objStory.likes_count) people", for: .normal)
+            //objCommentFooter?.btnTotalLike.setTitle("Liked by \(objStory.likes_count) people", for: .normal)
+            objCommentFooter?.btnTotalLike.setTitle("\(objStory.strCaption.capitalized)", for: .normal)
             //objCommentFooter?.btnTotalComment.setTitle("\(objStory.comments_count) comments", for: .normal)
             
             objCommentFooter?.btnLike.isSelected = objStory.has_liked

@@ -164,6 +164,7 @@ class ASVideoStoryVC: ParentViewController {
         playerAV?.isMuted = true
         playerAV?.pause()
         playerAV = nil
+        playerLayerAV?.removeFromSuperlayer()
         _ = self.navigationController?.popViewController(animated: true)
     }
     
