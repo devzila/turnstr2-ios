@@ -63,4 +63,16 @@ extension String {
         let data = self.data(using: .utf8)!
         return String(data: data, encoding: .nonLossyASCII)
     }
+    
+    static func randomString(len:Int) -> String {
+        let charSet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        var c = Array(charSet)
+        var s:String = ""
+        for _ in 1...len {
+            s.append(c[Int(arc4random()) % c.count])
+        }
+        return s
+    }
 }
+
+

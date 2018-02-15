@@ -30,7 +30,9 @@ class TurntStoriesCollectionViewCell: UICollectionViewCell, UICollectionViewData
     
     // tell the collection view how many cells to make
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return arrTurntStories.count > 3 ? 3 : arrTurntStories.count
+        // COmmented on 8feb 18. I think now we have to show horizontal scroll in stories.
+        //return arrTurntStories.count > 3 ? 3 : arrTurntStories.count
+        return arrTurntStories.count
     }
     
     // make a cell for each cell index path

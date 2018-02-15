@@ -223,5 +223,10 @@ class HomeViewController: ParentViewController {
         }
     }
     
+    @IBAction func actMyGoLive(_ sender: UIButton) {
+        let mainStoryboard: UIStoryboard = UIStoryboard(name: "PhotoAlbum", bundle: nil)
+        let homeVC: ASMyGoLiveVC = mainStoryboard.instantiateViewController(withIdentifier: "ASMyGoLiveVC") as! ASMyGoLiveVC
+        self.navigationController?.pushViewController(homeVC, animated: true)
+    }
     
 }

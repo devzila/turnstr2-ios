@@ -226,6 +226,20 @@
                                     <constraint firstAttribute="height" constant="20" id="h88-Jz-ffs"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Lw-pp-WVk">
+                                <rect key="frame" x="16" y="632" width="81" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="6bn-ic-M1c"/>
+                                    <constraint firstAttribute="width" constant="81" id="JFq-OQ-IJy"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                <state key="normal" title="My GoLive">
+                                    <color key="titleColor" red="0.98823529409999999" green="0.56862745100000001" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="actMyGoLive:" destination="mgH-OK-TCm" eventType="touchUpInside" id="jb9-M6-Yhn"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -256,10 +270,12 @@
                             <constraint firstItem="msf-In-bdf" firstAttribute="leading" secondItem="Sqa-f6-Xl5" secondAttribute="leading" id="d62-hF-umg"/>
                             <constraint firstItem="Pht-7z-6dd" firstAttribute="leading" secondItem="Sqa-f6-Xl5" secondAttribute="leading" id="dDg-Xo-NzR"/>
                             <constraint firstItem="56R-sj-QA2" firstAttribute="top" secondItem="Mzj-a0-hzb" secondAttribute="bottom" constant="6" id="dTr-9C-aPV"/>
+                            <constraint firstItem="4Lw-pp-WVk" firstAttribute="leading" secondItem="Sqa-f6-Xl5" secondAttribute="leading" constant="16" id="gW8-bD-gvF"/>
                             <constraint firstItem="qeh-V6-UTG" firstAttribute="top" secondItem="Sqa-f6-Xl5" secondAttribute="top" constant="62" id="lpv-fy-EFh"/>
                             <constraint firstItem="Mzj-a0-hzb" firstAttribute="centerX" secondItem="Sqa-f6-Xl5" secondAttribute="centerX" id="nl7-Yf-Xub"/>
                             <constraint firstItem="GdT-fd-K2z" firstAttribute="leading" secondItem="Sqa-f6-Xl5" secondAttribute="leading" constant="16" id="vzf-qV-fEh"/>
                             <constraint firstAttribute="trailing" secondItem="6rh-cE-7hr" secondAttribute="trailing" constant="13" id="xij-es-cPl"/>
+                            <constraint firstItem="xF2-i2-D7A" firstAttribute="top" secondItem="4Lw-pp-WVk" secondAttribute="bottom" id="xj8-BC-j1V"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Lok-Vv-sBt"/>

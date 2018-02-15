@@ -10,20 +10,27 @@ import UIKit
 import Photos
 
 
-class CameraViewController: ParentViewController, UICollectionViewDelegate, UICollectionViewDataSource, CameraViewDelegates, VideoDelegate {
+class CameraViewController: ParentViewController, CameraViewDelegates, VideoDelegate {
+    
+    //Library outlets
+    var uvCollectionView: UICollectionView?
+    var flowLayout: UICollectionViewFlowLayout?
+    
+    var fetchResult: PHFetchResult<PHAsset>!
+    var smartAlbums: PHFetchResult<PHAssetCollection>!
+    lazy var imageOption = PHImageRequestOptions()
+    lazy var videoOption = PHVideoRequestOptions()
+    fileprivate let imageManager = PHCachingImageManager()
+    fileprivate var thumbnailSize: CGSize!
+    fileprivate var previousPreheatRect = CGRect.zero
     
     
+    //Others
     var uvContent = UIView()
     var selectedTab: Int = 1
-    
-    var library: PHPhotoLibrary?
-    var photoArray : [UIImage] = []
-    //var arrSelectedImages: [UIImage] = []
     var arrSelectedImages = [NewStoryMedia]()
     
     
-    var uvCollectionView: UICollectionView?
-    var flowLayout: UICollectionViewFlowLayout?
     
     @IBOutlet weak var btnLibrary: UIButton!
     @IBOutlet weak var btnPhotos: UIButton!
@@ -63,6 +70,9 @@ class CameraViewController: ParentViewController, UICollectionViewDelegate, UICo
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        
+        
         /*
          * Navigation Bar
          */
@@ -82,10 +92,40 @@ class CameraViewController: ParentViewController, UICollectionViewDelegate, UICo
         uvContent.backgroundColor = UIColor.black
         self.view.addSubview(uvContent)
         
+        
+        
+        //
+        //Load gallery content
+        //
+        thumbnailSize = CGSize(width: (screenWidth/3)-10, height: (screenWidth/3)-10)
+        
         createCollectionView()
         
+        smartAlbums = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .albumRegular, options: nil)
+        var collection: PHCollection?
+        for i in 0..<smartAlbums.count{
+            let album = smartAlbums.object(at: i)
+            if album.localizedTitle == "Camera Roll"{
+                collection = smartAlbums.object(at: i)
+            }
+        }
+        
+        if fetchResult == nil {
+            let fetchOptions = PHFetchOptions()
+            fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+            if collection == nil{
+                fetchResult = PHAsset.fetchAssets(with: fetchOptions)
+            }
+            else{
+                guard let assetCollection = collection as? PHAssetCollection
+                    else { fatalError("expected asset collection") }
+                fetchResult = PHAsset.fetchAssets(in: assetCollection, options: fetchOptions)
+            }
+        }
+        
+        
         HideCrossButtons()
-        getAllPhotos()
+        //TODO: getAllPhotos()
         
         createCameraView()
     }
@@ -332,132 +372,7 @@ class CameraViewController: ParentViewController, UICollectionViewDelegate, UICo
     
     //MARK:- Collection Grid for Library Setup
     
-    func createCollectionView() -> Void {
-        
-        if flowLayout == nil {
-            flowLayout = UICollectionViewFlowLayout.init()
-            flowLayout?.sectionInset = UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
-            flowLayout?.itemSize = PhotoSize()
-            
-        }
-        
-        if uvCollectionView == nil {
-            uvCollectionView = UICollectionView.init(frame: CGRect.init(x: 0, y: 0, width: kWidth, height: uvContent.frame.height), collectionViewLayout: flowLayout!)
-            uvCollectionView?.dataSource = self
-            uvCollectionView?.delegate = self
-            uvCollectionView?.backgroundColor = UIColor.white
-            uvContent.addSubview(uvCollectionView!)
-            uvCollectionView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
-        }
-        
-    }
-    
-    func PhotoSize() -> CGSize {
-        return CGSize(width: 80, height: 80)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
-    {
-        return self.photoArray.count
-    }
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath)
-        
-        cell.backgroundColor = UIColor.init("F3F3F3")
-        
-        let frame: CGRect = CGRect.init(x: 0, y: 0, width: PhotoSize().width, height: PhotoSize().height)
-        
-        
-        var imgBigImage = cell.contentView.viewWithTag(-111) as? UIImageView
-        if imgBigImage == nil {
-            imgBigImage = UIImageView.init(frame: frame)
-            imgBigImage?.tag = -111
-            imgBigImage?.contentMode = .scaleAspectFit // .scaleToFill
-            
-        }
-        imgBigImage?.image = nil
-        cell.contentView.addSubview(imgBigImage!)
-        
-        imgBigImage?.image = photoArray[indexPath.item]
-        
-        
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        if arrSelectedImages.count == 6 {
-            objUtil.showToast(strMsg: "You can select maximum six files")
-        }
-        else{
-            let vc = SHViewController(image: photoArray[indexPath.item])
-            vc.delegate = self
-            present(vc, animated: true, completion: nil)
-            
-//            arrSelectedImages.append(NewStoryMedia.init(image: photoArray[indexPath.item], url: nil, type: .image))
-//            reloadSelectedImages()
-        }
-    }
-    
-    //MARK:- Get All Photos From Library
-    
-    func getAllPhotos() -> Void {
-        
-        self.objLoader.start(inView: self.view)
-        
-        PHPhotoLibrary.requestAuthorization { (status) in
-            switch status
-            {
-            case .authorized:
-                print("Good to proceed")
-                
-                DispatchQueue.main.async {
-                    let allPhotosOptions = PHFetchOptions()
-                    allPhotosOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
-                    
-                    let allPhotosResult = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: allPhotosOptions)
-                    let totalImages = allPhotosResult.count
-                    
-                    // Now if you want you can get assets from the PHFetchResult object:
-                    allPhotosResult.enumerateObjects({
-                        self.photoArray.append(self.getAssetThumbnail(asset: $0.0))
-                        self.uvCollectionView?.reloadData()
-                        if self.photoArray.count == totalImages {
-                            self.objLoader.stop()
-                            
-                            let item = self.photoArray.count - 1
-                            let lastItemIndex = IndexPath.init(item: item, section: 0)
-                            self.uvCollectionView?.scrollToItem(at: lastItemIndex, at: .bottom, animated: true)
-                        }
-                    })
-                }
-            case .denied, .restricted:
-                print("Not allowed")
-                self.objLoader.stop()
-            case .notDetermined:
-                print("Not determined yet")
-                self.objLoader.stop()
-            }
-        }
-    }
-    
-    func getAssetThumbnail(asset: PHAsset) -> UIImage {
-        let manager = PHImageManager.default()
-        let option = PHImageRequestOptions()
-        var thumbnail = UIImage()
-        option.isSynchronous = true
-        manager.requestImage(for: asset, targetSize: CGSize(width: 200 , height: 200 ), contentMode: .aspectFit, options: option, resultHandler: {(result, info)->Void in
-            thumbnail = result!
-        })
-        return thumbnail
-    }
+
     
     //MARK:- Camera Delegates
     
@@ -510,6 +425,15 @@ class CameraViewController: ParentViewController, UICollectionViewDelegate, UICo
                 if (arrResponse.count) > 0 {
                     DispatchQueue.main.async {
                         
+                        //
+                        //Remove all files from temprary directory
+                        //
+                        let tempDirPath = FileManager.default.pathFor(.temprary)
+                        if tempDirPath != nil {
+                            _ = FileManager.removeAllItemsInsideDirectory(atPath: tempDirPath!)
+                        }
+
+                        
                         //self.objUtil.showToast(strMsg: "Story created successfully")
                         self.uvPopUP = nil
                         self.goBack()
@@ -552,3 +476,195 @@ extension CameraViewController: SHViewControllerDelegate {
 //        dismissVC()
     }
 }
+
+//MARK: ------ UICollectionViewDelegate/DataSource Methods
+extension CameraViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource
+{
+    
+    //MARK:- Collection Grid for Library Setup
+    
+    func createCollectionView() -> Void {
+        
+        if flowLayout == nil {
+            flowLayout = UICollectionViewFlowLayout.init()
+            flowLayout?.sectionInset = UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1)
+            flowLayout?.itemSize = thumbnailSize
+            
+        }
+        
+        if uvCollectionView == nil {
+            uvCollectionView = UICollectionView.init(frame: CGRect.init(x: 0, y: 0, width: kWidth, height: uvContent.frame.height), collectionViewLayout: flowLayout!)
+            uvCollectionView?.dataSource = self
+            uvCollectionView?.delegate = self
+            uvCollectionView?.backgroundColor = UIColor.white
+            uvContent.addSubview(uvCollectionView!)
+        }
+        
+        uvCollectionView?.register(UINib(nibName: "ImagesCell", bundle: nil), forCellWithReuseIdentifier: "ImagesCell")
+        
+    }
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return fetchResult.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        //let cell: ImagesCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImagesCell", for: indexPath) as! ImagesCell
+        
+        let cell : ImagesCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImagesCell", for: indexPath) as! ImagesCell
+        
+        
+        let asset = fetchResult.object(at: indexPath.item)
+        cell.videoIcon.isHidden = asset.mediaType != .video
+        cell.representedAssetIdentifier = asset.localIdentifier
+        imageManager.requestImage(for: asset, targetSize: thumbnailSize, contentMode: .aspectFill, options: nil, resultHandler: { image, _ in
+            // The cell may have been recycled by the time this handler gets called;
+            // set the cell's thumbnail image only if it's still showing the same asset.
+            
+            if cell.representedAssetIdentifier == asset.localIdentifier {
+                cell.image.image = image
+                cell.image.contentMode = .scaleAspectFill
+            }
+        })
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let asset = fetchResult[indexPath.row]
+        if asset.mediaType == .image {
+            imageOption.isSynchronous = true
+            imageManager.requestImage(for: asset, targetSize: PHImageManagerMaximumSize, contentMode: .aspectFit, options: imageOption, resultHandler: {(result, info)->Void in
+                debugPrint("Image from asset === \(result)")
+                
+                if self.arrSelectedImages.count == 6 {
+                    self.objUtil.showToast(strMsg: "You can select maximum six files")
+                }
+                else{
+                    if result != nil {
+                        let vc = SHViewController(image: result!)
+                        vc.delegate = self
+                        self.present(vc, animated: true, completion: nil)
+                    }
+                }
+                
+            })
+        }
+        else if asset.mediaType == .video {
+            videoOption.version = .current
+            imageManager.requestAVAsset(forVideo: asset, options: videoOption, resultHandler: { (asset, audioMix, nil) in
+                if let urlAsset = asset as? AVURLAsset {
+                    DispatchQueue.main.async {
+                        debugPrint("Image from asset === \(urlAsset.url)")
+                        
+                        do {
+                            let data = try Data.init(contentsOf: urlAsset.url)
+                            print(data.count)
+                            //FileName in string
+                            //
+                            let name = urlAsset.url.lastPathComponent
+                            let fileName = String.randomString(len: 10).appending(name)
+                            //
+                            //File path where the file is stored on local directory
+                            //
+                            let filePath = FileManager.default.save(file: "\(fileName)", in: .temprary, content: data)
+                            //
+                            //File size in KB
+                            let size = data.count/1024
+                            print("Path: \(filePath), \n Size: \(size)")
+                            
+                            if FileManager.default.fileExists(atPath: filePath){
+                                self.VideoPicked(url: URL.init(fileURLWithPath: filePath))
+                            }
+                            
+                            
+                        } catch let error as Error {
+                            print(error.localizedDescription)
+                        }
+                        
+                        
+                        //self.VideoPicked(url: urlAsset.url)
+                    }
+                }
+            })
+        }
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return thumbnailSize
+    }
+    
+    // MARK: UIScrollView
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        updateCachedAssets()
+    }
+    
+    // MARK: Asset Caching
+    
+    fileprivate func resetCachedAssets() {
+        imageManager.stopCachingImagesForAllAssets()
+        previousPreheatRect = .zero
+    }
+    
+    fileprivate func updateCachedAssets() {
+        // Update only if the view is visible.
+        guard isViewLoaded && view.window != nil else { return }
+        
+        // The preheat window is twice the height of the visible rect.
+        let preheatRect = view!.bounds.insetBy(dx: 0, dy: -0.5 * view!.bounds.height)
+        
+        // Update only if the visible area is significantly different from the last preheated area.
+        let delta = abs(preheatRect.midY - previousPreheatRect.midY)
+        guard delta > view.bounds.height / 3 else { return }
+        
+        // Compute the assets to start caching and to stop caching.
+        let (addedRects, removedRects) = differencesBetweenRects(previousPreheatRect, preheatRect)
+        let addedAssets = addedRects
+            .flatMap { rect in uvCollectionView!.indexPathsForElements(in: rect) }
+            .map { indexPath in fetchResult.object(at: indexPath.item) }
+        let removedAssets = removedRects
+            .flatMap { rect in uvCollectionView!.indexPathsForElements(in: rect) }
+            .map { indexPath in fetchResult.object(at: indexPath.item) }
+        
+        // Update the assets the PHCachingImageManager is caching.
+        imageManager.startCachingImages(for: addedAssets,
+                                        targetSize: thumbnailSize, contentMode: .aspectFill, options: nil)
+        imageManager.stopCachingImages(for: removedAssets,
+                                       targetSize: thumbnailSize, contentMode: .aspectFill, options: nil)
+        
+        // Store the preheat rect to compare against in the future.
+        previousPreheatRect = preheatRect
+    }
+    fileprivate func differencesBetweenRects(_ old: CGRect, _ new: CGRect) -> (added: [CGRect], removed: [CGRect]) {
+        if old.intersects(new) {
+            var added = [CGRect]()
+            if new.maxY > old.maxY {
+                added += [CGRect(x: new.origin.x, y: old.maxY,
+                                 width: new.width, height: new.maxY - old.maxY)]
+            }
+            if old.minY > new.minY {
+                added += [CGRect(x: new.origin.x, y: new.minY,
+                                 width: new.width, height: old.minY - new.minY)]
+            }
+            var removed = [CGRect]()
+            if new.maxY < old.maxY {
+                removed += [CGRect(x: new.origin.x, y: new.maxY,
+                                   width: new.width, height: old.maxY - new.maxY)]
+            }
+            if old.minY < new.minY {
+                removed += [CGRect(x: new.origin.x, y: old.minY,
+                                   width: new.width, height: new.minY - old.minY)]
+            }
+            return (added, removed)
+        } else {
+            return ([new], [old])
+        }
+    }
+}
+
+private extension UICollectionView {
+    func indexPathsForElements(in rect: CGRect) -> [IndexPath] {
+        let allLayoutAttributes = collectionViewLayout.layoutAttributesForElements(in: rect)!
+        return allLayoutAttributes.map { $0.indexPath }
+    }
+}
+

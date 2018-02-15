@@ -110,6 +110,7 @@
 		D91C3B051F001D78005F945C /* IQKeyboardManager.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D91C3AF41F001D78005F945C /* IQKeyboardManager.bundle */; };
 		D91C3B071F003986005F945C /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91C3B061F003986005F945C /* SignUpViewController.swift */; };
 		D91C3B0A1F003DB5005F945C /* ParentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91C3B091F003DB5005F945C /* ParentViewController.swift */; };
+		D91F1A9A202B8A03003F808B /* ASMyGoLiveVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91F1A99202B8A03003F808B /* ASMyGoLiveVC.swift */; };
 		D92070DD1EF98FDC0095B9FA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92070DC1EF98FDC0095B9FA /* LoginViewController.swift */; };
 		D926C8971F23E8940090B621 /* StoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D926C8961F23E8940090B621 /* StoriesViewController.swift */; };
 		D9357CEB1FDD67D700987E7C /* SHCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9357CE71FDD67D500987E7C /* SHCollectionViewCell.swift */; };
@@ -188,6 +189,9 @@
 		D9D3DF501F1130E100173FFD /* CameraViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9D3DF4E1F1130E100173FFD /* CameraViewController.xib */; };
 		D9DEF50F1FEA25CB0024E8F9 /* ASSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DEF50E1FEA25CB0024E8F9 /* ASSearchVC.swift */; };
 		D9DEF5111FEAFD710024E8F9 /* FooterCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DEF5101FEAFD710024E8F9 /* FooterCollectionReusableView.swift */; };
+		D9F6F623203614A60059893A /* ImagesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F6F621203614A60059893A /* ImagesCell.swift */; };
+		D9F6F624203614A60059893A /* ImagesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9F6F622203614A60059893A /* ImagesCell.xib */; };
+		D9F6F626203625710059893A /* ASFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F6F625203625710059893A /* ASFileManager.swift */; };
 		D9FA59DA1F0F26FC001A38B6 /* CubePageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FA59D91F0F26FC001A38B6 /* CubePageView.m */; };
 		D9FA59DC1F0F3365001A38B6 /* StoryPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FA59DB1F0F3365001A38B6 /* StoryPreviewViewController.swift */; };
 		D9FDE6121EC2263C009D5BE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FDE6111EC2263C009D5BE3 /* AppDelegate.swift */; };
@@ -328,6 +332,7 @@
 		D91C3AF41F001D78005F945C /* IQKeyboardManager.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = IQKeyboardManager.bundle; sourceTree = "<group>"; };
 		D91C3B061F003986005F945C /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		D91C3B091F003DB5005F945C /* ParentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParentViewController.swift; sourceTree = "<group>"; };
+		D91F1A99202B8A03003F808B /* ASMyGoLiveVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASMyGoLiveVC.swift; sourceTree = "<group>"; };
 		D92070DC1EF98FDC0095B9FA /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D926C8961F23E8940090B621 /* StoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoriesViewController.swift; sourceTree = "<group>"; };
 		D9357CE61FDD67D500987E7C /* SHCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SHCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -425,6 +430,9 @@
 		D9D3DF4E1F1130E100173FFD /* CameraViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CameraViewController.xib; sourceTree = "<group>"; };
 		D9DEF50E1FEA25CB0024E8F9 /* ASSearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASSearchVC.swift; sourceTree = "<group>"; };
 		D9DEF5101FEAFD710024E8F9 /* FooterCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterCollectionReusableView.swift; sourceTree = "<group>"; };
+		D9F6F621203614A60059893A /* ImagesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesCell.swift; sourceTree = "<group>"; };
+		D9F6F622203614A60059893A /* ImagesCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImagesCell.xib; sourceTree = "<group>"; };
+		D9F6F625203625710059893A /* ASFileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASFileManager.swift; sourceTree = "<group>"; };
 		D9FA59D81F0F26FC001A38B6 /* CubePageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CubePageView.h; sourceTree = "<group>"; };
 		D9FA59D91F0F26FC001A38B6 /* CubePageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CubePageView.m; sourceTree = "<group>"; };
 		D9FA59DB1F0F3365001A38B6 /* StoryPreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryPreviewViewController.swift; sourceTree = "<group>"; };
@@ -499,6 +507,7 @@
 				7ED0589D1F5F2073009DBF36 /* PublicProfileCollectionViewController.swift */,
 				D9DEF50E1FEA25CB0024E8F9 /* ASSearchVC.swift */,
 				D96018161FFFFD9F000451A3 /* ASVideoStoryVC.swift */,
+				D91F1A99202B8A03003F808B /* ASMyGoLiveVC.swift */,
 			);
 			path = PublicProfileVC;
 			sourceTree = "<group>";
@@ -918,6 +927,7 @@
 		D9AC62CB1F0191100055ED3D /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				D9F6F625203625710059893A /* ASFileManager.swift */,
 				D9AC62FF1F019A050055ED3D /* NSObjectExtensions.swift */,
 				D9AC62CC1F0191100055ED3D /* ColorExtension.swift */,
 				D9AC62CD1F0191100055ED3D /* DateExtension.swift */,
@@ -961,6 +971,8 @@
 			children = (
 				D9D3DF4D1F1130E100173FFD /* CameraViewController.swift */,
 				D9D3DF4E1F1130E100173FFD /* CameraViewController.xib */,
+				D9F6F621203614A60059893A /* ImagesCell.swift */,
+				D9F6F622203614A60059893A /* ImagesCell.xib */,
 			);
 			path = CameraVC;
 			sourceTree = "<group>";
@@ -1243,6 +1255,7 @@
 				8AEC2C861F169C23008DF3BB /* Login.storyboard in Resources */,
 				D9FDE6191EC2263C009D5BE3 /* Assets.xcassets in Resources */,
 				D957F31B1F435E1A00307968 /* CommentCell.xib in Resources */,
+				D9F6F624203614A60059893A /* ImagesCell.xib in Resources */,
 				8AEC2C8A1F169C23008DF3BB /* Stories.storyboard in Resources */,
 				8AEC2C841F169C23008DF3BB /* LaunchScreen.storyboard in Resources */,
 				D9357CED1FDD67D700987E7C /* SHViewController.xib in Resources */,
@@ -1443,6 +1456,7 @@
 				7EDC72881F4DF0D000A00316 /* DGElasticPullToRefreshLoadingViewCircle.swift in Sources */,
 				D9AC62D51F0191100055ED3D /* DateExtension.swift in Sources */,
 				8A1104DF1F5DC0D9009FFE0C /* URL+StartCallConvertible.swift in Sources */,
+				D9F6F626203625710059893A /* ASFileManager.swift in Sources */,
 				D95181AA1F180C37008595CC /* LiveFeedsViewController.swift in Sources */,
 				D9FDE6471EC236F5009D5BE3 /* scroll.swift in Sources */,
 				D96366271F02D15D00784A58 /* MBProgressHUD.m in Sources */,
@@ -1465,6 +1479,7 @@
 				D9D36B5F1F110B6D000C66CD /* Story.swift in Sources */,
 				D91C3B031F001D78005F945C /* IQToolbar.swift in Sources */,
 				D9AC62E41F01917A0055ED3D /* KBLog.swift in Sources */,
+				D91F1A9A202B8A03003F808B /* ASMyGoLiveVC.swift in Sources */,
 				D96B48EA1F146D6E00621B39 /* NewStoryPopUp.swift in Sources */,
 				D96366641F035BD100784A58 /* SDWebImageManager.m in Sources */,
 				D91C3B041F001D78005F945C /* IQUIView+IQKeyboardToolbar.swift in Sources */,
@@ -1511,6 +1526,7 @@
 				7EBFF7EE1F46204800A8574D /* StoryModel.swift in Sources */,
 				D91C3B001F001D78005F945C /* IQBarButtonItem.swift in Sources */,
 				D957F3211F436D0300307968 /* AllExtensions.swift in Sources */,
+				D9F6F623203614A60059893A /* ImagesCell.swift in Sources */,
 				D9FDE63D1EC22C55009D5BE3 /* Header.swift in Sources */,
 				8A2630161F30EBF600F55C2B /* TableViewDataSources.swift in Sources */,
 				8AB03AD01FD94BAA00D39662 /* MultiCallChatHandlingExtension.swift in Sources */,
