@@ -135,29 +135,36 @@ class PhotoDetailNewViewController: ParentViewController, UITextViewDelegate, Se
     }
     
     @IBAction func btnTappedShare(_ sender: UIButton) {
+        
         guard let photo = photoDetail else { return }
-        kAppDelegate.loadingIndicationCreationMSG(msg: "Loading...")
-        SDWebImageManager.shared().downloadImage(with: URL(string: photo.image_medium!), options: .continueInBackground, progress: {
-            (receivedSize :Int, ExpectedSize :Int) in
-            print("ExpectedSize--\(ExpectedSize)")
-        }, completed: {
-            (image : UIImage?, error : Error?, cacheType : SDImageCacheType, finished : Bool, url : URL?) in
-            kAppDelegate.hideLoadingIndicator()
-            if image != nil {
-                let objectsToShare = [image]
-                let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
-                
-                self.present(activityVC, animated: true, completion: {
-                    print("shared")
-                })
-                //self.performSegue(withIdentifier: "SharePhoto", sender: image)
-            }
-            
+        
+        let objectsToShare = ["\(kShareUrl)\(photo.id)"]
+        print(objectsToShare)
+        let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+        
+        self.present(activityVC, animated: true, completion: {
+            print("shared")
+        })
+        
+        
+//        kAppDelegate.loadingIndicationCreationMSG(msg: "Loading...")
+//
+//        SDWebImageManager.shared().downloadImage(with: URL(string: photo.image_medium!), options: .continueInBackground, progress: {
+//            (receivedSize :Int, ExpectedSize :Int) in
+//            print("ExpectedSize--\(ExpectedSize)")
+//        }, completed: {
+//            (image : UIImage?, error : Error?, cacheType : SDImageCacheType, finished : Bool, url : URL?) in
+//            kAppDelegate.hideLoadingIndicator()
+//            if image != nil {
+//
+//                //self.performSegue(withIdentifier: "SharePhoto", sender: image)
+//            }
+        
             //                    let shareItems:Array = [image]
             //                    let activityViewController:UIActivityViewController = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
             //                    activityViewController.excludedActivityTypes = [UIActivityType.print, UIActivityType.postToWeibo, UIActivityType.copyToPasteboard, UIActivityType.addToReadingList, .assignToContact, .openInIBooks, .postToTencentWeibo]
             //                    self.present(activityViewController, animated: true, completion: nil)
-        })
+       // })
     }
     
     @IBAction func btnTappedComment(_ sender: UIButton) {
@@ -271,7 +278,7 @@ extension PhotoDetailNewViewController: UITableViewDelegate, UITableViewDataSour
                     cube?.tag = indexPath.item
                     cube?.backgroundColor = UIColor.clear
                     cube?.isUserInteractionEnabled = false
-                    let arrFaces = [det.user?.avatar_face1 ?? "thumb", det.user?.avatar_face2 ?? "thumb", det.user?.avatar_face3 ?? "thumb", det.user?.avatar_face4 ?? "thumb", det.user?.avatar_face5 ?? "thumb", det.user?.avatar_face6 ?? "thumb"]
+                    let arrFaces = [det.user!.avatar_face1 ?? "thumb", det.user!.avatar_face2 ?? "thumb", det.user!.avatar_face3 ?? "thumb", det.user!.avatar_face4 ?? "thumb", det.user!.avatar_face5 ?? "thumb", det.user!.avatar_face6 ?? "thumb"]
                     cube?.setup(withUrls: arrFaces)
                     cell.contentView.addSubview(cube!)
                     cube?.setScroll(CGPoint.init(x: 0, y: 50/2), end: CGPoint.init(x: 2.5, y: 50/2))
@@ -307,7 +314,7 @@ extension PhotoDetailNewViewController: UITableViewDelegate, UITableViewDataSour
                 cube?.backgroundColor = UIColor.clear
                 cube?.isUserInteractionEnabled = false
                 let user = arrComments[indexPath.row - 1].user
-                let arrFaces = [user?.avatar_face1 ?? "thumb", user?.avatar_face2 ?? "thumb", user?.avatar_face3 ?? "thumb", user?.avatar_face4 ?? "thumb", user?.avatar_face5 ?? "thumb", user?.avatar_face6 ?? "thumb"]
+                let arrFaces = [user!.avatar_face1 ?? "thumb", user!.avatar_face2 ?? "thumb", user!.avatar_face3 ?? "thumb", user!.avatar_face4 ?? "thumb", user!.avatar_face5 ?? "thumb", user!.avatar_face6 ?? "thumb"]
                 cube?.setup(withUrls: arrFaces)
                 cell.contentView.addSubview(cube!)
                 cube?.setScroll(CGPoint.init(x: 0, y: 50/2), end: CGPoint.init(x: 2.5, y: 50/2))

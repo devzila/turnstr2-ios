@@ -85,7 +85,7 @@ class DataServiceModal: NSObject {
     
     //MARK:- Post Request
     
-    func ApiPostRequest(PostURL:String, dictData: Dictionary<String, Any>?) -> Dictionary<String,AnyObject>  {
+    func ApiPostRequest(PostURL:String, dictData: Dictionary<String, Any>?, method: String = "POST") -> Dictionary<String,AnyObject>  {
         self.allSharedInstance()
         
         print(PostURL)
@@ -94,7 +94,7 @@ class DataServiceModal: NSObject {
             return [String: AnyObject]()
         }
         
-        let dictResponse = WebServices.sharedInstance.PostRequestWith(PostURL: PostURL, dictData: dictData)
+        let dictResponse = WebServices.sharedInstance.PostRequestWith(PostURL: PostURL, dictData: dictData, method: method)
         print(dictResponse)
         
         return self.validateData(response: dictResponse)

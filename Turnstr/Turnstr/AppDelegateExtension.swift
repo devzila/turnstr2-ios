@@ -230,6 +230,8 @@ extension AppDelegate: PKPushRegistryDelegate {
         }
         
         let callType = "\(info["call_type"] ?? "")"
+        caller.callType = callType
+        
         if callType == "CALLING" {
             caller.isVideo = false
         }

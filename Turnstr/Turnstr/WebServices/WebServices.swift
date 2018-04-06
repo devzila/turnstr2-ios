@@ -124,7 +124,7 @@ class WebServices: NSObject {
     
     //MARK:- Post Methods FormData
     
-    func PostRequestWith(PostURL:String, dictData: Dictionary<String, Any>?) -> Dictionary<String,AnyObject> {
+    func PostRequestWith(PostURL:String, dictData: Dictionary<String, Any>?, method: String = "POST") -> Dictionary<String,AnyObject> {
         
         print(kBaseURL)
         
@@ -138,7 +138,7 @@ class WebServices: NSObject {
         request.cachePolicy = NSURLRequest.CachePolicy.reloadIgnoringLocalCacheData
         request.httpShouldHandleCookies=false
         request.timeoutInterval = 60.0
-        request.httpMethod = "POST"
+        request.httpMethod = method
         
         let contentType = "multipart/form-data; boundary=\(boundaryConstant)"
         
@@ -239,7 +239,8 @@ class WebServices: NSObject {
     
     func GetMethodServerData(strRequest:String, GetURL:String, parType: String) -> Dictionary<String,AnyObject>{
         
-        
+        print(Singleton.sharedInstance.strUserSessionId)
+        print(Singleton.sharedInstance.strUserID)
         
         // Send HTTP GET Request
         // Define server side script URL

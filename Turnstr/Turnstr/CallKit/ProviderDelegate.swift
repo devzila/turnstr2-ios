@@ -194,6 +194,11 @@ final class ProviderDelegate: NSObject, CXProviderDelegate {
         
         vc.kPublisherToken = token
         vc.kTokBoxSessionID = sessionId
+        if caller.callType == "go_live" {
+            vc.userType = .goLiveAttendee
+            vc.screenTYPE = .goLive
+            
+        }
         if let navigation = kAppDelegate.window?.rootViewController as? UINavigationController {
             navigation.pushViewController(vc, animated: true)
         }

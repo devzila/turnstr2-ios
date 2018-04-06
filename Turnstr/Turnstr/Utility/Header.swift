@@ -23,6 +23,7 @@ let IS_IPHONEX = UIDevice.current.isIPhoneX
 //Staging URL:- "https://fathomless-retreat-45620.herokuapp.com/v1/"
 //Live URL:- "http://18.218.6.149/v1/"
 let kBaseURL = "http://18.218.6.149/v1/"
+let kShareUrl = "http://turnstr.com/story/"
 let kImageBaseUrl = ""
 
 // *** Fill the following variables using your own Project info  ***

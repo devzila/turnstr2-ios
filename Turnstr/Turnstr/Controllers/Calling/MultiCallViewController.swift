@@ -20,6 +20,7 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
     enum CallUserType {
         case caller
         case receiver
+        case goLiveAttendee
     }
     enum callType {
         case goLive
@@ -77,7 +78,8 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
             callApi()
             break
         case .receiver:
-            
+            break
+        case .goLiveAttendee:
             break
         }
         tblView?.backgroundColor = .clear
@@ -91,12 +93,18 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
         }
         
         if screenTYPE == .goLive && userType == .receiver {
+            
             uvBottomBar.isHidden = true
             btnAddUser.isHidden = true
             bottomBarHeight.constant = 1
             uvBottomBar.layoutIfNeeded()
             collectionView.layoutIfNeeded()
             commentView?.isHidden = false
+            
+            //
+            //Call Api to get subscriber token
+            //
+            getSubscriberTokenApi()
         }
         
         
@@ -123,7 +131,12 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
         guard let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
             return
         }
-        btnAddUser.isHidden = subscribers.count == 3
+        if screenTYPE == .goLive && userType == .receiver {
+            btnAddUser.isHidden = true
+        } else{
+            btnAddUser.isHidden = subscribers.count == 3
+        }
+        
         
         print("suscriber count: \(subscribers.count)")
         var count = subscribers.count
@@ -193,6 +206,16 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
                 KBLog.log(err.debugDescription)
             }
         }
+        else if screenTYPE == .goLive && userType == .goLiveAttendee {
+            //
+            // Disconnect the call
+            //
+            var err: OTError?
+            session?.signal(withType: kDisconnectGoLive, string: objSing.strUserID, connection: nil, error: &err)
+            if let err = err {
+                KBLog.log(err.debugDescription)
+            }
+        }
         else if screenTYPE == .videoCall {
             
             //
@@ -233,7 +256,12 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
         
         guard let vc = Storyboards.chatStoryboard.initialVC(with: .usersList) else { return }
         let vcc = vc as! UsersListVC
-        vcc.screenTYpe = .calling
+        if screenTYPE == .goLive {
+            vcc.screenTYpe = .goLive
+        } else{
+            vcc.screenTYpe = .calling
+        }
+        
         vcc.delegate = self
         present(vcc, animated: true, completion: nil)
     }
@@ -241,20 +269,49 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
     func UserSelected(userId: String) {
         self.recieverId = userId
         //kAppDelegate.loadingIndicationCreation()
-        AddUserInCall()
+        
+        if screenTYPE == .goLive {
+            AddPublisherUserInGoLiveCall()
+            
+        } else{
+            AddUserInCall()
+        }
+        
     }
     
-    //MARK:- APi
+    //MARK:- ----------------------------------------------------------------------------------------
+    //MARK: APi
+    //MARK:
     
     func AddUserInCall() {
         
         print(self.recieverId)
         kBQ_startCall .async {
-            let response = DataServiceModal.sharedInstance.ApiPostRequest(PostURL: "user/live_session", dictData: ["invitees[]":"\(self.recieverId)"])
+            let response = DataServiceModal.sharedInstance.ApiPostRequest(PostURL: "user/live_session", dictData: ["invitees[]":"\(self.recieverId)", "tokbox_session_id" : self.kTokBoxSessionID], method: "PUT")
             print(response)
             if response.count > 0 {
                 DispatchQueue.main.async {
                     kAppDelegate.hideLoadingIndicator()
+                }
+                
+            }
+        }
+        
+    }
+    
+    func AddPublisherUserInGoLiveCall() {
+        
+        print(self.recieverId)
+        kBQ_startCall .async {
+            let response = DataServiceModal.sharedInstance.ApiPostRequest(PostURL: "user/golive_session", dictData: [
+                "invitees[]":"\(self.recieverId)",
+                "tokbox_session_id" : self.kTokBoxSessionID
+                ], method: "PUT")
+            print(response)
+            if response.count > 0 {
+                DispatchQueue.main.async {
+                    kAppDelegate.hideLoadingIndicator()
+                    self.objUtil.showToast(strMsg: "User added in go-live.")
                 }
                 
             }
@@ -270,7 +327,7 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
                 self.recieverId = "0"
             }
             //call_type
-            let response = DataServiceModal.sharedInstance.ApiPostRequest(PostURL: "user/live_session", dictData: ["invitees[]":"\(self.recieverId)"])
+            let response = DataServiceModal.sharedInstance.ApiPostRequest(PostURL: "user/live_session", dictData: ["invitees[]":"\(self.recieverId)", "tokbox_session_id" : self.kTokBoxSessionID])
             print(response)
             if response.count > 0 {
                 DispatchQueue.main.async {
@@ -304,6 +361,8 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
             }
         }
     }
+    
+    
     //MARK:-
     //MARK: Go lIve subscriber Api
     //MARK:
@@ -311,7 +370,7 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
     func callSubscriberApi() {
         print(self.recieverId)
         kBQ_startCall .async {
-            let response = DataServiceModal.sharedInstance.ApiPostRequest(PostURL: "user/live_notify", dictData: [:])
+            let response = DataServiceModal.sharedInstance.ApiPostRequest(PostURL: "user/live_notify", dictData: ["tokbox_session_id" : self.kTokBoxSessionID], method: "POST")
             print(response)
             if response.count > 0 {
                 
@@ -320,6 +379,49 @@ class MultiCallViewController: ParentViewController, UserListDelegate {
     }
     
     //MARK:-
+    //MARK: Get Subscriber Token API
+    func getSubscriberTokenApi() {
+        
+        kBQ_startCall .async {
+            
+            //call_type
+            let response = DataServiceModal.sharedInstance.ApiPostRequest(PostURL: "user/golive_token", dictData: ["session_id" : "\(self.kTokBoxSessionID)"], method: "POST")
+            print("Subscribertoken: \(response)")
+            if response.count > 0 {
+                DispatchQueue.main.async {
+                    if let token = response["token"] as? String {
+                        let objSession = Session.init(session: [
+                            "session_id" : self.kTokBoxSessionID,
+                            "token" : token
+                            ])
+                        self.kPublisherToken = objSession.token
+                        self.kTokBoxSessionID = objSession.session_id
+                        
+                        print(self.kPublisherToken)
+                        print(self.kTokBoxSessionID)
+                        
+                        self.startConnectingTokBox()
+                        kAppDelegate.hideLoadingIndicator()
+                        
+                    }
+                    else {
+                        self.openAlert(title: "Error!", message: "Error in connecting, please try again.", with: "OK", didSelect: { (index) in
+                            self.goBack()
+                        })
+                    }
+                    kAppDelegate.hideLoadingIndicator()
+                }
+                
+            }
+            else {
+                self.openAlert(title: "Error!", message: "Error in subscribing, please try again.", with: "OK", didSelect: { (index) in
+                    self.goBack()
+                })
+            }
+        }
+    }
+    
+    //MARK:- --------------------------------------------------
     //MARK: startConnectingTokBox
     //MARK:
     
@@ -494,6 +596,7 @@ extension MultiCallViewController: OTSessionDelegate {
             print("Sorry this sample only supports up to 4 subscribers :)")
             return
         }
+        //userJoined(with: stream.session)
         doSubscribe(to: stream)
     }
     
@@ -510,6 +613,11 @@ extension MultiCallViewController: OTSessionDelegate {
     
     func session(_ session: OTSession, didFailWithError error: OTError) {
         print("session Failed to connect: \(error.localizedDescription)")
+    }
+    
+    func session(_ session: OTSession, connectionCreated connection: OTConnection) {
+        print("Connection created called")
+        userJoined(with: connection)
     }
 }
 
@@ -530,7 +638,8 @@ extension MultiCallViewController: OTPublisherDelegate {
 // MARK: - OTSubscriber delegate callbacks
 extension MultiCallViewController: OTSubscriberDelegate {
     func subscriberDidConnect(toStream subscriberKit: OTSubscriberKit) {
-        print("Subscriber connected")
+        print("Subscriber connected: \(subscriberKit.session.connection?.data ?? "")")
+        
         reloadCollectionView()
     }
     
@@ -539,6 +648,20 @@ extension MultiCallViewController: OTSubscriberDelegate {
     }
     
     func subscriberVideoDataReceived(_ subscriber: OTSubscriber) {
+    }
+}
+
+extension MultiCallViewController {
+    func userJoined(with connection: OTConnection) {
+        if let data = connection.data {
+            DispatchQueue.main.async {
+                let arrName = data.components(separatedBy: "=")
+                if arrName.count > 0 {
+                    self.objUtil.showToast(strMsg: "\(arrName.last ?? "") has joined")
+                }
+                
+            }
+        }
     }
 }
 

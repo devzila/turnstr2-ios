@@ -104,6 +104,12 @@ class ChatVC: ChatParentVC  {
 extension ChatVC: SBDChannelDelegate {
     
     func channel(_ sender: SBDBaseChannel, didReceive message: SBDBaseMessage) {
-        dataSource?.add(message as! SBDUserMessage)
+        if let userMessage = message as? SBDUserMessage {
+            dataSource?.add(userMessage)
+            
+        } else if let fileMessage = message as? SBDFileMessage {
+            dataSource?.add(fileMessage)
+        }
+        
     }
 }

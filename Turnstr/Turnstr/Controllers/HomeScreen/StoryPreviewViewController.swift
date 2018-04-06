@@ -19,7 +19,8 @@ class StoryPreviewViewController: ParentViewController, UIGestureRecognizerDeleg
     let objStory = Story.sharedInstance
     var objCommentFooter: LikeCommetFooter?
     var userTYpe: enumScreenType = .normal
-    var shareImgUrl = ""
+    //var shareImgUrl = ""
+    var shareStoryId = ""
     
     var dictInfo: Dictionary<String, Any> = [:]
     
@@ -40,9 +41,10 @@ class StoryPreviewViewController: ParentViewController, UIGestureRecognizerDeleg
             objStory.ParseMedia(media: item)
             arrMedia.append(objStory.thumb_url)
             
-            if objStory.media_url.isEmpty == false && shareImgUrl.isEmpty == true {
-                shareImgUrl = objStory.media_url
-            }
+            shareStoryId = "\(objStory.storyID)"
+//            if objStory.media_url.isEmpty == false && shareImgUrl.isEmpty == true {
+//                shareImgUrl = objStory.media_url
+//            }
         }
         
         let uvCube = objUtil.createView(xCo: 0, forY: 112, forW: kWidth, forH: kHeight-112, backColor: UIColor.clear)
@@ -206,21 +208,23 @@ class StoryPreviewViewController: ParentViewController, UIGestureRecognizerDeleg
     }
     
     func ShareClicked(sender: UIButton) -> Void {
-        
-        var img = UIImage()
-        img.downloadImage(url: URL.init(string: shareImgUrl)!) { (data) in
-            if data != nil {
-                img = UIImage.init(data: data!)!
-                DispatchQueue.main.async {
-                    let objectsToShare = [img]
-                    let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
-                    
-                    self.present(activityVC, animated: true, completion: {
-                        print("shared")
-                    })
-                }
-            }
+
+        DispatchQueue.main.async {
+            let objectsToShare = ["\(kShareUrl)\(self.shareStoryId)"]
+            let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+            
+            self.present(activityVC, animated: true, completion: {
+                print("shared")
+            })
         }
+        
+//        var img = UIImage()
+//        img.downloadImage(url: URL.init(string: shareImgUrl)!) { (data) in
+//            if data != nil {
+//                img = UIImage.init(data: data!)!
+//
+//            }
+//        }
         
         //let fileURL = URL.init(string: "https://www.google.co.in/url?sa=i&rct=j&q=&esrc=s&source=imgres&cd=&cad=rja&uact=8&ved=0ahUKEwi7o6DYkPbXAhUcSY8KHUnkAz8QjRwIBw&url=https%3A%2F%2Fwww.planwallpaper.com%2Fimages&psig=AOvVaw0Xe9lJ06VPsSPjahBOqgty&ust=1512675281008184") //URL.init(fileURLWithPath: "")
         

@@ -150,8 +150,10 @@ class ASVideoStoryVC: ParentViewController {
     
     func ShareClicked(sender: UIButton) -> Void {
         
-        var img = videoStory.url
-        let objectsToShare = [img]
+        //var img = videoStory.url
+        
+        let objectsToShare = ["\(kShareUrl)\(videoStory.id)"]
+        print(objectsToShare)
         let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
         
         self.present(activityVC, animated: true, completion: {

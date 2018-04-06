@@ -19,6 +19,7 @@ struct Caller {
     var udid: String?
     var isVideo: Bool = false
     var isCalling: Bool = true
+    var callType: String = ""
     
     init(name: String) {
         self.name = name

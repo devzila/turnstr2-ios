@@ -18,6 +18,7 @@ class UsersListVC: ParentViewController {
     enum screenType {
         case normal
         case calling
+        case goLive
     }
     
     var dataSource: TableViewDataSources?
@@ -96,7 +97,7 @@ class UsersListVC: ParentViewController {
         
         guard let userId = users[indexPath.row].id else { return }
         
-        if self.screenTYpe == .calling {
+        if self.screenTYpe == .calling || self.screenTYpe == .goLive {
             delegate?.UserSelected!(userId: userId)
             self.dismiss(animated: false, completion: {
             })
@@ -124,18 +125,44 @@ class UsersListVC: ParentViewController {
     
     //MARK: ------ API Methods
     func apiListUsers()  {
-        let response = WebServices.sharedInstance.GetMethodServerData(strRequest: kAPIFollowUnfollowUser + "/\(loginUser.id ?? "")/family", GetURL: "", parType: "")
-        let objData = objDataS.validateData(response: response)
-        if let followers = objData["family"] as? [AnyObject] {
-            users = [User]()
-            for obj in followers {
-                let user = User.init(obj as? [String: Any])
-                users.append(user)
-            }
-//            self.registerUsers(users)
-            self.dataSource?.items = users
-            self.dataSource?.reloadData()
+        var response: Dictionary<String,AnyObject> = [:]
+        
+        if screenTYpe == .goLive {
+            response = WebServices.sharedInstance.GetMethodServerData(strRequest: kAPIFollowUnfollowUser + "/\(loginUser.id ?? "")/family", GetURL: "", parType: "")
         }
+        else{
+            response = WebServices.sharedInstance.GetMethodServerData(strRequest: "user/followers", GetURL: "", parType: "")
+        }
+        
+        let objData = objDataS.validateData(response: response)
+        
+        
+        
+        if screenTYpe == .goLive {
+            if let followers = objData["family"] as? [AnyObject] {
+                users = [User]()
+                for obj in followers {
+                    let user = User.init(obj as? [String: Any])
+                    users.append(user)
+                }
+                //            self.registerUsers(users)
+                self.dataSource?.items = users
+                self.dataSource?.reloadData()
+            }
+        }
+        else{
+            if let followers = objData["followers"] as? [AnyObject] {
+                users = [User]()
+                for obj in followers {
+                    let user = User.init(obj as? [String: Any])
+                    users.append(user)
+                }
+                //            self.registerUsers(users)
+                self.dataSource?.items = users
+                self.dataSource?.reloadData()
+            }
+        }
+        
         self.dataSource?.refreshControl?.endRefreshing()
     }
     
