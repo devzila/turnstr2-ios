@@ -80,15 +80,17 @@ class CameraViewController: ParentViewController, CameraViewDelegates, VideoDele
         objNav.btnBack.setImage(#imageLiteral(resourceName: "close"), for: .normal)
         objNav.btnRightMenu.setImage(nil, for: .normal)
         objNav.btnRightMenu.setTitle("NEXT", for: .normal)
+        objUtil.setFrames(xCo: 0, yCo: 0, width: 60, height: 0, view: objNav.btnBack)
         objUtil.setFrames(xCo: kWidth-50, yCo: kNavBarHeightWithLogo-40, width: 45, height: 40, view: objNav.btnRightMenu)
-        objNav.btnBack.addTarget(self, action: #selector(goBack), for: .touchUpInside)
+        objNav.btnBack.addTarget(self, action: #selector(actBackClicked), for: .touchUpInside)
         objNav.btnRightMenu.addTarget(self, action: #selector(nextClicked), for: .touchUpInside)
         
         
         //
         //Content View Center
         //
-        uvContent.frame = CGRect.init(x: 0, y: kNavBarHeightWithLogo, width: kWidth, height: kHeight-kNavBarHeightWithLogo-40-75)
+        //uvContent.frame = CGRect.init(x: 0, y: kNavBarHeightWithLogo, width: kWidth, height: kHeight-kNavBarHeightWithLogo-40-75)
+        uvContent.frame = CGRect.init(x: 0, y: kNavBarHeightWithLogo, width: kWidth, height: kHeight-kNavBarHeightWithLogo-uvImages.frame.height)
         uvContent.backgroundColor = UIColor.black
         self.view.addSubview(uvContent)
         
@@ -128,6 +130,11 @@ class CameraViewController: ParentViewController, CameraViewDelegates, VideoDele
         //TODO: getAllPhotos()
         
         createCameraView()
+        
+        //
+        //OPen Camera controller first
+        //
+        PhotosClicked(btnPhotos)
     }
     
     override func didReceiveMemoryWarning() {
@@ -142,6 +149,8 @@ class CameraViewController: ParentViewController, CameraViewDelegates, VideoDele
         if uvCamera == nil {
             uvCamera = CameraView.init(frame: uvContent.frame)
             uvCamera?.delegate = self
+            uvCamera?.btnGallery.addTarget(self, action: #selector(LibraryClicked(_:)), for: .touchUpInside)
+            uvCamera?.btnVideoIcon.addTarget(self, action: #selector(VideosClicked(_:)), for: .touchUpInside)
         }
         uvCamera?.isHidden = true
         uvContent.addSubview(uvCamera!)
@@ -150,6 +159,8 @@ class CameraViewController: ParentViewController, CameraViewDelegates, VideoDele
         if uvVideo == nil {
             uvVideo = VideoView.init(frame: uvContent.frame)
             uvVideo?.delegate = self
+            uvVideo?.btnGallery.addTarget(self, action: #selector(LibraryClicked(_:)), for: .touchUpInside)
+            uvVideo?.btnVideoIcon.addTarget(self, action: #selector(PhotosClicked(_:)), for: .touchUpInside)
         }
         uvVideo?.isHidden = true
         uvContent.addSubview(uvVideo!)
@@ -305,7 +316,17 @@ class CameraViewController: ParentViewController, CameraViewDelegates, VideoDele
     
     // MARK: - Action Methods
     
+    func actBackClicked() {
+        if selectedTab == 1 {
+            PhotosClicked(btnPhotos)
+            return
+        }
+        self.goBack()
+    }
+    
     @IBAction func LibraryClicked(_ sender: UIButton) {
+        objNav.btnBack.setImage(nil, for: .normal)
+        objNav.btnBack.setTitle("DONE", for: .normal)
         selectedTab = 1
         TabHandling()
         uvCollectionView?.isHidden = false
@@ -317,6 +338,8 @@ class CameraViewController: ParentViewController, CameraViewDelegates, VideoDele
         uvVideo?.StopSession()
     }
     @IBAction func PhotosClicked(_ sender: UIButton) {
+        objNav.btnBack.setImage(#imageLiteral(resourceName: "close"), for: .normal)
+        objNav.btnBack.setTitle(nil, for: .normal)
         selectedTab = 2
         TabHandling()
         uvCollectionView?.isHidden = true
@@ -330,6 +353,8 @@ class CameraViewController: ParentViewController, CameraViewDelegates, VideoDele
         
     }
     @IBAction func VideosClicked(_ sender: UIButton) {
+        objNav.btnBack.setImage(#imageLiteral(resourceName: "close"), for: .normal)
+        objNav.btnBack.setTitle(nil, for: .normal)
         selectedTab = 3
         TabHandling()
         uvCollectionView?.isHidden = true
@@ -366,7 +391,6 @@ class CameraViewController: ParentViewController, CameraViewDelegates, VideoDele
         
         NextPopUp()
     }
-    
     
     
     

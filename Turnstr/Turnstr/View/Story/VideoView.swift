@@ -21,6 +21,8 @@ class VideoView: UIView, AVCaptureFileOutputRecordingDelegate, VideoPlayerDelega
     
     var btnVideoCap = UIButton()
     var btnSelfiCap = UIButton()
+    var btnGallery = UIButton()
+    var btnVideoIcon = UIButton()
     
     var timer: Timer? = nil
     let lengthAccepted = 5.0 as Float
@@ -76,7 +78,7 @@ class VideoView: UIView, AVCaptureFileOutputRecordingDelegate, VideoPlayerDelega
     //MARK: Custom Methods
     func cameraSetup(){
         cameraSession = AVCaptureSession()
-        cameraSession?.sessionPreset = AVCaptureSessionPresetMedium
+        cameraSession?.sessionPreset = AVCaptureSessionPresetHigh//AVCaptureSessionPresetMedium
         
         cameraPreviewlayer = AVCaptureVideoPreviewLayer(session: cameraSession)
         cameraPreviewlayer?.videoGravity = AVLayerVideoGravityResizeAspectFill
@@ -162,7 +164,8 @@ class VideoView: UIView, AVCaptureFileOutputRecordingDelegate, VideoPlayerDelega
     func CameraScreenButtons() -> Void {
         
         
-        btnSelfiCap.frame = CGRect.init(x: kWidth-55, y: self.frame.height-60, width: 50, height: 40)
+        //btnSelfiCap.frame = CGRect.init(x: kWidth-55, y: self.frame.height-60, width: 50, height: 40)
+        btnSelfiCap.frame = CGRect.init(x: kWidth-55, y: 10, width: 50, height: 40)
         btnSelfiCap.setImage(UIImage.init(named: "selfi"), for: .normal)
         self.addSubview(btnSelfiCap)
         btnSelfiCap.addTarget(self, action: #selector(SelfyCaptureClicked(sender:)), for: .touchUpInside)
@@ -180,6 +183,21 @@ class VideoView: UIView, AVCaptureFileOutputRecordingDelegate, VideoPlayerDelega
         progressView.maximumValue = maximumLength
         progressView.isUserInteractionEnabled = false
         self.addSubview(progressView)
+        
+        //
+        //Gallery
+        //
+        btnGallery.frame = CGRect.init(x: 10, y: self.frame.height-70, width: 60, height: 60)
+        btnGallery.setImage(#imageLiteral(resourceName: "gallery"), for: .normal)
+        self.addSubview(btnGallery)
+        
+        //
+        //VideoIcon
+        //
+        
+        btnVideoIcon.frame = CGRect.init(x: kWidth-70, y: self.frame.height-70, width: 60, height: 60)
+        btnVideoIcon.setImage(#imageLiteral(resourceName: "cameraicon"), for: .normal)
+        self.addSubview(btnVideoIcon)
     }
     
     func StopSession() -> Void {

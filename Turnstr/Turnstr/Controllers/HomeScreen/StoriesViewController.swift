@@ -12,6 +12,8 @@ class StoriesViewController: ParentViewController, UICollectionViewDelegate, UIC
     
     var screenType: enumScreenType = .normal
     
+    var isNewStoryLaunched: Bool = false
+    
     
     var topCube: AITransformView?
     
@@ -359,6 +361,16 @@ class StoriesViewController: ParentViewController, UICollectionViewDelegate, UIC
                         //self.tblMainTable?.reloadData()
                         kAppDelegate.hideLoadingIndicator()
                         self.objLoader.stop()
+                        if self.screenType == .myStories {
+                            if self.arrList.count == 0 {
+                                if self.isNewStoryLaunched == false{
+                                    self.NewStoryClicked(UIButton())
+                                    self.isNewStoryLaunched = true
+                                } else{
+                                    self.goBack()
+                                }
+                            }
+                        }
                     }
                 }
                 else {

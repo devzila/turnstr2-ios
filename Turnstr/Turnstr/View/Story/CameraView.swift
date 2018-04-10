@@ -34,6 +34,8 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate {
     
     var btnCameraCap = UIButton()
     var btnSelfiCap = UIButton()
+    var btnGallery = UIButton()
+    var btnVideoIcon = UIButton()
     
     
     override init(frame: CGRect) {
@@ -51,7 +53,7 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate {
     
     func cameraSetup(){
         cameraSession = AVCaptureSession()
-        cameraSession?.sessionPreset = AVCaptureSessionPresetPhoto
+        cameraSession?.sessionPreset = AVCaptureSessionPresetHigh //AVCaptureSessionPresetPhoto
         
         cameraPreviewlayer = AVCaptureVideoPreviewLayer(session: cameraSession)
         cameraPreviewlayer?.videoGravity = AVLayerVideoGravityResizeAspectFill
@@ -134,7 +136,7 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate {
                             let square = CGSize.init(width: kWidth*2, height: kHeight*2)
                             //let imageView = UIImageView(frame: CGRect.init(x: 0, y: 0, width: square.width/2, height: square.height/2))
                             let imageView = UIImageView(frame: CGRect.init(x: 0, y: 0, width: square.width, height: square.height))
-                            imageView.contentMode = .scaleAspectFill
+                            imageView.contentMode = .scaleToFill
                             imageView.image = image
                             UIGraphicsBeginImageContext(imageView.bounds.size)
                             imageView.layer.render(in: UIGraphicsGetCurrentContext()!)
@@ -222,12 +224,26 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate {
         btnCameraCap.addTarget(self, action: #selector(CameraCaptureClicked(sender:)), for: .touchUpInside)
         
         
-        btnSelfiCap.frame = CGRect.init(x: kWidth-55, y: self.frame.height-60, width: 50, height: 40)
+        //btnSelfiCap.frame = CGRect.init(x: kWidth-55, y: self.frame.height-60, width: 50, height: 40)
+        btnSelfiCap.frame = CGRect.init(x: kWidth-55, y: 10, width: 50, height: 40)
         btnSelfiCap.setImage(UIImage.init(named: "selfi"), for: .normal)
         self.addSubview(btnSelfiCap)
         btnSelfiCap.addTarget(self, action: #selector(SelfyCaptureClicked(sender:)), for: .touchUpInside)
         
+        //
+        //Gallery
+        //
+        btnGallery.frame = CGRect.init(x: 10, y: self.frame.height-70, width: 60, height: 60)
+        btnGallery.setImage(#imageLiteral(resourceName: "gallery"), for: .normal)
+        self.addSubview(btnGallery)
         
+        //
+        //VideoIcon
+        //
+        
+        btnVideoIcon.frame = CGRect.init(x: kWidth-70, y: self.frame.height-70, width: 60, height: 60)
+        btnVideoIcon.setImage(#imageLiteral(resourceName: "videoIcon"), for: .normal)
+        self.addSubview(btnVideoIcon)
     }
     
     func StopSession() -> Void {

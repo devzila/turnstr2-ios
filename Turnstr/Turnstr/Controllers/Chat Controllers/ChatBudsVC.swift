@@ -108,10 +108,9 @@ class ChatBudsVC: UIViewController {
     }
     
     @IBAction func actMyGoLive(_ sender: UIButton) {
-        let storyboard = UIStoryboard(name: Storyboards.storyStoryboard.rawValue, bundle: nil)
-        let homeVC: StoriesViewController = storyboard.instantiateViewController(withIdentifier: "StoriesViewController") as! StoriesViewController
-        homeVC.screenType = .myStories
-        topVC?.navigationController?.pushViewController(homeVC, animated: true)
+        let camVC = CameraViewController(nibName: "CameraViewController", bundle: nil)
+        topVC?.navigationController?.pushViewController(camVC, animated: true)
+        
         
     }
 }

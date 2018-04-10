@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="lOf-ev-5CK">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="lOf-ev-5CK">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -25,18 +26,19 @@
                                 <rect key="frame" x="0.0" y="607" width="375" height="60"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="yvy-2Q-vk7">
-                                        <rect key="frame" x="73.5" y="-6.5" width="228" height="73"/>
+                                        <rect key="frame" x="67.5" y="-6.5" width="240" height="73"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nsi-PF-wMi">
-                                                <rect key="frame" x="0.0" y="0.0" width="24" height="73"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="36" height="73"/>
+                                                <color key="tintColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                                 <inset key="contentEdgeInsets" minX="0.0" minY="12" maxX="0.0" maxY="12"/>
-                                                <state key="normal" image="nav_video"/>
+                                                <state key="normal" image="nav_home"/>
                                                 <connections>
                                                     <action selector="btnSelectAction:" destination="Bf0-Ic-hbe" eventType="touchUpInside" id="XEg-Lj-9vH"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pA5-2O-gpY">
-                                                <rect key="frame" x="29" y="0.0" width="42" height="73"/>
+                                                <rect key="frame" x="41" y="0.0" width="42" height="73"/>
                                                 <inset key="contentEdgeInsets" minX="8" minY="12" maxX="8" maxY="12"/>
                                                 <state key="normal" image="nav_profile"/>
                                                 <connections>
@@ -44,7 +46,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P2C-yk-wty">
-                                                <rect key="frame" x="76" y="0.0" width="59" height="73"/>
+                                                <rect key="frame" x="88" y="0.0" width="59" height="73"/>
                                                 <inset key="contentEdgeInsets" minX="8" minY="12" maxX="8" maxY="12"/>
                                                 <state key="normal" image="nav_story"/>
                                                 <connections>
@@ -52,7 +54,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="49j-An-3nQ">
-                                                <rect key="frame" x="140" y="0.0" width="43" height="73"/>
+                                                <rect key="frame" x="152" y="0.0" width="43" height="73"/>
                                                 <inset key="contentEdgeInsets" minX="8" minY="12" maxX="8" maxY="12"/>
                                                 <state key="normal" image="nav_chat"/>
                                                 <connections>
@@ -60,7 +62,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ays-sN-2x0">
-                                                <rect key="frame" x="188" y="0.0" width="40" height="73"/>
+                                                <rect key="frame" x="200" y="0.0" width="40" height="73"/>
                                                 <inset key="contentEdgeInsets" minX="8" minY="12" maxX="8" maxY="12"/>
                                                 <state key="normal" image="nav_album"/>
                                                 <connections>
@@ -156,7 +158,6 @@
                 <navigationController storyboardIdentifier="MainNavigationController" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="lOf-ev-5CK" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ms4-C7-d7h">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -172,8 +173,8 @@
     <resources>
         <image name="nav_album" width="24" height="25"/>
         <image name="nav_chat" width="27" height="28"/>
+        <image name="nav_home" width="36" height="36"/>
         <image name="nav_profile" width="26" height="27"/>
         <image name="nav_story" width="43" height="49"/>
-        <image name="nav_video" width="24" height="13"/>
     </resources>
 </document>
