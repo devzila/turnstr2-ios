@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="2Z7-tz-Jit">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="2Z7-tz-Jit">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -94,6 +94,7 @@
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backBtn" translatesAutoresizingMaskIntoConstraints="NO" id="0PP-ZU-FiF">
                                 <rect key="frame" x="6" y="40" width="30" height="21"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="6qk-bY-aMl"/>
                                     <constraint firstAttribute="height" constant="21" id="JxT-PL-JY6"/>
@@ -149,9 +150,7 @@
                     <connections>
                         <outlet property="collViewPhotoAlbum" destination="23Z-eB-fhD" id="bay-0j-IYW"/>
                         <outlet property="uvTopCube" destination="cRg-L0-mww" id="vZC-13-VxQ"/>
-                        <segue destination="2Z7-tz-Jit" kind="show" identifier="photosViewSegue" id="WrZ-b0-qaP">
-                            <nil key="action"/>
-                        </segue>
+                        <segue destination="2Z7-tz-Jit" kind="show" identifier="photosViewSegue" id="WrZ-b0-qaP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Aaj-yy-Evl" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -242,6 +241,7 @@
                                             <constraint firstAttribute="width" constant="49" id="3bR-8r-1ih"/>
                                             <constraint firstAttribute="height" constant="28" id="rO7-ji-V9s"/>
                                         </constraints>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" image="backBtn"/>
                                         <connections>
                                             <action selector="btnTappedBack:" destination="2Z7-tz-Jit" eventType="touchUpInside" id="9r8-Ut-Lct"/>
@@ -518,7 +518,7 @@
                                         <rect key="frame" x="0.0" y="542" width="375" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="2Nz-vi-8ng" id="ks5-bg-OwI">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="79.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="1001" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Comment user name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jHl-bG-01w">
@@ -631,6 +631,7 @@
                                             <constraint firstAttribute="width" constant="49" id="PAI-fN-BF0"/>
                                             <constraint firstAttribute="height" constant="28" id="kgD-a5-ICy"/>
                                         </constraints>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" image="backBtn"/>
                                         <connections>
                                             <action selector="btnTappedBack:" destination="X5M-Nk-k6d" eventType="touchUpInside" id="ZW6-Jg-Uys"/>
@@ -1331,6 +1332,7 @@
                                     <constraint firstAttribute="width" constant="49" id="B5i-u0-Hfm"/>
                                     <constraint firstAttribute="height" constant="28" id="cfj-FD-xDh"/>
                                 </constraints>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" image="backBtn"/>
                                 <connections>
                                     <action selector="btnTappedBack:" destination="aq8-IG-OTR" eventType="touchUpInside" id="glE-D4-ISD"/>
@@ -1973,6 +1975,7 @@
                                             <constraint firstAttribute="height" constant="28" id="Qad-jt-xWj"/>
                                             <constraint firstAttribute="width" constant="49" id="yvN-aJ-kAd"/>
                                         </constraints>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" image="backBtn"/>
                                         <connections>
                                             <action selector="btnBackTapped:" destination="iKo-4m-zpj" eventType="touchUpInside" id="vLt-5v-cop"/>
@@ -2028,7 +2031,7 @@
     </scenes>
     <resources>
         <image name="TurnstrLogo" width="260" height="90"/>
-        <image name="backBtn" width="115" height="84"/>
+        <image name="backBtn" width="36" height="36"/>
         <image name="commentPhoto" width="128" height="128"/>
         <image name="facebookLogo" width="128" height="128"/>
         <image name="ic_user" width="28" height="29"/>

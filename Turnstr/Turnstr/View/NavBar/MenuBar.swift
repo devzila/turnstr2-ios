@@ -81,6 +81,7 @@ class MenuBar: UIView {
         let top: CGFloat = UIDevice.current.isIPhoneX ? 40 : 20
         btnBack = Utility.sharedInstance.createButton(xCo: 0, forY: top, forW: 40, forH: kNavBarHeight, forText: "", textColor: UIColor.white, wifthFont: UIFont.systemFont(ofSize: 12), backColor: krgbClear)
         btnBack.setImage(UIImage(named: "back_arrow"), for: .normal)
+        btnBack.tintColor = .black
         return btnBack
     }
     

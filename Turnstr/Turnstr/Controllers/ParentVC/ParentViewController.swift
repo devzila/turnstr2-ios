@@ -30,7 +30,7 @@ class ParentViewController: UIViewController, PickerDelegate, CustomAlertViewDel
         let top: CGFloat = UIDevice.current.isIPhoneX ? 40 : 20
         btnNavBack.frame = CGRect.init(x: 0, y: top, width: 60, height: 40)
         btnNavBack.setImage(#imageLiteral(resourceName: "back_arrow"), for: .normal)
-        //btnNavBack.tintColor = UIColor.black
+        btnNavBack.tintColor = UIColor.black
 
     }
     

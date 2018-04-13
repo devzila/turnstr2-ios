@@ -80,7 +80,7 @@ class CameraViewController: ParentViewController, CameraViewDelegates, VideoDele
         objNav.btnBack.setImage(#imageLiteral(resourceName: "close"), for: .normal)
         objNav.btnRightMenu.setImage(nil, for: .normal)
         objNav.btnRightMenu.setTitle("NEXT", for: .normal)
-        objUtil.setFrames(xCo: 0, yCo: 0, width: 60, height: 0, view: objNav.btnBack)
+        //objUtil.setFrames(xCo: 0, yCo: 0, width: 60, height: 0, view: objNav.btnBack)
         objUtil.setFrames(xCo: kWidth-50, yCo: kNavBarHeightWithLogo-40, width: 45, height: 40, view: objNav.btnRightMenu)
         objNav.btnBack.addTarget(self, action: #selector(actBackClicked), for: .touchUpInside)
         objNav.btnRightMenu.addTarget(self, action: #selector(nextClicked), for: .touchUpInside)
@@ -102,28 +102,10 @@ class CameraViewController: ParentViewController, CameraViewDelegates, VideoDele
         thumbnailSize = CGSize(width: (screenWidth/3)-10, height: (screenWidth/3)-10)
         
         createCollectionView()
-        
-        smartAlbums = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .albumRegular, options: nil)
-        var collection: PHCollection?
-        for i in 0..<smartAlbums.count{
-            let album = smartAlbums.object(at: i)
-            if album.localizedTitle == "Camera Roll"{
-                collection = smartAlbums.object(at: i)
-            }
-        }
-        
-        if fetchResult == nil {
-            let fetchOptions = PHFetchOptions()
-            fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-            if collection == nil{
-                fetchResult = PHAsset.fetchAssets(with: fetchOptions)
-            }
-            else{
-                guard let assetCollection = collection as? PHAssetCollection
-                    else { fatalError("expected asset collection") }
-                fetchResult = PHAsset.fetchAssets(in: assetCollection, options: fetchOptions)
-            }
-        }
+        //
+        //Get all library photos and videos
+        //
+        getAllPhotos()
         
         
         HideCrossButtons()
@@ -142,6 +124,51 @@ class CameraViewController: ParentViewController, CameraViewDelegates, VideoDele
         // Dispose of any resources that can be recreated.
     }
     
+    //MARK:-
+    //MARK: GET ALL PHOTOS OF GALLERY
+    //MARK:
+    
+    func getAllPhotos() {
+        
+        
+        PHPhotoLibrary.requestAuthorization { (status) in
+            switch status
+            {
+            case .authorized:
+                print("Good to proceed")
+                DispatchQueue.main.async {
+                    self.smartAlbums = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .albumRegular, options: nil)
+                    var collection: PHCollection?
+                    for i in 0..<self.smartAlbums.count{
+                        let album = self.smartAlbums.object(at: i)
+                        if album.localizedTitle == "Camera Roll"{
+                            collection = self.smartAlbums.object(at: i)
+                        }
+                    }
+                    
+                    if self.fetchResult == nil {
+                        let fetchOptions = PHFetchOptions()
+                        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+                        if collection == nil{
+                            self.fetchResult = PHAsset.fetchAssets(with: fetchOptions)
+                        }
+                        else{
+                            guard let assetCollection = collection as? PHAssetCollection
+                                else { fatalError("expected asset collection") }
+                            self.fetchResult = PHAsset.fetchAssets(in: assetCollection, options: fetchOptions)
+                        }
+                    }
+                    self.uvCollectionView?.reloadData()
+                }
+            case .denied, .restricted:
+                print("Not allowed")
+                self.objLoader.stop()
+            case .notDetermined:
+                print("Not determined yet")
+                self.objLoader.stop()
+            }
+        }
+    }
     //MARK:- Create Custom Views
     
     func createCameraView() -> Void {
@@ -325,8 +352,7 @@ class CameraViewController: ParentViewController, CameraViewDelegates, VideoDele
     }
     
     @IBAction func LibraryClicked(_ sender: UIButton) {
-        objNav.btnBack.setImage(nil, for: .normal)
-        objNav.btnBack.setTitle("DONE", for: .normal)
+        objNav.btnBack.setImage(#imageLiteral(resourceName: "cameraicon"), for: .normal)
         selectedTab = 1
         TabHandling()
         uvCollectionView?.isHidden = false
@@ -529,6 +555,9 @@ extension CameraViewController: UICollectionViewDelegate, UICollectionViewDelega
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if fetchResult == nil{
+            return 0
+        }
         return fetchResult.count
     }
     

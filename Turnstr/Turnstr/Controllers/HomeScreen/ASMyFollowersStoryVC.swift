@@ -18,7 +18,9 @@ class ASMyFollowersStoryVC: ParentViewController, UICollectionViewDelegate, UICo
     
     var arrMembers: [UserModel] = []
     var arrStories: [StoryModel] = []
-    var arrAllData: Dictionary<String, Any> = [:]
+    var arrAllData: [Dictionary<String, Any>] = []
+    var pageNumber: Int = 1
+    
     
     
     var txtSearchText: String = ""
@@ -147,6 +149,11 @@ class ASMyFollowersStoryVC: ParentViewController, UICollectionViewDelegate, UICo
         cell.layer.borderWidth = 1.0
         cell.layer.borderColor = UIColor.init("F3F3F3").cgColor
         
+        
+        if pageNumber == 1, indexPath.section == 1, indexPath.item == arrStories.count-1 {
+            pageNumber = pageNumber+1
+            searchStoryResults()
+        }
         return cell
     }
     
@@ -170,13 +177,21 @@ class ASMyFollowersStoryVC: ParentViewController, UICollectionViewDelegate, UICo
             
         } else {
             let mvc = StoryPreviewViewController()
-            if let dictStories = arrAllData["stories"] as? [Dictionary<String, Any>] {
-                mvc.dictInfo = dictStories[indexPath.item]
+            if arrAllData.count > indexPath.item {
+                mvc.dictInfo = arrAllData[indexPath.item]
             }
             
             topVC?.navigationController?.pushViewController(mvc, animated: true)
         }
         
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        if (scrollView.contentOffset.y >= (uvCollection.contentSize.height - scrollView.frame.size.height)) {
+            pageNumber = pageNumber+1
+            searchStoryResults()
+        }
     }
     
     //MARK:- Move cells delegates
@@ -194,11 +209,11 @@ class ASMyFollowersStoryVC: ParentViewController, UICollectionViewDelegate, UICo
 }
 extension ASMyFollowersStoryVC {
     func searchStoryResults() {
-        kAppDelegate.loadingIndicationCreationMSG(msg: "Searching...")
+        kAppDelegate.loadingIndicationCreationMSG(msg: "Loading...")
         
         //http://18.218.6.149/v1/stories
         
-        let strPostUrl = "stories"//"search?keyword=a"
+        let strPostUrl = "stories?page=\(pageNumber)"//"search?keyword=a"
         let strParType = ""
         
         DispatchQueue.global().async {
@@ -211,7 +226,10 @@ extension ASMyFollowersStoryVC {
                     
                     if let dictComments = dictResponse["data"]?["data"] as? [String: AnyObject] {
                         
-                        self.arrAllData = dictComments
+                        if let stories = dictComments["stories"] as? [Dictionary<String, Any>] {
+                            self.arrAllData.append(contentsOf: stories)
+                        }
+                        //self.arrAllData = dictComments
                         
                         let dictMapper1 = ["statusCode": statusCode, "user": dictComments["members"] ?? ""] as [String : Any]
                         let ksResponse1 = KSResponse<[UserModel]>(JSON: dictMapper1)
@@ -221,17 +239,26 @@ extension ASMyFollowersStoryVC {
                         let ksResponse = KSResponse<[StoryModel]>(JSON: dictMapper)
                         
                         if let memberArray = ksResponse1?.response {
-                            
+                            var j = self.arrMembers.count
                             for object in memberArray {
                                 self.arrMembers.append(object)
+                                
+                                let indexPath = IndexPath.init(row: j, section: 0)
+                                self.uvCollection.insertItems(at: [indexPath])
+                                j = j+1
                             }
                             
                         }
                         
                         if let storyArray = ksResponse?.response {
                             
+                            var j = self.arrStories.count
+                            
                             for object in storyArray {
                                 self.arrStories.append(object)
+                                let indexPath = IndexPath.init(row: j, section: 1)
+                                self.uvCollection.insertItems(at: [indexPath])
+                                j = j+1
                             }
                         }
                     }
@@ -239,7 +266,8 @@ extension ASMyFollowersStoryVC {
                     kAppDelegate.hideLoadingIndicator()
                 }
                 
-                self.uvCollection.reloadData()
+                //self.uvCollection.reloadData()
+                
             }
         }
     }

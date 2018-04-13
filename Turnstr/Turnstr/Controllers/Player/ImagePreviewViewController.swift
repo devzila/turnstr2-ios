@@ -37,6 +37,7 @@ class ImagePreviewViewController: ParentViewController, UIScrollViewDelegate {
         setupPages()
         let btnBack = UIButton.init(frame: CGRect.init(x: 0, y: 20, width: 50, height: 40))
         btnBack.setImage(#imageLiteral(resourceName: "back_arrow"), for: .normal)
+        btnBack.tintColor = .white
         self.view.addSubview(btnBack)
         btnBack.addTarget(self, action: #selector(DismissBack), for: .touchUpInside)
         objStory.ParseStoryData(dict: dictInfo)

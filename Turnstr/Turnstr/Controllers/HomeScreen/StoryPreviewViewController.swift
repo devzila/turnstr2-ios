@@ -71,6 +71,10 @@ class StoryPreviewViewController: ParentViewController, UIGestureRecognizerDeleg
          * Navigation Bar
          */
         createNavBar()
+        if IS_IPHONEX == true {
+            objUtil.setFrames(xCo: 0, yCo: 20, width: 0, height: 0, view: navBar!)
+            //navBar
+        }
         
 //        LoadNavBar()
 //        objNav.btnRightMenu.isHidden = true
