@@ -21,15 +21,16 @@ let IS_IPHONEX = UIDevice.current.isIPhoneX
  * API Urls
  */
 //Staging URL:- "https://fathomless-retreat-45620.herokuapp.com/v1/"
-//Live URL:- "http://18.218.6.149/v1/"
-let kBaseURL = "http://18.218.6.149/v1/"
+//Old Live URL:- "http://18.218.6.149/v1/"
+let kBaseURL = "http://api.turnstr.com/v1/"
 let kShareUrl = "http://turnstr.com/story/"
 let kImageBaseUrl = ""
 
 // *** Fill the following variables using your own Project info  ***
 // ***            https://tokbox.com/account/#/                  ***
 // Replace with your OpenTok API key
-let kTokBoxApiKey = "45910392"
+//Old key = 45910392
+let kTokBoxApiKey = "46139582"
 
 /************************************************/
 
