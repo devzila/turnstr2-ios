@@ -10,13 +10,16 @@ import UIKit
 
 class PublicProfileCollectionViewController: ParentViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, ServiceUtility, Fave5CellDelegate, UISearchBarDelegate, UserStoryDelegate, TurntStoryDelegate {
     
+    let nonGridCellHeight: CGFloat = 400
+    
     var transformView: AITransformView?
     var topCube: AITransformView?
     var profileDetail: UserModel?
     var profileDict = [[String:Any]]()
     var profileId: Int?
     
-    var imgVerified = UIImageView()
+    var isGridOn: Bool = true
+    
     
     @IBOutlet weak var collViewPublicProfile: UICollectionView!
     @IBOutlet weak var viewPreferences: UIView!
@@ -29,6 +32,14 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
     @IBOutlet weak var btnFave5: button!
     @IBOutlet weak var constraintImgVwLogoX: NSLayoutConstraint!
     
+    @IBOutlet weak var lblTopUserName: UILabel!
+    @IBOutlet weak var btnNameVerified: UIButton!
+    @IBOutlet weak var lblBio: UILabel!
+    @IBOutlet weak var btnNameVerifiedHeight: NSLayoutConstraint!
+    @IBOutlet weak var lblBioHeight: NSLayoutConstraint!
+    
+    @IBOutlet weak var btnGrid: UIButton!
+    @IBOutlet weak var btnNoGrid: UIButton!
     
     var isFave5LoadNext = false
     var pageNumberFave5 = 1
@@ -56,7 +67,7 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
         objDataS.getUserProfileData { (received) in
             
         }
-        setupVerifiedMark()
+        
         
         // Do any additional setup after loading the view.
         pageNumberFave5 = 1
@@ -84,7 +95,15 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
         
         if isFromFeeds {
             constraintImgVwLogoX.constant = (view.frame.size.width - 120)/2
+            
+            btnNameVerifiedHeight.constant = 0
+            lblBioHeight.constant = 0
+            
         }
+        
+        btnNameVerified.isHidden = isFromFeeds
+        lblBio.isHidden = isFromFeeds
+        lblTopUserName.isHidden = isFromFeeds
         
         lblPostLeft.isHidden = isFromFeeds
         lblPostRight.isHidden = isFromFeeds
@@ -94,11 +113,11 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
             uvTopCube.isHidden = true
             lblPostLeft.isHidden = true
             lblPostRight.isHidden = true
-            imgVerified.isHidden = true
+            
         } else {
             viewPreferences.isHidden = false
             uvTopCube.isHidden = false
-            imgVerified.isHidden = false
+            
         }
         
         searchBar.isHidden = !isFromFeeds
@@ -107,7 +126,20 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
         getMemberDetails(id: userID) { (response) in
             if let objModel = response?.response {
                 self.profileDetail = objModel
-                let postTitle: NSMutableAttributedString = NSMutableAttributedString.init(string: "posts\nfollowers\nfamily")
+                
+                //Setup Name & Bio
+                self.btnNameVerified.setTitle("\(objModel.first_name?.uppercased() ?? "") \(objModel.last_name?.uppercased() ?? "") ", for: .normal)
+                self.lblTopUserName.text = "@\(objModel.username?.lowercased() ?? "")"
+                
+                let strBio = "\(objModel.bio ?? "")"
+                self.lblBio.attributedText = strBio.attributtedString(appendString: "\n\(objModel.website ?? "")", color1: .black, color2: kBlueColor, font1: UIFont.systemFont(ofSize: 14.0, weight: UIFontWeightRegular), font2: UIFont.systemFont(ofSize: 12.0, weight: UIFontWeightRegular))
+                if objModel.website == nil || objModel.website?.isEmpty == true {
+                    self.lblBioHeight.constant = 30
+                    self.lblBio.layoutIfNeeded()
+                }
+                
+                ///Setup "posts followers following"
+                let postTitle: NSMutableAttributedString = NSMutableAttributedString.init(string: "posts\nfollowers\nfollowing")
                 postTitle.addAttribute(NSFontAttributeName, value: UIFont.systemFont(ofSize: 10), range: NSMakeRange(0, postTitle.length))
                 postTitle.addAttribute(NSForegroundColorAttributeName, value: UIColor.white, range: NSMakeRange(0, postTitle.length))
                 
@@ -130,12 +162,12 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
                 self.setUserCube(objModel: objModel)
                 
                 if objModel.is_verified == 0 {
-                    self.imgVerified.isHidden = true
+                    self.btnNameVerified.setImage(nil, for: .normal)
                 } else {
-                    self.imgVerified.isHidden = false
+                    self.btnNameVerified.setImage(#imageLiteral(resourceName: "nw_star"), for: .normal)
                 }
                 if self.getUserId() == userID {
-                    self.imgVerified.isHidden = true
+                    self.btnNameVerified.setImage(nil, for: .normal)
                 }
                 
                 
@@ -304,12 +336,6 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
     }
     
     //MARK:-
-    func setupVerifiedMark() {
-        imgVerified.frame = CGRect.init(x: uvTopCube.frame.maxX-25, y: uvTopCube.frame.minY-5, width: 30, height: 30)
-        imgVerified.image = #imageLiteral(resourceName: "verify")
-        imgVerified.contentMode = .scaleAspectFit
-        self.view.addSubview(imgVerified)
-    }
     // MARK: - UICollectionViewDataSource protocol
     
     // tell the collection view how many cells to make
@@ -324,9 +350,10 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellFave5", for: indexPath as IndexPath) as? Fave5CollectionViewCell
             
             if let view = cell?.viewWithTag(2001) {
-                view.isHidden = false //!isFromFeeds
+                view.isHidden = true
+                //view.isHidden = false //!isFromFeeds
             }
-            //if isFromFeeds {
+            if isFromFeeds {
                 if let view = cell?.viewWithTag(1001) {
                     for constraint in view.constraints as [NSLayoutConstraint] {
                         if constraint.identifier == "fave5lblWidthConstraint" {
@@ -334,10 +361,10 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
                         }
                     }
                 }
-            //}
+            }
             
-            //if let lblName = cell?.viewWithTag(1001) as? UILabel {
-            if let lblName = cell?.viewWithTag(2022) as? UILabel {
+            if let lblName = cell?.viewWithTag(1001) as? UILabel {
+            //if let lblName = cell?.viewWithTag(2022) as? UILabel {
                 if isFromFeeds {
                     lblName.text = "POPULAR"
                 } else {
@@ -358,6 +385,18 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
             return cell!
         case 2:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellUserStory", for: indexPath as IndexPath) as? UserStoryCollectionViewCell
+            if isGridOn == false {
+                cell?.photoCellSizeWidth = kWidth
+                cell?.photoCellSizeHeight = nonGridCellHeight
+                cell?.cube_size = 250
+            } else {
+                cell?.photoCellSizeWidth = (kWidth/3)-10
+                cell?.photoCellSizeHeight = (kWidth/3)-10
+                cell?.cube_size = 0
+            }
+            
+            cell?.collViewUserStory.reloadData()
+            
             if let lblName = cell?.viewWithTag(1001) as? UILabel {
                 if let profile = self.profileDetail {
                     if let userID = profileId {
@@ -375,7 +414,8 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
                             lblName.text = "GENERAL"
                             cell?.arrMembers = self.arrMembers
                         } else {
-                            lblName.text = profile.username != nil ? (profile.username?.uppercased())! + " STORIES" : "STORIES"
+                            lblName.text = "GENERAL"
+                            //lblName.text = profile.username != nil ? (profile.username?.uppercased())! + " STORIES" : "STORIES"
                             cell?.arrStories = self.arrUserStories
                         }
                     }
@@ -425,7 +465,15 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
                 if Float(self.arrUserStories.count/3) < 1 {
                     return CGSize(width: kWidth, height: CGFloat(Double(PhotoSize().height) + 80.0))
                 }
-                return CGSize(width: kWidth, height: CGFloat(ceil(Float(self.arrUserStories.count)/3) * Float(PhotoSize().height)) + 50)
+                
+                if isGridOn == true {
+                    return CGSize(width: kWidth, height: CGFloat(ceil(Float(self.arrUserStories.count)/3) * Float(PhotoSize().height)) + 50)
+                } else {
+                    let h = CGFloat(self.arrUserStories.count) * nonGridCellHeight
+                    
+                    return CGSize(width: kWidth, height: h)
+                }
+                
             }
             
             return CGSize(width: kWidth, height: 0)
@@ -462,6 +510,23 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
     func PhotoSize() -> CGSize {
         let photoCellSize = (kWidth/3)
         return CGSize(width: photoCellSize, height: photoCellSize)
+    }
+    
+    //
+    //MARK:- Grid Buttons Action Methods
+    //
+    
+    @IBAction func actGrid(_ sender: UIButton) {
+        print("Grid clicked")
+        isGridOn = true
+        
+        collViewPublicProfile.reloadData()
+    }
+    
+    @IBAction func actNoGrid(_ sender: UIButton) {
+        print("Plain clicked")
+        isGridOn = false
+        collViewPublicProfile.reloadData()
     }
     
     //

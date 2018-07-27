@@ -16,8 +16,10 @@ class TabbarController: ParentViewController {
     @IBOutlet weak var btnStory: UIButton?
     @IBOutlet weak var btnChat: UIButton?
     @IBOutlet weak var btnPhotoAlbum: UIButton?
+    @IBOutlet weak var btnGoLive: UIButton?
     
     var feeds: UIViewController?
+    var goLive: UIViewController?
     var profile: UIViewController?
     var story: UIViewController?
     var chat: UIViewController?
@@ -76,6 +78,13 @@ class TabbarController: ParentViewController {
                 feeds = Storyboards.liveStoryboard.initialVC()
             }
             self.activeViewController = feeds
+        }
+        
+        if sender === btnGoLive {
+            if goLive == nil {
+                goLive = Storyboards.goLive.initialVC()
+            }
+            self.activeViewController = goLive
         }
         
         if sender === btnProfile {

@@ -17,6 +17,11 @@ class UserStoryCollectionViewCell: UICollectionViewCell, UICollectionViewDataSou
     
     @IBOutlet weak var collViewUserStory: UICollectionView!
     
+    var photoCellSizeWidth = (kWidth/3)-10
+    var photoCellSizeHeight = (kWidth/3)-10
+    var cube_size: CGFloat = 0.0
+    
+    
     var arrMembers: [UserModel]? //= [UserModel]()
     var arrStories: [StoryModel]?
     var delegateUserStory: UserStoryDelegate?
@@ -52,7 +57,12 @@ class UserStoryCollectionViewCell: UICollectionViewCell, UICollectionViewDataSou
 
         if cube == nil {
 
-            cube = AITransformView.init(frame: CGRect.init(x: 0, y: 0, width: w, height: h), cube_size: w-42)
+            if cube_size > 0 {
+                cube = AITransformView.init(frame: CGRect.init(x: 0, y: 0, width: w, height: h), cube_size: cube_size)
+            } else{
+                cube = AITransformView.init(frame: CGRect.init(x: 0, y: 0, width: w, height: h), cube_size: w-42)
+            }
+            
             cube?.tag = indexPath.item
             cube?.backgroundColor = UIColor.white
             cube?.isUserInteractionEnabled = true
@@ -91,8 +101,8 @@ class UserStoryCollectionViewCell: UICollectionViewCell, UICollectionViewDataSou
     }
     
     func PhotoSize() -> CGSize {
-        let photoCellSize = (kWidth/3)-10
-        return CGSize(width: photoCellSize, height: photoCellSize)
+        
+        return CGSize(width: photoCellSizeWidth, height: photoCellSizeHeight)
     }
     
     func handleTap(sender: UITapGestureRecognizer? = nil) {

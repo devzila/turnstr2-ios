@@ -84,6 +84,7 @@
 		8AEC2C891F169C23008DF3BB /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AEC2C811F169C23008DF3BB /* Profile.storyboard */; };
 		8AEC2C8A1F169C23008DF3BB /* Stories.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AEC2C821F169C23008DF3BB /* Stories.storyboard */; };
 		8AEC2C8C1F169DFE008DF3BB /* Storyboards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEC2C8B1F169DFE008DF3BB /* Storyboards.swift */; };
+		D909667F20EA870F000C3C95 /* GoLive.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D909667E20EA870F000C3C95 /* GoLive.storyboard */; };
 		D90A0F881F01F32E00BFCE90 /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90A0F871F01F32E00BFCE90 /* MenuBar.swift */; };
 		D90BF05E1F0D6752003B5F4D /* MyStoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90BF05D1F0D6752003B5F4D /* MyStoriesViewController.swift */; };
 		D90BF0621F0D7DF5003B5F4D /* StoriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90BF0601F0D7DF5003B5F4D /* StoriesTableViewCell.swift */; };
@@ -307,6 +308,7 @@
 		8AEC2C811F169C23008DF3BB /* Profile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		8AEC2C821F169C23008DF3BB /* Stories.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Stories.storyboard; sourceTree = "<group>"; };
 		8AEC2C8B1F169DFE008DF3BB /* Storyboards.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storyboards.swift; sourceTree = "<group>"; };
+		D909667E20EA870F000C3C95 /* GoLive.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = GoLive.storyboard; sourceTree = "<group>"; };
 		D90A0F871F01F32E00BFCE90 /* MenuBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
 		D90BF05D1F0D6752003B5F4D /* MyStoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyStoriesViewController.swift; sourceTree = "<group>"; };
 		D90BF0601F0D7DF5003B5F4D /* StoriesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoriesTableViewCell.swift; sourceTree = "<group>"; };
@@ -641,6 +643,7 @@
 			children = (
 				7ED058A81F5F2086009DBF36 /* PhotoAlbum.storyboard */,
 				D95181A51F180776008595CC /* LiveFeed.storyboard */,
+				D909667E20EA870F000C3C95 /* GoLive.storyboard */,
 				8AEC2C7B1F169C23008DF3BB /* Chat.storyboard */,
 				8AEC2C7C1F169C23008DF3BB /* LaunchScreen.storyboard */,
 				8AEC2C7E1F169C23008DF3BB /* Login.storyboard */,
@@ -1264,6 +1267,7 @@
 				D9357CED1FDD67D700987E7C /* SHViewController.xib in Resources */,
 				8A2630251F3110F600F55C2B /* UserCell.xib in Resources */,
 				8AEC2C891F169C23008DF3BB /* Profile.storyboard in Resources */,
+				D909667F20EA870F000C3C95 /* GoLive.storyboard in Resources */,
 				D9357CEE1FDD6BF700987E7C /* SHCollectionViewCell.xib in Resources */,
 				D957F3171F435DDA00307968 /* VideoPlayer.xib in Resources */,
 				D9B41AF01F677E3E000E4849 /* NavBar.xib in Resources */,

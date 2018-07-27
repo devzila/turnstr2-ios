@@ -14,6 +14,7 @@ enum Storyboards: String {
     case profileStoryboard = "Profile"
     case chatStoryboard = "Chat"
     case liveStoryboard = "LiveFeed"
+    case goLive         = "GoLive"
     case photoStoryboard = "PhotoAlbum"
     case storyStoryboard = "Stories"
     case loginStoryboard = "Login"

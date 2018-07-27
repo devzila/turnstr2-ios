@@ -125,3 +125,69 @@ extension UITableView {
     }
     
 }
+
+//
+//MARK:- String
+//MARK:
+extension String {
+    
+    func attributtedString(appendString: String, color1: UIColor, color2: UIColor, font1: UIFont, font2: UIFont, lineSpacing: CGFloat = 0, alignment: NSTextAlignment = .left) -> NSAttributedString {
+        let strSubTitle = appendString
+        let fullString = "\(self)\(strSubTitle)"
+        
+        let attString = NSMutableAttributedString.init(string: fullString)
+        
+        //Font
+        attString.addAttribute(NSFontAttributeName, value: font1, range: NSMakeRange(0, (self.count)))
+        attString.addAttribute(NSFontAttributeName, value:font2, range: NSMakeRange(fullString.count-strSubTitle.count, strSubTitle.count))
+        
+        //Color
+        attString.addAttribute(NSForegroundColorAttributeName, value: color1, range: NSMakeRange(0, attString.length))
+        attString.addAttribute(NSForegroundColorAttributeName, value: color2, range: NSMakeRange(attString.length - strSubTitle.count, strSubTitle.count))
+        
+        //Paragraph
+        if lineSpacing > 0 {
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.paragraphSpacing = lineSpacing
+            paragraphStyle.alignment = alignment
+            attString.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSMakeRange(0, (attString.length)))
+            
+        }
+        
+        return attString
+    }
+    
+    
+    func toDictionary() -> Dictionary<String, Any> {
+        if let data = self.data(using: .utf8) {
+            do {
+                if let serverResponse = try JSONSerialization.jsonObject(with: data as Data, options: []) as? [String: Any] {
+                    return serverResponse
+                }
+            } catch {
+                print(error.localizedDescription)
+                return [:]
+            }
+        }
+        return [:]
+    }
+    
+    func intVal() -> Int {
+        if self.isEmpty == true {
+            return 0
+        }
+        return (self as NSString).integerValue
+    }
+    
+    func UIntVal() -> UInt? {
+        return UInt((self))
+    }
+    
+    func floatVal() -> Float {
+        return (self as NSString).floatValue
+    }
+    
+    func doubleVal() -> Double {
+        return (self as NSString).doubleValue
+    }
+}

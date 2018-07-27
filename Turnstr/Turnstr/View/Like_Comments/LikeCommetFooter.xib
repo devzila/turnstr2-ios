@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -25,10 +25,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aj4-jC-crJ">
-                    <rect key="frame" x="8" y="8" width="40" height="40"/>
+                    <rect key="frame" x="8" y="8" width="30" height="30"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="40" id="Ecb-is-9e3"/>
-                        <constraint firstAttribute="width" constant="40" id="dZt-KT-Yy2"/>
+                        <constraint firstAttribute="height" constant="30" id="Ecb-is-9e3"/>
+                        <constraint firstAttribute="width" constant="30" id="dZt-KT-Yy2"/>
                     </constraints>
                     <state key="normal" image="likePhoto">
                         <color key="titleColor" red="1" green="0.60784313729999995" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -36,27 +36,27 @@
                     <state key="selected" image="likeSelected"/>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f4Y-Bx-Nbr">
-                    <rect key="frame" x="56" y="8" width="40" height="40"/>
+                    <rect key="frame" x="46" y="8" width="30" height="30"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="40" id="A2U-hB-f6B"/>
-                        <constraint firstAttribute="height" constant="40" id="tUm-uv-kpC"/>
+                        <constraint firstAttribute="width" constant="30" id="A2U-hB-f6B"/>
+                        <constraint firstAttribute="height" constant="30" id="tUm-uv-kpC"/>
                     </constraints>
                     <state key="normal" image="commentPhoto">
                         <color key="titleColor" red="1" green="0.60784313729999995" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="seQ-rP-Qvy">
-                    <rect key="frame" x="104" y="8" width="40" height="40"/>
+                    <rect key="frame" x="84" y="8" width="30" height="30"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="40" id="BER-2f-Qlk"/>
-                        <constraint firstAttribute="width" constant="40" id="aBY-vv-qi2"/>
+                        <constraint firstAttribute="height" constant="30" id="BER-2f-Qlk"/>
+                        <constraint firstAttribute="width" constant="30" id="aBY-vv-qi2"/>
                     </constraints>
                     <state key="normal" image="sharePhoto">
                         <color key="titleColor" red="1" green="0.60784313729999995" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="s6k-x0-8vB">
-                    <rect key="frame" x="8" y="48" width="359" height="35"/>
+                    <rect key="frame" x="8" y="38" width="359" height="35"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="35" id="6Sf-Rq-zK7"/>
                     </constraints>
@@ -73,7 +73,7 @@
                     </state>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vkl-QY-DZF">
-                    <rect key="frame" x="8" y="91" width="359" height="27"/>
+                    <rect key="frame" x="8" y="81" width="359" height="27"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="27" id="Ky3-9Q-fK4"/>
                     </constraints>
@@ -101,7 +101,7 @@
         </view>
     </objects>
     <resources>
-        <image name="commentPhoto" width="128" height="128"/>
+        <image name="commentPhoto" width="64" height="64"/>
         <image name="likePhoto" width="128" height="128"/>
         <image name="likeSelected" width="128" height="128"/>
         <image name="sharePhoto" width="128" height="128"/>

@@ -2,11 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "grid@1x.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "if_other-review-new-comment-outline-stroke_763229.png",
+      "filename" : "gird.png",
       "scale" : "2x"
     },
     {
