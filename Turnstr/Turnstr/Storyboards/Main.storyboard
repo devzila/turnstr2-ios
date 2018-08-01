@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="lOf-ev-5CK">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="lOf-ev-5CK">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -26,7 +26,7 @@
                                 <rect key="frame" x="0.0" y="607" width="375" height="60"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="yvy-2Q-vk7">
-                                        <rect key="frame" x="53" y="-6.5" width="269" height="73"/>
+                                        <rect key="frame" x="77" y="-6.5" width="221" height="73"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nsi-PF-wMi">
                                                 <rect key="frame" x="0.0" y="0.0" width="36" height="73"/>
@@ -37,45 +37,38 @@
                                                     <action selector="btnSelectAction:" destination="Bf0-Ic-hbe" eventType="touchUpInside" id="XEg-Lj-9vH"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6gE-d0-DAT">
-                                                <rect key="frame" x="41" y="0.0" width="24" height="73"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Jl-C6-5pq">
+                                                <rect key="frame" x="41" y="0.0" width="40" height="73"/>
                                                 <color key="tintColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                                 <inset key="contentEdgeInsets" minX="0.0" minY="12" maxX="0.0" maxY="12"/>
-                                                <state key="normal" image="nav_video"/>
+                                                <state key="normal" image="nav_search"/>
                                                 <connections>
-                                                    <action selector="btnSelectAction:" destination="Bf0-Ic-hbe" eventType="touchUpInside" id="jNJ-vb-JIH"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pA5-2O-gpY">
-                                                <rect key="frame" x="70" y="0.0" width="42" height="73"/>
-                                                <inset key="contentEdgeInsets" minX="8" minY="12" maxX="8" maxY="12"/>
-                                                <state key="normal" image="nav_profile"/>
-                                                <connections>
-                                                    <action selector="btnSelectAction:" destination="Bf0-Ic-hbe" eventType="touchUpInside" id="jce-yg-f0g"/>
+                                                    <action selector="btnSelectAction:" destination="Bf0-Ic-hbe" eventType="touchUpInside" id="Z52-o6-F1s"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P2C-yk-wty">
-                                                <rect key="frame" x="117" y="0.0" width="59" height="73"/>
+                                                <rect key="frame" x="86" y="0.0" width="59" height="73"/>
                                                 <inset key="contentEdgeInsets" minX="8" minY="12" maxX="8" maxY="12"/>
                                                 <state key="normal" image="nav_story"/>
                                                 <connections>
                                                     <action selector="btnSelectAction:" destination="Bf0-Ic-hbe" eventType="touchUpInside" id="L3k-1R-WM0"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="49j-An-3nQ">
-                                                <rect key="frame" x="181" y="0.0" width="43" height="73"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pA5-2O-gpY">
+                                                <rect key="frame" x="150" y="0.0" width="42" height="73"/>
                                                 <inset key="contentEdgeInsets" minX="8" minY="12" maxX="8" maxY="12"/>
-                                                <state key="normal" image="nav_chat"/>
+                                                <state key="normal" image="nav_profile"/>
                                                 <connections>
-                                                    <action selector="btnSelectAction:" destination="Bf0-Ic-hbe" eventType="touchUpInside" id="Jgr-9g-q5u"/>
+                                                    <action selector="btnSelectAction:" destination="Bf0-Ic-hbe" eventType="touchUpInside" id="jce-yg-f0g"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ays-sN-2x0">
-                                                <rect key="frame" x="229" y="0.0" width="40" height="73"/>
-                                                <inset key="contentEdgeInsets" minX="8" minY="12" maxX="8" maxY="12"/>
-                                                <state key="normal" image="nav_album"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6gE-d0-DAT">
+                                                <rect key="frame" x="197" y="0.0" width="24" height="73"/>
+                                                <color key="tintColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                                <inset key="contentEdgeInsets" minX="0.0" minY="12" maxX="0.0" maxY="12"/>
+                                                <state key="normal" image="nav_video"/>
                                                 <connections>
-                                                    <action selector="btnSelectAction:" destination="Bf0-Ic-hbe" eventType="touchUpInside" id="I0A-6X-vBw"/>
+                                                    <action selector="btnSelectAction:" destination="Bf0-Ic-hbe" eventType="touchUpInside" id="jNJ-vb-JIH"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -109,11 +102,10 @@
                     </view>
                     <navigationItem key="navigationItem" id="ZEB-Oh-dUC"/>
                     <connections>
-                        <outlet property="btnChat" destination="49j-An-3nQ" id="o8l-Vc-cqG"/>
                         <outlet property="btnGoLive" destination="6gE-d0-DAT" id="P6o-tO-K1Q"/>
                         <outlet property="btnLiveFeed" destination="nsi-PF-wMi" id="wgK-ma-Haq"/>
-                        <outlet property="btnPhotoAlbum" destination="ays-sN-2x0" id="gp6-Bp-vC3"/>
                         <outlet property="btnProfile" destination="pA5-2O-gpY" id="L0W-zd-0mj"/>
+                        <outlet property="btnSearch" destination="0Jl-C6-5pq" id="PZ2-8e-mSs"/>
                         <outlet property="btnStory" destination="P2C-yk-wty" id="c85-RZ-Ioi"/>
                         <outlet property="contentView" destination="MJR-NU-OxX" id="4ST-Ej-Bpq"/>
                     </connections>
@@ -181,10 +173,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="nav_album" width="24" height="25"/>
-        <image name="nav_chat" width="27" height="28"/>
         <image name="nav_home" width="36" height="36"/>
         <image name="nav_profile" width="26" height="27"/>
+        <image name="nav_search" width="40" height="30"/>
         <image name="nav_story" width="43" height="49"/>
         <image name="nav_video" width="24" height="13"/>
     </resources>

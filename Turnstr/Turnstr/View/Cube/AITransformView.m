@@ -123,7 +123,12 @@ CGFloat DegreesToRadians(CGFloat degrees)
 }
 
 - (void)setupLayers {
-    
+    //Remove existing layers
+    if (self.layer.sublayers.count > 0) {
+        for (int i=0; i < self.layer.sublayers.count; i++) {
+            [self.layer.sublayers[i] removeFromSuperlayer];
+        }
+    }
     //Root Layer
     rootLayer = [CALayer layer];
     rootLayer.frame = self.bounds;
@@ -255,7 +260,6 @@ CGFloat DegreesToRadians(CGFloat degrees)
     translation = CATransform3DMakeTranslation(0.0, Layer_Size/2, Layer_Size/-2);
     sideSix.transform = CATransform3DConcat(rotation, translation);
     
-    
     //Transform Layer
     transformLayer = [CATransformLayer layer];
     
@@ -267,17 +271,19 @@ CGFloat DegreesToRadians(CGFloat degrees)
     [transformLayer addSublayer:sideSix];
     
     transformLayer.anchorPointZ = Layer_Size/-2;
-    
     [rootLayer addSublayer:transformLayer];
     
+}
+
+- (void)createCubewith:(CGFloat)size {
+    Layer_Size = size;
+    [self createImageViews];
 }
 
 -(void)createImageViews
 {
     CGRect rect = CGRectMake(0, 0, Layer_Size, Layer_Size);
     imgSide1 = [[UIImageView alloc] initWithFrame:rect];
-    
-    //imgSide1.image = [UIImage imageNamed:@"img.png"];
     imgSide2 = [[UIImageView alloc] initWithFrame:rect];
     imgSide3 = [[UIImageView alloc] initWithFrame:rect];
     imgSide4 = [[UIImageView alloc] initWithFrame:rect];
@@ -287,6 +293,11 @@ CGFloat DegreesToRadians(CGFloat degrees)
 
 #pragma mark -
 #pragma mark Touch Handling
+
+-(void)setScrollFromNil:(CGPoint)startPoint endPoint:(CGPoint)endPOint {
+    self.trackball = nil;
+    [self setScroll:startPoint endPoint:endPOint];
+}
 
 -(void)setScroll:(CGPoint)startPoint endPoint:(CGPoint)endPOint
 {

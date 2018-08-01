@@ -27,7 +27,8 @@
 - (id)initWithFrame:(CGRect)frame cube_size:(CGFloat)layerSize;
 //- (void)setupWithUrls:(NSString *)url, ...;
 - (void)setupWithUrls:(NSArray *)urls;
-
+- (void)createCubewith:(CGFloat)size;
+-(void)setScrollFromNil:(CGPoint)startPoint endPoint:(CGPoint)endPOint;
 -(void)setScroll:(CGPoint)startPoint endPoint:(CGPoint)endPOint;
 
 @property(nonatomic, retain) Trackball *trackball;

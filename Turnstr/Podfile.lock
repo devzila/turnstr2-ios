@@ -1,13 +1,13 @@
 PODS:
-  - Alamofire (4.5.1)
+  - Alamofire (4.6.0)
   - AlamofireImage (3.3.0):
     - Alamofire (~> 4.5)
-  - Bolts (1.8.4):
-    - Bolts/AppLinks (= 1.8.4)
-    - Bolts/Tasks (= 1.8.4)
-  - Bolts/AppLinks (1.8.4):
+  - Bolts (1.9.0):
+    - Bolts/AppLinks (= 1.9.0)
+    - Bolts/Tasks (= 1.9.0)
+  - Bolts/AppLinks (1.9.0):
     - Bolts/Tasks
-  - Bolts/Tasks (1.8.4)
+  - Bolts/Tasks (1.9.0)
   - FacebookCore (0.2.0):
     - Bolts (~> 1.8)
     - FBSDKCoreKit (~> 4.15)
@@ -27,21 +27,22 @@ PODS:
     - FBSDKCoreKit
   - FBSDKShareKit (4.22.1):
     - FBSDKCoreKit
-  - Firebase/Core (4.7.0):
+  - Firebase/Core (4.8.0):
     - FirebaseAnalytics (= 4.0.5)
-    - FirebaseCore (= 4.0.12)
-  - Firebase/Messaging (4.7.0):
+    - FirebaseCore (= 4.0.13)
+  - Firebase/Messaging (4.8.0):
     - Firebase/Core
-    - FirebaseMessaging (= 2.0.7)
+    - FirebaseMessaging (= 2.0.8)
   - FirebaseAnalytics (4.0.5):
     - FirebaseCore (~> 4.0)
     - FirebaseInstanceID (~> 2.0)
-    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
     - nanopb (~> 0.3)
-  - FirebaseCore (4.0.12):
-    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
-  - FirebaseInstanceID (2.0.7)
-  - FirebaseMessaging (2.0.7):
+  - FirebaseCore (4.0.13):
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
+  - FirebaseInstanceID (2.0.8):
+    - FirebaseCore (~> 4.0)
+  - FirebaseMessaging (2.0.8):
     - FirebaseAnalytics (~> 4.0)
     - FirebaseCore (~> 4.0)
     - FirebaseInstanceID (~> 2.0)
@@ -50,25 +51,25 @@ PODS:
   - GoogleToolboxForMac/Defines (2.1.3)
   - GoogleToolboxForMac/Logger (2.1.3):
     - GoogleToolboxForMac/Defines (= 2.1.3)
-  - GoogleToolboxForMac/NSData+zlib (2.1.3):
+  - "GoogleToolboxForMac/NSData+zlib (2.1.3)":
     - GoogleToolboxForMac/Defines (= 2.1.3)
   - GrowingTextView (0.4.0)
   - Kingfisher (4.6.1)
-  - KSPhotoBrowser (0.1.4):
+  - KSPhotoBrowser (0.1.6):
     - YYWebImage (~> 1.0.5)
   - nanopb (0.3.8):
     - nanopb/decode (= 0.3.8)
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
-  - NVActivityIndicatorView (4.0.1):
-    - NVActivityIndicatorView/Presenter (= 4.0.1)
-  - NVActivityIndicatorView/Presenter (4.0.1)
+  - NVActivityIndicatorView (4.1.1):
+    - NVActivityIndicatorView/Presenter (= 4.1.1)
+  - NVActivityIndicatorView/Presenter (4.1.1)
   - ObjectMapper (3.1.0)
   - OpenTok (2.12.1)
   - Protobuf (3.5.0)
   - RMMapper (1.1.5)
-  - SendBirdSDK (3.0.74)
+  - SendBirdSDK (3.0.80)
   - SVProgressHUD (2.2.2)
   - SwiftyJSON (4.0.0)
   - TwitterCore (3.1.0)
@@ -105,32 +106,67 @@ DEPENDENCIES:
   - SwiftyJSON
   - TwitterKit
 
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - AlamofireImage
+    - Bolts
+    - FacebookCore
+    - FacebookLogin
+    - FacebookShare
+    - FBSDKCoreKit
+    - FBSDKLoginKit
+    - FBSDKShareKit
+    - Firebase
+    - FirebaseAnalytics
+    - FirebaseCore
+    - FirebaseInstanceID
+    - FirebaseMessaging
+    - GoogleToolboxForMac
+    - GrowingTextView
+    - Kingfisher
+    - KSPhotoBrowser
+    - nanopb
+    - NVActivityIndicatorView
+    - ObjectMapper
+    - OpenTok
+    - Protobuf
+    - RMMapper
+    - SendBirdSDK
+    - SVProgressHUD
+    - SwiftyJSON
+    - TwitterCore
+    - TwitterKit
+    - YYCache
+    - YYImage
+    - YYWebImage
+
 SPEC CHECKSUMS:
-  Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
+  Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
   AlamofireImage: 2e784dc5d00f04903a52c1d169181469c805c3df
-  Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
+  Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   FacebookCore: 2cb3f0fbff218e9d3119cec84bae983b232412de
   FacebookLogin: c9d606504735780a9e3002465a615512e0a691a5
   FacebookShare: 8e9ee8ea06505e6a1d3d719b0cc63e840fb8aaeb
   FBSDKCoreKit: 9c2daf0162214d6d2e21cf8208a9c6c2a2e42b9c
   FBSDKLoginKit: 00cf28916b9f0169763a3d61985d745b579fe304
   FBSDKShareKit: 1cbd0fdc2bb3277dd3522512855dcf1f4088f734
-  Firebase: dbfb98ccec2dcfcd21ab9cc1b4981a3f3c8c5e26
+  Firebase: 710decbbc6d9d48530e9a5dba3209740c3532e05
   FirebaseAnalytics: 5b02a63ead2c3f0259cfc7f15e053e440587ecf8
-  FirebaseCore: 6cf108b63997bc08c04a1ffa55a3ac0d71a59ffc
-  FirebaseInstanceID: 148c25c986c8699e67304b114e365713dce467f2
-  FirebaseMessaging: 1a11d1c0a9ed9b3f75a0685bb0ae5932e1062f5f
+  FirebaseCore: 3c02ec652db3d03fdc8bc6d9154af3e20d64b6f5
+  FirebaseInstanceID: 81df5805a08001e69138664bdd02c6719a9ac80f
+  FirebaseMessaging: dfdcd307c2382290a1e297a81d0f18370f5b1bcd
   GoogleToolboxForMac: 2501e2ad72a52eb3dfe7bd9aee7dad11b858bd20
   GrowingTextView: b84085f4527a29d077364329d43e612ce7f26f43
   Kingfisher: 1f9157d9c02b380cbd0b7cc890161195164eb634
-  KSPhotoBrowser: 768ac3d7b42623b42af0579a7a1bfd6877dfff41
+  KSPhotoBrowser: 6955ac1847676a2a5f2d6bf8b6b39ee567c37e0e
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
-  NVActivityIndicatorView: 77ed6d7b571643e24899e7858bf9ae2ee4c21f31
+  NVActivityIndicatorView: 60109b9bf46efc2e71ab81453196ccdfdfeea870
   ObjectMapper: 20505058f54e5c3ca69e1d6de9897d152a5369a6
   OpenTok: 869a96d84104b9de2b525c2e8a2a809561b47cec
   Protobuf: 8a9838fba8dae3389230e1b7f8c104aa32389c03
   RMMapper: 21122d753c736d975f6c61e674afce8db73579af
-  SendBirdSDK: 1677c5c51e4c9e287fb1d086233cfb733eded089
+  SendBirdSDK: 77ace6cdb73fad31b049c03cdcf47939a3828e14
   SVProgressHUD: 59b2d3dabacbd051576d21d32293ca7228dc18b0
   SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
   TwitterCore: 644d59e75abccb26cf0a9050d2c4dea0e5412241
@@ -141,4 +177,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: ffb65ec7093d5ad07381e68e8c910bfe9012b541
 
-COCOAPODS: 1.3.1
+COCOAPODS: 1.5.3

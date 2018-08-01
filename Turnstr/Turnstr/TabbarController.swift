@@ -14,15 +14,14 @@ class TabbarController: ParentViewController {
     @IBOutlet weak var btnLiveFeed: UIButton?
     @IBOutlet weak var btnProfile: UIButton?
     @IBOutlet weak var btnStory: UIButton?
-    @IBOutlet weak var btnChat: UIButton?
-    @IBOutlet weak var btnPhotoAlbum: UIButton?
+    @IBOutlet weak var btnSearch: UIButton?
     @IBOutlet weak var btnGoLive: UIButton?
     
     var feeds: UIViewController?
     var goLive: UIViewController?
     var profile: UIViewController?
     var story: UIViewController?
-    var chat: UIViewController?
+    var search: UIViewController?
     var photos: UIViewController?
     
     
@@ -61,14 +60,7 @@ class TabbarController: ParentViewController {
         
         // Do any additional setup after loading the view.
         
-        if story == nil {
-            if let feedVC = Storyboards.photoStoryboard.initialVC(with: StoryboardIds.feedScreen) as? PublicProfileCollectionViewController {
-                feedVC.profileId = getUserId() ?? nil
-                feedVC.isFromFeeds = true
-                story = feedVC
-            }
-        }
-        self.activeViewController = story
+        btnSelectAction(btnLiveFeed!)
     }
 
     @IBAction func btnSelectAction(_ sender: UIButton) {
@@ -95,28 +87,17 @@ class TabbarController: ParentViewController {
         }
         
         if sender === btnStory {
-            if story == nil {
-                if let feedVC = Storyboards.photoStoryboard.initialVC(with: StoryboardIds.feedScreen) as? PublicProfileCollectionViewController {
-                    feedVC.profileId = getUserId() ?? nil
-                    feedVC.isFromFeeds = true
-                    story = feedVC
-                }
-            }
-            self.activeViewController = story
+            let storyboard = UIStoryboard(name: Storyboards.storyStoryboard.rawValue, bundle: nil)
+            let homeVC: StoriesViewController = storyboard.instantiateViewController(withIdentifier: "StoriesViewController") as! StoriesViewController
+            homeVC.screenType = .myStories
+            topVC?.navigationController?.pushViewController(homeVC, animated: true)
         }
         
-        if sender === btnChat {
-            if chat == nil {
-                chat = Storyboards.chatStoryboard.initialVC()
+        if sender === btnSearch {
+            if search == nil {
+                search = Storyboards.chatStoryboard.initialVC()
             }
-            self.activeViewController = chat
-        }
-        
-        if sender === btnPhotoAlbum {
-            if photos == nil {
-                photos = Storyboards.photoStoryboard.initialVC()
-            }
-            self.activeViewController = photos
+            self.activeViewController = search
         }
     }
     

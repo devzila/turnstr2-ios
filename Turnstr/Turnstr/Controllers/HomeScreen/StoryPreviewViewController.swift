@@ -181,7 +181,6 @@ class StoryPreviewViewController: ParentViewController, UIGestureRecognizerDeleg
         
         
         if objStory.has_liked == true {
-            
             dictInfo["likes_count"] = objStory.likes_count-1
             objStory.likes_count = objStory.likes_count-1
             objCommentFooter?.btnTotalLike.setTitle("Liked by \(objStory.likes_count) people", for: .normal)
