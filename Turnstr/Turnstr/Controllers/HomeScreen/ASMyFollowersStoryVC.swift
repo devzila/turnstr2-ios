@@ -35,6 +35,8 @@ class ASMyFollowersStoryVC: ParentViewController {
         // Do any additional setup after loading the view.
 //        createCollectionView()
         
+        tableView.estimatedRowHeight = kWidth
+        tableView.rowHeight = UITableViewAutomaticDimension
         searchStoryResults()
     }
     
@@ -61,6 +63,14 @@ class ASMyFollowersStoryVC: ParentViewController {
     func PhotoSize() -> CGSize {
         let photoCellSize = (kWidth)
         return CGSize(width: photoCellSize, height: photoCellSize)
+    }
+    
+    func showPreviewView(_ index: Int) {
+        let mvc = StoryPreviewViewController()
+        if arrAllData.count > index {
+            mvc.dictInfo = arrAllData[index]
+        }
+        topVC?.navigationController?.pushViewController(mvc, animated: true)
     }
     
 //    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
@@ -200,13 +210,11 @@ class ASMyFollowersStoryVC: ParentViewController {
     //MARK:- Move cells delegates
     //MARK:- Action Methods
     
-    func handleTap(sender: UITapGestureRecognizer? = nil) {
+    func handleTap(_ sender: UITapGestureRecognizer? = nil) {
         // handling code
         print("Tapped")
-        
-        //let indexPath: IndexPath = (sender?.accessibilityElements![0] as? IndexPath)!
-        
-        //GotoDetailScreen(indexPath: indexPath)
+        guard let index = sender?.view?.tag else {return}
+        showPreviewView(index)
     }
     
 }
@@ -220,7 +228,7 @@ extension ASMyFollowersStoryVC: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "StoryCubeCell") as? StoryCubeCell else { fatalError("Cell with id StoryCubeCell is not exists.")}
         cell.cubeView?.createCubewith(kWidth * 1/2)
         cell.cubeView?.backgroundColor = .white
-        cell.tag = indexPath.row
+        cell.cubeView?.tag = indexPath.row
         let story  = arrStories[indexPath.row]
         var arrMedia: [String] = []
         for media in story.media! {
@@ -234,18 +242,20 @@ extension ASMyFollowersStoryVC: UITableViewDelegate, UITableViewDataSource {
         if arrAllData.count > indexPath.row {
             cell.storyInfo = arrAllData[indexPath.row]
         }
+        cell.updateOnLikeStatusChanged = { (dict) in
+            if let dict = dict {
+                self.arrAllData[indexPath.row] = dict
+            }
+        }
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        cell.cubeView?.addGestureRecognizer(tapGesture)
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return kWidth + 35
+        return UITableViewAutomaticDimension
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let mvc = StoryPreviewViewController()
-        if arrAllData.count > indexPath.row {
-            mvc.dictInfo = arrAllData[indexPath.row]
-        }
-        topVC?.navigationController?.pushViewController(mvc, animated: true)
-
+        showPreviewView(indexPath.row)
     }
 }
 
@@ -273,32 +283,6 @@ extension ASMyFollowersStoryVC {
                         if let stories = dictComments["stories"] as? [Dictionary<String, Any>] {
                             self.arrAllData.append(contentsOf: stories)
                         }
-
-                        
-//                        if let stories = dictComments["stories"] as? [Dictionary<String, Any>] {
-//                            self.arrAllData.append(contentsOf: stories)
-//                        }
-//                        self.arrAllData = dictComments
-//                        
-//                        let dictMapper1 = ["statusCode": statusCode, "user": dictComments["members"] ?? ""] as [String : Any]
-//                        let ksResponse1 = KSResponse<[UserModel]>(JSON: dictMapper1)
-//
-//
-//                        let dictMapper = ["statusCode": statusCode, "stories": dictComments["stories"] ?? ""] as [String : Any]
-//                        let ksResponse = KSResponse<[StoryModel]>(JSON: dictMapper)
-//
-//                        if let memberArray = ksResponse1?.response {
-//                            var j = self.arrMembers.count
-//                            for object in memberArray {
-//                                self.arrMembers.append(object)
-//
-//                                let indexPath = IndexPath.init(row: j, section: 0)
-//                                self.uvCollection.insertItems(at: [indexPath])
-//                                j = j+1
-//                            }
-//
-//                        }
-                        
                         if let storyArray = ksResponse?.response {
                             var j = self.arrStories.count
                             

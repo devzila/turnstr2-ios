@@ -256,8 +256,6 @@ class StoryPreviewViewController: ParentViewController, UIGestureRecognizerDeleg
         let mvc = ImagePreviewViewController()
         mvc.dictInfo = self.dictInfo
         self.navigationController?.present(mvc, animated: true, completion: nil)
-        
-        
     }
     
     //MARK:- Comments delegate
