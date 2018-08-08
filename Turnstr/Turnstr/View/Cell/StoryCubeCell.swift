@@ -14,6 +14,8 @@ class StoryCubeCell: UITableViewCell {
     @IBOutlet weak var cubeProfileView: AITransformView?
     @IBOutlet weak var lblName: UILabel?
     @IBOutlet weak var lblCaption: UILabel?
+    @IBOutlet weak var lblLikes: UILabel?
+    @IBOutlet weak var lblComments: UILabel?
     @IBOutlet weak var btnLike: UIButton?
     @IBOutlet weak var btnComment: UIButton?
     var updateOnLikeStatusChanged:((_ storyInfo: Dictionary<String, Any>?) -> Void)?
@@ -22,13 +24,14 @@ class StoryCubeCell: UITableViewCell {
         didSet {
             if let count = storyInfo?["likes_count"] as? Int {
                 let strCount = count > 1 ? " \(count) Likes" : " \(count) Like"
-                btnLike?.setTitle(strCount, for: .normal)
+                lblLikes?.text = strCount
             }
             if let count = storyInfo?["comments_count"] as? Int {
                 let strCount = count > 1 ? " \(count) Comments" : " \(count) Comment"
-                btnComment?.setTitle(strCount, for: .normal)
+                lblComments?.text = "View all \(strCount)"
             }
             lblCaption?.text = storyInfo?["caption"] as? String
+            lblCaption?.numberOfLines = 0
             if let isLiked = storyInfo?["has_liked"] as? Bool {
                 btnLike?.isSelected = isLiked
             }

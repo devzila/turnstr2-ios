@@ -21,7 +21,7 @@ class TabbarController: ParentViewController {
     var goLive: UIViewController?
     var profile: UIViewController?
     var story: UIViewController?
-    var search: UIViewController?
+    var search: StoriesViewController?
     var photos: UIViewController?
     
     
@@ -87,15 +87,14 @@ class TabbarController: ParentViewController {
         }
         
         if sender === btnStory {
-            let storyboard = UIStoryboard(name: Storyboards.storyStoryboard.rawValue, bundle: nil)
-            let homeVC: StoriesViewController = storyboard.instantiateViewController(withIdentifier: "StoriesViewController") as! StoriesViewController
-            homeVC.screenType = .myStories
-            topVC?.navigationController?.pushViewController(homeVC, animated: true)
+            let camVC = CameraViewController(nibName: "CameraViewController", bundle: nil)
+            topVC?.navigationController?.pushViewController(camVC, animated: true)
         }
         
         if sender === btnSearch {
             if search == nil {
-                search = Storyboards.chatStoryboard.initialVC()
+                search = Storyboards.storyStoryboard.initialVC() as? StoriesViewController
+                search?.screenType = .myStories
             }
             self.activeViewController = search
         }

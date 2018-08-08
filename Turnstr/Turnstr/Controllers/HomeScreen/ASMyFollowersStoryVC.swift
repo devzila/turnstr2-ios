@@ -32,9 +32,6 @@ class ASMyFollowersStoryVC: ParentViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
-//        createCollectionView()
-        
         tableView.estimatedRowHeight = kWidth
         tableView.rowHeight = UITableViewAutomaticDimension
         searchStoryResults()
@@ -44,20 +41,6 @@ class ASMyFollowersStoryVC: ParentViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
-//    func createCollectionView() -> Void {
-//
-//        flowLayout?.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-//
-//        flowLayout?.itemSize = PhotoSize()
-//        flowLayout?.minimumInteritemSpacing = 0
-//        flowLayout?.minimumLineSpacing = 0
-//
-//        uvCollection?.backgroundColor = UIColor.white
-//        uvCollection?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
-//
-//    }
     
     
     func PhotoSize() -> CGSize {
@@ -73,132 +56,6 @@ class ASMyFollowersStoryVC: ParentViewController {
         topVC?.navigationController?.pushViewController(mvc, animated: true)
     }
     
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
-//    {
-////        if section == 0 {
-////            return arrMembers.count
-////        }
-//        return arrStories.count
-//    }
-//
-//    func numberOfSections(in collectionView: UICollectionView) -> Int {
-//        return 1
-//    }
-    
-    
-//    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView
-//    {
-//        if kind == UICollectionElementKindSectionFooter {
-//            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "myClass", for: indexPath)
-//
-//            headerView.backgroundColor = kBlueColor
-//            return headerView
-//        }
-//        return FooterCollectionReusableView()
-//    }
-    
-    
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath)
-//
-//        //objStory.ParseStoryData(dict: arrList[indexPath.row] as! Dictionary<String, Any>)
-//
-//        var cube = cell.contentView.viewWithTag(indexPath.item) as? AITransformView
-//
-//        if cube == nil {
-//            cube = AITransformView.init(frame: CGRect.init(x: 0, y: 0, width: kWidth, height: kWidth), cube_size: kWidth * 2/3)
-//            cube?.createCubewith(kWidth * 2/3)
-//            cube?.backgroundColor = UIColor.white
-//            cube?.tag = indexPath.item
-//
-//            cell.contentView.addSubview(cube!)
-//
-//
-//            var arrMedia: [String] = []
-//
-////            if indexPath.section == 0 {
-////                let member  = arrMembers[indexPath.item]
-////                arrMedia.append(member.avatar_face1 ?? "")
-////                arrMedia.append(member.avatar_face2 ?? "")
-////                arrMedia.append(member.avatar_face3 ?? "")
-////                arrMedia.append(member.avatar_face4 ?? "")
-////                arrMedia.append(member.avatar_face5 ?? "")
-////                arrMedia.append(member.avatar_face6 ?? "")
-////
-////            } else {
-////                let story  = arrStories[indexPath.item]
-////                for media in story.media! {
-////                    arrMedia.append(media.thumb_url ?? "")
-////                }
-////            }
-//            let story  = arrStories[indexPath.item]
-//            for media in story.media! {
-//                arrMedia.append(media.thumb_url ?? "")
-//            }
-//
-//            cube?.setup(withUrls: arrMedia)
-//
-//
-//            cube?.setScroll(CGPoint.init(x: 0, y: kWidth/2), end: CGPoint.init(x: 5, y: kWidth/2))
-//            cube?.setScroll(CGPoint.init(x: kWidth/2, y: 0), end: CGPoint.init(x: kWidth/2, y: 2))
-//
-//        }
-//        cube?.isUserInteractionEnabled = false
-//        let tap = UITapGestureRecognizer.init(target: self, action: #selector(handleTap(sender:)))
-//        //tap.delegate = self
-//        tap.accessibilityElements = [indexPath]
-//        tap.numberOfTapsRequired = 1
-//        cube?.addGestureRecognizer(tap)
-//
-//        cube?.isExclusiveTouch = true
-//
-//        cell.layer.masksToBounds = true
-//        cell.layer.borderWidth = 1.0
-//        cell.layer.borderColor = UIColor.init("F3F3F3").cgColor
-//
-//
-//        if pageNumber == 1, indexPath.item == arrStories.count-1 {
-//            pageNumber = pageNumber+1
-//            searchStoryResults()
-//        }
-//        return cell
-//    }
-    
-    
-    
-    
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        print("selected")
-//
-//        let mvc = StoryPreviewViewController()
-//        if arrAllData.count > indexPath.item {
-//            mvc.dictInfo = arrAllData[indexPath.item]
-//        }
-//
-//        topVC?.navigationController?.pushViewController(mvc, animated: true)
-//
-////        if indexPath.section == 0 {
-////
-////            let member = arrMembers[indexPath.item]
-////            let storyboard = UIStoryboard(name: "PhotoAlbum", bundle: nil)
-////            if let profileVC = storyboard.instantiateViewController(withIdentifier: "PublicProfileCollectionViewController") as? PublicProfileCollectionViewController {
-////                profileVC.profileId = member.id
-////                self.navigationController?.pushViewController(profileVC, animated: true)
-////            }
-////
-////
-////        } else {
-////            let mvc = StoryPreviewViewController()
-////            if arrAllData.count > indexPath.item {
-////                mvc.dictInfo = arrAllData[indexPath.item]
-////            }
-////
-////            topVC?.navigationController?.pushViewController(mvc, animated: true)
-////        }
-//
-//    }
-    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         if (tableView.contentOffset.y >= (tableView.contentSize.height - scrollView.frame.size.height)) {
@@ -209,12 +66,16 @@ class ASMyFollowersStoryVC: ParentViewController {
     
     //MARK:- Move cells delegates
     //MARK:- Action Methods
-    
     func handleTap(_ sender: UITapGestureRecognizer? = nil) {
         // handling code
         print("Tapped")
         guard let index = sender?.view?.tag else {return}
         showPreviewView(index)
+    }
+    
+    @IBAction func btnChatAction() {
+        guard let vc = Storyboards.chatStoryboard.initialVC() else { return }
+        present(vc, animated: true, completion: nil)
     }
     
 }

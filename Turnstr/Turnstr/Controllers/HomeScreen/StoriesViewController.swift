@@ -35,11 +35,6 @@ class StoriesViewController: ParentViewController, UICollectionViewDelegate, UIC
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if screenType == .myStories {
-            self.view.addSubview(btnNavBack)
-            btnNavBack.addTarget(self, action: #selector(goBack), for: .touchUpInside)
-        }
-        
         lblPostLeft.numberOfLines = 0
         lblPostRight.numberOfLines = 0
         
@@ -299,7 +294,6 @@ class StoriesViewController: ParentViewController, UICollectionViewDelegate, UIC
     @IBAction func NewStoryClicked(_ sender: UIButton) {
         let camVC = CameraViewController(nibName: "CameraViewController", bundle: nil)
         self.navigationController?.pushViewController(camVC, animated: true)
-        
     }
     
     //MARK:- APIS Handling

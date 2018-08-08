@@ -107,6 +107,10 @@ class ChatBudsVC: UIViewController {
         present(vc, animated: true, completion: nil)
     }
     
+    @IBAction func btnBack() {
+        dismiss(animated: true, completion: nil)
+    }
+    
     @IBAction func actMyGoLive(_ sender: UIButton) {
         let camVC = CameraViewController(nibName: "CameraViewController", bundle: nil)
         topVC?.navigationController?.pushViewController(camVC, animated: true)
