@@ -99,7 +99,7 @@ class HomeViewController: ParentViewController {
                     
                     self.btnDesc.setAttributedTitle(attStr, for: .normal)
                     if strBio.isEmpty == true {
-                        self.btnDescHeight.constant = 25
+                        self.btnDescHeight.constant = 20
                         self.btnDesc.layoutIfNeeded()
                     } else{
                         self.btnDescHeight.constant = 55

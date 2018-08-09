@@ -342,6 +342,6 @@
     </scenes>
     <resources>
         <image name="logo_login" width="120" height="33"/>
-        <image name="nw_back" width="31" height="24"/>
+        <image name="nw_back" width="36" height="36"/>
     </resources>
 </document>
