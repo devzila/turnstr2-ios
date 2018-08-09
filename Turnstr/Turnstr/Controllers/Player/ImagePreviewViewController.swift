@@ -24,6 +24,7 @@ class ImagePreviewViewController: ParentViewController, UIScrollViewDelegate {
     let btnNext = UIButton()
     let btnPrev = UIButton()
     
+    var cv: CubePageView?
     
     
     override func viewDidLoad() {
@@ -43,7 +44,7 @@ class ImagePreviewViewController: ParentViewController, UIScrollViewDelegate {
         objStory.ParseStoryData(dict: dictInfo)
         
         //setupScrollView()
-        //PagingButtons()
+        PagingButtons()
         
         
     }
@@ -70,14 +71,18 @@ class ImagePreviewViewController: ParentViewController, UIScrollViewDelegate {
     }
     
     func PagingButtons() {
-        btnNext.frame = CGRect.init(x: kWidth-50, y: (kCenterH-25)+kNavBarHeight, width: 50, height: 50)
-        btnNext.setImage(#imageLiteral(resourceName: "arrow_right"), for: .normal)
+        //        btnNext.frame = CGRect.init(x: kWidth-50, y: (kCenterH-25)+kNavBarHeight, width: 50, height: 50)
+        btnNext.frame = CGRect.init(x: kWidth-100, y: kNavBarHeight, width: 100, height: kHeight-kNavBarHeight)
+        //        btnNext.setImage(#imageLiteral(resourceName: "arrow_right"), for: .normal)
         btnNext.addTarget(self, action: #selector(NextClicked(sender:)), for: .touchUpInside)
+        btnNext.backgroundColor = .clear
         self.view.addSubview(btnNext)
         
-        btnPrev.frame = CGRect.init(x: 0, y: (kCenterH-25)+kNavBarHeight, width: 50, height: 50)
-        btnPrev.setImage(#imageLiteral(resourceName: "arrow_left"), for: .normal)
+        //        btnPrev.frame = CGRect.init(x: 0, y: (kCenterH-25)+kNavBarHeight, width: 50, height: 50)
+        btnPrev.frame = CGRect.init(x: 0, y: kNavBarHeight, width: 100, height: kHeight-kNavBarHeight)
+        //        btnPrev.setImage(#imageLiteral(resourceName: "arrow_left"), for: .normal)
         btnPrev.addTarget(self, action: #selector(PrevClicked(sender:)), for: .touchUpInside)
+        btnPrev.backgroundColor = .clear
         self.view.addSubview(btnPrev)
     }
     
@@ -144,7 +149,7 @@ class ImagePreviewViewController: ParentViewController, UIScrollViewDelegate {
         }
         
         
-        let cv = CubePageView.init(frame: frame)
+        cv = CubePageView.init(frame: frame)
         cv?.setPages(arrPages)
         self.view.addSubview(cv!)
     }
@@ -170,12 +175,37 @@ class ImagePreviewViewController: ParentViewController, UIScrollViewDelegate {
     }
     
     func NextClicked(sender: UIButton) -> Void {
-        print(scrScrollView.currentPage)
-        scrollToPage(page: scrScrollView.currentPage, animated: true)
+        if cv != nil {
+            print(cv?.currentPage())
+            let totalPage = cv!.numberPages()
+            let currentPage = cv!.currentPage()
+            let nextPage = currentPage+1
+            if nextPage < totalPage {
+                cv?.selectPage(nextPage, withAnim: true)
+            } else{
+                cv?.selectPage(0, withAnim: true)
+            }
+            
+        }
+        
+        //print(scrScrollView.currentPage)
+        //scrollToPage(page: scrScrollView.currentPage, animated: true)
     }
     
     func PrevClicked(sender: UIButton) -> Void {
-        scrollToPage(page: scrScrollView.currentPage-2, animated: true)
+        if cv != nil {
+            print(cv?.currentPage())
+            let totalPage = cv!.numberPages()
+            let currentPage = cv!.currentPage()
+            let prePage = currentPage-1
+            if prePage > -1 {
+                cv?.selectPage(prePage, withAnim: true)
+            } else{
+                cv?.selectPage(totalPage-1, withAnim: true)
+            }
+            
+        }
+        //scrollToPage(page: scrScrollView.currentPage-2, animated: true)
     }
     
     

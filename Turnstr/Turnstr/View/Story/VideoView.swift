@@ -11,6 +11,7 @@ import AVFoundation
 
 protocol VideoDelegate {
     func VideoPicked(url: URL)
+    func CameraImageClicked(image: UIImage)
 }
 
 class VideoView: UIView, AVCaptureFileOutputRecordingDelegate, VideoPlayerDelegates {
@@ -22,17 +23,23 @@ class VideoView: UIView, AVCaptureFileOutputRecordingDelegate, VideoPlayerDelega
     var btnVideoCap = UIButton()
     var btnSelfiCap = UIButton()
     var btnGallery = UIButton()
-    var btnVideoIcon = UIButton()
+    var btnMyStoriesIcon = UIButton()
     
     var timer: Timer? = nil
     let lengthAccepted = 5.0 as Float
     let maximumLength = 15.0 as Float
     
+    ///for video
     var cameraDevice : AVCaptureDevice?
     var captureAudio :AVCaptureDevice?
     var cameraPreviewlayer : AVCaptureVideoPreviewLayer?
     var cameraSession : AVCaptureSession?
     var videoFileOutput : AVCaptureMovieFileOutput?
+    
+    //For photo
+    var stillImageOutput : AVCaptureStillImageOutput?
+    
+    
     
     var progressView = UISlider()
     
@@ -96,7 +103,17 @@ class VideoView: UIView, AVCaptureFileOutputRecordingDelegate, VideoPlayerDelega
         videoFileOutput = AVCaptureMovieFileOutput()
         self.cameraSession?.addOutput(videoFileOutput)
         
+        
+        
+        //for photo
+        stillImageOutput = AVCaptureStillImageOutput()
+        stillImageOutput?.outputSettings = [AVVideoCodecKey: AVVideoCodecJPEG]
+        cameraSession?.addOutput(stillImageOutput)
+        
+        //Start camera
         cameraSession?.startRunning()
+        
+        
     }
     
     func initSessionWithCamera(cameraType: Camera){
@@ -172,16 +189,24 @@ class VideoView: UIView, AVCaptureFileOutputRecordingDelegate, VideoPlayerDelega
         
         
         btnVideoCap.frame = CGRect.init(x: kCenterW-30, y: self.frame.height-70, width: 60, height: 60)
-        btnVideoCap.setImage(#imageLiteral(resourceName: "video"), for: .normal)
+        btnVideoCap.setImage(#imageLiteral(resourceName: "nw_record"), for: .normal)
         self.addSubview(btnVideoCap)
-        btnVideoCap.addTarget(self, action: #selector(touchRelease(sender:)), for: .touchUpInside);
-        btnVideoCap.addTarget(self, action: #selector(touchStart(sender:)), for: .touchDown)
+        //btnVideoCap.addTarget(self, action: #selector(touchRelease(sender:)), for: .touchUpInside);
+        //btnVideoCap.addTarget(self, action: #selector(touchStart(sender:)), for: .touchDown)
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap(gestureRecognizer:)))
+        btnVideoCap.addGestureRecognizer(tap)
+        
+        let longPressGesture = UILongPressGestureRecognizer.init(target: self, action: #selector(handleLongPress))
+        self.btnVideoCap.addGestureRecognizer(longPressGesture);
+        
         
         
         progressView.frame = CGRect.init(x: 10, y: btnVideoCap.frame.minY-10, width: kWidth-20, height: 5)
         progressView.minimumValue = 0.0
         progressView.maximumValue = maximumLength
         progressView.isUserInteractionEnabled = false
+        progressView.isHidden = true
         self.addSubview(progressView)
         
         //
@@ -195,9 +220,9 @@ class VideoView: UIView, AVCaptureFileOutputRecordingDelegate, VideoPlayerDelega
         //VideoIcon
         //
         
-        btnVideoIcon.frame = CGRect.init(x: kWidth-70, y: self.frame.height-70, width: 60, height: 60)
-        btnVideoIcon.setImage(#imageLiteral(resourceName: "cameraicon"), for: .normal)
-        self.addSubview(btnVideoIcon)
+        btnMyStoriesIcon.frame = CGRect.init(x: kWidth-70, y: self.frame.height-70, width: 60, height: 60)
+        btnMyStoriesIcon.setImage(#imageLiteral(resourceName: "nw_cube"), for: .normal)
+        self.addSubview(btnMyStoriesIcon)
     }
     
     func StopSession() -> Void {
@@ -208,16 +233,34 @@ class VideoView: UIView, AVCaptureFileOutputRecordingDelegate, VideoPlayerDelega
         cameraSession?.startRunning()
     }
     
+    func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
+        
+        if gestureRecognizer.state == UIGestureRecognizerState.began {
+            debugPrint("long press started")
+            touchStart(sender: btnVideoCap)
+        }
+        else if gestureRecognizer.state == UIGestureRecognizerState.ended {
+            debugPrint("longpress ended")
+            touchRelease(sender: btnVideoCap)
+        }
+    }
+    
     func touchRelease(sender: UIButton) -> Void {
         print("Touch released")
-        
+        progressView.isHidden = true
+        let image = UIImage.init(named: "nw_record")?.setMode(MODE: .alwaysTemplate)
+        btnVideoCap.setImage(image, for: .normal)
+        btnVideoCap.tintColor = UIColor.white
         videoFileOutput!.stopRecording()
     }
     
     func touchStart(sender: UIButton) -> Void {
         print("Touch start")
-        
+        progressView.isHidden = false
         progressView.value = 0.0
+        let image = UIImage.init(named: "nw_record")?.setMode(MODE: .alwaysTemplate)
+        btnVideoCap.setImage(image, for: .normal)
+        btnVideoCap.tintColor = UIColor.red
         
         var videoConnection: AVCaptureConnection?
         for connection in (videoFileOutput?.connections)! {
@@ -247,10 +290,23 @@ class VideoView: UIView, AVCaptureFileOutputRecordingDelegate, VideoPlayerDelega
                 print("Ooops! Something went wrong: \(error)")
             }
         }
-        let filePath = NSURL(fileURLWithPath:strPath)
-        videoFileOutput!.startRecording(toOutputFileURL: filePath as URL!, recordingDelegate: recordingDelegate)
+        let filePath = URL(fileURLWithPath:strPath)
+        videoFileOutput!.startRecording(toOutputFileURL: filePath, recordingDelegate: recordingDelegate)
     }
     
+    func handleTap(gestureRecognizer: UITapGestureRecognizer) {
+        CameraCaptureClicked(sender: btnVideoCap)
+    }
+    
+    func CameraCaptureClicked(sender: UIButton) -> Void {
+        progressView.isHidden = true
+        
+        self.captureStillImage { (image) -> Void in
+            if image != nil{
+                self.delegate?.CameraImageClicked(image: image!)
+            }
+        }
+    }
     
     func SelfyCaptureClicked(sender: UIButton) -> Void {
         let animation = CATransition()
@@ -388,7 +444,66 @@ class VideoView: UIView, AVCaptureFileOutputRecordingDelegate, VideoPlayerDelega
     }
     
     
+    //MARK:- Photo capturing
     
+    func captureStillImage(completed: @escaping (_ image: UIImage?) -> Void){
+        
+        if let imageOutput = self.stillImageOutput {
+            
+            DispatchQueue.main.async {
+                var videoConnection: AVCaptureConnection?
+                for connection in imageOutput.connections {
+                    let c = connection as! AVCaptureConnection
+                    
+                    for port in c.inputPorts {
+                        let p = port as! AVCaptureInputPort
+                        if p.mediaType == AVMediaTypeVideo {
+                            videoConnection = c;
+                            break
+                        }
+                    }
+                    
+                    if videoConnection != nil {
+                        break
+                    }
+                }
+                
+                if videoConnection != nil {
+                    imageOutput.captureStillImageAsynchronously(from: videoConnection, completionHandler: { (imageSampleBuffer, error) in
+                        if imageSampleBuffer != nil {
+                            let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(imageSampleBuffer)
+                            let image: UIImage? = UIImage(data: imageData!)!
+                            
+                            //let square = image!.size.width < image!.size.height ? CGSize(width: image!.size.width, height: image!.size.width) : CGSize(width: image!.size.height, height: image!.size.height)
+                            let square = CGSize.init(width: kWidth*2, height: kHeight*2)
+                            //let imageView = UIImageView(frame: CGRect.init(x: 0, y: 0, width: square.width/2, height: square.height/2))
+                            let imageView = UIImageView(frame: CGRect.init(x: 0, y: 0, width: square.width, height: square.height))
+                            imageView.contentMode = .scaleToFill
+                            imageView.image = image
+                            UIGraphicsBeginImageContext(imageView.bounds.size)
+                            imageView.layer.render(in: UIGraphicsGetCurrentContext()!)
+                            let result = UIGraphicsGetImageFromCurrentImageContext()! as UIImage
+                            UIGraphicsEndImageContext();
+                            
+                            DispatchQueue.main.async {
+                                completed(result)
+                            }
+                        }
+                        else{
+                            
+                        }
+                    })
+                    
+                } else {
+                    DispatchQueue.main.async {
+                        completed(nil)
+                    }
+                }
+            }
+        } else {
+            completed(nil)
+        }
+    }
     
     
 }

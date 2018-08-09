@@ -8,7 +8,12 @@
 
 import UIKit
 
+protocol StoriesVCDelegate {
+    func StoriesVCBackClicked()
+}
 class StoriesViewController: ParentViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIGestureRecognizerDelegate {
+    
+    var delegate: StoriesVCDelegate?
     
     var screenType: enumScreenType = .normal
     
@@ -34,6 +39,11 @@ class StoriesViewController: ParentViewController, UICollectionViewDelegate, UIC
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if screenType == .myStories {
+            self.view.addSubview(btnNavBack)
+            btnNavBack.addTarget(self, action: #selector(actGoBack), for: .touchUpInside)
+        }
         
         lblPostLeft.numberOfLines = 0
         lblPostRight.numberOfLines = 0
@@ -296,6 +306,11 @@ class StoriesViewController: ParentViewController, UICollectionViewDelegate, UIC
         self.navigationController?.pushViewController(camVC, animated: true)
     }
     
+    func actGoBack() {
+        delegate?.StoriesVCBackClicked()
+        self.goBack()
+    }
+    
     //MARK:- APIS Handling
     
     func APIRequest(sType: String, data: Dictionary<String, Any>) -> Void {
@@ -357,12 +372,12 @@ class StoriesViewController: ParentViewController, UICollectionViewDelegate, UIC
                         self.objLoader.stop()
                         if self.screenType == .myStories {
                             if self.arrList.count == 0 {
-                                if self.isNewStoryLaunched == false{
-                                    self.NewStoryClicked(UIButton())
-                                    self.isNewStoryLaunched = true
-                                } else{
-                                    self.goBack()
-                                }
+                                //                                if self.isNewStoryLaunched == false{
+                                //                                    self.NewStoryClicked(UIButton())
+                                //                                    self.isNewStoryLaunched = true
+                                //                                } else{
+                                //                                    self.goBack()
+                                //                                }
                             }
                         }
                     }

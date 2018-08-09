@@ -10,7 +10,7 @@ import UIKit
 import Photos
 
 
-class CameraViewController: ParentViewController, CameraViewDelegates, VideoDelegate {
+class CameraViewController: ParentViewController, CameraViewDelegates, VideoDelegate, StoriesVCDelegate {
     
     //Library outlets
     var uvCollectionView: UICollectionView?
@@ -116,7 +116,7 @@ class CameraViewController: ParentViewController, CameraViewDelegates, VideoDele
         //
         //OPen Camera controller first
         //
-        PhotosClicked(btnPhotos)
+        VideosClicked(btnPhotos)
     }
     
     override func didReceiveMemoryWarning() {
@@ -173,21 +173,21 @@ class CameraViewController: ParentViewController, CameraViewDelegates, VideoDele
     
     func createCameraView() -> Void {
         
-        if uvCamera == nil {
-            uvCamera = CameraView.init(frame: uvContent.frame)
-            uvCamera?.delegate = self
-            uvCamera?.btnGallery.addTarget(self, action: #selector(LibraryClicked(_:)), for: .touchUpInside)
-            uvCamera?.btnVideoIcon.addTarget(self, action: #selector(VideosClicked(_:)), for: .touchUpInside)
-        }
-        uvCamera?.isHidden = true
-        uvContent.addSubview(uvCamera!)
-        uvCamera?.StopSession()
+        //        if uvCamera == nil {
+        //            uvCamera = CameraView.init(frame: uvContent.frame)
+        //            uvCamera?.delegate = self
+        //            uvCamera?.btnGallery.addTarget(self, action: #selector(LibraryClicked(_:)), for: .touchUpInside)
+        //            uvCamera?.btnVideoIcon.addTarget(self, action: #selector(VideosClicked(_:)), for: .touchUpInside)
+        //        }
+        //        uvCamera?.isHidden = true
+        //        uvContent.addSubview(uvCamera!)
+        //        uvCamera?.StopSession()
         
         if uvVideo == nil {
             uvVideo = VideoView.init(frame: uvContent.frame)
             uvVideo?.delegate = self
             uvVideo?.btnGallery.addTarget(self, action: #selector(LibraryClicked(_:)), for: .touchUpInside)
-            uvVideo?.btnVideoIcon.addTarget(self, action: #selector(PhotosClicked(_:)), for: .touchUpInside)
+            uvVideo?.btnMyStoriesIcon.addTarget(self, action: #selector(openMyStories), for: .touchUpInside)
         }
         uvVideo?.isHidden = true
         uvContent.addSubview(uvVideo!)
@@ -343,9 +343,23 @@ class CameraViewController: ParentViewController, CameraViewDelegates, VideoDele
     
     // MARK: - Action Methods
     
+    func openMyStories() {
+        uvCamera?.StopSession()
+        uvVideo?.StopSession()
+        
+        //Open My stories
+        let storyboard = UIStoryboard(name: Storyboards.storyStoryboard.rawValue, bundle: nil)
+        let homeVC: StoriesViewController = storyboard.instantiateViewController(withIdentifier: "StoriesViewController") as! StoriesViewController
+        homeVC.screenType = .myStories
+        homeVC.delegate = self
+        topVC?.navigationController?.pushViewController(homeVC, animated: true)
+        
+    }
+    
     func actBackClicked() {
         if selectedTab == 1 {
-            PhotosClicked(btnPhotos)
+            //            PhotosClicked(btnPhotos)
+            VideosClicked(btnVideos)
             return
         }
         self.goBack()
@@ -422,11 +436,31 @@ class CameraViewController: ParentViewController, CameraViewDelegates, VideoDele
     
     //MARK:- Collection Grid for Library Setup
     
-
+    
+    //MARK:- Stories Delegates
+    
+    func StoriesVCBackClicked() {
+        
+        //
+        //OPen Camera controller first
+        //
+        VideosClicked(btnPhotos)
+    }
     
     //MARK:- Camera Delegates
     
     func CameraImageClicked(view: UIView, image: UIImage) {
+        if arrSelectedImages.count == 6 {
+            objUtil.showToast(strMsg: "You can select maximum six files")
+            return
+        }
+        
+        let vc = SHViewController(image: image)
+        vc.delegate = self
+        present(vc, animated: true, completion: nil)
+    }
+    
+    func CameraImageClicked(image: UIImage) {
         if arrSelectedImages.count == 6 {
             objUtil.showToast(strMsg: "You can select maximum six files")
             return
@@ -482,13 +516,16 @@ class CameraViewController: ParentViewController, CameraViewDelegates, VideoDele
                         if tempDirPath != nil {
                             _ = FileManager.removeAllItemsInsideDirectory(atPath: tempDirPath!)
                         }
-
+                        
                         
                         //self.objUtil.showToast(strMsg: "Story created successfully")
                         self.uvPopUP = nil
-                        self.goBack()
+                        //self.goBack()
                         kAppDelegate.hideLoadingIndicator()
-                        self.objUtil.showToast(strMsg: "Story created successfully")
+                        //                        self.objUtil.showToast(strMsg: "Story created successfully")
+                        DispatchQueue.main.asyncAfter(deadline: .now()+0.2, execute: {
+                            self.openMyStories()
+                        })
                     }
                 }
             }
@@ -519,11 +556,11 @@ extension CameraViewController: SHViewControllerDelegate {
     func shViewControllerImageDidFilter(image: UIImage) {
         arrSelectedImages.append(NewStoryMedia.init(image: image, url: nil, type: .image))
         reloadSelectedImages()
-
+        
     }
     
     func shViewControllerDidCancel() {
-//        dismissVC()
+        //        dismissVC()
     }
 }
 
@@ -553,7 +590,7 @@ extension CameraViewController: UICollectionViewDelegate, UICollectionViewDelega
         uvCollectionView?.register(UINib(nibName: "ImagesCell", bundle: nil), forCellWithReuseIdentifier: "ImagesCell")
         
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if fetchResult == nil{
             return 0

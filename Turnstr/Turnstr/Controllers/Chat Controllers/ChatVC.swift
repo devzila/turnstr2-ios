@@ -88,16 +88,16 @@ class ChatVC: ChatParentVC  {
     
     func loadChatHistory() {
         guard  let channel = channel else { return }
-        let query = SBDPreviousMessageListQuery(channel: channel)
-        query?.loadPreviousMessages(withLimit: 50, reverse: true, completionHandler: {[weak self] (messages, error) in
-            if error == nil {
-                self?.dataSource?.messages = messages as! [SBDUserMessage]
-                self?.dataSource?.tableView?.reloadData()
-            }
-            else {
-                self?.dismissAlert(title: "Error in loading history", message: error?.localizedDescription)
-            }
-        })
+//        let query = SBDPreviousMessageListQuery(channel: channel)
+//        query?.loadPreviousMessages(withLimit: 50, reverse: true, completionHandler: {[weak self] (messages, error) in
+//            if error == nil {
+//                self?.dataSource?.messages = messages as! [SBDUserMessage]
+//                self?.dataSource?.tableView?.reloadData()
+//            }
+//            else {
+//                self?.dismissAlert(title: "Error in loading history", message: error?.localizedDescription)
+//            }
+//        })
     }
 }
 

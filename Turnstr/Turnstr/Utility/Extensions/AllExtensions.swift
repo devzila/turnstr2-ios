@@ -103,6 +103,15 @@ extension UIImage {
             completion(data)
         }
     }
+    
+    /// SwifterSwift: UIImage with .alwaysTemplate rendering mode.
+    public var template: UIImage {
+        return withRenderingMode(.alwaysTemplate)
+    }
+    
+    func setMode(MODE: UIImageRenderingMode) -> UIImage {
+        return self.withRenderingMode(MODE)
+    }
 }
 
 extension UITableView {

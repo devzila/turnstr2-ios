@@ -42,9 +42,9 @@ class StoryPreviewViewController: ParentViewController, UIGestureRecognizerDeleg
             arrMedia.append(objStory.thumb_url)
             
             shareStoryId = "\(objStory.storyID)"
-//            if objStory.media_url.isEmpty == false && shareImgUrl.isEmpty == true {
-//                shareImgUrl = objStory.media_url
-//            }
+            //            if objStory.media_url.isEmpty == false && shareImgUrl.isEmpty == true {
+            //                shareImgUrl = objStory.media_url
+            //            }
         }
         
         let uvCube = objUtil.createView(xCo: 0, forY: 112, forW: kWidth, forH: kHeight-112, backColor: UIColor.clear)
@@ -76,11 +76,11 @@ class StoryPreviewViewController: ParentViewController, UIGestureRecognizerDeleg
             //navBar
         }
         
-//        LoadNavBar()
-//        objNav.btnRightMenu.isHidden = true
-//        objNav.btnBack.addTarget(self, action: #selector(goBack), for: .touchUpInside)
-//        objNav.btnBack.tintColor = UIColor.white
-//        
+        //        LoadNavBar()
+        //        objNav.btnRightMenu.isHidden = true
+        //        objNav.btnBack.addTarget(self, action: #selector(goBack), for: .touchUpInside)
+        //        objNav.btnBack.tintColor = UIColor.white
+        //
         if userTYpe == .myStories {
             if objStory.strUserID == objSing.strUserID {
                 uvNavBar?.addSubview(objNav.RightButonIcon())
@@ -211,7 +211,7 @@ class StoryPreviewViewController: ParentViewController, UIGestureRecognizerDeleg
     }
     
     func ShareClicked(sender: UIButton) -> Void {
-
+        
         DispatchQueue.main.async {
             let objectsToShare = ["\(kShareUrl)\(self.shareStoryId)"]
             let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
@@ -221,13 +221,13 @@ class StoryPreviewViewController: ParentViewController, UIGestureRecognizerDeleg
             })
         }
         
-//        var img = UIImage()
-//        img.downloadImage(url: URL.init(string: shareImgUrl)!) { (data) in
-//            if data != nil {
-//                img = UIImage.init(data: data!)!
-//
-//            }
-//        }
+        //        var img = UIImage()
+        //        img.downloadImage(url: URL.init(string: shareImgUrl)!) { (data) in
+        //            if data != nil {
+        //                img = UIImage.init(data: data!)!
+        //
+        //            }
+        //        }
         
         //let fileURL = URL.init(string: "https://www.google.co.in/url?sa=i&rct=j&q=&esrc=s&source=imgres&cd=&cad=rja&uact=8&ved=0ahUKEwi7o6DYkPbXAhUcSY8KHUnkAz8QjRwIBw&url=https%3A%2F%2Fwww.planwallpaper.com%2Fimages&psig=AOvVaw0Xe9lJ06VPsSPjahBOqgty&ust=1512675281008184") //URL.init(fileURLWithPath: "")
         

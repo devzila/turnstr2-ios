@@ -48,8 +48,6 @@
  */
 @property (strong, nonatomic, readonly, nullable) NSDictionary *translations;
 
-- (nullable instancetype)initWithDictionary:(NSDictionary * _Nonnull)dict;
-
 /**
  Serializes message object.
  
@@ -63,10 +61,5 @@
  @return Sender of the message.
  */
 - (nonnull SBDUser *)sender;
-
-/**
- *  Internal use only.
- */
-- (nullable NSDictionary *)_toDictionary;
 
 @end
