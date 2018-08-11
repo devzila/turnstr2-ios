@@ -74,6 +74,12 @@
 		8A9C6B071F5745560095230B /* AppDelegateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9C6B061F5745560095230B /* AppDelegateExtension.swift */; };
 		8AA228471F8F849200D4313E /* GoogleService-Info- dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8AA228461F8F7FBF00D4313E /* GoogleService-Info- dev.plist */; };
 		8AB03AD01FD94BAA00D39662 /* MultiCallChatHandlingExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB03ACF1FD94BAA00D39662 /* MultiCallChatHandlingExtension.swift */; };
+		8AC21B92211CB323004A15AD /* MyProfileReusableViewCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC21B90211CB323004A15AD /* MyProfileReusableViewCollectionReusableView.swift */; };
+		8AC21B93211CB323004A15AD /* MyProfileReusableViewCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8AC21B91211CB323004A15AD /* MyProfileReusableViewCollectionReusableView.xib */; };
+		8AC21B95211CB63F004A15AD /* StoryCubeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC21B94211CB63F004A15AD /* StoryCubeCell.swift */; };
+		8AC21B97211CB6DD004A15AD /* ShortStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC21B96211CB6DD004A15AD /* ShortStory.swift */; };
+		8AC21B9A211CB755004A15AD /* UserStoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC21B98211CB755004A15AD /* UserStoryCell.swift */; };
+		8AC21B9B211CB755004A15AD /* UserStoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8AC21B99211CB755004A15AD /* UserStoryCell.xib */; };
 		8AE0E2BE1F29007900A28422 /* Costant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE0E2BD1F29007900A28422 /* Costant.swift */; };
 		8AE0E2C01F291AFB00A28422 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE0E2BF1F291AFB00A28422 /* User.swift */; };
 		8AEC2C751F1693E9008DF3BB /* TabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEC2C741F1693E9008DF3BB /* TabbarController.swift */; };
@@ -84,7 +90,6 @@
 		8AEC2C891F169C23008DF3BB /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AEC2C811F169C23008DF3BB /* Profile.storyboard */; };
 		8AEC2C8A1F169C23008DF3BB /* Stories.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AEC2C821F169C23008DF3BB /* Stories.storyboard */; };
 		8AEC2C8C1F169DFE008DF3BB /* Storyboards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEC2C8B1F169DFE008DF3BB /* Storyboards.swift */; };
-		8AEC8D7721122A16001CCB80 /* StoryCubeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEC8D7621122A16001CCB80 /* StoryCubeCell.swift */; };
 		D909667F20EA870F000C3C95 /* GoLive.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D909667E20EA870F000C3C95 /* GoLive.storyboard */; };
 		D90A0F881F01F32E00BFCE90 /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90A0F871F01F32E00BFCE90 /* MenuBar.swift */; };
 		D90BF05E1F0D6752003B5F4D /* MyStoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90BF05D1F0D6752003B5F4D /* MyStoriesViewController.swift */; };
@@ -299,6 +304,12 @@
 		8A9C6B061F5745560095230B /* AppDelegateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegateExtension.swift; sourceTree = "<group>"; };
 		8AA228461F8F7FBF00D4313E /* GoogleService-Info- dev.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info- dev.plist"; sourceTree = "<group>"; };
 		8AB03ACF1FD94BAA00D39662 /* MultiCallChatHandlingExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiCallChatHandlingExtension.swift; sourceTree = "<group>"; };
+		8AC21B90211CB323004A15AD /* MyProfileReusableViewCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileReusableViewCollectionReusableView.swift; sourceTree = "<group>"; };
+		8AC21B91211CB323004A15AD /* MyProfileReusableViewCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyProfileReusableViewCollectionReusableView.xib; sourceTree = "<group>"; };
+		8AC21B94211CB63F004A15AD /* StoryCubeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryCubeCell.swift; sourceTree = "<group>"; };
+		8AC21B96211CB6DD004A15AD /* ShortStory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortStory.swift; sourceTree = "<group>"; };
+		8AC21B98211CB755004A15AD /* UserStoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStoryCell.swift; sourceTree = "<group>"; };
+		8AC21B99211CB755004A15AD /* UserStoryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserStoryCell.xib; sourceTree = "<group>"; };
 		8AE0E2BD1F29007900A28422 /* Costant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Costant.swift; sourceTree = "<group>"; };
 		8AE0E2BF1F291AFB00A28422 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		8AEC2C741F1693E9008DF3BB /* TabbarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabbarController.swift; sourceTree = "<group>"; };
@@ -309,7 +320,6 @@
 		8AEC2C811F169C23008DF3BB /* Profile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		8AEC2C821F169C23008DF3BB /* Stories.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Stories.storyboard; sourceTree = "<group>"; };
 		8AEC2C8B1F169DFE008DF3BB /* Storyboards.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storyboards.swift; sourceTree = "<group>"; };
-		8AEC8D7621122A16001CCB80 /* StoryCubeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryCubeCell.swift; sourceTree = "<group>"; };
 		D909667E20EA870F000C3C95 /* GoLive.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = GoLive.storyboard; sourceTree = "<group>"; };
 		D90A0F871F01F32E00BFCE90 /* MenuBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
 		D90BF05D1F0D6752003B5F4D /* MyStoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyStoriesViewController.swift; sourceTree = "<group>"; };
@@ -677,7 +687,11 @@
 				D957F3181F435E1A00307968 /* CommentCell.swift */,
 				D957F3191F435E1A00307968 /* CommentCell.xib */,
 				D9DEF5101FEAFD710024E8F9 /* FooterCollectionReusableView.swift */,
-				8AEC8D7621122A16001CCB80 /* StoryCubeCell.swift */,
+				8AC21B94211CB63F004A15AD /* StoryCubeCell.swift */,
+				8AC21B90211CB323004A15AD /* MyProfileReusableViewCollectionReusableView.swift */,
+				8AC21B91211CB323004A15AD /* MyProfileReusableViewCollectionReusableView.xib */,
+				8AC21B98211CB755004A15AD /* UserStoryCell.swift */,
+				8AC21B99211CB755004A15AD /* UserStoryCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1086,6 +1100,7 @@
 				7EBFF7E71F46204800A8574D /* MediaModel.swift */,
 				7EBFF7E81F46204800A8574D /* CommentModel.swift */,
 				7EBFF7EA1F46204800A8574D /* KSResponse.swift */,
+				8AC21B96211CB6DD004A15AD /* ShortStory.swift */,
 			);
 			path = Modal;
 			sourceTree = "<group>";
@@ -1281,9 +1296,11 @@
 				8A385E381FDE8AE00061CAF5 /* GoogleService-Info.plist in Resources */,
 				D9FDE6611EC2586E009D5BE3 /* img5.png in Resources */,
 				D9FDE6581EC25821009D5BE3 /* img.png in Resources */,
+				8AC21B9B211CB755004A15AD /* UserStoryCell.xib in Resources */,
 				D9FDE65F1EC2586E009D5BE3 /* img3.png in Resources */,
 				8AEC2C871F169C23008DF3BB /* Main.storyboard in Resources */,
 				D957F3151F435DDA00307968 /* LikeCommetFooter.xib in Resources */,
+				8AC21B93211CB323004A15AD /* MyProfileReusableViewCollectionReusableView.xib in Resources */,
 				D960181B1FFFFE58000451A3 /* TurntCell.xib in Resources */,
 				D96366371F02FCBC00784A58 /* EditProfileCell.xib in Resources */,
 			);
@@ -1330,6 +1347,7 @@
 				"${BUILT_PRODUCTS_DIR}/GrowingTextView/GrowingTextView.framework",
 				"${BUILT_PRODUCTS_DIR}/KSPhotoBrowser/KSPhotoBrowser.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/RMMapper/RMMapper.framework",
@@ -1359,6 +1377,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GrowingTextView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KSPhotoBrowser.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RMMapper.framework",
@@ -1386,10 +1405,12 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Turnstr/Pods-Turnstr-resources.sh",
 				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterKitResources.bundle",
+				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterShareExtensionUIResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TwitterKitResources.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TwitterShareExtensionUIResources.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1457,12 +1478,15 @@
 				7ED058A71F5F2073009DBF36 /* PublicProfileCollectionViewController.swift in Sources */,
 				8AE0E2C01F291AFB00A28422 /* User.swift in Sources */,
 				7EBFF7EC1F46204800A8574D /* PhotoAlbum.swift in Sources */,
+				8AC21B97211CB6DD004A15AD /* ShortStory.swift in Sources */,
 				7EDC728D1F4DF0D000A00316 /* PullToRefreshView.swift in Sources */,
+				8AC21B92211CB323004A15AD /* MyProfileReusableViewCollectionReusableView.swift in Sources */,
 				7ED0589E1F5F2073009DBF36 /* CommentsViewController.swift in Sources */,
 				D9AC62C41F018FC90055ED3D /* Device.swift in Sources */,
 				D91C3B021F001D78005F945C /* IQTitleBarButtonItem.swift in Sources */,
 				D9FDE6481EC236F5009D5BE3 /* textField.swift in Sources */,
 				8A1104D41F5DC0D9009FFE0C /* CADebugMacros.cpp in Sources */,
+				8AC21B9A211CB755004A15AD /* UserStoryCell.swift in Sources */,
 				7EDC72861F4DF0D000A00316 /* DGElasticPullToRefreshExtensions.swift in Sources */,
 				7ED058AC1F5F20C4009DBF36 /* ServiceUtility.swift in Sources */,
 				7EDC72881F4DF0D000A00316 /* DGElasticPullToRefreshLoadingViewCircle.swift in Sources */,
@@ -1491,6 +1515,7 @@
 				D9D36B5F1F110B6D000C66CD /* Story.swift in Sources */,
 				D91C3B031F001D78005F945C /* IQToolbar.swift in Sources */,
 				D9AC62E41F01917A0055ED3D /* KBLog.swift in Sources */,
+				8AC21B95211CB63F004A15AD /* StoryCubeCell.swift in Sources */,
 				D91F1A9A202B8A03003F808B /* ASMyGoLiveVC.swift in Sources */,
 				D96B48EA1F146D6E00621B39 /* NewStoryPopUp.swift in Sources */,
 				D96366641F035BD100784A58 /* SDWebImageManager.m in Sources */,
@@ -1508,7 +1533,6 @@
 				D9B41AF21F678013000E4849 /* NavBar.swift in Sources */,
 				D96366671F035BD100784A58 /* UIImage+GIF.m in Sources */,
 				8A1104DC1F5DC0D9009FFE0C /* SpeakerboxCallManager.swift in Sources */,
-				8AEC8D7721122A16001CCB80 /* StoryCubeCell.swift in Sources */,
 				D96366331F02D78500784A58 /* Singleton.swift in Sources */,
 				D96366601F035BD100784A58 /* SDWebImageCompat.m in Sources */,
 				D9AC62C31F018FC90055ED3D /* CommonEnums.swift in Sources */,

@@ -22,6 +22,7 @@
 #import "TWTRAuthenticationProvider.h"
 
 @class TWTRAuthConfig;
+@protocol TWTRErrorLogger;
 @protocol TWTRAPIServiceConfig;
 
 __TVOS_UNAVAILABLE @interface TWTRAppleSocialAuthenticaticationProvider : TWTRAuthenticationProvider
@@ -29,6 +30,6 @@ __TVOS_UNAVAILABLE @interface TWTRAppleSocialAuthenticaticationProvider : TWTRAu
                                                                           -
                                                                           (instancetype)init NS_UNAVAILABLE;
 
-- (instancetype)initWithAuthConfig:(TWTRAuthConfig *)authConfig apiServiceConfig:(id<TWTRAPIServiceConfig>)apiServiceConfig;
+- (instancetype)initWithAuthConfig:(TWTRAuthConfig *)authConfig apiServiceConfig:(id<TWTRAPIServiceConfig>)apiServiceConfig errorLogger:(id<TWTRErrorLogger>)errorLogger;
 
 @end

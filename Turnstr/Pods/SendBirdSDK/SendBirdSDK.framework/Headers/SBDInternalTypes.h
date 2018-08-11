@@ -69,6 +69,7 @@ typedef NS_ENUM(NSInteger, SBDLogLevel) {
     SBDLogLevelError = 1,
     SBDLogLevelWarning = 2,
     SBDLogLevelInfo = 3,
+    SBDLogLevelDebug = 4
 };
 
 #endif /* SBDInternalTypes_h */

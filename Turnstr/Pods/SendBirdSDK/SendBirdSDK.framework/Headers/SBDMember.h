@@ -15,6 +15,7 @@
  */
 @interface SBDMember : SBDUser
 
+
 /**
  The state for invitation. The values of the property are `invited` and `joined`. The `invited` means that the user doesn't accept the invitation yet and the `joined` means that the user accepted the invitation manually or automatically.
  */
@@ -25,12 +26,9 @@
 @property (atomic) BOOL isBlockingMe;
 
 /**
- *  DO NOT USE this initializer. You can only get an instance type of `SBDMember` from SDK.
+ *  Internal use only.
  */
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wnullability"
-- (nullable instancetype)init NS_UNAVAILABLE;
-#pragma clang diagnostic pop
+- (nullable instancetype)initWithDictionary:(NSDictionary * _Nonnull)dict;
 
 /**
  Builds a member object from serialized data.
@@ -46,5 +44,10 @@
  @return Serialized <span>data</span>.
  */
 - (nullable NSData *)serialize;
+
+/**
+ *  Internal use only.
+ */
+- (nullable NSDictionary *)_toDictionary;
 
 @end

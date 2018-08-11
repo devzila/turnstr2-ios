@@ -21,10 +21,6 @@ __attribute__ ((deprecated))
 
 /**
  *  Internal use only.
- *
- *  @param channel channel
- *  @see [`-createMessageListQuery`](../Classes/SBDBaseChannel.html#//api/name/createMessageListQuery) in `SBDBaseChannel` class.
- *  @warning *Important*: DON'T use this method. This method will be unavailable.
  */
 - (nullable instancetype)initWithChannel:(SBDBaseChannel * _Nonnull)channel;
 
@@ -35,8 +31,7 @@ __attribute__ ((deprecated))
  *
  *  @deprecated in 3.0.28.
  */
-- (BOOL)isLoading
-DEPRECATED_ATTRIBUTE;
+- (BOOL)isLoading DEPRECATED_ATTRIBUTE;
 
 /**
  *  Loads the next messages from the timestamp with a limit and ordering.
@@ -48,11 +43,7 @@ DEPRECATED_ATTRIBUTE;
  *
  *  @deprecated in 3.0.28.
  */
-- (void)loadNextMessagesFromTimestamp:(long long)timestamp
-                                limit:(NSInteger)limit
-                              reverse:(BOOL)reverse
-                    completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable messages, SBDError * _Nullable error))completionHandler
-DEPRECATED_ATTRIBUTE;
+- (void)loadNextMessagesFromTimestamp:(long long)timestamp limit:(NSInteger)limit reverse:(BOOL)reverse completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable messages, SBDError * _Nullable error))completionHandler DEPRECATED_ATTRIBUTE;
 
 /**
  *  Loads the previous messages from the timestamp with a limit and ordering.
@@ -64,11 +55,7 @@ DEPRECATED_ATTRIBUTE;
  *
  *  @deprecated in 3.0.28.
  */
-- (void)loadPreviousMessagesFromTimestamp:(long long)timestamp
-                                    limit:(NSInteger)limit
-                                  reverse:(BOOL)reverse
-                        completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable messages, SBDError * _Nullable error))completionHandler
-DEPRECATED_ATTRIBUTE;
+- (void)loadPreviousMessagesFromTimestamp:(long long)timestamp limit:(NSInteger)limit reverse:(BOOL)reverse completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable messages, SBDError * _Nullable error))completionHandler DEPRECATED_ATTRIBUTE;
 
 /**
  *  Loads the previous and next message from the timestamp with a limit and ordering.
@@ -81,12 +68,7 @@ DEPRECATED_ATTRIBUTE;
  *
  *  @deprecated in 3.0.28.
  */
-- (void)loadMessagesFromTimestamp:(long long)timestamp
-                        prevLimit:(NSInteger)prevLimit
-                        nextLimit:(NSInteger)nextLimit
-                          reverse:(BOOL)reverse
-                completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable messages, SBDError * _Nullable error))completionHandler
-DEPRECATED_ATTRIBUTE;
+- (void)loadMessagesFromTimestamp:(long long)timestamp prevLimit:(NSInteger)prevLimit nextLimit:(NSInteger)nextLimit reverse:(BOOL)reverse completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable messages, SBDError * _Nullable error))completionHandler DEPRECATED_ATTRIBUTE;
 
 /**
  *  Loads the messages in the time range.

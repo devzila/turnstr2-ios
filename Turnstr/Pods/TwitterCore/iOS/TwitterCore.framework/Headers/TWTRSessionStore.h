@@ -20,6 +20,7 @@
 @class TWTRSession;
 @protocol TWTRAuthSession;
 @protocol TWTRAPIServiceConfig;
+@protocol TWTRErrorLogger;
 
 NS_ASSUME_NONNULL_BEGIN
 
