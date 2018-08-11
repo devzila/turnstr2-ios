@@ -25,7 +25,7 @@ class ImagePreviewViewController: ParentViewController, UIScrollViewDelegate {
     let btnPrev = UIButton()
     
     var cv: CubePageView?
-    var currentPlayer: AVPlayer?
+    var arrPlayers: [AVPlayer?] = []
     
     
     override func viewDidLoad() {
@@ -51,10 +51,8 @@ class ImagePreviewViewController: ParentViewController, UIScrollViewDelegate {
     }
     
     deinit {
-        if currentPlayer != nil {
-            currentPlayer?.isMuted = true
-            currentPlayer = nil
-        }
+        stopAllPlayers()
+        remoAllPlayers()
     }
     
     func DismissBack() {
@@ -126,15 +124,19 @@ class ImagePreviewViewController: ParentViewController, UIScrollViewDelegate {
                 playerLayerAV.frame = frame
                 imgView.layer.addSublayer(playerLayerAV)
                 arrPages.append(imgView)
-                playerAV.play()
+                if j == 0 { // if first item the start playing
+                    playerAV.isMuted = false
+                    playerAV.play()
+                }
+                arrPlayers.append(playerAV)
                 
-                let btnMute = UIButton.init(frame: CGRect.init(x: kCenterW-50, y: kHeight-100, width: 50, height: 50))
-                btnMute.setImage(#imageLiteral(resourceName: "nw_mute"), for: .selected)
-                btnMute.setImage(#imageLiteral(resourceName: "nw_unmute"), for: .normal)
-                btnMute.isSelected = true
-                btnMute.accessibilityElements = [playerAV]
-                btnMute.addTarget(self, action: #selector(actMuteClicked(sender:)), for: .touchUpInside)
-                imgView.addSubview(btnMute)
+//                let btnMute = UIButton.init(frame: CGRect.init(x: kCenterW-50, y: kHeight-100, width: 50, height: 50))
+//                btnMute.setImage(#imageLiteral(resourceName: "nw_mute"), for: .selected)
+//                btnMute.setImage(#imageLiteral(resourceName: "nw_unmute"), for: .normal)
+//                btnMute.isSelected = true
+//                btnMute.accessibilityElements = [playerAV]
+//                btnMute.addTarget(self, action: #selector(actMuteClicked(sender:)), for: .touchUpInside)
+//                imgView.addSubview(btnMute)
                 
                 NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: playerAV.currentItem, queue: .main) { (_) in
                     playerAV.seek(to: kCMTimeZero)
@@ -161,9 +163,11 @@ class ImagePreviewViewController: ParentViewController, UIScrollViewDelegate {
 //                arrPages.append(imgView)
             }
             else if objStory.media_type.isEmpty == true {
-                
+                arrPlayers.append(nil)
             }
             else{
+                arrPlayers.append(nil)
+                
                 let frame = CGRect.init(x: 0, y: 0, width: kWidth, height: frame.height)
                 
                 let imgView = UIImageView.init(frame: frame)//CGRect.init(x: kWidth*CGFloat(j), y: 0, width: kWidth, height: scrScrollView.frame.height)
@@ -272,17 +276,40 @@ class ImagePreviewViewController: ParentViewController, UIScrollViewDelegate {
 extension ImagePreviewViewController: CubePageView_Delegate {
     func actMuteClicked(sender: UIButton)  {
         guard let accessEle = sender.accessibilityElements else {return}
-        if accessEle.count > 0, let player = accessEle.first as? AVPlayer {
-            if currentPlayer != nil {
-                currentPlayer?.isMuted = true
-            }
-            currentPlayer = player
+        if accessEle.count > 0, let _ = accessEle.first as? AVPlayer {
             sender.isSelected = !sender.isSelected
-            currentPlayer?.isMuted = sender.isSelected
         }
     }
     
     func cubePageView(_ pc: CubePageView!, newPage page: Int32) {
-        print(page)
+        print("Page : \(page)")
+        
+        stopAllPlayers()
+        
+        if arrPlayers.count > page {
+            guard let player = self.arrPlayers[Int(page)] else {return}
+            player.isMuted = false
+            player.play()
+        }
+    }
+    
+    func stopAllPlayers() {
+        ///Stop all previous players
+        for player in arrPlayers{
+            if player != nil {
+                player!.isMuted = true
+                player?.pause()
+            }
+        }
+    }
+    
+    func remoAllPlayers() {
+        for player in arrPlayers {
+            var playerAv = player
+            if playerAv != nil {
+                playerAv!.isMuted = true
+                playerAv = nil
+            }
+        }
     }
 }
