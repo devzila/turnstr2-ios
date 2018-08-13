@@ -14,27 +14,39 @@ class ASMyFollowersStoryVC: ParentViewController {
     
     @IBOutlet weak var txtSearch: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
-//    @IBOutlet weak var uvCollection: UICollectionView!
-    @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
+    @IBOutlet weak var shortStoryCollection: UICollectionView!
     
-//    var arrMembers: [UserModel] = []
+    var arrayUsers: [User] = []
     var arrStories: [StoryModel] = []
     var arrAllData: [Dictionary<String, Any>] = []
     var pageNumber: Int = 1
-    
+    var storiesAllPages: Int = 1
+    var currentPage: Int = 1
+    var totalPages: Int = 1
     
     
     var txtSearchText: String = ""
-    //var uvCollectionView: UICollectionView?
-    //var flowLayout: UICollectionViewFlowLayout?
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.estimatedRowHeight = kWidth
         tableView.rowHeight = UITableViewAutomaticDimension
-        searchStoryResults()
+        
+        let nib = UINib(nibName: "UserStoryCell", bundle: nil)
+        shortStoryCollection.register(nib, forCellWithReuseIdentifier: "UserStoryCell")
+        
+        let headerNib = UINib(nibName: "MyProfileReusableViewCollectionReusableView", bundle: nil)
+        shortStoryCollection.register(headerNib, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "MyProfileReusableViewCollectionReusableView")
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        DispatchQueue.main.async { [weak self] in
+            self?.searchStoryResults()
+            self?.apiLoadStories()
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -54,14 +66,6 @@ class ASMyFollowersStoryVC: ParentViewController {
             mvc.dictInfo = arrAllData[index]
         }
         topVC?.navigationController?.pushViewController(mvc, animated: true)
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
-        if (tableView.contentOffset.y >= (tableView.contentSize.height - scrollView.frame.size.height)) {
-            pageNumber = pageNumber+1
-            searchStoryResults()
-        }
     }
     
     //MARK:- Move cells delegates
@@ -118,13 +122,63 @@ extension ASMyFollowersStoryVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         showPreviewView(indexPath.row)
     }
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row == (arrStories.count - 1) {
+            if pageNumber < storiesAllPages {
+                pageNumber += 1
+                searchStoryResults()
+            }
+        }
+    }
 }
 
+//MARK: ----- UICollectionViewDelegate, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout
+extension ASMyFollowersStoryVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return arrayUsers.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UserStoryCell", for: indexPath) as? UserStoryCell else { fatalError("UserStoryCell is missing.")}
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            cell.user = self.arrayUsers[indexPath.item]
+        }
+        return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "MyProfileReusableViewCollectionReusableView", for: indexPath) as? MyProfileReusableViewCollectionReusableView else { return UICollectionReusableView() }
+        header.updateStory()
+        return header
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: 80, height: 80)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let user = arrayUsers[indexPath.item]
+        guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "ShortStoryVC") as? ShortStoryVC else { return }
+        vc.user = user
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 80, height: 80)
+    }
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if indexPath.item == (arrayUsers.count - 1) {
+            if currentPage < totalPages {
+                currentPage += 1
+                apiLoadStories()
+            }
+        }
+    }
+    
+}
 extension ASMyFollowersStoryVC {
     func searchStoryResults() {
         kAppDelegate.loadingIndicationCreationMSG(msg: "Loading...")
-        
-        //http://18.218.6.149/v1/stories
         
         let strPostUrl = "stories?page=\(pageNumber)"//"search?keyword=a"
         let strParType = ""
@@ -132,7 +186,6 @@ extension ASMyFollowersStoryVC {
         DispatchQueue.global().async {
             
             let dictResponse = WebServices.sharedInstance.GetMethodServerData(strRequest: "", GetURL: strPostUrl, parType: strParType)
-            print(dictResponse)
             DispatchQueue.main.async {
                 if let statusCode = dictResponse["statusCode"] as? Int, statusCode == 200 {
                     kAppDelegate.hideLoadingIndicator()
@@ -144,24 +197,56 @@ extension ASMyFollowersStoryVC {
                         if let stories = dictComments["stories"] as? [Dictionary<String, Any>] {
                             self.arrAllData.append(contentsOf: stories)
                         }
+                        if let page = dictComments["current_page"] as? Int {
+                            self.pageNumber = page
+                        }
+                        if let totalPages = dictComments["total_pages"] as? Int {
+                            self.storiesAllPages = totalPages
+                        }
                         if let storyArray = ksResponse?.response {
-                            var j = self.arrStories.count
-                            
                             for object in storyArray {
                                 self.arrStories.append(object)
-//                                let indexPath = IndexPath.init(row: j, section: 1)
-//                                self.uvCollection.insertItems(at: [indexPath])
-//                                j = j+1
                             }
                         }
+                        self.tableView.reloadData()
                     }
                 } else {
                     kAppDelegate.hideLoadingIndicator()
                 }
                 self.tableView.reloadData()
-                //self.uvCollection.reloadData()
                 
             }
+        }
+    }
+    
+    func apiLoadStories() {
+        let dictResponse = WebServices.sharedInstance.GetMethodServerData(strRequest: "", GetURL: "user/user_stories?page=\(currentPage)", parType: "")
+        if currentPage == 1 {
+            arrayUsers = [User]()
+        }
+        DispatchQueue.main.async {
+            if let statusCode = dictResponse["statusCode"] as? Int, statusCode == 200 {
+                kAppDelegate.hideLoadingIndicator()
+                
+                if let data = dictResponse["data"]?["data"] as? [String: AnyObject] {
+                    if let page = data["current_page"] as? Int {
+                        self.currentPage = page
+                    }
+                    if let page = data["total_pages"] as? Int {
+                        self.totalPages = page
+                    }
+                    if let objs = data["users"] as? [Any] {
+                        for obj in objs {
+                            let user = User(withStoryInfo: obj as? [String: Any])
+                            self.arrayUsers.append(user)
+                        }
+                        self.shortStoryCollection.reloadData()
+                    }
+                }
+            } else {
+                kAppDelegate.hideLoadingIndicator()
+            }
+            self.shortStoryCollection.reloadData()
         }
     }
 }

@@ -263,7 +263,7 @@ class WebServices: NSObject {
         // Create URL Request
         let request = NSMutableURLRequest(url:myUrl! as URL);
         if Singleton.sharedInstance.strUserSessionId != "" {
-            request .setValue(Singleton.sharedInstance.strUserSessionId, forHTTPHeaderField: "auth-token")
+            request.setValue(Singleton.sharedInstance.strUserSessionId, forHTTPHeaderField: "auth-token")
         }
         // Set request HTTP method to GET. It could be POST as well
         request.httpMethod = "GET"
@@ -429,6 +429,28 @@ class WebServices: NSObject {
                 body.append("--\(boundaryConstant)\r\n".data(using: String.Encoding.utf8)!)
                 
                 body.append("Content-Disposition: form-data; name=\"photo[image]\"; filename=\"photo\"\r\n".data(using: String.Encoding.utf8)!)
+                
+                
+                body.append("Content-Type: \(contentType)\r\n\r\n".data(using: String.Encoding.utf8)!)
+                body.append(UIImageJPEGRepresentation(image , 0.3)!)
+                body.append("\r\n".data(using: String.Encoding.utf8)!)
+                // image end
+                
+                j = j+1
+            }
+        }
+        
+        else if strData["action"] == kAPIMyStoryUpload {
+            request.httpMethod = "POST"
+            
+            var j = 1
+            
+            for image in arrImages {
+                let contentType: String = "image/jpeg"
+                //image begin
+                body.append("--\(boundaryConstant)\r\n".data(using: String.Encoding.utf8)!)
+                
+                body.append("Content-Disposition: form-data; name=\"user_story[medias_attributes][][media]\"; filename=\"photo\"\r\n".data(using: String.Encoding.utf8)!)
                 
                 
                 body.append("Content-Type: \(contentType)\r\n\r\n".data(using: String.Encoding.utf8)!)

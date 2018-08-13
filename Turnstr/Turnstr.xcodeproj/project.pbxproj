@@ -80,6 +80,9 @@
 		8AC21B97211CB6DD004A15AD /* ShortStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC21B96211CB6DD004A15AD /* ShortStory.swift */; };
 		8AC21B9A211CB755004A15AD /* UserStoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC21B98211CB755004A15AD /* UserStoryCell.swift */; };
 		8AC21B9B211CB755004A15AD /* UserStoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8AC21B99211CB755004A15AD /* UserStoryCell.xib */; };
+		8ACD192A211F4BE20000B816 /* ShortStoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACD1929211F4BE20000B816 /* ShortStoryVC.swift */; };
+		8ACD192C211F4F170000B816 /* StoryMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACD192B211F4F170000B816 /* StoryMedia.swift */; };
+		8ACD192E211F637C0000B816 /* ListStoryViewersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACD192D211F637C0000B816 /* ListStoryViewersVC.swift */; };
 		8AE0E2BE1F29007900A28422 /* Costant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE0E2BD1F29007900A28422 /* Costant.swift */; };
 		8AE0E2C01F291AFB00A28422 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE0E2BF1F291AFB00A28422 /* User.swift */; };
 		8AEC2C751F1693E9008DF3BB /* TabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEC2C741F1693E9008DF3BB /* TabbarController.swift */; };
@@ -310,6 +313,9 @@
 		8AC21B96211CB6DD004A15AD /* ShortStory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortStory.swift; sourceTree = "<group>"; };
 		8AC21B98211CB755004A15AD /* UserStoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStoryCell.swift; sourceTree = "<group>"; };
 		8AC21B99211CB755004A15AD /* UserStoryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserStoryCell.xib; sourceTree = "<group>"; };
+		8ACD1929211F4BE20000B816 /* ShortStoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortStoryVC.swift; sourceTree = "<group>"; };
+		8ACD192B211F4F170000B816 /* StoryMedia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryMedia.swift; sourceTree = "<group>"; };
+		8ACD192D211F637C0000B816 /* ListStoryViewersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListStoryViewersVC.swift; sourceTree = "<group>"; };
 		8AE0E2BD1F29007900A28422 /* Costant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Costant.swift; sourceTree = "<group>"; };
 		8AE0E2BF1F291AFB00A28422 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		8AEC2C741F1693E9008DF3BB /* TabbarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabbarController.swift; sourceTree = "<group>"; };
@@ -1101,6 +1107,7 @@
 				7EBFF7E81F46204800A8574D /* CommentModel.swift */,
 				7EBFF7EA1F46204800A8574D /* KSResponse.swift */,
 				8AC21B96211CB6DD004A15AD /* ShortStory.swift */,
+				8ACD192B211F4F170000B816 /* StoryMedia.swift */,
 			);
 			path = Modal;
 			sourceTree = "<group>";
@@ -1145,6 +1152,8 @@
 				D957F31C1F43632300307968 /* StoryCommentVC.swift */,
 				D957F31D1F43632300307968 /* StoryCommentVC.xib */,
 				D9D6355B207C027C00BC3B34 /* ASMyFollowersStoryVC.swift */,
+				8ACD1929211F4BE20000B816 /* ShortStoryVC.swift */,
+				8ACD192D211F637C0000B816 /* ListStoryViewersVC.swift */,
 			);
 			path = HomeScreen;
 			sourceTree = "<group>";
@@ -1432,6 +1441,7 @@
 				D90BF05E1F0D6752003B5F4D /* MyStoriesViewController.swift in Sources */,
 				D957F31E1F43632300307968 /* StoryCommentVC.swift in Sources */,
 				D91C3AFB1F001D78005F945C /* IQKeyboardManagerConstants.swift in Sources */,
+				8ACD192C211F4F170000B816 /* StoryMedia.swift in Sources */,
 				D91C3AFE1F001D78005F945C /* IQKeyboardReturnKeyHandler.swift in Sources */,
 				D9FDE6461EC236F5009D5BE3 /* Image.swift in Sources */,
 				7EDC72871F4DF0D000A00316 /* DGElasticPullToRefreshLoadingView.swift in Sources */,
@@ -1469,6 +1479,7 @@
 				D9AC62D71F0191100055ED3D /* StringExtensions.swift in Sources */,
 				D91C3AF61F001D78005F945C /* IQUIScrollView+Additions.swift in Sources */,
 				D91C3AFF1F001D78005F945C /* IQTextView.swift in Sources */,
+				8ACD192A211F4BE20000B816 /* ShortStoryVC.swift in Sources */,
 				D9AC62DB1F0191100055ED3D /* VCExtensions.swift in Sources */,
 				D9D6355C207C027C00BC3B34 /* ASMyFollowersStoryVC.swift in Sources */,
 				D91C3AF71F001D78005F945C /* IQUITextFieldView+Additions.swift in Sources */,
@@ -1481,6 +1492,7 @@
 				8AC21B97211CB6DD004A15AD /* ShortStory.swift in Sources */,
 				7EDC728D1F4DF0D000A00316 /* PullToRefreshView.swift in Sources */,
 				8AC21B92211CB323004A15AD /* MyProfileReusableViewCollectionReusableView.swift in Sources */,
+				8ACD192E211F637C0000B816 /* ListStoryViewersVC.swift in Sources */,
 				7ED0589E1F5F2073009DBF36 /* CommentsViewController.swift in Sources */,
 				D9AC62C41F018FC90055ED3D /* Device.swift in Sources */,
 				D91C3B021F001D78005F945C /* IQTitleBarButtonItem.swift in Sources */,

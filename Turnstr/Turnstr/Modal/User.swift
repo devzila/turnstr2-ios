@@ -23,6 +23,7 @@ class User: NSObject {
     var bio: String?
     var contactMe: String?
     var online: Bool = false
+    var isVerified: Bool = false
     lazy var cubeUrls: [URL] = [URL]()
     
     
@@ -35,8 +36,6 @@ class User: NSObject {
         if data.count == 0 {
             return
         }
-        
-        
         
         if let objUser = data["user"] as? Dictionary<String, Any> {
             
@@ -117,7 +116,60 @@ class User: NSObject {
             if let str = objUser["online"] as? Bool {
                 self.online  = str
             }
-            
+        }
+    }
+    
+    init(withStoryInfo userStory: [String: Any]?) {
+        super.init()
+        self.cubeUrls = [URL]()
+        if let str = userStory?["avatar_face1"] as? String {
+            if let url = URL(string: str) {
+                self.cubeUrls.append(url)
+            }
+        }
+        if let str = userStory?["avatar_face2"] as? String {
+            if let url = URL(string: str) {
+                self.cubeUrls.append(url)
+            }
+        }
+        if let str = userStory?["avatar_face3"] as? String {
+            if let url = URL(string: str) {
+                self.cubeUrls.append(url)
+            }
+        }
+        if let str = userStory?["avatar_face4"] as? String {
+            if let url = URL(string: str) {
+                self.cubeUrls.append(url)
+            }
+        }
+        if let str = userStory?["avatar_face5"] as? String {
+            if let url = URL(string: str) {
+                self.cubeUrls.append(url)
+            }
+        }
+        if let str = userStory?["avatar_face6"] as? String {
+            if let url = URL(string: str) {
+                self.cubeUrls.append(url)
+            }
+        }
+        
+        if let id = userStory?["id"] as? Int {
+            self.id = "\(id)"
+        }
+        if let str = userStory?["first_name"] as? String {
+            self.firstname = "\(str)".capitalized
+        }
+        if let str = userStory?["last_name"] as? String {
+            self.lastname = "\(str)".capitalized
+        }
+        if let isVerified = userStory?["is_verified"] as? Int {
+            self.isVerified = isVerified == 1
+        }
+        if let online = userStory?["online"] as? Int {
+            self.online = online == 1
+        }
+        if let username = userStory?["username"] as? String {
+            self.username = username
         }
     }
 }
@@ -236,10 +288,10 @@ extension User {
         if let str = objUser?["online"] as? Bool {
             self.online  = str
         }
-            
         else {
             self.online = false
         }
-        
     }
+    
+    
 }
