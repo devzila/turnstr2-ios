@@ -10,7 +10,7 @@
 import UIKit
 
 class ListStoryViewersVC: UIViewController {
-
+    
     @IBOutlet weak var collectionView: UICollectionView?
     var storyId: String?
     var currentPage: Int = 1
@@ -29,7 +29,7 @@ class ListStoryViewersVC: UIViewController {
         super.viewWillAppear(animated)
         apiCallToListAllViewers()
     }
-
+    
     //MARK: --- Action Methods
     @IBAction func btnCancelAction() {
         dismiss(animated: true, completion: nil)
@@ -39,7 +39,7 @@ class ListStoryViewersVC: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
 }
 //MARK: --- API Calls
 extension ListStoryViewersVC {
@@ -48,6 +48,7 @@ extension ListStoryViewersVC {
         guard let id = storyId else { return }
         kAppDelegate.loadingIndicationCreation()
         let strEndPoint = "user/user_stories/\(id)/views"
+        print(strEndPoint)
         let dictResponse = WebServices.sharedInstance.GetMethodServerData(strRequest: "", GetURL: strEndPoint, parType: "")
         DispatchQueue.main.async {
             if let statusCode = dictResponse["statusCode"] as? Int, statusCode == 200 {
@@ -58,7 +59,7 @@ extension ListStoryViewersVC {
                 if let data = dictResponse["data"]?["data"] as? [String: Any] {
                     
                     if let page = data["current_page"] as? Int {
-                       self.currentPage = page
+                        self.currentPage = page
                     }
                     if let page = data["total_pages"] as? Int {
                         self.totalPages = page

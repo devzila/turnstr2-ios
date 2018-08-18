@@ -9,7 +9,7 @@
 import UIKit
 
 class ASMyFollowersStoryVC: ParentViewController {
-
+    
     var delegates: ASSearchDelegate?
     
     @IBOutlet weak var txtSearch: UISearchBar!
@@ -116,12 +116,15 @@ extension ASMyFollowersStoryVC: UITableViewDelegate, UITableViewDataSource {
         cell.cubeView?.addGestureRecognizer(tapGesture)
         return cell
     }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         showPreviewView(indexPath.row)
     }
+    
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row == (arrStories.count - 1) {
             if pageNumber < storiesAllPages {
@@ -146,13 +149,13 @@ extension ASMyFollowersStoryVC: UICollectionViewDelegate, UICollectionViewDataSo
         }
         return cell
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "MyProfileReusableViewCollectionReusableView", for: indexPath) as? MyProfileReusableViewCollectionReusableView else { return UICollectionReusableView() }
         header.updateStory()
         return header
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: 80, height: 80)
     }

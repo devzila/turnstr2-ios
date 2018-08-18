@@ -9,8 +9,14 @@
 import UIKit
 import Photos
 
+enum controllerType {
+    case newStory
+    case myStory
+}
 
 class CameraViewController: ParentViewController, CameraViewDelegates, VideoDelegate, StoriesVCDelegate {
+    
+    var kScreenType: controllerType = .myStory
     
     //Library outlets
     var uvCollectionView: UICollectionView?
@@ -58,6 +64,7 @@ class CameraViewController: ParentViewController, CameraViewDelegates, VideoDele
     var uvVideo: VideoView?
     
     
+    @IBOutlet weak var uvImagesHeight: NSLayoutConstraint!
     
     
     
@@ -70,7 +77,10 @@ class CameraViewController: ParentViewController, CameraViewDelegates, VideoDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        if kScreenType == .newStory {
+            uvImagesHeight.constant = 0
+            uvImages.layoutIfNeeded()
+        }
         
         
         /*
@@ -79,7 +89,12 @@ class CameraViewController: ParentViewController, CameraViewDelegates, VideoDele
         LoadNavBar()
         objNav.btnBack.setImage(#imageLiteral(resourceName: "close"), for: .normal)
         objNav.btnRightMenu.setImage(nil, for: .normal)
-        objNav.btnRightMenu.setTitle("NEXT", for: .normal)
+        if kScreenType == .newStory {
+            objNav.btnRightMenu.isHidden = true
+        } else {
+            objNav.btnRightMenu.setTitle("NEXT", for: .normal)
+        }
+        
         //objUtil.setFrames(xCo: 0, yCo: 0, width: 60, height: 0, view: objNav.btnBack)
         objUtil.setFrames(xCo: kWidth-50, yCo: kNavBarHeightWithLogo-40, width: 45, height: 40, view: objNav.btnRightMenu)
         objNav.btnBack.addTarget(self, action: #selector(actBackClicked), for: .touchUpInside)
@@ -196,6 +211,10 @@ class CameraViewController: ParentViewController, CameraViewDelegates, VideoDele
     //MARK:- Set selected Images
     
     func reloadSelectedImages() -> Void {
+        if kScreenType == .newStory {
+            nextClicked()
+            return
+        }
         
         LoadPlaceHolders()
         let arrImg: [UIImageView] = [img1, img2, img3, img4, img5, img6]
@@ -275,11 +294,25 @@ class CameraViewController: ParentViewController, CameraViewDelegates, VideoDele
     //MARK:---------Upload media actions-------
     
     func PopupCancel(sender: UIButton) -> Void {
+        if kScreenType == .newStory {
+            arrSelectedImages.removeAll()
+            reloadSelectedImages()
+            return
+        }
+        
         objPopupAlert?.close()
         uvPopUP = nil
     }
     
     func PopupNext(sender: UIButton) -> Void {
+        if kScreenType == .newStory {
+            print("Print Next")
+            
+            kAppDelegate.loadingIndicationCreation()
+            APIRequest(sType: kAPIMyStoryUpload, data: [:])
+            return
+        }
+        
         objPopupAlert?.close()
         
         kAppDelegate.loadingIndicationCreation()
@@ -428,7 +461,10 @@ class CameraViewController: ParentViewController, CameraViewDelegates, VideoDele
         if arrSelectedImages.count < 1 {
             return
         }
-        
+        if kScreenType == .newStory {
+            PopupNext(sender: UIButton())
+            return
+        }
         NextPopUp()
     }
     
@@ -525,6 +561,35 @@ class CameraViewController: ParentViewController, CameraViewDelegates, VideoDele
                         //                        self.objUtil.showToast(strMsg: "Story created successfully")
                         DispatchQueue.main.asyncAfter(deadline: .now()+0.2, execute: {
                             self.openMyStories()
+                        })
+                    }
+                }
+            } else if sType == kAPIMyStoryUpload {
+                let dictAction: NSDictionary = [
+                    "action": kAPIMyStoryUpload
+                ]
+                
+                let arrResponse = self.objDataS.createNewMyStory(dictAction: dictAction, arrImages: self.arrSelectedImages)
+                
+                if (arrResponse.count) > 0 {
+                    DispatchQueue.main.async {
+                        
+                        //
+                        //Remove all files from temprary directory
+                        //
+                        let tempDirPath = FileManager.default.pathFor(.temprary)
+                        if tempDirPath != nil {
+                            _ = FileManager.removeAllItemsInsideDirectory(atPath: tempDirPath!)
+                        }
+                        
+                        
+                        //self.objUtil.showToast(strMsg: "Story created successfully")
+                        self.uvPopUP = nil
+                        //self.goBack()
+                        kAppDelegate.hideLoadingIndicator()
+                        //                        self.objUtil.showToast(strMsg: "Story created successfully")
+                        DispatchQueue.main.asyncAfter(deadline: .now()+0.2, execute: {
+                            self.goBack()
                         })
                     }
                 }

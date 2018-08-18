@@ -7,17 +7,29 @@
 //
 
 import UIKit
+import AVKit
+import AVFoundation
 
 class ShortStoryVC: UIViewController {
-
+    
     @IBOutlet weak var lblUsername: UILabel?
     @IBOutlet weak var cubeProfileView: AITransformView?
     @IBOutlet weak var imgView: UIImageView?
     @IBOutlet weak var btnPeopleWhoViewed: UIButton?
     
-    var user: User?
-    var storyId: String?
+    let btnNext = UIButton()
+    let btnPrev = UIButton()
     
+    var user: User?
+    
+    var arrStories: [UserStories] = []
+    var cv: CubePageView?
+    var arrPlayers: [AVPlayer?] = []
+    var currentIndex: Int = 0
+    
+    @IBOutlet weak var uvStories: UIView!
+    
+    //MARK:- View cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         lblUsername?.text = user?.username
@@ -42,15 +54,186 @@ class ShortStoryVC: UIViewController {
     
     @IBAction func btnUserWhoHasViewedTheStory() {
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "ListStoryViewersVC") as? ListStoryViewersVC else { return }
-        vc.storyId = storyId
+        vc.storyId = "\(arrStories[currentIndex].id)"
         present(vc, animated: true, completion: nil)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    //MARK:- ACTION Method
+    func NextClicked(sender: UIButton) -> Void {
+        if cv != nil {
+            print(cv?.currentPage())
+            let totalPage = cv!.numberPages()
+            let currentPage = cv!.currentPage()
+            let nextPage = currentPage+1
+            if nextPage < totalPage {
+                cv?.selectPage(nextPage, withAnim: true)
+            } else{
+                cv?.selectPage(0, withAnim: true)
+            }
+        }
+    }
+    
+    func PrevClicked(sender: UIButton) -> Void {
+        if cv != nil {
+            print(cv?.currentPage())
+            let totalPage = cv!.numberPages()
+            let currentPage = cv!.currentPage()
+            let prePage = currentPage-1
+            if prePage > -1 {
+                cv?.selectPage(prePage, withAnim: true)
+            } else{
+                cv?.selectPage(totalPage-1, withAnim: true)
+            }
+        }
+    }
+    
+    //MARK:- STORY VIEW
+    
+    func PagingButtons() {
+        btnNext.frame = CGRect.init(x: kWidth-100, y: 0, width: 100, height: uvStories.frame.height)
+        btnNext.addTarget(self, action: #selector(NextClicked(sender:)), for: .touchUpInside)
+        btnNext.backgroundColor = .clear
+        uvStories.addSubview(btnNext)
+        
+        btnPrev.frame = CGRect.init(x: 0, y: 0, width: 100, height: uvStories.frame.height)
+        btnPrev.addTarget(self, action: #selector(PrevClicked(sender:)), for: .touchUpInside)
+        btnPrev.backgroundColor = .clear
+        uvStories.addSubview(btnPrev)
+    }
+    
+    func setupPages() {
+        
+        var arrPages: [Any] = []
+        let frame = CGRect.init(x: 0, y: 0, width: kWidth, height: uvStories.frame.height)
+        
+        for (index, item) in arrStories.enumerated() {
+            
+            if index == 0 {
+                self.btnPeopleWhoViewed?.setTitle("\(item.view_count)", for: .normal)
+                self.btnPeopleWhoViewed?.isEnabled = false
+                self.apiIncreaseCount()
+            }
+            
+            print(item.content_type)
+            if item.content_type == storyContentType.video.rawValue {
+                
+                let frame = CGRect.init(x: 0, y: 0, width: kWidth, height: frame.height)
+                let imgView = UIView.init(frame: frame)
+                imgView.backgroundColor = UIColor.black
+                
+                let url = URL.init(string: item.media_url)
+                if url == nil {
+                    return
+                }
+                
+                let playerAV = AVPlayer.init(url: url!)
+                let playerLayerAV = AVPlayerLayer(player: playerAV)
+                
+                playerLayerAV.videoGravity = AVLayerVideoGravityResizeAspectFill
+                
+                playerAV.isMuted = true
+                playerLayerAV.frame = frame
+                imgView.layer.addSublayer(playerLayerAV)
+                arrPages.append(imgView)
+                if index == 0 { // if first item the start playing
+                    playerAV.isMuted = false
+                    playerAV.play()
+                }
+                arrPlayers.append(playerAV)
+                NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: playerAV.currentItem, queue: .main) { (_) in
+                    playerAV.seek(to: kCMTimeZero)
+                    playerAV.play()
+                }
+                
+            }
+            else if item.content_type.isEmpty == true {
+                arrPlayers.append(nil)
+            }
+            else{
+                arrPlayers.append(nil)
+                
+                let imgView = UIImageView.init(frame: frame)//CGRect.init(x: kWidth*CGFloat(j), y: 0, width: kWidth, height: scrScrollView.frame.height)
+                imgView.sd_setImage(with: URL.init(string: item.media_url), placeholderImage: #imageLiteral(resourceName: "placeholder"))
+                imgView.contentMode = .scaleAspectFit
+                imgView.backgroundColor = UIColor.black
+                
+                imgView.isUserInteractionEnabled = true
+                
+                //                let tap = UITapGestureRecognizer.init(target: self, action: #selector(handleTap(sender:)))
+                //                //tap.delegate = self
+                //                tap.numberOfTapsRequired = 1
+                //                imgView.addGestureRecognizer(tap)
+                
+                arrPages.append(imgView)
+            }
+        }
+        
+        
+        cv = CubePageView.init(frame: frame)
+        cv?.delegate = self
+        cv?.setPages(arrPages)
+        uvStories.addSubview(cv!)
+        
+        PagingButtons()
+    }
+    
+    deinit {
+        stopAllPlayers()
+        remoAllPlayers()
+    }
+    
 }
+extension ShortStoryVC: CubePageView_Delegate {
+    func actMuteClicked(sender: UIButton)  {
+        guard let accessEle = sender.accessibilityElements else {return}
+        if accessEle.count > 0, let _ = accessEle.first as? AVPlayer {
+            sender.isSelected = !sender.isSelected
+        }
+    }
+    
+    func cubePageView(_ pc: CubePageView!, newPage page: Int32) {
+        print("Page : \(page)")
+        currentIndex = Int(page)
+        
+        self.btnPeopleWhoViewed?.setTitle("\(arrStories[currentIndex].view_count)", for: .normal)
+        self.btnPeopleWhoViewed?.isEnabled = false
+        self.apiIncreaseCount()
+        
+        stopAllPlayers()
+        
+        if arrPlayers.count > page {
+            guard let player = self.arrPlayers[Int(page)] else {return}
+            player.isMuted = false
+            player.play()
+        }
+    }
+    
+    func stopAllPlayers() {
+        ///Stop all previous players
+        for player in arrPlayers{
+            if player != nil {
+                player!.isMuted = true
+                player?.pause()
+            }
+        }
+    }
+    
+    func remoAllPlayers() {
+        for player in arrPlayers {
+            var playerAv = player
+            if playerAv != nil {
+                playerAv!.isMuted = true
+                playerAv = nil
+            }
+        }
+    }
+}
+
 
 //MARK: --- API Calls
 extension ShortStoryVC {
@@ -58,39 +241,71 @@ extension ShortStoryVC {
         guard let id = user?.id else { return }
         kAppDelegate.loadingIndicationCreation()
         let strEndPoint = "user/user_stories/\(id)"
+        //let strEndPoint = "user/my_user_stories"
         let dictResponse = WebServices.sharedInstance.GetMethodServerData(strRequest: "", GetURL: strEndPoint, parType: "")
         DispatchQueue.main.async {
             if let statusCode = dictResponse["statusCode"] as? Int, statusCode == 200 {
                 kAppDelegate.hideLoadingIndicator()
                 
-                if let data = dictResponse["data"]?["data"] as? [String: Any],
-                    let stories = data["user_stories"] as? [Any],
-                    let story = stories.first as? [String: Any] {
-                    
-                    if let viewCount = story["view_count"] as? Int {
-                        self.btnPeopleWhoViewed?.setTitle("\(viewCount)", for: .normal)
-                        self.btnPeopleWhoViewed?.isEnabled = viewCount > 0
+                if let data = dictResponse["data"]?["data"] as? [String: Any],let stories = data["user_stories"] as? [Dictionary<String, Any>]{
+                    for item in stories {
+                        let obj = UserStories.init(dict: item)
+                        self.arrStories.append(obj)
                     }
-                    if let id = story["id"] as? Int {
-                        self.storyId = "\(id)"
-                    }
-                    if let objs = story["medias"] as? [Any] {
-                        if let obj = objs.first as? [String: Any] {
-                            let media = StoryMedia(obj)
-                            if let url = media.mediaUrl {
-                                kAppDelegate.loadingIndicationCreation()
-                                self.imgView?.kf.setImage(with: url, placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (img, error, cache, url) in
-                                    self.imgView?.image = img
-                                    kAppDelegate.hideLoadingIndicator()
-                                })
-                            }
-                        }
-                    }
+                    self.setupPages()
                 }
             } else {
                 kAppDelegate.hideLoadingIndicator()
             }
             
         }
+    }
+    
+    func apiIncreaseCount() {
+        let storyId = "\(arrStories[currentIndex].id)"
+        let strEndPoint = "user/user_stories/\(storyId)"
+        print(strEndPoint)
+        kBQ_LogViewCountData.async{
+            let dictResponse = WebServices.sharedInstance.putDataToserver(JSONString: "", PutURL: strEndPoint, parType: "")
+            print(dictResponse)
+            kMainQueue.async{
+                kAppDelegate.hideLoadingIndicator()
+            }
+        }
+    }
+}
+
+struct UserStories {
+    var id: Int
+    var media_url: String
+    var content_type: String
+    var view_count: Int
+    
+    init(dict: Dictionary<String, Any>) {
+        if let obj = dict["id"] as? Int {
+            self.id = obj
+        } else{
+            self.id = 0
+        }
+        
+        if let obj = dict["media_url"] as? String {
+            self.media_url = obj
+        } else{
+            self.media_url = ""
+        }
+        
+        if let obj = dict["content_type"] as? String {
+            self.content_type = obj
+        } else{
+            self.content_type = ""
+        }
+        
+        if let obj = dict["view_count"] as? Int {
+            self.view_count = obj
+        } else{
+            self.view_count = 0
+        }
+        
+        
     }
 }
