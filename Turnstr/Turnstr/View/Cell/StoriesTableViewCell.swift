@@ -9,7 +9,7 @@
 import UIKit
 
 class StoriesTableViewCell: UITableViewCell {
-
+    
     @IBOutlet weak var uvBG: UIView!
     @IBOutlet weak var uvCubeBg: UIView!
     @IBOutlet weak var lblName: UILabel!
@@ -23,10 +23,10 @@ class StoriesTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
     

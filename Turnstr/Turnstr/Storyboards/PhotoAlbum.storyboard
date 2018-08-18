@@ -1121,7 +1121,7 @@
                                                     <rect key="frame" x="0.0" y="28" width="375" height="113"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </view>
-                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="4a5-Nt-XXH">
+                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="4a5-Nt-XXH">
                                                     <rect key="frame" x="15" y="31" width="345" height="68"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="2" minimumInteritemSpacing="0.0" id="SbG-Cq-JcB">
@@ -2099,13 +2099,13 @@
     <resources>
         <image name="TurnstrLogo" width="260" height="90"/>
         <image name="backBtn" width="36" height="36"/>
-        <image name="commentPhoto" width="64" height="64"/>
+        <image name="commentPhoto" width="30" height="30"/>
         <image name="facebookLogo" width="128" height="128"/>
         <image name="ic_user" width="28" height="29"/>
         <image name="instagram" width="128" height="128"/>
         <image name="likePhoto" width="128" height="128"/>
         <image name="logo_login" width="120" height="33"/>
-        <image name="nw_back" width="31" height="24"/>
+        <image name="nw_back" width="36" height="36"/>
         <image name="nw_grid" width="27" height="26"/>
         <image name="nw_w_grid" width="27" height="25"/>
         <image name="photoAddAlbum" width="39" height="37"/>

@@ -9,7 +9,7 @@
 import UIKit
 
 class StoryCubeCell: UITableViewCell {
-
+    
     @IBOutlet weak var cubeView: AITransformView?
     @IBOutlet weak var cubeProfileView: AITransformView?
     @IBOutlet weak var lblName: UILabel?
@@ -65,7 +65,7 @@ class StoryCubeCell: UITableViewCell {
                 
                 let tapGesture = UITapGestureRecognizer(target: self, action: #selector(openUserProfile))
                 cubeProfileView?.superview?.addGestureRecognizer(tapGesture)
-
+                
             }
         }
     }
@@ -119,13 +119,13 @@ class StoryCubeCell: UITableViewCell {
             })
         }
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
-
+    
 }
 
 extension StoryCubeCell: StoryCommentsDelegate {
@@ -139,7 +139,7 @@ extension StoryCubeCell: StoryCommentsDelegate {
 extension StoryCubeCell {
     func likeDislikeAPIRequest() {
         guard let storyID = storyInfo?["id"] as? Int,
-        let url = URL(string: (kBaseURL + "stories/\(storyID)/likes")) else {return}
+            let url = URL(string: (kBaseURL + "stories/\(storyID)/likes")) else {return}
         var request = URLRequest(url: url, cachePolicy: URLRequest.CachePolicy.reloadIgnoringLocalCacheData, timeoutInterval: 20.0)
         request.httpMethod = "POST"
         request.setValue(Singleton.sharedInstance.strUserSessionId, forHTTPHeaderField: "auth-token")
@@ -150,6 +150,6 @@ extension StoryCubeCell {
             else {
                 print(String.init(data: data!, encoding: .utf8))
             }
-        }.resume()
+            }.resume()
     }
 }

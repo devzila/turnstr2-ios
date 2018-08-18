@@ -9,7 +9,7 @@
 import UIKit
 
 class UserStoryCell: UICollectionViewCell {
-
+    
     @IBOutlet weak var cubeProfileView: AITransformView?
     @IBOutlet weak var lblUserName: UILabel?
     
@@ -18,7 +18,7 @@ class UserStoryCell: UICollectionViewCell {
         layoutIfNeeded()
         // Initialization code
     }
-
+    
     var size: CGFloat = 35
     var user: User? {
         didSet {
@@ -29,10 +29,16 @@ class UserStoryCell: UICollectionViewCell {
             cubeProfileView?.backgroundColor = .white
             let edge = size - 5
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                self.cubeProfileView?.setScrollFromNil(CGPoint.init(x: 0, y: edge), end: CGPoint.init(x: 5, y: edge))
-                self.cubeProfileView?.setScroll(CGPoint.init(x: edge, y: 0), end: CGPoint.init(x: edge, y: 5))
+                if IS_IPHONE_6 {
+                    self.cubeProfileView?.setScroll(CGPoint.init(x: 0, y: edge/2), end: CGPoint.init(x: 10, y: edge/2))
+                    self.cubeProfileView?.setScroll(CGPoint.init(x: edge/2, y: 0), end: CGPoint.init(x: edge/2, y: 5))
+                } else{
+                    self.cubeProfileView?.setScrollFromNil(CGPoint.init(x: 0, y: edge), end: CGPoint.init(x: 5, y: edge))
+                    self.cubeProfileView?.setScroll(CGPoint.init(x: edge, y: 0), end: CGPoint.init(x: edge, y: 5))
+                }
+                
             }
-
+            
             cubeProfileView?.isUserInteractionEnabled = false
             
         }
