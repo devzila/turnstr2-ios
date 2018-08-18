@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 
 class ASVideoStoryVC: ParentViewController {
-
+    
     var objCommentFooter: LikeCommetFooter?
     var videoStory : VideoStory!
     
@@ -22,7 +22,7 @@ class ASVideoStoryVC: ParentViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.view.backgroundColor = UIColor.white
         /*
          * Navigation Bar
@@ -35,7 +35,7 @@ class ASVideoStoryVC: ParentViewController {
         SetupFooter()
         
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         if playerAV != nil {
             playerAV?.play()
@@ -86,7 +86,7 @@ class ASVideoStoryVC: ParentViewController {
         }
         
     }
-
+    
     //MARK:- SetUP Footer
     
     func SetupFooter() -> Void {
@@ -101,7 +101,7 @@ class ASVideoStoryVC: ParentViewController {
         
         PrefillData()
     }
-
+    
     func PrefillData() -> Void {
         
         if objCommentFooter != nil {
@@ -117,25 +117,25 @@ class ASVideoStoryVC: ParentViewController {
     func LikeClicked(sender: UIButton) -> Void {
         sender.isSelected = !sender.isSelected
         
-//        videoStory.likes_count
-//        if objStory.has_liked == true {
-//
-//            dictInfo["likes_count"] = objStory.likes_count-1
-//            objStory.likes_count = objStory.likes_count-1
-//            objCommentFooter?.btnTotalLike.setTitle("Liked by \(objStory.likes_count) people", for: .normal)
-//            objStory.has_liked = false
-//            dictInfo["has_liked"] = false
-//        }
-//        else{
-//            dictInfo["likes_count"] = objStory.likes_count+1
-//            objStory.likes_count = objStory.likes_count+1
-//            objCommentFooter?.btnTotalLike.setTitle("Liked by \(objStory.likes_count) people", for: .normal)
-//            objStory.has_liked = true
-//            dictInfo["has_liked"] = true
-//
-//        }
-//        kAppDelegate.loadingIndicationCreation()
-//        APIRequest(sType: kAPILikeStory, data: [:])
+        //        videoStory.likes_count
+        //        if objStory.has_liked == true {
+        //
+        //            dictInfo["likes_count"] = objStory.likes_count-1
+        //            objStory.likes_count = objStory.likes_count-1
+        //            objCommentFooter?.btnTotalLike.setTitle("Liked by \(objStory.likes_count) people", for: .normal)
+        //            objStory.has_liked = false
+        //            dictInfo["has_liked"] = false
+        //        }
+        //        else{
+        //            dictInfo["likes_count"] = objStory.likes_count+1
+        //            objStory.likes_count = objStory.likes_count+1
+        //            objCommentFooter?.btnTotalLike.setTitle("Liked by \(objStory.likes_count) people", for: .normal)
+        //            objStory.has_liked = true
+        //            dictInfo["has_liked"] = true
+        //
+        //        }
+        //        kAppDelegate.loadingIndicationCreation()
+        //        APIRequest(sType: kAPILikeStory, data: [:])
         
     }
     

@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import AVKit
+import KSPhotoBrowser
 
 class PublicProfileCollectionViewController: ParentViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, ServiceUtility, Fave5CellDelegate, UISearchBarDelegate, UserStoryDelegate, TurntStoryDelegate {
     
@@ -44,7 +46,7 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
     var isFave5LoadNext = false
     var pageNumberFave5 = 1
     var arrFav5 = [UserModel]()
-    var arrVideoStories: [VideoStory] = []
+    var arrMyStories: [UserStories] = []
     
     
     var isUserStoriesLoadNext = false
@@ -192,10 +194,10 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
                 
                 if self.objSing.strUserID == "\(userID)" {
                     self.getPopularList(page: 0)
-                    self.getAllVideosforHomePage()
+                    self.getAllMyStoriesHomePage(userId: userID)
                 } else{
                     self.getFave5List(page: self.pageNumberFave5)
-                    self.getAllVideosforHomePage(userId: userID)
+                    self.getAllMyStoriesHomePage(userId: userID)
                 }
                 self.getAllStories(page: self.pageNumberUserStories, isAllStories: self.isFromFeeds)
                 if self.getUserId() == userID && !self.isFromFeeds {
@@ -364,7 +366,7 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
             }
             
             if let lblName = cell?.viewWithTag(1001) as? UILabel {
-            //if let lblName = cell?.viewWithTag(2022) as? UILabel {
+                //if let lblName = cell?.viewWithTag(2022) as? UILabel {
                 if isFromFeeds {
                     lblName.text = "POPULAR"
                 } else {
@@ -380,7 +382,7 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
         case 1:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellTurntStory", for: indexPath as IndexPath) as? TurntStoriesCollectionViewCell
             cell?.delegateTurntStory = self
-            cell?.arrTurntStories = self.arrVideoStories
+            cell?.arrTurntStories = self.arrMyStories
             cell?.setupCollectionView()
             return cell!
         case 2:
@@ -792,11 +794,27 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
          var media: [MediaModel]?
          */
         
-        let story = arrVideoStories[index]
+        let story = arrMyStories[index]
+        print("MY STORY TAPPED")
+        if story.content_type == storyContentType.video.rawValue {
+            guard let url = URL.init(string: story.media_url) else {return}
+            let player = AVPlayer(url: url)
+            let playerViewController = AVPlayerViewController()
+            playerViewController.player = player
+            self.present(playerViewController, animated: true) {
+                playerViewController.player!.play()
+            }
+        } else{
+            guard let url = URL.init(string: story.media_url) else {return}
+            
+            let item = KSPhotoItem(sourceView: UIImageView(), imageUrl: url)
+            let browser = KSPhotoBrowser(photoItems: [item], selectedIndex: 0)
+            browser.show(from: self)
+        }
         
-        let mvc = ASVideoStoryVC()
-        mvc.videoStory = story
-        self.navigationController?.pushViewController(mvc, animated: true)
+        //        let mvc = ASVideoStoryVC()
+        //        mvc.videoStory = story
+        //        self.navigationController?.pushViewController(mvc, animated: true)
     }
     
     func getAllMembersData() {
@@ -877,7 +895,7 @@ extension PublicProfileCollectionViewController: ASSearchDelegate {
 
 //MARK:- Videos data for a user
 extension PublicProfileCollectionViewController {
-    func getAllVideosforHomePage(userId: Int = 0) {
+    func getAllMyStoriesHomePage(userId: Int = 0) {
         kAppDelegate.loadingIndicationCreationMSG(msg: "Loading...")
         
         var strRequest = ""
@@ -896,10 +914,10 @@ extension PublicProfileCollectionViewController {
                     kAppDelegate.hideLoadingIndicator()
                     
                     if let dictComments = dictResponse["data"]?["data"] as? [String: AnyObject] {
-                        if let stories = dictComments["stories"] as? [Dictionary<String, Any>] {
+                        if let stories = dictComments["my_user_stories"] as? [Dictionary<String, Any>] {
                             for dict in stories {
-                                let storyVideo = VideoStory.init(dict: dict)
-                                self.arrVideoStories.append(storyVideo)
+                                let storyVideo = UserStories.init(dict: dict)
+                                self.arrMyStories.append(storyVideo)
                             }
                         }
                     }

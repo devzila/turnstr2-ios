@@ -11,7 +11,7 @@ import UIKit
 let kCubeTag = 776
 
 class UserCell: UITableViewCell {
-
+    
     @IBOutlet weak var lblName: UILabel?
     @IBOutlet weak var lblSubTitle: UILabel?
     @IBOutlet weak var cubeView: UIView?
@@ -20,7 +20,7 @@ class UserCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
     func updateUserInfo(_ user: User) {
         lblName?.text = user.name
         lblSubTitle?.text = user.email

@@ -30,7 +30,7 @@ class Fave5CollectionViewCell: UICollectionViewCell, UICollectionViewDataSource,
     
     // tell the collection view how many cells to make
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return arrFave5.count
+        //        return arrFave5.count
         if arrFave5 == nil {
             return arrStories == nil ? 0 : arrStories!.count
         }
@@ -74,8 +74,8 @@ class Fave5CollectionViewCell: UICollectionViewCell, UICollectionViewDataSource,
                     arrFaces.append(url.thumb_url ?? "")
                 }
             }
-//            let arrFave = arrFave5[indexPath.row]
-//            let arrFaces = [arrFave.avatar_face1 ?? "", arrFave.avatar_face2 ?? "", arrFave.avatar_face3 ?? "", arrFave.avatar_face4 ?? "", arrFave.avatar_face5 ?? "", arrFave.avatar_face6 ?? ""]
+            //            let arrFave = arrFave5[indexPath.row]
+            //            let arrFaces = [arrFave.avatar_face1 ?? "", arrFave.avatar_face2 ?? "", arrFave.avatar_face3 ?? "", arrFave.avatar_face4 ?? "", arrFave.avatar_face5 ?? "", arrFave.avatar_face6 ?? ""]
             cube?.setup(withUrls: arrFaces)
             cell.contentView.addSubview(cube!)
             cube?.setScroll(CGPoint.init(x: 0, y: w/2), end: CGPoint.init(x: 5, y: w/2))//10
@@ -96,7 +96,7 @@ class Fave5CollectionViewCell: UICollectionViewCell, UICollectionViewDataSource,
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -113,5 +113,5 @@ class Fave5CollectionViewCell: UICollectionViewCell, UICollectionViewDataSource,
         }
         
     }
-
+    
 }

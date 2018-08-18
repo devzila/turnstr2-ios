@@ -9,13 +9,13 @@
 import UIKit
 
 var isDevelopmentMode: Bool {
-
+    
     guard let enable = Bundle.main.infoDictionary?["Development Mode"] as? Bool else { return true}
     return enable
 }
 
 class WebServices: NSObject {
-
+    
     static let sharedInstance: WebServices = {
         let instance = WebServices()
         
@@ -273,11 +273,11 @@ class WebServices: NSObject {
         
         
         /*let token = DataModel.sharedInstance.strToken
-        let bearer = DataModel.sharedInstance.strBearer
-        
-        let loginString = NSString(format: "%@ %@", bearer!, token!)
-        
-        request.setValue(loginString as String, forHTTPHeaderField: "Authorization")*/
+         let bearer = DataModel.sharedInstance.strBearer
+         
+         let loginString = NSString(format: "%@ %@", bearer!, token!)
+         
+         request.setValue(loginString as String, forHTTPHeaderField: "Authorization")*/
         let semaphore = DispatchSemaphore(value: 0)
         var ResponseData: NSData = NSData()
         var statusCode: Int = 403
@@ -417,7 +417,7 @@ class WebServices: NSObject {
             }
             
         }
-        
+            
         else if strData["action"] == kAPIUserPhotoUpload {
             request.httpMethod = "POST"
             
@@ -439,7 +439,7 @@ class WebServices: NSObject {
                 j = j+1
             }
         }
-        
+            
         else if strData["action"] == kAPIMyStoryUpload {
             request.httpMethod = "POST"
             
@@ -808,9 +808,18 @@ class WebServices: NSObject {
                     //image begin
                     body.append("--\(boundaryConstant)\r\n".data(using: String.Encoding.utf8)!)
                     
-                    let kdeposition = "Content-Disposition: form-data; name=\"story[face\(j as Int)_media]\"; filename=\"face\(j as Int).jpeg\"\r\n"
-                    
-                    body.append(kdeposition.data(using: String.Encoding.utf8)!)
+                    if PostURL == kAPIMyStoryUpload {
+                        let kdeposition = "Content-Disposition: form-data; name=\"user_story[media]\"; filename=\"face\(j as Int).jpeg\"\r\n"
+                        
+                        body.append(kdeposition.data(using: String.Encoding.utf8)!)
+                        
+                        
+                    } else {
+                        let kdeposition = "Content-Disposition: form-data; name=\"story[face\(j as Int)_media]\"; filename=\"face\(j as Int).jpeg\"\r\n"
+                        
+                        body.append(kdeposition.data(using: String.Encoding.utf8)!)
+                        
+                    }
                     
                     body.append("Content-Type: \(contentType)\r\n\r\n".data(using: String.Encoding.utf8)!)
                     
@@ -836,9 +845,18 @@ class WebServices: NSObject {
                     //video begin
                     body.append("--\(boundaryConstant)\r\n".data(using: String.Encoding.utf8)!)
                     
-                    let kdeposition = "Content-Disposition: form-data; name=\"story[face\(j as Int)_media]\"; filename=\"face\(j as Int)_video.mp4\"\r\n"
-                    
-                    body.append(kdeposition.data(using: String.Encoding.utf8)!)
+                    if PostURL == kAPIMyStoryUpload {
+                        let kdeposition = "Content-Disposition: form-data; name=\"user_story[media]\"; filename=\"face\(j as Int)_video.mp4\"\r\n"
+                        
+                        body.append(kdeposition.data(using: String.Encoding.utf8)!)
+                        
+                        
+                    } else {
+                        let kdeposition = "Content-Disposition: form-data; name=\"story[face\(j as Int)_media]\"; filename=\"face\(j as Int)_video.mp4\"\r\n"
+                        
+                        body.append(kdeposition.data(using: String.Encoding.utf8)!)
+                        
+                    }
                     
                     body.append("Content-Type: video/mp4\r\n\r\n".data(using: String.Encoding.utf8)!)
                     

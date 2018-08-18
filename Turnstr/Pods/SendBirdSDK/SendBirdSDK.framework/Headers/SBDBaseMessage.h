@@ -32,10 +32,22 @@
 @property (strong, nonatomic, nullable) NSString *channelType;
 
 /**
+ *  The list of users who was mentioned together with the message.
+ *
+ *  @since 3.0.90
+ */
+@property (strong, nonatomic, readonly, nullable) NSArray <SBDUser *> *mentionedUsers;
+
+/**
+ *
+ *  @since 3.0.103
+ */
+@property (atomic, readonly) SBDMentionType mentionType;
+
+/**
  *  Message created time in millisecond(UTC).
  */
 @property (atomic) long long createdAt;
-
 
 /**
  Message updated time in millisecond(UTC).
@@ -50,21 +62,6 @@
  *  @return SBDBaseMessage object.
  */
 - (nullable instancetype)initWithDictionary:(NSDictionary * _Nonnull)dict;
-
-/**
- *  Internal use only.
- */
-+ (nullable SBDBaseMessage *)buildWithDictionary:(NSDictionary * _Nonnull)dict;
-
-/**
- *  Internal use only.
- */
-+ (nullable SBDBaseMessage *)buildWithDictionary:(NSDictionary * _Nonnull)dict channel:(SBDBaseChannel * _Nonnull)channel;
-
-/**
- *  Internal use only.
- */
-+ (nullable SBDBaseMessage *)buildWithData:(NSString * _Nonnull)data;
 
 /**
  *  Checks the channel type is open channel or not.
@@ -94,10 +91,5 @@
  @return Serialized <span>data</span>.
  */
 - (nullable NSData *)serialize;
-
-/**
- *  Internal use only.
- */
-- (nullable NSDictionary *)_toDictionary;
 
 @end

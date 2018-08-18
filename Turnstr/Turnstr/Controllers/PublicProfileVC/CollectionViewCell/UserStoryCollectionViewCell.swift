@@ -50,13 +50,13 @@ class UserStoryCollectionViewCell: UICollectionViewCell, UICollectionViewDataSou
         // Use the outlet in our custom class to get a reference to the UILabel in the cell
         cell.layer.borderWidth = 1.0
         cell.layer.borderColor = UIColor.init("F3F3F3").cgColor
-
+        
         let w: CGFloat = PhotoSize().width
         let h: CGFloat = PhotoSize().width
         var cube = cell.contentView.viewWithTag(indexPath.item) as? AITransformView
-
+        
         if cube == nil {
-
+            
             if cube_size > 0 {
                 cube = AITransformView.init(frame: CGRect.init(x: 0, y: 0, width: w, height: h), cube_size: cube_size)
             } else{
@@ -75,19 +75,19 @@ class UserStoryCollectionViewCell: UICollectionViewCell, UICollectionViewDataSou
                     arrFaces.append(url.thumb_url ?? "")
                 }
             }
-
+            
             cube?.setup(withUrls: arrFaces)
             cell.contentView.addSubview(cube!)
             cube?.setScroll(CGPoint.init(x: 0, y: h/2), end: CGPoint.init(x: 5, y: h/2))//20
             cube?.setScroll(CGPoint.init(x: w/2, y: 0), end: CGPoint.init(x: w/2, y: 1))
-
+            
             let tap = UITapGestureRecognizer.init(target: self, action: #selector(handleTap(sender:)))
             tap.delegate = self
             tap.accessibilityElements = [indexPath]
             tap.numberOfTapsRequired = 1
             cube?.addGestureRecognizer(tap)
         }
-
+        
         return cell
     }
     
@@ -114,5 +114,5 @@ class UserStoryCollectionViewCell: UICollectionViewCell, UICollectionViewDataSou
         }
         
     }
-
+    
 }

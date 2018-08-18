@@ -1211,7 +1211,7 @@
 				D9FDE60B1EC2263C009D5BE3 /* Frameworks */,
 				D9FDE60C1EC2263C009D5BE3 /* Resources */,
 				1B3CFA8FA84C59CD45AFDA8C /* [CP] Embed Pods Frameworks */,
-				21698194E51A68AAF6D42925 /* [CP] Copy Pods Resources */,
+				9EF538201AC60F4747BDA99C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1356,7 +1356,6 @@
 				"${BUILT_PRODUCTS_DIR}/GrowingTextView/GrowingTextView.framework",
 				"${BUILT_PRODUCTS_DIR}/KSPhotoBrowser/KSPhotoBrowser.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
-				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/RMMapper/RMMapper.framework",
@@ -1386,7 +1385,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GrowingTextView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KSPhotoBrowser.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RMMapper.framework",
@@ -1406,7 +1404,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Turnstr/Pods-Turnstr-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		21698194E51A68AAF6D42925 /* [CP] Copy Pods Resources */ = {
+		9EF538201AC60F4747BDA99C /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1414,12 +1412,10 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Turnstr/Pods-Turnstr-resources.sh",
 				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterKitResources.bundle",
-				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterShareExtensionUIResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TwitterKitResources.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TwitterShareExtensionUIResources.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

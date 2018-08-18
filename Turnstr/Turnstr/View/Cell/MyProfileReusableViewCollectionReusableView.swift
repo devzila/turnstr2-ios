@@ -9,7 +9,7 @@
 import UIKit
 
 class MyProfileReusableViewCollectionReusableView: UICollectionReusableView {
-
+    
     @IBOutlet weak var cubeProfileView: AITransformView?
     
     override func awakeFromNib() {
@@ -35,22 +35,27 @@ class MyProfileReusableViewCollectionReusableView: UICollectionReusableView {
     }
     
     func clickOnStoryAction() {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let cameraAction = UIAlertAction(title: "Camera", style: .default) { (_) in
-            imagePicker.sourceType = .camera
-            self.openImagePicker(imagePicker)
-        }
-        let photoAction = UIAlertAction(title: "Photo Library", style: .default) { (_) in
-            imagePicker.sourceType = .photoLibrary
-            self.openImagePicker(imagePicker)
-        }
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        sheet.addAction(cameraAction)
-        sheet.addAction(photoAction)
-        sheet.addAction(cancel)
-        topVC?.present(sheet, animated: true, completion: nil)
+        ///Open Camera
+        let camVC = CameraViewController(nibName: "CameraViewController", bundle: nil)
+        camVC.kScreenType = .newStory
+        topVC?.navigationController?.pushViewController(camVC, animated: true)
+        
+        /*let imagePicker = UIImagePickerController()
+         imagePicker.delegate = self
+         let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+         let cameraAction = UIAlertAction(title: "Camera", style: .default) { (_) in
+         imagePicker.sourceType = .camera
+         self.openImagePicker(imagePicker)
+         }
+         let photoAction = UIAlertAction(title: "Photo Library", style: .default) { (_) in
+         imagePicker.sourceType = .photoLibrary
+         self.openImagePicker(imagePicker)
+         }
+         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+         sheet.addAction(cameraAction)
+         sheet.addAction(photoAction)
+         sheet.addAction(cancel)
+         topVC?.present(sheet, animated: true, completion: nil)*/
     }
     
     func createStory() {

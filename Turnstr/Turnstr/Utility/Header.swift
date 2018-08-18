@@ -53,7 +53,7 @@ let kAPIFollowUnfollowUser = "members"
 let kAPIArrangeStory = "user/stories/arrange"
 let kSaveTokenToServer = "user/devices"
 let logout = "sessions"
-let kAPIGetVideos = "videos"
+let kAPIGetVideos = "member_stories"
 
 
 let kAPIDELETEStory = "DELETE user/stories/<story-id>"
@@ -66,6 +66,7 @@ let kAPIGetStoriesComments = "stories/<story-id>/comments"
 /*
  Background queues
  */
+let kMainQueue = DispatchQueue.main
 let kBQ_UpdatePosition = DispatchQueue(label: "queue_arrange_position", attributes: .concurrent)
 let kBQ_MyStoryQueue = DispatchQueue(label: "queue_my_story", attributes: .concurrent)
 let kBQ_FCMTokenUpdate = DispatchQueue(label: "queue_fcm_update", attributes: .concurrent)
@@ -73,6 +74,7 @@ let kBQ_startCall = DispatchQueue(label: "queue_start_call", attributes: .concur
 let kBQ_getVideos = DispatchQueue(label: "queue_get_Videos", attributes: .concurrent)
 let kBQ_getVideosThumb = DispatchQueue(label: "queue_get_VideosThumb", attributes: .concurrent)
 let kBQ_getUserData = DispatchQueue(label: "queue_get_UserData", attributes: .concurrent)
+let kBQ_LogViewCountData = DispatchQueue(label: "queue_LogViewCountData", attributes: .concurrent)
 
 
 

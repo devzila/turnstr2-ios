@@ -15,7 +15,7 @@ protocol TurntStoryDelegate {
 class TurntStoriesCollectionViewCell: UICollectionViewCell, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIGestureRecognizerDelegate {
     @IBOutlet weak var collViewTurntStory: UICollectionView!
     
-    var arrTurntStories: [VideoStory] = []
+    var arrTurntStories: [UserStories] = []
     var delegateTurntStory: TurntStoryDelegate?
     
     func setupCollectionView() {
@@ -46,13 +46,13 @@ class TurntStoriesCollectionViewCell: UICollectionViewCell, UICollectionViewData
         
         let story = arrTurntStories[indexPath.item]
         
-        
-        if story.url.isEmpty == false {
-            let videoUrl = URL.init(string: story.url)
+        cell.imgMain.image = #imageLiteral(resourceName: "placeholder")
+        if story.media_url.isEmpty == false, story.content_type == storyContentType.video.rawValue {
+            let videoUrl = URL.init(string: story.media_url)
             cell.imgMain.getThumbnailOfURLWith(url: videoUrl!)
             
         } else{
-            cell.imgMain.image = #imageLiteral(resourceName: "placeholder")
+            cell.imgMain.sd_setImage(with: URL.init(string: story.media_url), placeholderImage: #imageLiteral(resourceName: "placeholder"))
         }
         
         return cell

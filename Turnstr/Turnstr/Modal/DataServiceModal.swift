@@ -203,6 +203,24 @@ class DataServiceModal: NSObject {
         return self.validateData(response: dictResponse)
     }
     
+    func createNewMyStory(dictAction:NSDictionary, arrImages: [NewStoryMedia]) -> Dictionary<String,AnyObject>  {
+        self.allSharedInstance()
+        
+        
+        
+        var dictRequest: Dictionary = [String: String]()
+        var strPostUrl = ""
+        
+        dictRequest = dictAction as! [String : String]
+        strPostUrl = kAPIMyStoryUpload
+        
+        
+        let dictResponse = WebServices.sharedInstance.CreateNewStory(PostURL: strPostUrl, strData: dictRequest, arrImages: arrImages)
+        print(dictResponse)
+        
+        return self.validateData(response: dictResponse)
+    }
+    
     //MARK:- Shared Instance
     
     func allSharedInstance() -> Void {
@@ -411,7 +429,7 @@ class DataServiceModal: NSObject {
                             }
                             
                             if let str = objUser["contact_me"] as? String {
-                               self.objSingl?.strUserContactMe = "\(str)"
+                                self.objSingl?.strUserContactMe = "\(str)"
                             }
                             
                             if let str = objUser["online"] as? Bool {
@@ -588,10 +606,10 @@ class DataServiceModal: NSObject {
             if error == nil {
                 completion(data!, nil)
             }
-        else {
+            else {
                 completion(nil, error)
             }
-        }.resume()
+            }.resume()
     }
 }
 

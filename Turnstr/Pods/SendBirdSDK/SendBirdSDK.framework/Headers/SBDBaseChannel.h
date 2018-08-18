@@ -16,7 +16,7 @@
 #import "SBDError.h"
 #import "SBDMember.h"
 
-@class SBDPreviousMessageListQuery;
+@class SBDPreviousMessageListQuery, SBDOperatorListQuery;
 @class SBDThumbnailSize;
 @class SBDThumbnail;
 @class SBDFileMessage;
@@ -24,6 +24,7 @@
 @class SBDMessageListQuery;
 @class SBDGroupChannel;
 @class SBDOpenChannel;
+@class SBDUserMessageParams, SBDFileMessageParams;
 
 /**
  *  An object that adopts the `SBDChannelDelegate` protocol is responsible for receiving the events in the channel. Some of delegate methods are common for the `SBDBaseChannel`. However, there are delegate methods for the `SBDOpenChannel` and `SBDGroupChannel` exclusive. The `SBDChannelDelegate` can be added by [`addChannelDelegate:identifier:`](../Classes/SBDMain.html#//api/name/addChannelDelegate:identifier:) in `SBDMain`. Every `SBDChannelDelegate` method which is added is going to receive events. 
@@ -69,6 +70,14 @@
  @param message The updated message.
  */
 - (void)channel:(SBDBaseChannel * _Nonnull)sender didUpdateMessage:(SBDBaseMessage * _Nonnull)message;
+
+/**
+ A delegate is called when someone mentioned the user.
+
+ @param channel The channel mention was occured in.
+ @param message The message mention was occured about.
+ */
+- (void)channel:(nonnull SBDBaseChannel *)channel didReceiveMention:(nonnull SBDBaseMessage *)message;
 
 /**
  *  A callback when read receipts updated.
@@ -137,50 +146,50 @@
 - (void)channel:(SBDOpenChannel * _Nonnull)sender userDidExit:(SBDUser * _Nonnull)user;
 
 /**
- *  A callback when a user was muted in the open channel.
+ *  A callback when a user was muted in the channel.
  *
- *  @param sender The open channel.
+ *  @param sender The channel.
  *  @param user   The user who was muted.
  */
-- (void)channel:(SBDOpenChannel * _Nonnull)sender userWasMuted:(SBDUser * _Nonnull)user;
+- (void)channel:(SBDBaseChannel * _Nonnull)sender userWasMuted:(SBDUser * _Nonnull)user;
 
 /**
- *  A callback when a user was unmuted in the open channel.
+ *  A callback when a user was unmuted in the channel.
  *
- *  @param sender The open channel.
+ *  @param sender The channel.
  *  @param user   The user who was unmuted.
  */
-- (void)channel:(SBDOpenChannel * _Nonnull)sender userWasUnmuted:(SBDUser * _Nonnull)user;
+- (void)channel:(SBDBaseChannel * _Nonnull)sender userWasUnmuted:(SBDUser * _Nonnull)user;
 
 /**
- *  A callback when a user was banned in the open channel.
+ *  A callback when a user was banned in the channel.
  *
- *  @param sender The open channel.
+ *  @param sender The channel.
  *  @param user   The user who was banned.
  */
-- (void)channel:(SBDOpenChannel * _Nonnull)sender userWasBanned:(SBDUser * _Nonnull)user;
+- (void)channel:(SBDBaseChannel * _Nonnull)sender userWasBanned:(SBDUser * _Nonnull)user;
 
 /**
- *  A callback when a user was unbanned in the open channel.
+ *  A callback when a user was unbanned in the channel.
  *
- *  @param sender The open channel.
+ *  @param sender The channel.
  *  @param user   The user who was unbanned.
  */
-- (void)channel:(SBDOpenChannel * _Nonnull)sender userWasUnbanned:(SBDUser * _Nonnull)user;
+- (void)channel:(SBDBaseChannel * _Nonnull)sender userWasUnbanned:(SBDUser * _Nonnull)user;
 
 /**
- *  A callback when an open channel was frozen.
+ *  A callback when an channel was frozen.
  *
- *  @param sender The open channel.
+ *  @param sender The channel.
  */
-- (void)channelWasFrozen:(SBDOpenChannel * _Nonnull)sender;
+- (void)channelWasFrozen:(SBDBaseChannel * _Nonnull)sender;
 
 /**
- *  A callback when an open channel was unfrozen.
+ *  A callback when an channel was unfrozen.
  *
- *  @param sender The open channel.
+ *  @param sender The channel.
  */
-- (void)channelWasUnfrozen:(SBDOpenChannel * _Nonnull)sender;
+- (void)channelWasUnfrozen:(SBDBaseChannel * _Nonnull)sender;
 
 /**
  *  A callback when an open channel was changed.
@@ -192,7 +201,8 @@
 /**
  *  A callback when an open channel was deleted.
  *
- *  @param channelUrl The open channel.
+ *  @param channelUrl The channel url.
+ *  @param channelType The Type of channel, types of open channel or group channel.
  */
 - (void)channelWasDeleted:(NSString * _Nonnull)channelUrl channelType:(SBDChannelType)channelType;
 
@@ -305,6 +315,27 @@
  */
 @property (strong, nonatomic, nullable) NSString *customType;
 
+/**
+ *  The flag for a frozen channel.
+ *
+ *  @since 3.0.89
+ *  Was moved from SBDOpenChannel
+ */
+@property (atomic, setter=setFreeze:) BOOL isFrozen;
+
+/**
+ *  Represents the channel is ephemeral or not.
+ *
+ *  @since 3.0.90
+ */
+@property (nonatomic, readonly) BOOL isEphemeral;
+
+/**
+ *  Internal use only.
+ *
+ *  @param dict dict
+ *  @warning *Important*: DON'T use this method. This method will be unavailable.
+ */
 - (nullable instancetype)initWithDictionary:(NSDictionary * _Nonnull)dict;
 
 /**
@@ -315,7 +346,8 @@
  *
  *  @return Returns the temporary user message with a request ID. It doesn't have a message ID.
  */
-- (nonnull SBDUserMessage *)sendUserMessage:(NSString * _Nullable)message completionHandler:(nullable void (^)(SBDUserMessage * _Nullable userMessage, SBDError * _Nullable error))completionHandler;
+- (nonnull SBDUserMessage *)sendUserMessage:(NSString * _Nullable)message
+                          completionHandler:(nullable void (^)(SBDUserMessage * _Nullable userMessage, SBDError * _Nullable error))completionHandler;
 
 /**
  *  Sends a user message without <span>data</span>. The message will be translated into the target languages.
@@ -326,7 +358,9 @@
  *
  *  @return Returns the temporary user message with a request ID. It doesn't have a message ID.
  */
-- (nonnull SBDUserMessage *)sendUserMessage:(NSString * _Nullable)message targetLanguages:(NSArray<NSString *> * _Nullable)targetLanguages completionHandler:(nullable void (^)(SBDUserMessage * _Nullable userMessage, SBDError * _Nullable error))completionHandler;
+- (nonnull SBDUserMessage *)sendUserMessage:(NSString * _Nullable)message
+                            targetLanguages:(NSArray<NSString *> * _Nullable)targetLanguages
+                          completionHandler:(nullable void (^)(SBDUserMessage * _Nullable userMessage, SBDError * _Nullable error))completionHandler;
 
 /**
  *  Sends a user message with <span>data</span>.
@@ -337,7 +371,9 @@
  *
  *  @return Returns the temporary user message with a request ID. It doesn't have a message ID.
  */
-- (nonnull SBDUserMessage *)sendUserMessage:(NSString * _Nullable)message data:(NSString * _Nullable)data completionHandler:(nullable void (^)(SBDUserMessage * _Nullable userMessage, SBDError * _Nullable error))completionHandler;
+- (nonnull SBDUserMessage *)sendUserMessage:(NSString * _Nullable)message
+                                       data:(NSString * _Nullable)data
+                          completionHandler:(nullable void (^)(SBDUserMessage * _Nullable userMessage, SBDError * _Nullable error))completionHandler;
 
 /**
  *  Sends a user message with <span>data</span>. The message will be translated into the target languages.
@@ -349,7 +385,10 @@
  *
  *  @return Returns the temporary user message with a request ID. It doesn't have a message ID.
  */
-- (nonnull SBDUserMessage *)sendUserMessage:(NSString * _Nullable)message data:(NSString * _Nullable)data targetLanguages:(NSArray<NSString *> * _Nullable)targetLanguages completionHandler:(nullable void (^)(SBDUserMessage * _Nullable userMessage, SBDError * _Nullable error))completionHandler;
+- (nonnull SBDUserMessage *)sendUserMessage:(NSString * _Nullable)message
+                                       data:(NSString * _Nullable)data
+                            targetLanguages:(NSArray<NSString *> * _Nullable)targetLanguages
+                          completionHandler:(nullable void (^)(SBDUserMessage * _Nullable userMessage, SBDError * _Nullable error))completionHandler;
 
 /**
  *  Sends a user message with <span>data</span> and <span>custom message type</span>.
@@ -361,7 +400,10 @@
  *
  *  @return Returns the temporary user message with a request ID. It doesn't have a message ID.
  */
-- (nonnull SBDUserMessage *)sendUserMessage:(NSString * _Nullable)message data:(NSString * _Nullable)data customType:(NSString * _Nullable)customType completionHandler:(nullable void (^)(SBDUserMessage * _Nullable userMessage, SBDError * _Nullable error))completionHandler;
+- (nonnull SBDUserMessage *)sendUserMessage:(NSString * _Nullable)message
+                                       data:(NSString * _Nullable)data
+                                 customType:(NSString * _Nullable)customType
+                          completionHandler:(nullable void (^)(SBDUserMessage * _Nullable userMessage, SBDError * _Nullable error))completionHandler;
 
 /**
  *  Sends a user message with <span>data</span> and <span>custom message type</span>. The message will be translated into the target languages.
@@ -374,7 +416,22 @@
  *
  *  @return Returns the temporary user message with a request ID. It doesn't have a message ID.
  */
-- (nonnull SBDUserMessage *)sendUserMessage:(NSString * _Nullable)message data:(NSString * _Nullable)data customType:(NSString * _Nullable)customType targetLanguages:(NSArray<NSString *> * _Nullable)targetLanguages completionHandler:(nullable void (^)(SBDUserMessage * _Nullable userMessage, SBDError * _Nullable error))completionHandler;
+- (nonnull SBDUserMessage *)sendUserMessage:(NSString * _Nullable)message
+                                       data:(NSString * _Nullable)data
+                                 customType:(NSString * _Nullable)customType
+                            targetLanguages:(NSArray<NSString *> * _Nullable)targetLanguages
+                          completionHandler:(nullable void (^)(SBDUserMessage * _Nullable userMessage, SBDError * _Nullable error))completionHandler;
+
+/**
+ *  Sends a string message of params. The message is translated into the target languages.
+ *
+ *  @param params               The instance of SBDUserMessageParams that can has parameters related with string message.
+ *  @param completionHandler    The handler block to be executed after the message was sent. This block has no return value and takes two argument, one is a file message was sent and other is an error made when there is something wrong to message.
+ *
+ *  @return SDBUserMessage      Returns the temporary user message instance with a request ID. It doesn't have a message ID and an URL.
+ */
+- (nonnull SBDUserMessage *)sendUserMessageWithParams:(nonnull SBDUserMessageParams *)params
+                                    completionHandler:(nullable void (^)(SBDUserMessage * _Nullable userMessage, SBDError * _Nullable error))completionHandler;
 
 /**
  *  Sends a file message with binary <span>data</span>. The binary <span>data</span> is uploaded to SendBird file storage and a URL of the file will be generated.
@@ -388,7 +445,12 @@
  *
  *  @return Returns the temporary file message with a request ID. It doesn't have a message ID and an URL.
  */
-- (nonnull SBDFileMessage *)sendFileMessageWithBinaryData:(NSData * _Nonnull)file filename:(NSString * _Nonnull)filename type:(NSString * _Nonnull)type size:(NSUInteger)size data:(NSString * _Nullable)data completionHandler:(nullable void (^)(SBDFileMessage * _Nullable fileMessage, SBDError * _Nullable error))completionHandler;
+- (nonnull SBDFileMessage *)sendFileMessageWithBinaryData:(NSData * _Nonnull)file
+                                                 filename:(NSString * _Nonnull)filename
+                                                     type:(NSString * _Nonnull)type
+                                                     size:(NSUInteger)size
+                                                     data:(NSString * _Nullable)data
+                                        completionHandler:(nullable void (^)(SBDFileMessage * _Nullable fileMessage, SBDError * _Nullable error))completionHandler;
 
 /**
  *  Sends a file message with binary <span>data</span>. The binary <span>data</span> is uploaded to SendBird file storage and a URL of the file will be generated.
@@ -403,7 +465,13 @@
  *
  *  @return Returns the temporary file message with a request ID. It doesn't have a message ID and an URL.
  */
-- (nonnull SBDFileMessage *)sendFileMessageWithBinaryData:(NSData * _Nonnull)file filename:(NSString * _Nonnull)filename type:(NSString * _Nonnull)type size:(NSUInteger)size data:(NSString * _Nullable)data customType:(NSString * _Nullable)customType completionHandler:(nullable void (^)(SBDFileMessage * _Nullable fileMessage, SBDError * _Nullable error))completionHandler;
+- (nonnull SBDFileMessage *)sendFileMessageWithBinaryData:(NSData * _Nonnull)file
+                                                 filename:(NSString * _Nonnull)filename
+                                                     type:(NSString * _Nonnull)type
+                                                     size:(NSUInteger)size
+                                                     data:(NSString * _Nullable)data
+                                               customType:(NSString * _Nullable)customType
+                                        completionHandler:(nullable void (^)(SBDFileMessage * _Nullable fileMessage, SBDError * _Nullable error))completionHandler;
 
 /**
  *  Sends a file message with file URL.
@@ -418,7 +486,12 @@
  *
  *  @deprecated in 3.0.29.
  */
-- (nonnull SBDFileMessage *)sendFileMessageWithUrl:(NSString * _Nonnull)url size:(NSUInteger)size type:(NSString * _Nonnull)type data:(NSString * _Nullable)data completionHandler:(nullable void (^)(SBDFileMessage * _Nullable fileMessage, SBDError * _Nullable error))completionHandler DEPRECATED_ATTRIBUTE;
+- (nonnull SBDFileMessage *)sendFileMessageWithUrl:(NSString * _Nonnull)url
+                                              size:(NSUInteger)size
+                                              type:(NSString * _Nonnull)type
+                                              data:(NSString * _Nullable)data
+                                 completionHandler:(nullable void (^)(SBDFileMessage * _Nullable fileMessage, SBDError * _Nullable error))completionHandler
+DEPRECATED_ATTRIBUTE;
 
 /**
  *  Sends a file message with file URL.
@@ -432,7 +505,12 @@
  *
  *  @return Returns the temporary file message with a request ID. It doesn't have a message ID.
  */
-- (nonnull SBDFileMessage *)sendFileMessageWithUrl:(NSString * _Nonnull)url filename:(NSString * _Nullable)filename size:(NSUInteger)size type:(NSString * _Nonnull)type data:(NSString * _Nullable)data completionHandler:(nullable void (^)(SBDFileMessage * _Nullable fileMessage, SBDError * _Nullable error))completionHandler;
+- (nonnull SBDFileMessage *)sendFileMessageWithUrl:(NSString * _Nonnull)url
+                                          filename:(NSString * _Nullable)filename
+                                              size:(NSUInteger)size
+                                              type:(NSString * _Nonnull)type
+                                              data:(NSString * _Nullable)data
+                                 completionHandler:(nullable void (^)(SBDFileMessage * _Nullable fileMessage, SBDError * _Nullable error))completionHandler;
 
 /**
  *  Sends a file message with file URL and <span>custom message type</span>.
@@ -448,7 +526,13 @@
  *
  *  @deprecated in 3.0.29.
  */
-- (nonnull SBDFileMessage *)sendFileMessageWithUrl:(NSString * _Nonnull)url size:(NSUInteger)size type:(NSString * _Nonnull)type data:(NSString * _Nullable)data customType:(NSString * _Nullable)customType completionHandler:(nullable void (^)(SBDFileMessage * _Nullable fileMessage, SBDError * _Nullable error))completionHandler DEPRECATED_ATTRIBUTE;
+- (nonnull SBDFileMessage *)sendFileMessageWithUrl:(NSString * _Nonnull)url
+                                              size:(NSUInteger)size
+                                              type:(NSString * _Nonnull)type
+                                              data:(NSString * _Nullable)data
+                                        customType:(NSString * _Nullable)customType
+                                 completionHandler:(nullable void (^)(SBDFileMessage * _Nullable fileMessage, SBDError * _Nullable error))completionHandler
+DEPRECATED_ATTRIBUTE;
 
 /**
  *  Sends a file message with file URL and <span>custom message type</span>.
@@ -463,7 +547,13 @@
  *
  *  @return Returns the temporary file message with a request ID. It doesn't have a message ID.
  */
-- (nonnull SBDFileMessage *)sendFileMessageWithUrl:(NSString * _Nonnull)url filename:(NSString * _Nullable)filename size:(NSUInteger)size type:(NSString * _Nonnull)type data:(NSString * _Nullable)data customType:(NSString * _Nullable)customType completionHandler:(nullable void (^)(SBDFileMessage * _Nullable fileMessage, SBDError * _Nullable error))completionHandler;
+- (nonnull SBDFileMessage *)sendFileMessageWithUrl:(NSString * _Nonnull)url
+                                          filename:(NSString * _Nullable)filename
+                                              size:(NSUInteger)size
+                                              type:(NSString * _Nonnull)type
+                                              data:(NSString * _Nullable)data
+                                        customType:(NSString * _Nullable)customType
+                                 completionHandler:(nullable void (^)(SBDFileMessage * _Nullable fileMessage, SBDError * _Nullable error))completionHandler;
 
 /**
  *  Sends a file message with binary <span>data</span>. The binary <span>data</span> is uploaded to SendBird file storage and a URL of the file will be generated. The uploading progress callback can be implemented.
@@ -478,7 +568,13 @@
  *
  *  @return Returns the temporary file message with a request ID. It doesn't have a message ID and an URL.
  */
-- (nonnull SBDFileMessage *)sendFileMessageWithBinaryData:(NSData * _Nonnull)file filename:(NSString * _Nonnull)filename type:(NSString * _Nonnull)type size:(NSUInteger)size data:(NSString * _Nullable)data progressHandler:(nullable void (^)(int64_t bytesSent, int64_t totalBytesSent, int64_t totalBytesExpectedToSend))progressHandler completionHandler:(nullable void (^)(SBDFileMessage * _Nullable fileMessage, SBDError * _Nullable error))completionHandler;
+- (nonnull SBDFileMessage *)sendFileMessageWithBinaryData:(NSData * _Nonnull)file
+                                                 filename:(NSString * _Nonnull)filename
+                                                     type:(NSString * _Nonnull)type
+                                                     size:(NSUInteger)size
+                                                     data:(NSString * _Nullable)data
+                                          progressHandler:(nullable void (^)(int64_t bytesSent, int64_t totalBytesSent, int64_t totalBytesExpectedToSend))progressHandler
+                                        completionHandler:(nullable void (^)(SBDFileMessage * _Nullable fileMessage, SBDError * _Nullable error))completionHandler;
 
 /**
  *  Sends a file message with binary <span>data</span>. The binary <span>data</span> is uploaded to SendBird file storage and a URL of the file will be generated. The uploading progress callback can be implemented.
@@ -494,7 +590,14 @@
  *
  *  @return Returns the temporary file message with a request ID. It doesn't have a message ID and an URL.
  */
-- (nonnull SBDFileMessage *)sendFileMessageWithBinaryData:(NSData * _Nonnull)file filename:(NSString * _Nonnull)filename type:(NSString * _Nonnull)type size:(NSUInteger)size data:(NSString * _Nullable)data customType:(NSString * _Nullable)customType progressHandler:(nullable void (^)(int64_t bytesSent, int64_t totalBytesSent, int64_t totalBytesExpectedToSend))progressHandler completionHandler:(nullable void (^)(SBDFileMessage * _Nullable fileMessage, SBDError * _Nullable error))completionHandler;
+- (nonnull SBDFileMessage *)sendFileMessageWithBinaryData:(NSData * _Nonnull)file
+                                                 filename:(NSString * _Nonnull)filename
+                                                     type:(NSString * _Nonnull)type
+                                                     size:(NSUInteger)size
+                                                     data:(NSString * _Nullable)data
+                                               customType:(NSString * _Nullable)customType
+                                          progressHandler:(nullable void (^)(int64_t bytesSent, int64_t totalBytesSent, int64_t totalBytesExpectedToSend))progressHandler
+                                        completionHandler:(nullable void (^)(SBDFileMessage * _Nullable fileMessage, SBDError * _Nullable error))completionHandler;
 
 /**
  *  Sends a file message with binary <span>data</span>. The binary <span>data</span> is uploaded to SendBird file storage and a URL of the file will be generated. The uploading progress callback can be implemented.
@@ -511,7 +614,15 @@
  *
  *  @return Returns the temporary file message with a request ID. It doesn't have a message ID and an URL.
  */
-- (nonnull SBDFileMessage *)sendFileMessageWithBinaryData:(NSData * _Nonnull)file filename:(NSString * _Nonnull)filename type:(NSString * _Nonnull)type size:(NSUInteger)size thumbnailSizes:(NSArray<SBDThumbnailSize *> * _Nullable)thumbnailSizes data:(NSString * _Nullable)data customType:(NSString * _Nullable)customType progressHandler:(nullable void (^)(int64_t bytesSent, int64_t totalBytesSent, int64_t totalBytesExpectedToSend))progressHandler completionHandler:(nullable void (^)(SBDFileMessage * _Nullable fileMessage, SBDError * _Nullable error))completionHandler;
+- (nonnull SBDFileMessage *)sendFileMessageWithBinaryData:(NSData * _Nonnull)file
+                                                 filename:(NSString * _Nonnull)filename
+                                                     type:(NSString * _Nonnull)type
+                                                     size:(NSUInteger)size
+                                           thumbnailSizes:(NSArray<SBDThumbnailSize *> * _Nullable)thumbnailSizes
+                                                     data:(NSString * _Nullable)data
+                                               customType:(NSString * _Nullable)customType
+                                          progressHandler:(nullable void (^)(int64_t bytesSent, int64_t totalBytesSent, int64_t totalBytesExpectedToSend))progressHandler
+                                        completionHandler:(nullable void (^)(SBDFileMessage * _Nullable fileMessage, SBDError * _Nullable error))completionHandler;
 
 /**
  *  Sends a file message with binary <span>data</span>. The binary <span>data</span> is uploaded to SendBird file storage and a URL of the file will be generated. The uploading progress callback can be implemented.
@@ -526,7 +637,37 @@
  *
  *  @return Returns the temporary file message with a request ID. It doesn't have a message ID and an URL.
  */
-- (nonnull SBDFileMessage *)sendFileMessageWithFilePath:(NSString * _Nonnull)filepath type:(NSString * _Nonnull)type thumbnailSizes:(NSArray<SBDThumbnailSize *> * _Nullable)thumbnailSizes data:(NSString * _Nullable)data customType:(NSString * _Nullable)customType progressHandler:(nullable void (^)(int64_t bytesSent, int64_t totalBytesSent, int64_t totalBytesExpectedToSend))progressHandler completionHandler:(nullable void (^)(SBDFileMessage * _Nullable fileMessage, SBDError * _Nullable error))completionHandler;
+- (nonnull SBDFileMessage *)sendFileMessageWithFilePath:(NSString * _Nonnull)filepath
+                                                   type:(NSString * _Nonnull)type
+                                         thumbnailSizes:(NSArray<SBDThumbnailSize *> * _Nullable)thumbnailSizes
+                                                   data:(NSString * _Nullable)data
+                                             customType:(NSString * _Nullable)customType
+                                        progressHandler:(nullable void (^)(int64_t bytesSent, int64_t totalBytesSent, int64_t totalBytesExpectedToSend))progressHandler
+                                      completionHandler:(nullable void (^)(SBDFileMessage * _Nullable fileMessage, SBDError * _Nullable error))completionHandler;
+
+/**
+ *  Sends a file message with file or file URL of params without progress. If the params has a binary file, it will upload data to Sendbird storage. If not, the params has a file url, it will send a message with file url.
+ *
+ *  @param params               The instance of SBDFileMessageParams that can has parameters related with file.
+ *  @param completionHandler    The handler block to be executed after the message was sent. This block has no return value and takes two argument, one is a file message was sent and other is an error made when there is something wrong to message.
+ *
+ *  @return SDBFileMessage      Returns the temporary file message instance with a request ID. It doesn't have a message ID and an URL.
+ */
+- (nonnull SBDFileMessage *)sendFileMessageWithParams:(nonnull SBDFileMessageParams *)params
+                                    completionHandler:(nullable void (^)(SBDFileMessage * _Nullable fileMessage, SBDError * _Nullable error))completionHandler;
+
+/**
+ *  Sends a file message with file or file URL of params with progress. If the params has a binary file, it will upload data to Sendbird storage. If not, the params has a file url, it will send a message with file url.
+ *
+ *  @param params               The instance of SBDFileMessageParams that can has parameters related with file.
+ *  @param progressHandler      The handler block to be used to monitor progression. `bytesSent` is the number of bytes sent since this method was called. `totalBytesSent` is the total number of bytes sent so far. `totalBytesExpectedToSend` is the expected length of the body data. These parameters are the same to the declaration of [`URLSession:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:`](https://developer.apple.com/reference/foundation/nsurlsessiontaskdelegate/1408299-urlsession?language=objc).
+ *  @param completionHandler    The handler block to be executed after the message was sent. This block has no return value and takes two argument, one is a file message was sent and other is an error made when there is something wrong to message.
+ *
+ *  @return SDBFileMessage      Returns the temporary file message instance with a request ID. It doesn't have a message ID and an URL.
+ */
+- (nonnull SBDFileMessage *)sendFileMessageWithParams:(nonnull SBDFileMessageParams *)params
+                                      progressHandler:(nullable void (^)(int64_t bytesSent, int64_t totalBytesSent, int64_t totalBytesExpectedToSend))progressHandler
+                                    completionHandler:(nullable void (^)(SBDFileMessage * _Nullable fileMessage, SBDError * _Nullable error))completionHandler;
 
 #pragma mark - Load message list
 /**
@@ -545,6 +686,14 @@
  */
 - (nullable SBDMessageListQuery *)createMessageListQuery DEPRECATED_ATTRIBUTE;
 
+/**
+ *  Creates `SBDOperatorListQuery` instance for getting operators in the channel.
+ *
+ *  @return The operator list in the channel.
+ *  @since  9.0.94
+ */
+- (nullable SBDOperatorListQuery *)createOperatorListQuery;
+
 #pragma mark - Meta Counters
 /**
  *  Creates the meta counters for the channel.
@@ -552,7 +701,8 @@
  *  @param metaCounters      The meta counters to be set.
  *  @param completionHandler The handler block to execute. `metaCounters` is the meta counters which are set on SendBird server.
  */
-- (void)createMetaCounters:(NSDictionary<NSString *, NSNumber *> * _Nonnull)metaCounters completionHandler:(nullable void (^)(NSDictionary<NSString *, NSNumber *> * _Nullable metaCounters, SBDError * _Nullable error))completionHandler;
+- (void)createMetaCounters:(NSDictionary<NSString *, NSNumber *> * _Nonnull)metaCounters
+         completionHandler:(nullable void (^)(NSDictionary<NSString *, NSNumber *> * _Nullable metaCounters, SBDError * _Nullable error))completionHandler;
 
 /**
  *  Gets the meta counters with keys for the channel.
@@ -560,7 +710,8 @@
  *  @param keys              The keys to get meta counters.
  *  @param completionHandler The handler block to execute. `metaCounters` is the meta counters which are set on SendBird server.
  */
-- (void)getMetaCountersWithKeys:(NSArray<NSString *> * _Nullable)keys completionHandler:(nullable void (^)(NSDictionary<NSString *, NSNumber *> * _Nullable metaCounters, SBDError * _Nullable error))completionHandler;
+- (void)getMetaCountersWithKeys:(NSArray<NSString *> * _Nullable)keys
+              completionHandler:(nullable void (^)(NSDictionary<NSString *, NSNumber *> * _Nullable metaCounters, SBDError * _Nullable error))completionHandler;
 
 /**
  *  Gets all meta counters for the channel.
@@ -575,7 +726,8 @@
  *  @param metaCounters      The meta counters to be updated.
  *  @param completionHandler The handler block to execute. `metaCounters` is the meta counters which are updated on SendBird server.
  */
-- (void)updateMetaCounters:(NSDictionary<NSString *, NSNumber *> * _Nonnull)metaCounters completionHandler:(nullable void (^)(NSDictionary<NSString *, NSNumber *> * _Nullable metaCounters, SBDError * _Nullable error))completionHandler;
+- (void)updateMetaCounters:(NSDictionary<NSString *, NSNumber *> * _Nonnull)metaCounters
+         completionHandler:(nullable void (^)(NSDictionary<NSString *, NSNumber *> * _Nullable metaCounters, SBDError * _Nullable error))completionHandler;
 
 /**
  *  Increases the meta counters for the channel.
@@ -583,7 +735,8 @@
  *  @param metaCounters      The meta counters to be increased.
  *  @param completionHandler The handler block to execute. `metaCounters` is the meta counters which are increased on SendBird server.
  */
-- (void)increaseMetaCounters:(NSDictionary<NSString *, NSNumber *> * _Nonnull)metaCounters completionHandler:(nullable void (^)(NSDictionary<NSString *, NSNumber *> * _Nullable metaCounters, SBDError * _Nullable error))completionHandler;
+- (void)increaseMetaCounters:(NSDictionary<NSString *, NSNumber *> * _Nonnull)metaCounters
+           completionHandler:(nullable void (^)(NSDictionary<NSString *, NSNumber *> * _Nullable metaCounters, SBDError * _Nullable error))completionHandler;
 
 /**
  *  Decreases the meta counters for the channel.
@@ -591,7 +744,8 @@
  *  @param metaCounters      The meta counters to be decreased.
  *  @param completionHandler The handler block to execute. `metaCounters` is the meta counters which are decreased on SendBird server.
  */
-- (void)decreaseMetaCounters:(NSDictionary<NSString *, NSNumber *> * _Nonnull)metaCounters completionHandler:(nullable void (^)(NSDictionary<NSString *, NSNumber *> * _Nullable metaCounters, SBDError * _Nullable error))completionHandler;
+- (void)decreaseMetaCounters:(NSDictionary<NSString *, NSNumber *> * _Nonnull)metaCounters
+           completionHandler:(nullable void (^)(NSDictionary<NSString *, NSNumber *> * _Nullable metaCounters, SBDError * _Nullable error))completionHandler;
 
 /**
  *  Deletes the meta counters with key for the channel.
@@ -599,7 +753,8 @@
  *  @param key               The key to be deleted.
  *  @param completionHandler The handler block to execute.
  */
-- (void)deleteMetaCountersWithKey:(NSString * _Nonnull)key completionHandler:(nullable void (^)(SBDError * _Nullable error))completionHandler;
+- (void)deleteMetaCountersWithKey:(NSString * _Nonnull)key
+                completionHandler:(nullable void (^)(SBDError * _Nullable error))completionHandler;
 
 /**
  *  Deletes all meta counters for the channel.
@@ -615,7 +770,8 @@
  *  @param metaData          The meta <span>data</span> to be set.
  *  @param completionHandler The handler block to execute. `metaData` is the meta <span>data</span> which are set on SendBird server.
  */
-- (void)createMetaData:(NSDictionary<NSString *, NSString *> * _Nonnull)metaData completionHandler:(nullable void (^)(NSDictionary<NSString *, NSString *> * _Nullable metaData, SBDError * _Nullable error))completionHandler;
+- (void)createMetaData:(NSDictionary<NSString *, NSString *> * _Nonnull)metaData
+     completionHandler:(nullable void (^)(NSDictionary<NSString *, NSString *> * _Nullable metaData, SBDError * _Nullable error))completionHandler;
 
 /**
  *  Gets the meta <span>data</span> for the channel.
@@ -623,7 +779,8 @@
  *  @param keys              The keys to get meta <span>data</span>.
  *  @param completionHandler The handler block to execute. `metaData` is the meta <span>data</span> which are set on SendBird server.
  */
-- (void)getMetaDataWithKeys:(NSArray<NSString *> * _Nullable)keys completionHandler:(nullable void (^)(NSDictionary<NSString *, NSObject *> * _Nullable metaData, SBDError * _Nullable error))completionHandler;
+- (void)getMetaDataWithKeys:(NSArray<NSString *> * _Nullable)keys
+          completionHandler:(nullable void (^)(NSDictionary<NSString *, NSObject *> * _Nullable metaData, SBDError * _Nullable error))completionHandler;
 
 /**
  *  Gets all meta <span>data</span> for the channel.
@@ -638,7 +795,8 @@
  *  @param metaData          The meta <span>data</span> to be updated.
  *  @param completionHandler The handler block to execute. `metaData` is the meta counters which are updated on SendBird server.
  */
-- (void)updateMetaData:(NSDictionary<NSString *, NSString *> * _Nonnull)metaData completionHandler:(nullable void (^)(NSDictionary<NSString *, NSObject *> * _Nullable metaData, SBDError * _Nullable error))completionHandler;
+- (void)updateMetaData:(NSDictionary<NSString *, NSString *> * _Nonnull)metaData
+     completionHandler:(nullable void (^)(NSDictionary<NSString *, NSObject *> * _Nullable metaData, SBDError * _Nullable error))completionHandler;
 
 /**
  *  Deletes meta <span>data</span> with key for the channel.
@@ -646,7 +804,8 @@
  *  @param key               The key to be deleted.
  *  @param completionHandler The handler block to execute.
  */
-- (void)deleteMetaDataWithKey:(NSString * _Nonnull)key completionHandler:(nullable void (^)(SBDError * _Nullable error))completionHandler;
+- (void)deleteMetaDataWithKey:(NSString * _Nonnull)key
+            completionHandler:(nullable void (^)(SBDError * _Nullable error))completionHandler;
 
 /**
  *  Deletes all meta <span>data</span> for the channel.
@@ -661,7 +820,8 @@
  *  @param message           The message to be deleted.
  *  @param completionHandler The handler block to execute.
  */
-- (void)deleteMessage:(SBDBaseMessage * _Nonnull)message completionHandler:(nullable void (^)(SBDError * _Nullable error))completionHandler;
+- (void)deleteMessage:(SBDBaseMessage * _Nonnull)message
+    completionHandler:(nullable void (^)(SBDError * _Nullable error))completionHandler;
 
 
 /**
@@ -673,7 +833,11 @@
  *  @param customType        New custom type.
  *  @param completionHandler The handler block to execute.
  */
-- (void)updateUserMessage:(SBDUserMessage * _Nonnull)userMessage messageText:(NSString * _Nullable)messageText data:(NSString * _Nullable)data customType:(NSString * _Nullable)customType completionHandler:(nullable void (^)(SBDUserMessage * _Nullable userMessage, SBDError * _Nullable error))completionHandler;
+- (void)updateUserMessage:(SBDUserMessage * _Nonnull)userMessage
+              messageText:(NSString * _Nullable)messageText
+                     data:(NSString * _Nullable)data
+               customType:(NSString * _Nullable)customType
+        completionHandler:(nullable void (^)(SBDUserMessage * _Nullable userMessage, SBDError * _Nullable error))completionHandler;
 
 /**
  *  Updates a file message. The data and custom type can be updated.
@@ -683,7 +847,10 @@
  *  @param customType        New custom type.
  *  @param completionHandler The handler block to execute.
  */
-- (void)updateFileMessage:(SBDFileMessage * _Nonnull)fileMessage data:(NSString * _Nullable)data customType:(NSString * _Nullable)customType completionHandler:(nullable void (^)(SBDFileMessage * _Nullable fileMessage, SBDError * _Nullable error))completionHandler;
+- (void)updateFileMessage:(SBDFileMessage * _Nonnull)fileMessage
+                     data:(NSString * _Nullable)data
+               customType:(NSString * _Nullable)customType
+        completionHandler:(nullable void (^)(SBDFileMessage * _Nullable fileMessage, SBDError * _Nullable error))completionHandler;
 
 /**
  *  Checks the channel type.
@@ -710,7 +877,11 @@
  *
  *  @deprecated in v3.0.40.
  */
-- (void)getNextMessagesByTimestamp:(long long)timestamp limit:(NSInteger)limit reverse:(BOOL)reverse completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable messages, SBDError * _Nullable error))completionHandler DEPRECATED_ATTRIBUTE;
+- (void)getNextMessagesByTimestamp:(long long)timestamp
+                             limit:(NSInteger)limit
+                           reverse:(BOOL)reverse
+                 completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable messages, SBDError * _Nullable error))completionHandler
+DEPRECATED_ATTRIBUTE;
 
 /**
  *  Gets the next messages by the timestamp with a limit and ordering.
@@ -722,7 +893,32 @@
  *  @param customType        Custom type to filter messages. If filtering isn't required, set nil.
  *  @param completionHandler The handler block to execute. The `messages` is the array of `SBDBaseMessage` instances.
  */
-- (void)getNextMessagesByTimestamp:(long long)timestamp limit:(NSInteger)limit reverse:(BOOL)reverse messageType:(SBDMessageTypeFilter)messageType customType:(NSString * _Nullable)customType completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable messages, SBDError * _Nullable error))completionHandler;
+- (void)getNextMessagesByTimestamp:(long long)timestamp
+                             limit:(NSInteger)limit
+                           reverse:(BOOL)reverse
+                       messageType:(SBDMessageTypeFilter)messageType
+                        customType:(NSString * _Nullable)customType
+                 completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable messages, SBDError * _Nullable error))completionHandler;
+
+/**
+ *  Gets the next messages by the timestamp with a limit and ordering.
+ *
+ *  @param timestamp         The standard timestamp to load messages.
+ *  @param limit             The limit for the number of messages. The returned messages could be more than this number if there are messages which have the same timestamp.
+ *  @param reverse           If yes, the latest message is the index 0.
+ *  @param messageType       Message type to filter messages.
+ *  @param customType        Custom type to filter messages. If filtering isn't required, set nil.
+ *  @param senderUserIds     Returns messages whose sender user id matches sender user ids.
+ *  @param completionHandler The handler block to execute. The `messages` is the array of `SBDBaseMessage` instances.
+ *  @since 3.0.106
+ */
+- (void)getNextMessagesByTimestamp:(long long)timestamp
+                             limit:(NSInteger)limit
+                           reverse:(BOOL)reverse
+                       messageType:(SBDMessageTypeFilter)messageType
+                        customType:(NSString * _Nullable)customType
+                     senderUserIds:(NSArray<NSString *> * _Nullable)senderUserIds
+                 completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable messages, SBDError * _Nullable error))completionHandler;
 
 /**
  *  Gets the previous messages by the timestamp with a limit and ordering.
@@ -734,7 +930,11 @@
  *
  *  @deprecated in v3.0.40.
  */
-- (void)getPreviousMessagesByTimestamp:(long long)timestamp limit:(NSInteger)limit reverse:(BOOL)reverse completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable messages, SBDError * _Nullable error))completionHandler DEPRECATED_ATTRIBUTE;
+- (void)getPreviousMessagesByTimestamp:(long long)timestamp
+                                 limit:(NSInteger)limit
+                               reverse:(BOOL)reverse
+                     completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable messages, SBDError * _Nullable error))completionHandler
+DEPRECATED_ATTRIBUTE;
 
 /**
  *  Gets the previous messages by the timestamp with a limit and ordering.
@@ -746,7 +946,32 @@
  *  @param customType        Custom type to filter messages. If filtering isn't required, set nil.
  *  @param completionHandler The handler block to execute. The `messages` is the array of `SBDBaseMessage` instances.
  */
-- (void)getPreviousMessagesByTimestamp:(long long)timestamp limit:(NSInteger)limit reverse:(BOOL)reverse messageType:(SBDMessageTypeFilter)messageType customType:(NSString * _Nullable)customType completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable messages, SBDError * _Nullable error))completionHandler;
+- (void)getPreviousMessagesByTimestamp:(long long)timestamp
+                                 limit:(NSInteger)limit
+                               reverse:(BOOL)reverse
+                           messageType:(SBDMessageTypeFilter)messageType
+                            customType:(NSString * _Nullable)customType
+                     completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable messages, SBDError * _Nullable error))completionHandler;
+
+/**
+ *  Gets the previous messages by the timestamp with a limit and ordering.
+ *
+ *  @param timestamp         The standard timestamp to load messages.
+ *  @param limit             The limit for the number of messages. The returned messages could be more than this number if there are messages which have the same timestamp.
+ *  @param reverse           If yes, the latest message is the index 0.
+ *  @param messageType       Message type to filter messages.
+ *  @param customType        Custom type to filter messages. If filtering isn't required, set nil.
+ *  @param senderUserIds     Returns messages whose sender user id matches sender user ids.
+ *  @param completionHandler The handler block to execute. The `messages` is the array of `SBDBaseMessage` instances.
+ *  @since 3.0.106
+ */
+- (void)getPreviousMessagesByTimestamp:(long long)timestamp
+                                 limit:(NSInteger)limit
+                               reverse:(BOOL)reverse
+                           messageType:(SBDMessageTypeFilter)messageType
+                            customType:(NSString * _Nullable)customType
+                         senderUserIds:(NSArray<NSString *> * _Nullable)senderUserIds
+                     completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable messages, SBDError * _Nullable error))completionHandler;
 
 /**
  *  Gets the previous and next message by the timestamp with a limit and ordering.
@@ -759,7 +984,12 @@
  *
  *  @deprecated in v3.0.40.
  */
-- (void)getPreviousAndNextMessagesByTimestamp:(long long)timestamp prevLimit:(NSInteger)prevLimit nextLimit:(NSInteger)nextLimit reverse:(BOOL)reverse completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable messages, SBDError * _Nullable error))completionHandler DEPRECATED_ATTRIBUTE;
+- (void)getPreviousAndNextMessagesByTimestamp:(long long)timestamp
+                                    prevLimit:(NSInteger)prevLimit
+                                    nextLimit:(NSInteger)nextLimit
+                                      reverse:(BOOL)reverse
+                            completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable messages, SBDError * _Nullable error))completionHandler
+DEPRECATED_ATTRIBUTE;
 
 /**
  *  Gets the previous and next message by the timestamp with a limit and ordering.
@@ -772,7 +1002,35 @@
  *  @param customType        Custom type to filter messages. If filtering isn't required, set nil.
  *  @param completionHandler The handler block to execute. The `messages` is the array of `SBDBaseMessage` instances.
  */
-- (void)getPreviousAndNextMessagesByTimestamp:(long long)timestamp prevLimit:(NSInteger)prevLimit nextLimit:(NSInteger)nextLimit reverse:(BOOL)reverse messageType:(SBDMessageTypeFilter)messageType customType:(NSString * _Nullable)customType completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable messages, SBDError * _Nullable error))completionHandler;
+- (void)getPreviousAndNextMessagesByTimestamp:(long long)timestamp
+                                    prevLimit:(NSInteger)prevLimit
+                                    nextLimit:(NSInteger)nextLimit
+                                      reverse:(BOOL)reverse
+                                  messageType:(SBDMessageTypeFilter)messageType
+                                   customType:(NSString * _Nullable)customType
+                            completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable messages, SBDError * _Nullable error))completionHandler;
+
+/**
+ *  Gets the previous and next message by the timestamp with a limit and ordering.
+ *
+ *  @param timestamp         The standard timestamp to load messages.
+ *  @param prevLimit         The previous limit for the number of messages. The returned messages could be more than this number if there are messages which have the same timestamp.
+ *  @param nextLimit         The next limit for the number of messages. The returned messages could be more than this number if there are messages which have the same timestamp.
+ *  @param reverse           If yes, the latest message is the index 0.
+ *  @param messageType       Message type to filter messages.
+ *  @param customType        Custom type to filter messages. If filtering isn't required, set nil.
+ *  @param senderUserIds     Returns messages whose sender user id matches sender user ids.
+ *  @param completionHandler The handler block to execute. The `messages` is the array of `SBDBaseMessage` instances.
+ *  @since 3.0.106
+ */
+- (void)getPreviousAndNextMessagesByTimestamp:(long long)timestamp
+                                    prevLimit:(NSInteger)prevLimit
+                                    nextLimit:(NSInteger)nextLimit
+                                      reverse:(BOOL)reverse
+                                  messageType:(SBDMessageTypeFilter)messageType
+                                   customType:(NSString * _Nullable)customType
+                                senderUserIds:(NSArray<NSString *> * _Nullable)senderUserIds
+                            completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable messages, SBDError * _Nullable error))completionHandler;
 
 #pragma mark - Get messages by message ID.
 /**
@@ -785,7 +1043,11 @@
  *
  *  @deprecated in v3.0.40.
  */
-- (void)getNextMessagesByMessageId:(long long)messageId limit:(NSInteger)limit reverse:(BOOL)reverse completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable messages, SBDError * _Nullable error))completionHandler DEPRECATED_ATTRIBUTE;
+- (void)getNextMessagesByMessageId:(long long)messageId
+                             limit:(NSInteger)limit
+                           reverse:(BOOL)reverse
+                 completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable messages, SBDError * _Nullable error))completionHandler
+DEPRECATED_ATTRIBUTE;
 
 /**
  *  Gets the next messages by the message ID with a limit and ordering.
@@ -797,7 +1059,32 @@
  *  @param customType        Custom type to filter messages. If filtering isn't required, set nil.
  *  @param completionHandler The handler block to execute. The `messages` is the array of `SBDBaseMessage` instances.
  */
-- (void)getNextMessagesByMessageId:(long long)messageId limit:(NSInteger)limit reverse:(BOOL)reverse messageType:(SBDMessageTypeFilter)messageType customType:(NSString * _Nullable)customType completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable messages, SBDError * _Nullable error))completionHandler;
+- (void)getNextMessagesByMessageId:(long long)messageId
+                             limit:(NSInteger)limit
+                           reverse:(BOOL)reverse
+                       messageType:(SBDMessageTypeFilter)messageType
+                        customType:(NSString * _Nullable)customType
+                 completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable messages, SBDError * _Nullable error))completionHandler;
+
+/**
+ *  Gets the next messages by the message ID with a limit and ordering.
+ *
+ *  @param messageId         The standard message ID to load messages.
+ *  @param limit             The limit for the number of messages. The returned messages could be more than this number if there are messages which have the same timestamp.
+ *  @param reverse           If yes, the latest message is the index 0.
+ *  @param messageType       Message type to filter messages.
+ *  @param customType        Custom type to filter messages. If filtering isn't required, set nil.
+ *  @param senderUserIds     Returns messages whose sender user id matches sender user ids.
+ *  @param completionHandler The handler block to execute. The `messages` is the array of `SBDBaseMessage` instances.
+ *  @since 3.0.106
+ */
+- (void)getNextMessagesByMessageId:(long long)messageId
+                             limit:(NSInteger)limit
+                           reverse:(BOOL)reverse
+                       messageType:(SBDMessageTypeFilter)messageType
+                        customType:(NSString * _Nullable)customType
+                     senderUserIds:(NSArray<NSString *> * _Nullable)senderUserIds
+                 completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable messages, SBDError * _Nullable error))completionHandler;
 
 /**
  *  Gets the previous messages by the message ID with a limit and ordering.
@@ -809,7 +1096,11 @@
  *
  *  @deprecated in v3.0.40.
  */
-- (void)getPreviousMessagesByMessageId:(long long)messageId limit:(NSInteger)limit reverse:(BOOL)reverse completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable messages, SBDError * _Nullable error))completionHandler DEPRECATED_ATTRIBUTE;
+- (void)getPreviousMessagesByMessageId:(long long)messageId
+                                 limit:(NSInteger)limit
+                               reverse:(BOOL)reverse
+                     completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable messages, SBDError * _Nullable error))completionHandler
+DEPRECATED_ATTRIBUTE;
 
 /**
  *  Gets the previous messages by the message ID with a limit and ordering.
@@ -821,7 +1112,32 @@
  *  @param customType        Custom type to filter messages. If filtering isn't required, set nil.
  *  @param completionHandler The handler block to execute. The `messages` is the array of `SBDBaseMessage` instances.
  */
-- (void)getPreviousMessagesByMessageId:(long long)messageId limit:(NSInteger)limit reverse:(BOOL)reverse messageType:(SBDMessageTypeFilter)messageType customType:(NSString * _Nullable)customType completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable messages, SBDError * _Nullable error))completionHandler;
+- (void)getPreviousMessagesByMessageId:(long long)messageId
+                                 limit:(NSInteger)limit
+                               reverse:(BOOL)reverse
+                           messageType:(SBDMessageTypeFilter)messageType
+                            customType:(NSString * _Nullable)customType
+                     completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable messages, SBDError * _Nullable error))completionHandler;
+
+/**
+ *  Gets the previous messages by the message ID with a limit and ordering.
+ *
+ *  @param messageId         The standard message ID to load messages.
+ *  @param limit             The limit for the number of messages. The returned messages could be more than this number if there are messages which have the same timestamp.
+ *  @param reverse           If yes, the latest message is the index 0.
+ *  @param messageType       Message type to filter messages.
+ *  @param customType        Custom type to filter messages. If filtering isn't required, set nil.
+ *  @param senderUserIds     Returns messages whose sender user id matches sender user ids.
+ *  @param completionHandler The handler block to execute. The `messages` is the array of `SBDBaseMessage` instances.
+ *  @since 3.0.106
+ */
+- (void)getPreviousMessagesByMessageId:(long long)messageId
+                                 limit:(NSInteger)limit
+                               reverse:(BOOL)reverse
+                           messageType:(SBDMessageTypeFilter)messageType
+                            customType:(NSString * _Nullable)customType
+                         senderUserIds:(NSArray<NSString *> * _Nullable)senderUserIds
+                     completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable messages, SBDError * _Nullable error))completionHandler;
 
 /**
  *  Gets the previous and next message by the message ID with a limit and ordering.
@@ -834,7 +1150,12 @@
  *
  *  @deprecated in v3.0.40.
  */
-- (void)getPreviousAndNextMessagesByMessageId:(long long)messageId prevLimit:(NSInteger)prevLimit nextLimit:(NSInteger)nextLimit reverse:(BOOL)reverse completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable messages, SBDError * _Nullable error))completionHandler DEPRECATED_ATTRIBUTE;
+- (void)getPreviousAndNextMessagesByMessageId:(long long)messageId
+                                    prevLimit:(NSInteger)prevLimit
+                                    nextLimit:(NSInteger)nextLimit
+                                      reverse:(BOOL)reverse
+                            completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable messages, SBDError * _Nullable error))completionHandler
+DEPRECATED_ATTRIBUTE;
 
 /**
  *  Gets the previous and next message by the message ID with a limit and ordering.
@@ -847,7 +1168,35 @@
  *  @param customType        Custom type to filter messages. If filtering isn't required, set nil.
  *  @param completionHandler The handler block to execute. The `messages` is the array of `SBDBaseMessage` instances.
  */
-- (void)getPreviousAndNextMessagesByMessageId:(long long)messageId prevLimit:(NSInteger)prevLimit nextLimit:(NSInteger)nextLimit reverse:(BOOL)reverse messageType:(SBDMessageTypeFilter)messageType customType:(NSString * _Nullable)customType completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable messages, SBDError * _Nullable error))completionHandler;
+- (void)getPreviousAndNextMessagesByMessageId:(long long)messageId
+                                    prevLimit:(NSInteger)prevLimit
+                                    nextLimit:(NSInteger)nextLimit
+                                      reverse:(BOOL)reverse
+                                  messageType:(SBDMessageTypeFilter)messageType
+                                   customType:(NSString * _Nullable)customType
+                            completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable messages, SBDError * _Nullable error))completionHandler;
+
+/**
+ *  Gets the previous and next message by the message ID with a limit and ordering.
+ *
+ *  @param messageId         The standard message ID to load messages.
+ *  @param prevLimit         The previous limit for the number of messages. The returned messages could be more than this number if there are messages which have the same timestamp.
+ *  @param nextLimit         The next limit for the number of messages. The returned messages could be more than this number if there are messages which have the same timestamp.
+ *  @param reverse           If yes, the latest message is the index 0.
+ *  @param messageType       Message type to filter messages.
+ *  @param customType        Custom type to filter messages. If filtering isn't required, set nil.
+ *  @param senderUserIds     Returns messages whose sender user id matches sender user ids.
+ *  @param completionHandler The handler block to execute. The `messages` is the array of `SBDBaseMessage` instances.
+ *  @since 3.0.106
+ */
+- (void)getPreviousAndNextMessagesByMessageId:(long long)messageId
+                                    prevLimit:(NSInteger)prevLimit
+                                    nextLimit:(NSInteger)nextLimit
+                                      reverse:(BOOL)reverse
+                                  messageType:(SBDMessageTypeFilter)messageType
+                                   customType:(NSString * _Nullable)customType
+                                senderUserIds:(NSArray<NSString *> * _Nullable)senderUserIds
+                            completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable messages, SBDError * _Nullable error))completionHandler;
 
 /**
  Builds a base channel object from serialized <span>data</span>.
@@ -870,7 +1219,8 @@
  @param requestId The request ID of the file message that is been uploading.
  @param completionHandler The handler block to execute. If the `result` is `YES`, then the uploading task of the `requestId` has been cancelled.
  */
-+ (void)cancelUploadingFileMessageWithRequestId:(NSString * _Nonnull)requestId completionHandler:(nullable void (^)(BOOL result, SBDError * _Nullable error))completionHandler;
++ (void)cancelUploadingFileMessageWithRequestId:(NSString * _Nonnull)requestId
+                              completionHandler:(nullable void (^)(BOOL result, SBDError * _Nullable error))completionHandler;
 
 
 /**
@@ -881,7 +1231,9 @@
  @param completionHandler The handler block to execute. The `userMessage` is a user message which is returned from the SendBird server. The message has a message ID.
  @return Returns the temporary user message with a request ID. It doesn't have a message ID.
  */
-- (SBDUserMessage * _Nullable)copyUserMessage:(SBDUserMessage * _Nonnull)message toTargetChannel:(SBDBaseChannel * _Nonnull)targetChannel completionHandler:(nullable void (^)(SBDUserMessage * _Nullable userMessage, SBDError * _Nullable error))completionHandler;
+- (SBDUserMessage * _Nullable)copyUserMessage:(SBDUserMessage * _Nonnull)message
+                              toTargetChannel:(SBDBaseChannel * _Nonnull)targetChannel
+                            completionHandler:(nullable void (^)(SBDUserMessage * _Nullable userMessage, SBDError * _Nullable error))completionHandler;
 
 
 /**
@@ -892,7 +1244,9 @@
  @param completionHandler The handler block to execute. The `fileMessage` is a user message which is returned from the SendBird server. The message has a message ID.
  @return Returns the temporary file message with a request ID. It doesn't have a message ID.
  */
-- (SBDFileMessage * _Nullable)copyFileMessage:(SBDFileMessage * _Nonnull)message toTargetChannel:(SBDBaseChannel * _Nonnull)targetChannel completionHandler:(nullable void (^)(SBDFileMessage * _Nullable fileMessage,  SBDError * _Nullable error))completionHandler;
+- (SBDFileMessage * _Nullable)copyFileMessage:(SBDFileMessage * _Nonnull)message
+                              toTargetChannel:(SBDBaseChannel * _Nonnull)targetChannel
+                            completionHandler:(nullable void (^)(SBDFileMessage * _Nullable fileMessage,  SBDError * _Nullable error))completionHandler;
 
 
 /**
@@ -901,11 +1255,7 @@
  @param token The token that is used to get more changelogs.
  @param completionHandler The handler block to execute. The `updatedMessages` is the messages that were updated. The `deletedMessageIds` is the list of the deleted message IDs. If there are more changelogs that are not returned yet, the `hasMore` is YES. The `token` can be used to get more changedlogs.
  */
-- (void)getMessageChangeLogsWithToken:(NSString * _Nullable)token completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable updatedMessages, NSArray<NSNumber *> * _Nullable deletedMessageIds, BOOL hasMore, NSString * _Nullable token, SBDError * _Nullable error))completionHandler;
-
-/**
- *  Internal use only.
- */
-- (nullable NSDictionary *)_toDictionary;
+- (void)getMessageChangeLogsWithToken:(NSString * _Nullable)token
+                    completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable updatedMessages, NSArray<NSNumber *> * _Nullable deletedMessageIds, BOOL hasMore, NSString * _Nullable token, SBDError * _Nullable error))completionHandler;
 
 @end

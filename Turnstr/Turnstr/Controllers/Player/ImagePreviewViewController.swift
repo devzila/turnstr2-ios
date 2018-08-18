@@ -117,9 +117,9 @@ class ImagePreviewViewController: ParentViewController, UIScrollViewDelegate {
                 
                 let playerAV = AVPlayer.init(url: url!)
                 let playerLayerAV = AVPlayerLayer(player: playerAV)
-
+                
                 playerLayerAV.videoGravity = AVLayerVideoGravityResizeAspectFill
-
+                
                 playerAV.isMuted = true
                 playerLayerAV.frame = frame
                 imgView.layer.addSublayer(playerLayerAV)
@@ -130,37 +130,37 @@ class ImagePreviewViewController: ParentViewController, UIScrollViewDelegate {
                 }
                 arrPlayers.append(playerAV)
                 
-//                let btnMute = UIButton.init(frame: CGRect.init(x: kCenterW-50, y: kHeight-100, width: 50, height: 50))
-//                btnMute.setImage(#imageLiteral(resourceName: "nw_mute"), for: .selected)
-//                btnMute.setImage(#imageLiteral(resourceName: "nw_unmute"), for: .normal)
-//                btnMute.isSelected = true
-//                btnMute.accessibilityElements = [playerAV]
-//                btnMute.addTarget(self, action: #selector(actMuteClicked(sender:)), for: .touchUpInside)
-//                imgView.addSubview(btnMute)
+                //                let btnMute = UIButton.init(frame: CGRect.init(x: kCenterW-50, y: kHeight-100, width: 50, height: 50))
+                //                btnMute.setImage(#imageLiteral(resourceName: "nw_mute"), for: .selected)
+                //                btnMute.setImage(#imageLiteral(resourceName: "nw_unmute"), for: .normal)
+                //                btnMute.isSelected = true
+                //                btnMute.accessibilityElements = [playerAV]
+                //                btnMute.addTarget(self, action: #selector(actMuteClicked(sender:)), for: .touchUpInside)
+                //                imgView.addSubview(btnMute)
                 
                 NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: playerAV.currentItem, queue: .main) { (_) in
                     playerAV.seek(to: kCMTimeZero)
                     playerAV.play()
                 }
                 
-//                let frame = CGRect.init(x: 0, y: 0, width: kWidth, height: frame.height)
-//
-//                let imgView = UIImageView.init(frame: frame)
-//                imgView.backgroundColor = UIColor.black
-//                imgView.sd_setImage(with: URL.init(string: objStory.thumb_url), placeholderImage: #imageLiteral(resourceName: "thumb"))
-//                imgView.contentMode = .scaleAspectFit
-//                imgView.isUserInteractionEnabled = true
-//
-//                let btnPlay = UIButton.init(frame: CGRect.init(x: frame.midX-25, y: frame.midY-25, width: 50, height: 50))
-//                btnPlay.setImage(#imageLiteral(resourceName: "play"), for: .normal)
-//                btnPlay.backgroundColor = UIColor.darkGray
-//                btnPlay.layer.cornerRadius = 5.0
-//                btnPlay.layer.masksToBounds = true
-//                btnPlay.accessibilityElements = [objStory.media_url]
-//                btnPlay.addTarget(self, action: #selector(PlayVideo(sender:)), for: .touchUpInside)
-//                imgView.addSubview(btnPlay)
-//
-//                arrPages.append(imgView)
+                //                let frame = CGRect.init(x: 0, y: 0, width: kWidth, height: frame.height)
+                //
+                //                let imgView = UIImageView.init(frame: frame)
+                //                imgView.backgroundColor = UIColor.black
+                //                imgView.sd_setImage(with: URL.init(string: objStory.thumb_url), placeholderImage: #imageLiteral(resourceName: "thumb"))
+                //                imgView.contentMode = .scaleAspectFit
+                //                imgView.isUserInteractionEnabled = true
+                //
+                //                let btnPlay = UIButton.init(frame: CGRect.init(x: frame.midX-25, y: frame.midY-25, width: 50, height: 50))
+                //                btnPlay.setImage(#imageLiteral(resourceName: "play"), for: .normal)
+                //                btnPlay.backgroundColor = UIColor.darkGray
+                //                btnPlay.layer.cornerRadius = 5.0
+                //                btnPlay.layer.masksToBounds = true
+                //                btnPlay.accessibilityElements = [objStory.media_url]
+                //                btnPlay.addTarget(self, action: #selector(PlayVideo(sender:)), for: .touchUpInside)
+                //                imgView.addSubview(btnPlay)
+                //
+                //                arrPages.append(imgView)
             }
             else if objStory.media_type.isEmpty == true {
                 arrPlayers.append(nil)

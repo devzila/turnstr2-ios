@@ -67,6 +67,9 @@
 
 /**
  *  Internal use only.
+ *
+ *  @param dict dict
+ *  @warning *Important*: DON'T use this method. This method will be unavailable.
  */
 - (nullable instancetype)initWithDictionary:(NSDictionary * _Nonnull)dict;
 
@@ -85,14 +88,7 @@
  */
 - (nullable NSData *)serialize;
 
-/**
- *  Internal use only.
- */
-- (nullable NSDictionary *)_toDictionary;
-
 #pragma mark - Meta Data
-
-
 /**
  Meta data.
  */
@@ -104,7 +100,8 @@
  *  @param metaData          The meta <span>data</span> to be set.
  *  @param completionHandler The handler block to execute. `metaData` is the meta <span>data</span> which are set on SendBird server.
  */
-- (void)createMetaData:(NSDictionary<NSString *, NSString *> * _Nonnull)metaData completionHandler:(nullable void (^)(NSDictionary<NSString *, NSString *> * _Nullable metaData, SBDError * _Nullable error))completionHandler;
+- (void)createMetaData:(NSDictionary<NSString *, NSString *> * _Nonnull)metaData
+     completionHandler:(nullable void (^)(NSDictionary<NSString *, NSString *> * _Nullable metaData, SBDError * _Nullable error))completionHandler;
 
 /**
  *  Updates the meta <span>data</span> for the current user.
@@ -112,7 +109,8 @@
  *  @param metaData          The meta <span>data</span> to be updated.
  *  @param completionHandler The handler block to execute. `metaData` is the meta counters which are updated on SendBird server.
  */
-- (void)updateMetaData:(NSDictionary<NSString *, NSString *> * _Nonnull)metaData completionHandler:(nullable void (^)(NSDictionary<NSString *, NSString *> * _Nullable metaData, SBDError * _Nullable error))completionHandler;
+- (void)updateMetaData:(NSDictionary<NSString *, NSString *> * _Nonnull)metaData
+     completionHandler:(nullable void (^)(NSDictionary<NSString *, NSString *> * _Nullable metaData, SBDError * _Nullable error))completionHandler;
 
 /**
  *  Deletes meta <span>data</span> with key for the current user.
@@ -120,7 +118,8 @@
  *  @param key               The key to be deleted.
  *  @param completionHandler The handler block to execute.
  */
-- (void)deleteMetaDataWithKey:(NSString * _Nonnull)key completionHandler:(nullable void (^)(SBDError * _Nullable error))completionHandler;
+- (void)deleteMetaDataWithKey:(NSString * _Nonnull)key
+            completionHandler:(nullable void (^)(SBDError * _Nullable error))completionHandler;
 
 /**
  *  Deletes all meta <span>data</span> for the current user.
