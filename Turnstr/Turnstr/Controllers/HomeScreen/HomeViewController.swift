@@ -83,7 +83,7 @@ class HomeViewController: ParentViewController {
                 DispatchQueue.main.async {
                     
                     self.FollowerCounts()
-                    self.lblUserName.text = "@"+self.objSing.strUserName.lowercased()
+                    self.lblUserName.text = "@"+self.objSing.strUserName
                     
                     //Setup Name & Bio
                     if self.objSing.isVerified == true {
@@ -91,7 +91,7 @@ class HomeViewController: ParentViewController {
                     } else{
                         self.btnFullName.setImage(nil, for: .normal)
                     }
-                    self.btnFullName.setTitle("\(self.objSing.strUserFname.uppercased()) \(self.objSing.strUserLName.uppercased()) ", for: .normal)
+                    self.btnFullName.setTitle("\(self.objSing.strUserFname) \(self.objSing.strUserLName) ", for: .normal)
                     
                     let strBio = self.objSing.strUserBio
                     let str2 = strBio.isEmpty == false ? "\n" : ""

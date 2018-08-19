@@ -37,7 +37,7 @@ class StoryCubeCell: UITableViewCell {
             }
             var userUrls = [String]()
             if let user = storyInfo?["user"] as? [String: Any] {
-                lblName?.text = (user["first_name"] as? String)?.capitalized
+                lblName?.text = (user["first_name"] as? String)
                 if let av1 = user["avatar_face1"] as? String {
                     userUrls.append(av1)
                 }
@@ -78,13 +78,22 @@ class StoryCubeCell: UITableViewCell {
     func updateButtonState() {
         guard let sender = btnLike else {return}
         sender.isSelected = !sender.isSelected
-        if let likeCount = btnLike?.currentTitle?.intVal() {
-            let count = sender.isSelected ? likeCount + 1 : likeCount - 1
-            let strCount = likeCount > 1 ? " \(count) Likes" : " \(count) Like"
-            btnLike?.setTitle(strCount, for: .normal)
-            btnLike?.setTitle(strCount, for: .selected)
-        }
+        
+        let likeCount = lblLikes?.text?.intVal() ?? 0
+        
+        let count = sender.isSelected == true ? likeCount + 1 : likeCount - 1
+        //let strCount = likeCount > 1 ? " \(count) Likes" : " \(count) Like"
+        //lblLikes?.text = strCount
+        
+//        if let likeCount = btnLike?.currentTitle?.intVal() {
+//            let count = sender.isSelected ? likeCount + 1 : likeCount - 1
+//            let strCount = likeCount > 1 ? " \(count) Likes" : " \(count) Like"
+//            btnLike?.setTitle(strCount, for: .normal)
+//            btnLike?.setTitle(strCount, for: .selected)
+//        }
+        
         storyInfo?["has_liked"] = sender.isSelected
+        storyInfo?["likes_count"] = count
         updateOnLikeStatusChanged?(storyInfo)
     }
     
@@ -138,18 +147,10 @@ extension StoryCubeCell: StoryCommentsDelegate {
 //MARK: --- API Calls
 extension StoryCubeCell {
     func likeDislikeAPIRequest() {
-        guard let storyID = storyInfo?["id"] as? Int,
-            let url = URL(string: (kBaseURL + "stories/\(storyID)/likes")) else {return}
-        var request = URLRequest(url: url, cachePolicy: URLRequest.CachePolicy.reloadIgnoringLocalCacheData, timeoutInterval: 20.0)
-        request.httpMethod = "POST"
-        request.setValue(Singleton.sharedInstance.strUserSessionId, forHTTPHeaderField: "auth-token")
-        URLSession.shared.dataTask(with: request) { (data, response, error) in
-            if (response as? HTTPURLResponse)?.statusCode != 200 {
-                self.updateButtonState()
-            }
-            else {
-                print(String.init(data: data!, encoding: .utf8))
-            }
-            }.resume()
+        guard let storyID = storyInfo?["id"] as? Int else {return}
+        let url = ("stories/\(storyID)/likes")
+        
+        let response = DataServiceModal.sharedInstance.ApiPostRequest(PostURL: url, dictData: [:])
+        print(response)
     }
 }

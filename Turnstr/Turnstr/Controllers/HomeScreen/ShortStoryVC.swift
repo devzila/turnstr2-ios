@@ -16,6 +16,8 @@ class ShortStoryVC: UIViewController {
     @IBOutlet weak var cubeProfileView: AITransformView?
     @IBOutlet weak var imgView: UIImageView?
     @IBOutlet weak var btnPeopleWhoViewed: UIButton?
+    @IBOutlet weak var btnBack: UIButton!
+    @IBOutlet weak var btnNewStory: UIButton!
     
     let btnNext = UIButton()
     let btnPrev = UIButton()
@@ -33,21 +35,54 @@ class ShortStoryVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         lblUsername?.text = user?.username
+        print(Singleton.sharedInstance.strUserID)
+        
+        btnNewStory.layer.cornerRadius = 5.0
+        btnNewStory.layer.borderWidth = 1.0
+        btnNewStory.layer.borderColor = kBlueColor.cgColor
+        
         
         let userUrls = user?.cubeUrls.map({$0.absoluteString})
         cubeProfileView?.createCubewith(35)
         cubeProfileView?.setup(withUrls: userUrls)
-        cubeProfileView?.backgroundColor = .white
+        cubeProfileView?.backgroundColor = .clear
         cubeProfileView?.setScrollFromNil(CGPoint.init(x: 0, y: 30), end: CGPoint.init(x: 5, y: 30))
         cubeProfileView?.setScroll(CGPoint.init(x: 30, y: 0), end: CGPoint.init(x: 30, y: 2))
         cubeProfileView?.isUserInteractionEnabled = false
         
-        apiCallStoryDetail()
+        btnBack.setImage(UIImage.init(named: "cross")?.setMode(MODE: .alwaysTemplate), for: .normal)
+        btnBack.imageView?.tintColor = .white
+        
+        btnPeopleWhoViewed?.setImage(UIImage.init(named: "eye")?.setMode(MODE: .alwaysTemplate), for: .normal)
+        btnPeopleWhoViewed?.imageView?.tintColor = .white
+        
         // Do any additional setup after loading the view.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        if cv != nil{
+            cv?.removeFromSuperview()
+            cv = nil
+        }
+        
+        self.arrPlayers.removeAll()
+        self.arrStories.removeAll()
+        self.currentIndex = 0
+        self.apiCallStoryDetail()
+    }
     
     //MARK: --- Action Methods
+    
+    @IBAction func actNewStory(_ sender: UIButton) {
+        stopAllPlayers()
+        kMainQueue.asyncAfter(deadline: .now()) {
+            ///Open Camera
+            let camVC = CameraViewController(nibName: "CameraViewController", bundle: nil)
+            camVC.kScreenType = .newStory
+            self.topVC?.navigationController?.pushViewController(camVC, animated: true)
+        }
+    }
+    
     @IBAction func btnCancelAction() {
         navigationController?.popViewController(animated: true)
     }
@@ -239,6 +274,13 @@ extension ShortStoryVC: CubePageView_Delegate {
 extension ShortStoryVC {
     func apiCallStoryDetail() {
         guard let id = user?.id else { return }
+        if id == Singleton.sharedInstance.strUserID {
+            self.btnNewStory.isHidden = false
+            kAppDelegate.loadingIndicationCreation()
+            self.getAllMyStories(userId: id)
+            return
+        }
+        
         kAppDelegate.loadingIndicationCreation()
         let strEndPoint = "user/user_stories/\(id)"
         //let strEndPoint = "user/my_user_stories"
@@ -261,7 +303,44 @@ extension ShortStoryVC {
         }
     }
     
+    func getAllMyStories(userId: String = "0") {
+        var strRequest = ""
+        strRequest = "members/\(userId)"
+        let strPostUrl = "\(strRequest)/\(kAPIGetVideos)"
+        
+        
+        kBQ_getVideos.async {
+            
+            let dictResponse = WebServices.sharedInstance.GetMethodServerData(strRequest: "", GetURL: strPostUrl, parType: "")
+            print(dictResponse)
+            DispatchQueue.main.async {
+                if let statusCode = dictResponse["statusCode"] as? Int, statusCode == 200 {
+                    kAppDelegate.hideLoadingIndicator()
+                    
+                    if let dictComments = dictResponse["data"]?["data"] as? [String: AnyObject] {
+                        if let stories = dictComments["my_user_stories"] as? [Dictionary<String, Any>] {
+                            for dict in stories {
+                                let storyVideo = UserStories.init(dict: dict)
+                                self.arrStories.append(storyVideo)
+                            }
+                            self.setupPages()
+                        }
+                    }
+                    
+                } else {
+                    kAppDelegate.hideLoadingIndicator()
+                }
+            }
+        }
+    }
+    
     func apiIncreaseCount() {
+        guard let id = user?.id else { return }
+        if id == Singleton.sharedInstance.strUserID {
+            //If this user is logged in user
+            return
+        }
+        
         let storyId = "\(arrStories[currentIndex].id)"
         let strEndPoint = "user/user_stories/\(storyId)"
         print(strEndPoint)

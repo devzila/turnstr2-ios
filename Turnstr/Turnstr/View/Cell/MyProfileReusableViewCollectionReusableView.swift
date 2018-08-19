@@ -11,6 +11,7 @@ import UIKit
 class MyProfileReusableViewCollectionReusableView: UICollectionReusableView {
     
     @IBOutlet weak var cubeProfileView: AITransformView?
+    var current_user_story_count: Int = 0
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -35,27 +36,22 @@ class MyProfileReusableViewCollectionReusableView: UICollectionReusableView {
     }
     
     func clickOnStoryAction() {
-        ///Open Camera
-        let camVC = CameraViewController(nibName: "CameraViewController", bundle: nil)
-        camVC.kScreenType = .newStory
-        topVC?.navigationController?.pushViewController(camVC, animated: true)
         
-        /*let imagePicker = UIImagePickerController()
-         imagePicker.delegate = self
-         let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-         let cameraAction = UIAlertAction(title: "Camera", style: .default) { (_) in
-         imagePicker.sourceType = .camera
-         self.openImagePicker(imagePicker)
-         }
-         let photoAction = UIAlertAction(title: "Photo Library", style: .default) { (_) in
-         imagePicker.sourceType = .photoLibrary
-         self.openImagePicker(imagePicker)
-         }
-         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-         sheet.addAction(cameraAction)
-         sheet.addAction(photoAction)
-         sheet.addAction(cancel)
-         topVC?.present(sheet, animated: true, completion: nil)*/
+        if self.current_user_story_count > 0 {
+            ///Open StoryPage
+            
+            let user = User()
+            let storyboard = UIStoryboard.init(name: "LiveFeed", bundle: nil)
+            guard let vc = storyboard.instantiateViewController(withIdentifier: "ShortStoryVC") as? ShortStoryVC else { return }
+            vc.user = user
+            topVC?.navigationController?.pushViewController(vc, animated: true)
+            
+        } else{
+            ///Open Camera
+            let camVC = CameraViewController(nibName: "CameraViewController", bundle: nil)
+            camVC.kScreenType = .newStory
+            topVC?.navigationController?.pushViewController(camVC, animated: true)
+        }
     }
     
     func createStory() {

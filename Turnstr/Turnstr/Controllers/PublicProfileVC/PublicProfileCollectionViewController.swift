@@ -796,7 +796,7 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
         
         let story = arrMyStories[index]
         print("MY STORY TAPPED")
-        if story.content_type == storyContentType.video.rawValue {
+        /*if story.content_type == storyContentType.video.rawValue {
             guard let url = URL.init(string: story.media_url) else {return}
             let player = AVPlayer(url: url)
             let playerViewController = AVPlayerViewController()
@@ -810,11 +810,12 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
             let item = KSPhotoItem(sourceView: UIImageView(), imageUrl: url)
             let browser = KSPhotoBrowser(photoItems: [item], selectedIndex: 0)
             browser.show(from: self)
-        }
+        }*/
         
-        //        let mvc = ASVideoStoryVC()
-        //        mvc.videoStory = story
-        //        self.navigationController?.pushViewController(mvc, animated: true)
+        let mvc = ASStoryPreviewVC()
+        mvc.arrStories = arrMyStories
+        mvc.currentIndex = index
+        topVC?.navigationController?.present(mvc, animated: true, completion: nil)
     }
     
     func getAllMembersData() {

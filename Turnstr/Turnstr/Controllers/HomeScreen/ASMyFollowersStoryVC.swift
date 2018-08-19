@@ -23,6 +23,7 @@ class ASMyFollowersStoryVC: ParentViewController {
     var storiesAllPages: Int = 1
     var currentPage: Int = 1
     var totalPages: Int = 1
+    var current_user_story_count: Int = 0
     
     
     var txtSearchText: String = ""
@@ -153,6 +154,7 @@ extension ASMyFollowersStoryVC: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "MyProfileReusableViewCollectionReusableView", for: indexPath) as? MyProfileReusableViewCollectionReusableView else { return UICollectionReusableView() }
         header.updateStory()
+        header.current_user_story_count = current_user_story_count
         return header
     }
     
@@ -164,7 +166,7 @@ extension ASMyFollowersStoryVC: UICollectionViewDelegate, UICollectionViewDataSo
         let user = arrayUsers[indexPath.item]
         guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "ShortStoryVC") as? ShortStoryVC else { return }
         vc.user = user
-        navigationController?.pushViewController(vc, animated: true)
+        topVC?.navigationController?.pushViewController(vc, animated: true)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 80, height: 80)
@@ -244,6 +246,10 @@ extension ASMyFollowersStoryVC {
                             self.arrayUsers.append(user)
                         }
                         self.shortStoryCollection.reloadData()
+                    }
+                    
+                    if let story_count = data["current_user_story_count"] as? Int {
+                        self.current_user_story_count = story_count
                     }
                 }
             } else {

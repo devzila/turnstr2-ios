@@ -89,7 +89,7 @@
                                     <action selector="EditProfile:" destination="2vz-ZH-vLY" eventType="touchUpInside" id="dUm-8W-h3B"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@kimkardashian" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7lP-Ze-uOj">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7lP-Ze-uOj">
                                 <rect key="frame" x="47" y="28" width="164" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="43S-7p-QlQ"/>
