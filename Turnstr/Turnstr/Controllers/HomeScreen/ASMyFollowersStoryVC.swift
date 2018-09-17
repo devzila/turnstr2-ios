@@ -102,7 +102,7 @@ extension ASMyFollowersStoryVC: UITableViewDelegate, UITableViewDataSource {
         }
         cell.cubeView?.setup(withUrls: arrMedia)
         cell.cubeView?.setScrollFromNil(CGPoint.init(x: 0, y: kWidth/2), end: CGPoint.init(x: 5, y: kWidth/2))
-        cell.cubeView?.setScroll(CGPoint.init(x: kWidth/2, y: 0), end: CGPoint.init(x: kWidth/2, y: 2))
+        cell.cubeView?.setScroll(CGPoint.init(x: kWidth/2, y: 0), end: CGPoint.init(x: kWidth/2, y: 5))
         cell.cubeView?.isUserInteractionEnabled = true
         cell.selectionStyle = .none
         if arrAllData.count > indexPath.row {
@@ -159,7 +159,7 @@ extension ASMyFollowersStoryVC: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: 80, height: 80)
+        return CGSize(width: 80, height: 100)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -169,7 +169,7 @@ extension ASMyFollowersStoryVC: UICollectionViewDelegate, UICollectionViewDataSo
         topVC?.navigationController?.pushViewController(vc, animated: true)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 80, height: 80)
+        return CGSize(width: 80, height: 100)
     }
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if indexPath.item == (arrayUsers.count - 1) {

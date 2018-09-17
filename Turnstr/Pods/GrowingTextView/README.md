@@ -19,14 +19,42 @@ iOS 8.0 or above
 GrowingTextView is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
-Swift 3 and Swift 4<br>
+Swift 4<br>
+
 ```ruby
-pod 'GrowingTextView'
+pod 'GrowingTextView', '~> 0.5.5'
+```
+
+Swift 3<br>
+```ruby
+pod 'GrowingTextView', '~> 0.4.0'
 ```
 
 Swift 2.3 (Stopped update since Sep 2016)<br>
 ```ruby
 pod 'GrowingTextView', :git => 'https://github.com/KennethTsang/GrowingTextView.git', :branch => 'swift2'
+```
+
+#### Carthage
+
+GrowingTextView is also available through
+[Carthage](https://github.com/Carthage/Carthage). To install it, add the following
+line to your Cartfile:
+
+Swift 4<br>
+
+```ruby
+github "KennethTsang/GrowingTextView" ~> 0.5.5
+```
+
+Swift 3<br>
+```ruby
+github "KennethTsang/GrowingTextView" ~> 0.4.0
+```
+
+Swift 2.3 (Stopped update since Sep 2016)<br>
+```ruby
+github "KennethTsang/GrowingTextView" "swift2"
 ```
 
 #### Manually
@@ -35,7 +63,11 @@ Copy `GrowingTextView.swift` into your project.
 
 ## Usage
 
-**Programmatically**<br>
+**Example**<br>
+
+GrowingTextview is just a textview, download the example to see how to use it as a input toolbar like other instant messaging apps.
+
+**Using GrowingTextview programmatically**<br>
 
 ```swift
 let textView = GrowingTextView()
@@ -43,7 +75,7 @@ textView.delegate = self
 addSubview(textView)
 ```
 
-**Storyboard**<br>
+**Using GrowingTextview in Storyboard**<br>
 
 1. Drag a TextView into Storyboard.
 2. Set class to "GrowingTextView".
@@ -67,10 +99,9 @@ override func viewDidLoad() {
 | ------------------------------ | ------------------- | ---------------------------------------- | ------------------------------- |
 | *maxLength*                    | Int                 | Maximum text length. Exceeded text will be trimmed. 0 means no limit. | *0*                             |
 | *trimWhiteSpaceWhenEndEditing* | Bool                | Trim white space and new line characters when textview did end editing. | *true*                          |
-| *placeHolder*                  | String?             | PlaceHolder text.                        | *nil*                           |
-| *placeHolderColor*             | UIColor             | PlaceHolder text color.                  | UIColor(white: 0.8, alpha: 1.0) |
-| *placeHolderLeftMargin*        | CGFloat             | Left margin of PlaceHolder text.         | *5.0*                           |
-| *attributedPlaceHolder*        | NSAttributedString? | Attributed PlaceHolder text.             | *nil*                           |
+| *placeholder*                  | String?             | Placeholder text.                        | *nil*                           |
+| *placeholderColor*             | UIColor             | Placeholder text color.                  | UIColor(white: 0.8, alpha: 1.0) |
+| *attributedPlaceholder*        | NSAttributedString? | Attributed Placeholder text.             | *nil*                           |
 | *minHeight*                    | CGFloat             | Minimum height of textview.              | *0.0*                           |
 | *maxHeight*                    | CGFloat             | Maximum height of textview.              | *0.0*                           |
 
@@ -79,8 +110,8 @@ override func viewDidLoad() {
 ```swift
 textView.maxLength = 140
 textView.trimWhiteSpaceWhenEndEditing = false
-textView.placeHolder = "Say something..."
-textView.placeHolderColor = UIColor(white: 0.8, alpha: 1.0)
+textView.placeholder = "Say something..."
+textView.placeholderColor = UIColor(white: 0.8, alpha: 1.0)
 textView.minHeight = 25.0
 textView.maxHeight = 70.0
 textView.backgroundColor = UIColor.whiteColor()

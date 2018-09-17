@@ -81,27 +81,13 @@ class LiveFeedsViewController: UIViewController, UserListDelegate {
     }
     
     func goLIveAlert() {
-        //        let alertView = UIAlertController(title: "", message: "Do you want to Go-Live?", preferredStyle: .alert)
-        //        let action = UIAlertAction(title: "YES", style: .default, handler: { (alert) in
         self.uvVideo?.StopSession()
-        //self.showAlert = false
-        //self.AddUserInCall()
-        
-        //self.showAlert = true
         let storyboard = UIStoryboard(name: "Chat", bundle: nil)
         let vc: MultiCallViewController = storyboard.instantiateViewController(withIdentifier: "MultiCallViewController") as! MultiCallViewController
         vc.userType = .caller
         vc.screenTYPE = .goLive
         self.topVC?.navigationController?.pushViewController(vc, animated: false)
         
-        //        })
-        //        alertView.addAction(action)
-        //
-        //        let cancel = UIAlertAction(title: "NO", style: .destructive, handler: { (alert) in
-        //
-        //        })
-        //        alertView.addAction(cancel)
-        //        self.present(alertView, animated: true, completion: nil)
     }
     
     func AddUserInCall() {

@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import MediaPlayer
 
 protocol VideoDelegate {
     func VideoPicked(url: URL)
@@ -35,12 +36,9 @@ class VideoView: UIView, AVCaptureFileOutputRecordingDelegate, VideoPlayerDelega
     var cameraPreviewlayer : AVCaptureVideoPreviewLayer?
     var cameraSession : AVCaptureSession?
     var videoFileOutput : AVCaptureMovieFileOutput?
-    
+    var kScreenType: controllerType = .myStory
     //For photo
     var stillImageOutput : AVCaptureStillImageOutput?
-    
-    
-    
     var progressView = UISlider()
     
     
@@ -62,13 +60,7 @@ class VideoView: UIView, AVCaptureFileOutputRecordingDelegate, VideoPlayerDelega
         } catch let error as NSError {
             print(error.localizedDescription)
         }
-        
-        
         self.cameraSetup()
-        //videoLength.value = 0.0
-        
-        
-        
         CameraScreenButtons()
     }
     
@@ -180,8 +172,6 @@ class VideoView: UIView, AVCaptureFileOutputRecordingDelegate, VideoPlayerDelega
     //MARK:- Buttons
     func CameraScreenButtons() -> Void {
         
-        
-        //btnSelfiCap.frame = CGRect.init(x: kWidth-55, y: self.frame.height-60, width: 50, height: 40)
         btnSelfiCap.frame = CGRect.init(x: kWidth-55, y: 10, width: 50, height: 40)
         btnSelfiCap.setImage(UIImage.init(named: "selfi"), for: .normal)
         self.addSubview(btnSelfiCap)
@@ -191,9 +181,6 @@ class VideoView: UIView, AVCaptureFileOutputRecordingDelegate, VideoPlayerDelega
         btnVideoCap.frame = CGRect.init(x: kCenterW-30, y: self.frame.height-70, width: 60, height: 60)
         btnVideoCap.setImage(#imageLiteral(resourceName: "nw_record"), for: .normal)
         self.addSubview(btnVideoCap)
-        //btnVideoCap.addTarget(self, action: #selector(touchRelease(sender:)), for: .touchUpInside);
-        //btnVideoCap.addTarget(self, action: #selector(touchStart(sender:)), for: .touchDown)
-        
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap(gestureRecognizer:)))
         btnVideoCap.addGestureRecognizer(tap)
         
@@ -378,7 +365,7 @@ class VideoView: UIView, AVCaptureFileOutputRecordingDelegate, VideoPlayerDelega
         }
         //create an avassetrack with our asset
         let clipVideoTrack = asset.tracks(withMediaType: AVMediaTypeVideo)[0]
-        
+
         let videoComposition: AVMutableVideoComposition = AVMutableVideoComposition()
         videoComposition.frameDuration = CMTimeMake(1, 60)
         videoComposition.renderSize = CGSize.init(width: clipVideoTrack.naturalSize.height, height: clipVideoTrack.naturalSize.height)
@@ -410,7 +397,9 @@ class VideoView: UIView, AVCaptureFileOutputRecordingDelegate, VideoPlayerDelega
         
         //Export
         let exporter = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetMediumQuality)
-        exporter!.videoComposition = videoComposition;
+        if kScreenType == .myStory {
+            exporter!.videoComposition = videoComposition;
+        }
         exporter!.outputURL = exportUrl as URL;
         exporter!.outputFileType = AVFileTypeQuickTimeMovie;
         
@@ -418,13 +407,23 @@ class VideoView: UIView, AVCaptureFileOutputRecordingDelegate, VideoPlayerDelega
             DispatchQueue.main.async {
                 let expOutputURL: URL? = (exporter?.outputURL as URL?)
                 if expOutputURL != nil{
-                    
-                    
-                    let videoPlayer = VideoPlayer.init(frame: CGRect.init(x: 0, y: 0, width: kWidth, height: self.frame.height+78))
-                    videoPlayer.delegate = self
-                    self.addSubview(videoPlayer)
-                    videoPlayer.startPlayer(videoUrl: expOutputURL!)
-                    
+                    if self.kScreenType == .myStory {
+                        let videoPlayer = VideoPlayer.init(frame: CGRect.init(x: 0, y: 0, width: kWidth, height: kHeight))
+                        
+                        videoPlayer.delegate = self
+                        self.addSubview(videoPlayer)
+                        videoPlayer.startPlayer(videoUrl: expOutputURL!)
+                    }
+                    else {
+                        let vc = VideoPreviewVC(nibName: "VideoPreviewVC", bundle: nil)
+                        self.topVC?.present(vc, animated: false, completion: nil)
+                        vc.callbackAction = { [weak self] (status) in
+                            if status, let url = expOutputURL {
+                                self?.VideoPlayerDone(videoUrl: url)
+                            }
+                        }
+                        vc.url = expOutputURL
+                    }
                 }
             }
         })

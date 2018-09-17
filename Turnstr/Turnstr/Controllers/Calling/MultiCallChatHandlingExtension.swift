@@ -35,7 +35,7 @@ extension MultiCallViewController {
                 view.bringSubview(toFront: tbl)
             }
             tblView?.reloadData()
-            tblView?.scrollToBottom()
+//            tblView?.scrollToBottom()
         }
         else {
             if let manager = AppDelegate.shared?.callManager, let call = AppDelegate.shared?.onGoingCall {

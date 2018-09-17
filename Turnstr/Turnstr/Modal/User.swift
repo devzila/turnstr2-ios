@@ -24,6 +24,7 @@ class User: NSObject {
     var contactMe: String?
     var online: Bool = false
     var isVerified: Bool = false
+    var isUnwatched: Bool = false
     lazy var cubeUrls: [URL] = [URL]()
     
     
@@ -116,6 +117,10 @@ class User: NSObject {
             if let str = objUser["online"] as? Bool {
                 self.online  = str
             }
+            
+            if let unwatched = objUser["unwatched_story"] as? Bool {
+                self.isUnwatched = unwatched
+            }
         }
     }
     
@@ -164,6 +169,9 @@ class User: NSObject {
         }
         if let isVerified = userStory?["is_verified"] as? Int {
             self.isVerified = isVerified == 1
+        }
+        if let unwatched = userStory?["unwatched_story"] as? Int {
+            self.isUnwatched = unwatched == 1
         }
         if let online = userStory?["online"] as? Int {
             self.online = online == 1

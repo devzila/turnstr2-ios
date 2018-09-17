@@ -188,18 +188,9 @@ class CameraViewController: ParentViewController, CameraViewDelegates, VideoDele
     
     func createCameraView() -> Void {
         
-        //        if uvCamera == nil {
-        //            uvCamera = CameraView.init(frame: uvContent.frame)
-        //            uvCamera?.delegate = self
-        //            uvCamera?.btnGallery.addTarget(self, action: #selector(LibraryClicked(_:)), for: .touchUpInside)
-        //            uvCamera?.btnVideoIcon.addTarget(self, action: #selector(VideosClicked(_:)), for: .touchUpInside)
-        //        }
-        //        uvCamera?.isHidden = true
-        //        uvContent.addSubview(uvCamera!)
-        //        uvCamera?.StopSession()
-        
         if uvVideo == nil {
             uvVideo = VideoView.init(frame: uvContent.frame)
+            uvVideo?.kScreenType = kScreenType
             uvVideo?.delegate = self
             uvVideo?.btnGallery.addTarget(self, action: #selector(LibraryClicked(_:)), for: .touchUpInside)
             uvVideo?.btnMyStoriesIcon.addTarget(self, action: #selector(openMyStories), for: .touchUpInside)
@@ -386,7 +377,6 @@ class CameraViewController: ParentViewController, CameraViewDelegates, VideoDele
         homeVC.screenType = .myStories
         homeVC.delegate = self
         topVC?.navigationController?.pushViewController(homeVC, animated: true)
-        
     }
     
     func actBackClicked() {
@@ -441,7 +431,7 @@ class CameraViewController: ParentViewController, CameraViewDelegates, VideoDele
         
         let arrButtons: [UIButton] = [btnLibrary, btnPhotos, btnVideos]
         
-        for var i in 0..<3 {
+        for i in 0..<3 {
             let btn = arrButtons[i]
             if i == selectedTab-1 {
                 btn.isSelected = true
@@ -560,7 +550,8 @@ class CameraViewController: ParentViewController, CameraViewDelegates, VideoDele
                         kAppDelegate.hideLoadingIndicator()
                         //                        self.objUtil.showToast(strMsg: "Story created successfully")
                         DispatchQueue.main.asyncAfter(deadline: .now()+0.2, execute: {
-                            self.openMyStories()
+//                            self.openMyStories()
+                            self.homeScreen()
                         })
                     }
                 }

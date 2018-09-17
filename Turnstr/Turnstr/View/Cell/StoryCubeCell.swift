@@ -26,6 +26,9 @@ class StoryCubeCell: UITableViewCell {
                 let strCount = count > 1 ? " \(count) Likes" : " \(count) Like"
                 lblLikes?.text = strCount
             }
+            lblComments?.isUserInteractionEnabled = true
+            let gesture = UITapGestureRecognizer(target: self, action: #selector(btnCommentAction))
+            lblComments?.addGestureRecognizer(gesture)
             if let count = storyInfo?["comments_count"] as? Int {
                 let strCount = count > 1 ? " \(count) Comments" : " \(count) Comment"
                 lblComments?.text = "View all \(strCount)"
@@ -65,7 +68,6 @@ class StoryCubeCell: UITableViewCell {
                 
                 let tapGesture = UITapGestureRecognizer(target: self, action: #selector(openUserProfile))
                 cubeProfileView?.superview?.addGestureRecognizer(tapGesture)
-                
             }
         }
     }
@@ -82,15 +84,6 @@ class StoryCubeCell: UITableViewCell {
         let likeCount = lblLikes?.text?.intVal() ?? 0
         
         let count = sender.isSelected == true ? likeCount + 1 : likeCount - 1
-        //let strCount = likeCount > 1 ? " \(count) Likes" : " \(count) Like"
-        //lblLikes?.text = strCount
-        
-//        if let likeCount = btnLike?.currentTitle?.intVal() {
-//            let count = sender.isSelected ? likeCount + 1 : likeCount - 1
-//            let strCount = likeCount > 1 ? " \(count) Likes" : " \(count) Like"
-//            btnLike?.setTitle(strCount, for: .normal)
-//            btnLike?.setTitle(strCount, for: .selected)
-//        }
         
         storyInfo?["has_liked"] = sender.isSelected
         storyInfo?["likes_count"] = count
@@ -139,8 +132,8 @@ class StoryCubeCell: UITableViewCell {
 
 extension StoryCubeCell: StoryCommentsDelegate {
     func CommentCountChanged(count: Int) {
-        let count = " \(count) \(count > 1 ? " Comments" : " Comment")"
-        btnComment?.setTitle(count, for: .normal)
+        let strCount = count > 1 ? " \(count) Comments" : " \(count) Comment"
+        lblComments?.text = "View all \(strCount)"
     }
 }
 

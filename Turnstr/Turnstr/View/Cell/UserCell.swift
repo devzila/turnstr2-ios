@@ -23,7 +23,7 @@ class UserCell: UITableViewCell {
     
     func updateUserInfo(_ user: User) {
         lblName?.text = user.name
-        lblSubTitle?.text = user.email
+        lblSubTitle?.text = ""//user.email
         
         cubeView?.backgroundColor = .clear
         lblName?.textColor = .white

@@ -101,9 +101,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func loadingIndicationCreation() -> Void {
         SVProgressHUD.show()
         
-        
-        //hud = MBProgressHUD.showAdded(to: window, animated: true)
-        //hud.labelText = "Loading"
     }
     
     func loadingIndicationCreationMSG(msg: String) -> Void {

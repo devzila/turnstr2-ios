@@ -13,17 +13,17 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MyProfileReusableViewCollectionReusableView" id="U6b-Vx-4bR" customClass="MyProfileReusableViewCollectionReusableView" customModule="Turnstr" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="154" height="155"/>
+            <rect key="frame" x="0.0" y="0.0" width="80" height="100"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Story" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7dY-wK-UMq">
-                    <rect key="frame" x="50.5" y="135" width="53" height="16"/>
+                    <rect key="frame" x="13.5" y="76" width="53" height="16"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bog-Ku-VbZ" customClass="AITransformView">
-                    <rect key="frame" x="0.0" y="0.0" width="154" height="135"/>
+                    <rect key="frame" x="0.0" y="0.0" width="80" height="76"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
             </subviews>
@@ -32,7 +32,7 @@
                 <constraint firstItem="7dY-wK-UMq" firstAttribute="centerX" secondItem="U6b-Vx-4bR" secondAttribute="centerX" id="YfA-pW-KsP"/>
                 <constraint firstItem="7dY-wK-UMq" firstAttribute="top" secondItem="Bog-Ku-VbZ" secondAttribute="bottom" id="m3o-uE-mHY"/>
                 <constraint firstAttribute="trailing" secondItem="Bog-Ku-VbZ" secondAttribute="trailing" id="n4Z-qQ-rZM"/>
-                <constraint firstItem="VXr-Tz-HHm" firstAttribute="bottom" secondItem="7dY-wK-UMq" secondAttribute="bottom" constant="4" id="ngi-41-4jo"/>
+                <constraint firstAttribute="bottom" secondItem="7dY-wK-UMq" secondAttribute="bottom" constant="8" id="uZW-zG-LHN"/>
                 <constraint firstItem="Bog-Ku-VbZ" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" id="xMT-ES-CE5"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="VXr-Tz-HHm"/>

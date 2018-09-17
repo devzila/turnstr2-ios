@@ -13,18 +13,18 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="UserStoryCell" id="gTV-IL-0wX" customClass="UserStoryCell" customModule="Turnstr" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="117" height="116"/>
+            <rect key="frame" x="0.0" y="0.0" width="110" height="130"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="117" height="116"/>
+                <rect key="frame" x="0.0" y="0.0" width="110" height="130"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4iA-qi-8Nc" customClass="AITransformView">
-                        <rect key="frame" x="0.0" y="0.0" width="117" height="96"/>
+                        <rect key="frame" x="0.0" y="0.0" width="110" height="110"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VMp-W5-xQt">
-                        <rect key="frame" x="28.5" y="96" width="60" height="16"/>
+                        <rect key="frame" x="25" y="110" width="60" height="16"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -40,12 +40,12 @@
                 <constraint firstItem="4iA-qi-8Nc" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="x6Q-bE-cj5"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
-            <size key="customSize" width="117" height="116"/>
+            <size key="customSize" width="110" height="130"/>
             <connections>
                 <outlet property="cubeProfileView" destination="4iA-qi-8Nc" id="EKY-Gc-DEl"/>
                 <outlet property="lblUserName" destination="VMp-W5-xQt" id="Egm-PY-a00"/>
             </connections>
-            <point key="canvasLocation" x="67.5" y="140"/>
+            <point key="canvasLocation" x="64" y="147"/>
         </collectionViewCell>
     </objects>
 </document>

@@ -73,6 +73,8 @@
 		8A385E381FDE8AE00061CAF5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8A385E311FDE7FCE0061CAF5 /* GoogleService-Info.plist */; };
 		8A9C6B071F5745560095230B /* AppDelegateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9C6B061F5745560095230B /* AppDelegateExtension.swift */; };
 		8AA228471F8F849200D4313E /* GoogleService-Info- dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8AA228461F8F7FBF00D4313E /* GoogleService-Info- dev.plist */; };
+		8AAC48E4215021A900171293 /* VideoPreviewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAC48E2215021A900171293 /* VideoPreviewVC.swift */; };
+		8AAC48E5215021A900171293 /* VideoPreviewVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8AAC48E3215021A900171293 /* VideoPreviewVC.xib */; };
 		8AB03AD01FD94BAA00D39662 /* MultiCallChatHandlingExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB03ACF1FD94BAA00D39662 /* MultiCallChatHandlingExtension.swift */; };
 		8AC21B92211CB323004A15AD /* MyProfileReusableViewCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC21B90211CB323004A15AD /* MyProfileReusableViewCollectionReusableView.swift */; };
 		8AC21B93211CB323004A15AD /* MyProfileReusableViewCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8AC21B91211CB323004A15AD /* MyProfileReusableViewCollectionReusableView.xib */; };
@@ -304,9 +306,11 @@
 		8A26302C1F339A5200F55C2B /* ChatVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatVC.swift; sourceTree = "<group>"; };
 		8A26302E1F33B3CA00F55C2B /* ChatParentVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatParentVC.swift; sourceTree = "<group>"; };
 		8A385E311FDE7FCE0061CAF5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		8A8796B91F55F7A7001B01D6 /* Turnstr.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Turnstr.entitlements; sourceTree = "<group>"; };
 		8A9C6B061F5745560095230B /* AppDelegateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegateExtension.swift; sourceTree = "<group>"; };
 		8AA228461F8F7FBF00D4313E /* GoogleService-Info- dev.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info- dev.plist"; sourceTree = "<group>"; };
+		8AAC48E2215021A900171293 /* VideoPreviewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPreviewVC.swift; sourceTree = "<group>"; };
+		8AAC48E3215021A900171293 /* VideoPreviewVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoPreviewVC.xib; sourceTree = "<group>"; };
+		8AAFEED22143104C00AD1468 /* Turnstr.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Turnstr.entitlements; sourceTree = "<group>"; };
 		8AB03ACF1FD94BAA00D39662 /* MultiCallChatHandlingExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiCallChatHandlingExtension.swift; sourceTree = "<group>"; };
 		8AC21B90211CB323004A15AD /* MyProfileReusableViewCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileReusableViewCollectionReusableView.swift; sourceTree = "<group>"; };
 		8AC21B91211CB323004A15AD /* MyProfileReusableViewCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyProfileReusableViewCollectionReusableView.xib; sourceTree = "<group>"; };
@@ -1003,6 +1007,8 @@
 				D9D3DF4E1F1130E100173FFD /* CameraViewController.xib */,
 				D9F6F621203614A60059893A /* ImagesCell.swift */,
 				D9F6F622203614A60059893A /* ImagesCell.xib */,
+				8AAC48E2215021A900171293 /* VideoPreviewVC.swift */,
+				8AAC48E3215021A900171293 /* VideoPreviewVC.xib */,
 			);
 			path = CameraVC;
 			sourceTree = "<group>";
@@ -1039,7 +1045,7 @@
 		D9FDE6101EC2263C009D5BE3 /* Turnstr */ = {
 			isa = PBXGroup;
 			children = (
-				8A8796B91F55F7A7001B01D6 /* Turnstr.entitlements */,
+				8AAFEED22143104C00AD1468 /* Turnstr.entitlements */,
 				8A1104BD1F5DC0D9009FFE0C /* CallKit */,
 				D9FDE64A1EC25561009D5BE3 /* Images */,
 				D91C3ADD1F001D70005F945C /* Library */,
@@ -1232,7 +1238,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0820;
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = "Ankit Saini";
 				TargetAttributes = {
 					D9FDE60D1EC2263C009D5BE3 = {
@@ -1291,6 +1297,7 @@
 				8AEC2C861F169C23008DF3BB /* Login.storyboard in Resources */,
 				D9FDE6191EC2263C009D5BE3 /* Assets.xcassets in Resources */,
 				D957F31B1F435E1A00307968 /* CommentCell.xib in Resources */,
+				8AAC48E5215021A900171293 /* VideoPreviewVC.xib in Resources */,
 				D9F6F624203614A60059893A /* ImagesCell.xib in Resources */,
 				8AEC2C8A1F169C23008DF3BB /* Stories.storyboard in Resources */,
 				8AEC2C841F169C23008DF3BB /* LaunchScreen.storyboard in Resources */,
@@ -1352,25 +1359,25 @@
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FLAnimatedImage/FLAnimatedImage.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookShare/FacebookShare.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/GrowingTextView/GrowingTextView.framework",
 				"${BUILT_PRODUCTS_DIR}/KSPhotoBrowser/KSPhotoBrowser.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/RMMapper/RMMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${PODS_ROOT}/SendBirdSDK/SendBirdSDK.framework",
 				"${PODS_ROOT}/SendBirdSDK/SendBirdSDK.framework.dSYM",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${PODS_ROOT}/TwitterCore/iOS/TwitterCore.framework",
 				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework",
-				"${BUILT_PRODUCTS_DIR}/YYCache/YYCache.framework",
-				"${BUILT_PRODUCTS_DIR}/YYImage/YYImage.framework",
-				"${BUILT_PRODUCTS_DIR}/YYWebImage/YYWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -1381,25 +1388,25 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FLAnimatedImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookLogin.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookShare.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GrowingTextView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KSPhotoBrowser.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RMMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SendBirdSDK.framework",
 				"${DWARF_DSYM_FOLDER_PATH}/SendBirdSDK.framework.dSYM",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYCache.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYImage.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1452,6 +1459,7 @@
 				D957F30D1F435C4300307968 /* ImagePreviewViewController.swift in Sources */,
 				D9357CEB1FDD67D700987E7C /* SHCollectionViewCell.swift in Sources */,
 				D96366661F035BD100784A58 /* UIButton+WebCache.m in Sources */,
+				8AAC48E4215021A900171293 /* VideoPreviewVC.swift in Sources */,
 				7EBFF7ED1F46204800A8574D /* Photos.swift in Sources */,
 				D96366631F035BD100784A58 /* SDWebImageDownloaderOperation.m in Sources */,
 				1861D9C11F44C0C2009E80D7 /* ChatDataSource.swift in Sources */,
@@ -1623,15 +1631,23 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1673,15 +1689,23 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1720,6 +1744,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 23XBCM8RPS;
 				ENABLE_BITCODE = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/OpenTok \"${PODS_CONFIGURATION_BUILD_DIR}/Alamofire\" \"${PODS_CONFIGURATION_BUILD_DIR}/AlamofireImage\" \"${PODS_CONFIGURATION_BUILD_DIR}/Bolts\" \"${PODS_CONFIGURATION_BUILD_DIR}/FBSDKCoreKit\" \"${PODS_CONFIGURATION_BUILD_DIR}/FBSDKLoginKit\" \"${PODS_CONFIGURATION_BUILD_DIR}/FBSDKShareKit\" \"${PODS_CONFIGURATION_BUILD_DIR}/FLAnimatedImage\" \"${PODS_CONFIGURATION_BUILD_DIR}/FacebookCore\" \"${PODS_CONFIGURATION_BUILD_DIR}/FacebookLogin\" \"${PODS_CONFIGURATION_BUILD_DIR}/FacebookShare\" \"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseCore\" \"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseMessaging\" \"${PODS_CONFIGURATION_BUILD_DIR}/GoogleUtilities\" \"${PODS_CONFIGURATION_BUILD_DIR}/GrowingTextView\" \"${PODS_CONFIGURATION_BUILD_DIR}/KSPhotoBrowser\" \"${PODS_CONFIGURATION_BUILD_DIR}/Kingfisher\" \"${PODS_CONFIGURATION_BUILD_DIR}/NVActivityIndicatorView\" \"${PODS_CONFIGURATION_BUILD_DIR}/ObjectMapper\" \"${PODS_CONFIGURATION_BUILD_DIR}/Protobuf\" \"${PODS_CONFIGURATION_BUILD_DIR}/RMMapper\" \"${PODS_CONFIGURATION_BUILD_DIR}/SDWebImage\" \"${PODS_CONFIGURATION_BUILD_DIR}/SVProgressHUD\" \"${PODS_CONFIGURATION_BUILD_DIR}/SwiftyJSON\" \"${PODS_CONFIGURATION_BUILD_DIR}/nanopb\" \"${PODS_ROOT}/FirebaseAnalytics/Frameworks\" \"${PODS_ROOT}/FirebaseInstanceID/Frameworks\" \"${PODS_ROOT}/GoogleAppMeasurement/Frameworks\" \"${PODS_ROOT}/SendBirdSDK\" \"${PODS_ROOT}/TwitterCore/iOS\" \"${PODS_ROOT}/TwitterKit/iOS\"",
+				);
 				INFOPLIST_FILE = Turnstr/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1746,6 +1774,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 23XBCM8RPS;
 				ENABLE_BITCODE = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/OpenTok \"${PODS_CONFIGURATION_BUILD_DIR}/Alamofire\" \"${PODS_CONFIGURATION_BUILD_DIR}/AlamofireImage\" \"${PODS_CONFIGURATION_BUILD_DIR}/Bolts\" \"${PODS_CONFIGURATION_BUILD_DIR}/FBSDKCoreKit\" \"${PODS_CONFIGURATION_BUILD_DIR}/FBSDKLoginKit\" \"${PODS_CONFIGURATION_BUILD_DIR}/FBSDKShareKit\" \"${PODS_CONFIGURATION_BUILD_DIR}/FLAnimatedImage\" \"${PODS_CONFIGURATION_BUILD_DIR}/FacebookCore\" \"${PODS_CONFIGURATION_BUILD_DIR}/FacebookLogin\" \"${PODS_CONFIGURATION_BUILD_DIR}/FacebookShare\" \"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseCore\" \"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseMessaging\" \"${PODS_CONFIGURATION_BUILD_DIR}/GoogleUtilities\" \"${PODS_CONFIGURATION_BUILD_DIR}/GrowingTextView\" \"${PODS_CONFIGURATION_BUILD_DIR}/KSPhotoBrowser\" \"${PODS_CONFIGURATION_BUILD_DIR}/Kingfisher\" \"${PODS_CONFIGURATION_BUILD_DIR}/NVActivityIndicatorView\" \"${PODS_CONFIGURATION_BUILD_DIR}/ObjectMapper\" \"${PODS_CONFIGURATION_BUILD_DIR}/Protobuf\" \"${PODS_CONFIGURATION_BUILD_DIR}/RMMapper\" \"${PODS_CONFIGURATION_BUILD_DIR}/SDWebImage\" \"${PODS_CONFIGURATION_BUILD_DIR}/SVProgressHUD\" \"${PODS_CONFIGURATION_BUILD_DIR}/SwiftyJSON\" \"${PODS_CONFIGURATION_BUILD_DIR}/nanopb\" \"${PODS_ROOT}/FirebaseAnalytics/Frameworks\" \"${PODS_ROOT}/FirebaseInstanceID/Frameworks\" \"${PODS_ROOT}/GoogleAppMeasurement/Frameworks\" \"${PODS_ROOT}/SendBirdSDK\" \"${PODS_ROOT}/TwitterCore/iOS\" \"${PODS_ROOT}/TwitterKit/iOS\"",
+				);
 				INFOPLIST_FILE = Turnstr/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

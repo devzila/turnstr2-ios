@@ -91,7 +91,7 @@ class SharePhotoViewController: ParentViewController, MFMailComposeViewControlle
             } else {
                 let loginManager = LoginManager()
                 loginManager.loginBehavior = .native
-                loginManager.logIn([ .publishActions ], viewController: self) { (LoginResult) in
+                loginManager.logIn(publishPermissions: [PublishPermission.publishActions], viewController: self) { (LoginResult) in
                     self.shareOnFB(img: img)
                 }
             }

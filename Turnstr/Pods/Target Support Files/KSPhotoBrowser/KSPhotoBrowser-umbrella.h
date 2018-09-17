@@ -15,7 +15,8 @@
 #import "KSPhotoItem.h"
 #import "KSPhotoView.h"
 #import "KSProgressLayer.h"
-#import "KSYYImageManager.h"
+#import "KSSDImageManager.h"
+#import "UIImage+KS.h"
 
 FOUNDATION_EXPORT double KSPhotoBrowserVersionNumber;
 FOUNDATION_EXPORT const unsigned char KSPhotoBrowserVersionString[];

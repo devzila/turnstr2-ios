@@ -21,7 +21,7 @@ class TabbarController: ParentViewController {
     var goLive: UIViewController?
     var profile: UIViewController?
     var story: UIViewController?
-    var search: StoriesViewController?
+    var search: ASSearchVC?
     var photos: UIViewController?
     
     
@@ -57,9 +57,13 @@ class TabbarController: ParentViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(launchHomeScreen), name: NSNotification.Name.init("LaunchHomeScreen"), object: nil)
         // Do any additional setup after loading the view.
         
+        btnSelectAction(btnLiveFeed!)
+    }
+    
+    func launchHomeScreen() {
         btnSelectAction(btnLiveFeed!)
     }
 
@@ -93,8 +97,8 @@ class TabbarController: ParentViewController {
         
         if sender === btnSearch {
             if search == nil {
-                search = Storyboards.storyStoryboard.initialVC() as? StoriesViewController
-                search?.screenType = .myStories
+                search = Storyboards.photoStoryboard.initialVC(with: .searchVC) as? ASSearchVC
+//                search?.screenType = .myStories
             }
             self.activeViewController = search
         }

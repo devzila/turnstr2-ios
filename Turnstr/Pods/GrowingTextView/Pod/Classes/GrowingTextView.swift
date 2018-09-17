@@ -33,16 +33,13 @@ open class GrowingTextView: UITextView {
     @IBInspectable open var maxHeight: CGFloat = 0 {
         didSet { forceLayoutSubviews() }
     }
-    @IBInspectable open var placeHolder: String? {
+    @IBInspectable open var placeholder: String? {
         didSet { setNeedsDisplay() }
     }
-    @IBInspectable open var placeHolderColor: UIColor = UIColor(white: 0.8, alpha: 1.0) {
+    @IBInspectable open var placeholderColor: UIColor = UIColor(white: 0.8, alpha: 1.0) {
         didSet { setNeedsDisplay() }
     }
-    @IBInspectable open var attributedPlaceHolder: NSAttributedString? {
-        didSet { setNeedsDisplay() }
-    }
-    @IBInspectable open var placeHolderLeftMargin: CGFloat = 5 {
+    @IBInspectable open var attributedPlaceholder: NSAttributedString? {
         didSet { setNeedsDisplay() }
     }
     
@@ -72,7 +69,7 @@ open class GrowingTextView: UITextView {
         return CGSize(width: UIViewNoIntrinsicMetric, height: 30)
     }
     
-    func associateConstraints() {
+    private func associateConstraints() {
         // iterate through all text view's constraints and identify
         // height,from: https://github.com/legranddamien/MBAutoGrowingTextView
         for constraint in constraints {
@@ -94,6 +91,7 @@ open class GrowingTextView: UITextView {
         layoutIfNeeded()
     }
     
+    private var shouldScrollAfterHeightChanged = false
     override open func layoutSubviews() {
         super.layoutSubviews()
         
@@ -117,80 +115,77 @@ open class GrowingTextView: UITextView {
         }
         
         // Update height constraint if needed
-        if height != heightConstraint?.constant {
+        if height != heightConstraint!.constant {
+            shouldScrollAfterHeightChanged = true
             heightConstraint!.constant = height
-            scrollToCorrectPosition()
             if let delegate = delegate as? GrowingTextViewDelegate {
                 delegate.textViewDidChangeHeight?(self, height: height)
             }
+        } else if shouldScrollAfterHeightChanged {
+            shouldScrollAfterHeightChanged = false
+            scrollToCorrectPosition()
         }
     }
-
+    
     private func scrollToCorrectPosition() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
-            if self.isFirstResponder {
-                self.scrollRangeToVisible(NSMakeRange(-1, 0)) // Scroll to bottom
-            } else {
-                self.scrollRangeToVisible(NSMakeRange(0, 0)) // Scroll to top
-            }
+        if self.isFirstResponder {
+            self.scrollRangeToVisible(NSMakeRange(-1, 0)) // Scroll to bottom
+        } else {
+            self.scrollRangeToVisible(NSMakeRange(0, 0)) // Scroll to top
         }
     }
     
     // Show placeholder if needed
     override open func draw(_ rect: CGRect) {
         super.draw(rect)
+        
         if text.isEmpty {
-            let xValue = textContainerInset.left + placeHolderLeftMargin
+            let xValue = textContainerInset.left + textContainer.lineFragmentPadding
             let yValue = textContainerInset.top
             let width = rect.size.width - xValue - textContainerInset.right
             let height = rect.size.height - yValue - textContainerInset.bottom
-            let placeHolderRect = CGRect(x: xValue, y: yValue, width: width, height: height)
+            let placeholderRect = CGRect(x: xValue, y: yValue, width: width, height: height)
             
-            if let attributedPlaceholder = attributedPlaceHolder {
-                // Prefer to use attributedPlaceHolder
-                attributedPlaceholder.draw(in: placeHolderRect)
-            } else if let placeHolder = placeHolder {
-                // Otherwise user placeHolder and inherit `text` attributes
+            if let attributedPlaceholder = attributedPlaceholder {
+                // Prefer to use attributedPlaceholder
+                attributedPlaceholder.draw(in: placeholderRect)
+            } else if let placeholder = placeholder {
+                // Otherwise user placeholder and inherit `text` attributes
                 let paragraphStyle = NSMutableParagraphStyle()
                 paragraphStyle.alignment = textAlignment
-                var attributes: [String: Any] = [
-                    NSForegroundColorAttributeName: placeHolderColor,
-                    NSParagraphStyleAttributeName: paragraphStyle
+                var attributes: [NSAttributedStringKey: Any] = [
+                    .foregroundColor: placeholderColor,
+                    .paragraphStyle: paragraphStyle
                 ]
                 if let font = font {
-                    attributes[NSFontAttributeName] = font
+                    attributes[.font] = font
                 }
                 
-                placeHolder.draw(in: placeHolderRect, withAttributes: attributes)
+                placeholder.draw(in: placeholderRect, withAttributes: attributes)
             }
         }
     }
     
     // Trim white space and new line characters when end editing.
-    func textDidEndEditing(notification: Notification) {
-        if let notificationObject = notification.object as? GrowingTextView {
-            if notificationObject === self {
-                if trimWhiteSpaceWhenEndEditing {
-                    text = text?.trimmingCharacters(in: .whitespacesAndNewlines)
-                    setNeedsDisplay()
-                }
+    @objc func textDidEndEditing(notification: Notification) {
+        if let sender = notification.object as? GrowingTextView, sender == self {
+            if trimWhiteSpaceWhenEndEditing {
+                text = text?.trimmingCharacters(in: .whitespacesAndNewlines)
+                setNeedsDisplay()
             }
             scrollToCorrectPosition()
         }
     }
     
     // Limit the length of text
-    func textDidChange(notification: Notification) {
-        if let notificationObject = notification.object as? GrowingTextView {
-            if notificationObject === self {
-                if maxLength > 0 && text.characters.count > maxLength {
-                    
-                    let endIndex = text.index(text.startIndex, offsetBy: maxLength)
-                    text = text.substring(to: endIndex)
-                    undoManager?.removeAllActions()
-                }
-                setNeedsDisplay()
+    @objc func textDidChange(notification: Notification) {
+        if let sender = notification.object as? GrowingTextView, sender == self {
+            if maxLength > 0 && text.count > maxLength {
+                let endIndex = text.index(text.startIndex, offsetBy: maxLength)
+                text = String(text[..<endIndex])
+                undoManager?.removeAllActions()
             }
+            setNeedsDisplay()
         }
     }
 }

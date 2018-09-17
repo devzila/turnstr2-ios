@@ -70,7 +70,7 @@ class LoginViewController: ParentViewController {
             self.APIRequest(sType: kAPIFacebookLogin, data: ["user_id":AccessToken.current?.userId ?? "", "access_token":AccessToken.current?.authenticationToken ?? ""])
             return
         }
-        loginManager.logIn([ .publicProfile, .userFriends, .email ], viewController: self) { (LoginResult) in
+        loginManager.logIn(readPermissions: [ReadPermission.publicProfile, .userFriends, .email], viewController: self) { (LoginResult) in
             print("LoginResult---\(LoginResult)")
             if let currentUser = AccessToken.current {
                 kAppDelegate.loadingIndicationCreationMSG(msg: "Login")

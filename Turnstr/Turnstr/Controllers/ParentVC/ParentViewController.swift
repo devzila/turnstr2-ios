@@ -105,7 +105,12 @@ class ParentViewController: UIViewController, PickerDelegate, CustomAlertViewDel
     }
     
     func goBack() -> Void {
-        _ = self.navigationController?.popViewController(animated: true)
+        navigationController?.popViewController(animated: true)
+    }
+    
+    func homeScreen() {
+        goBack()
+        NotificationCenter.default.post(name: Notification.Name.init("LaunchHomeScreen"), object: nil)
     }
     
     func LoadEditProfile() -> Void {
@@ -118,7 +123,6 @@ class ParentViewController: UIViewController, PickerDelegate, CustomAlertViewDel
         let storyboard = UIStoryboard(name: "Login", bundle: nil)
         let homeVC: HomeViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
         self.navigationController?.pushViewController(homeVC, animated: true)
-        
     }
     
     func LoadMyStories() -> Void {

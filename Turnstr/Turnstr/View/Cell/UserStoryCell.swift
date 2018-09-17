@@ -36,7 +36,10 @@ class UserStoryCell: UICollectionViewCell {
                     self.cubeProfileView?.setScrollFromNil(CGPoint.init(x: 0, y: edge), end: CGPoint.init(x: 5, y: edge))
                     self.cubeProfileView?.setScroll(CGPoint.init(x: edge, y: 0), end: CGPoint.init(x: edge, y: 5))
                 }
-                
+            }
+            if let side = cubeProfileView?.frame.size.width, let user = user {
+                let color = user.isUnwatched ? .red : UIColor(246/255.0, 246/255.0, 246/255.0, 1.0)
+                cubeProfileView?.borderDesign(cornerRadius: side/2, borderWidth: 2, borderColor: color)
             }
             
             cubeProfileView?.isUserInteractionEnabled = false

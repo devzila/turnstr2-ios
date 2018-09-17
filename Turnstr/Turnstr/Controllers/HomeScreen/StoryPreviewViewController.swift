@@ -42,30 +42,33 @@ class StoryPreviewViewController: ParentViewController, UIGestureRecognizerDeleg
             arrMedia.append(objStory.thumb_url)
             
             shareStoryId = "\(objStory.storyID)"
-            //            if objStory.media_url.isEmpty == false && shareImgUrl.isEmpty == true {
-            //                shareImgUrl = objStory.media_url
-            //            }
         }
+//        transformView = AITransformView.init(frame: CGRect.init(x: 0, y: 80, width: kWidth, height: kWidth), cube_size: kWidth * 3/5)//w > h ?h-100:w-100
+//        
+//        transformView?.backgroundColor = UIColor.white
+//        transformView?.setup(withUrls: arrMedia)
+//        transformView?.center = view.center
+//        view.addSubview(transformView!)
+//        transformView?.setScroll(CGPoint.init(x: 0, y: kWidth/2), end: CGPoint.init(x: 20, y: kWidth/2))
+//        transformView?.setScroll(CGPoint.init(x: kWidth/2, y: 0), end: CGPoint.init(x: kWidth/2, y: 20))
+//        let tap = UITapGestureRecognizer.init(target: self, action: #selector(handleTap(sender:)))
+//        tap.delegate = self
+//        tap.numberOfTapsRequired = 1
+//        transformView?.addGestureRecognizer(tap)
         
-        let uvCube = objUtil.createView(xCo: 0, forY: 112, forW: kWidth, forH: kHeight-112, backColor: UIColor.clear)
-        self.view.addSubview(uvCube)
+        var w: CGFloat = 95
+        var h: CGFloat = 80
         
-        let w: CGFloat = kWidth
-        let h: CGFloat = uvCube.frame.height // uvCenterCube.frame.size.height-10
+        w = kWidth
+        h = w.getDW(SP: 270, S: 220, F: 220) // uvCenterCube.frame.size.height-10
         
-        transformView = AITransformView.init(frame: CGRect.init(x: 0, y: 0, width: w, height: h), cube_size: 250)//w > h ?h-100:w-100
-        
-        transformView?.backgroundColor = UIColor.white
-        transformView?.setup(withUrls: arrMedia)
-        uvCube.addSubview(transformView!)
-        transformView?.setScroll(CGPoint.init(x: 0, y: h/2), end: CGPoint.init(x: IS_IPHONE_6 ? 20 : 85, y: h/2))
-        transformView?.setScroll(CGPoint.init(x: w/2, y: 0), end: CGPoint.init(x: w/2, y: kNavBarHeight + w.getDW(SP: 20, S: 35, F: 10)))//(IS_IPHONE_6P ? 45 :28)
-        
-        let tap = UITapGestureRecognizer.init(target: self, action: #selector(handleTap(sender:)))
-        tap.delegate = self
-        tap.numberOfTapsRequired = 1
-        transformView?.addGestureRecognizer(tap)
-        
+        self.transformView = AITransformView.init(frame: CGRect.init(x: 0, y: 0, width: w, height: h), cube_size: w.getDW(SP: 210, S: 150, F: 180))
+        self.transformView?.backgroundColor = UIColor.clear
+        self.transformView?.setup(withUrls: arrMedia)
+        view.addSubview(self.transformView!)
+        transformView?.center = view.center
+        self.transformView?.setScroll(CGPoint.init(x: 0, y: h/2), end: CGPoint.init(x: w.getDW(SP: 115, S: 85, F: 105), y: h/2))
+        self.transformView?.setScroll(CGPoint.init(x: w/2, y: 0), end: CGPoint.init(x: w/2, y: 1))
         
         /*
          * Navigation Bar
@@ -76,11 +79,6 @@ class StoryPreviewViewController: ParentViewController, UIGestureRecognizerDeleg
             //navBar
         }
         
-        //        LoadNavBar()
-        //        objNav.btnRightMenu.isHidden = true
-        //        objNav.btnBack.addTarget(self, action: #selector(goBack), for: .touchUpInside)
-        //        objNav.btnBack.tintColor = UIColor.white
-        //
         if userTYpe == .myStories {
             if objStory.strUserID == objSing.strUserID {
                 uvNavBar?.addSubview(objNav.RightButonIcon())
@@ -140,7 +138,7 @@ class StoryPreviewViewController: ParentViewController, UIGestureRecognizerDeleg
     
     func SetupFooter() -> Void {
         if objCommentFooter == nil {
-            objCommentFooter = LikeCommetFooter.init(frame: CGRect.init(x: 0, y: kHeight+kTabBarHeight-140, width: kWidth, height: 140))
+            objCommentFooter = LikeCommetFooter.init(frame: CGRect.init(x: 0, y: kHeight+kTabBarHeight-190, width: kWidth, height: 180))
         }
         objCommentFooter?.btnLike.addTarget(self, action: #selector(LikeClicked(sender:)), for: .touchUpInside)
         objCommentFooter?.btnComment.addTarget(self, action: #selector(CommentClicked(sender:)), for: .touchUpInside)
@@ -157,8 +155,9 @@ class StoryPreviewViewController: ParentViewController, UIGestureRecognizerDeleg
         
         if objCommentFooter != nil {
             objCommentFooter?.lblCaption.text = objStory.strCaption.capitalized
-            //objCommentFooter?.btnTotalLike.setTitle("Liked by \(objStory.likes_count) people", for: .normal)
-            objCommentFooter?.btnTotalLike.setTitle("\(objStory.strCaption.capitalized)", for: .normal)
+            objCommentFooter?.lblCaption.numberOfLines = 3
+            objCommentFooter?.btnTotalLike.setTitle("Liked by \(objStory.likes_count) people", for: .normal)
+//            objCommentFooter?.btnTotalLike.setTitle("\(objStory.strCaption.capitalized)", for: .normal)
             //objCommentFooter?.btnTotalComment.setTitle("\(objStory.comments_count) comments", for: .normal)
             
             objCommentFooter?.btnLike.isSelected = objStory.has_liked
