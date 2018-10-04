@@ -1,84 +1,87 @@
 PODS:
   - Alamofire (4.7.3)
-  - AlamofireImage (3.3.1):
-    - Alamofire (~> 4.5)
+  - AlamofireImage (3.4.1):
+    - Alamofire (~> 4.7)
   - Bolts (1.9.0):
     - Bolts/AppLinks (= 1.9.0)
     - Bolts/Tasks (= 1.9.0)
   - Bolts/AppLinks (1.9.0):
     - Bolts/Tasks
   - Bolts/Tasks (1.9.0)
-  - FacebookCore (0.3.2):
-    - Bolts (~> 1.8)
-    - FBSDKCoreKit (~> 4.35)
-  - FacebookLogin (0.3.2):
-    - Bolts (~> 1.8)
-    - FacebookCore (~> 0.3.2)
-    - FBSDKCoreKit (~> 4.35)
-    - FBSDKLoginKit (~> 4.35)
-  - FacebookShare (0.3.2):
-    - Bolts (~> 1.8)
-    - FacebookCore (~> 0.3.2)
-    - FBSDKCoreKit (~> 4.35)
-    - FBSDKShareKit (~> 4.35)
-  - FBSDKCoreKit (4.36.0):
+  - FacebookCore (0.4.0):
+    - Bolts (~> 1.9)
+    - FBSDKCoreKit (~> 4.36)
+  - FacebookLogin (0.4.0):
+    - Bolts (~> 1.9)
+    - FacebookCore (~> 0.4)
+    - FBSDKCoreKit (~> 4.36)
+    - FBSDKLoginKit (~> 4.36)
+  - FacebookShare (0.4.0):
+    - Bolts (~> 1.9)
+    - FacebookCore (~> 0.4)
+    - FBSDKCoreKit (~> 4.36)
+    - FBSDKShareKit (~> 4.36)
+  - FBSDKCoreKit (4.37.0):
     - Bolts (~> 1.7)
-  - FBSDKLoginKit (4.36.0):
+  - FBSDKLoginKit (4.37.0):
     - FBSDKCoreKit
-  - FBSDKShareKit (4.36.0):
-    - FBSDKCoreKit (~> 4.36.0)
-  - Firebase/Core (5.7.0):
+  - FBSDKShareKit (4.37.0):
+    - FBSDKCoreKit (~> 4.37.0)
+  - Firebase/Core (5.9.0):
     - Firebase/CoreOnly
-    - FirebaseAnalytics (= 5.1.1)
-  - Firebase/CoreOnly (5.7.0):
-    - FirebaseCore (= 5.1.2)
-  - Firebase/Messaging (5.7.0):
+    - FirebaseAnalytics (= 5.2.0)
+  - Firebase/CoreOnly (5.9.0):
+    - FirebaseCore (= 5.1.4)
+  - Firebase/Messaging (5.9.0):
     - Firebase/CoreOnly
-    - FirebaseMessaging (= 3.1.1)
-  - FirebaseAnalytics (5.1.1):
+    - FirebaseMessaging (= 3.1.2)
+  - FirebaseAnalytics (5.2.0):
     - FirebaseCore (~> 5.1)
     - FirebaseInstanceID (~> 3.2)
-    - GoogleAppMeasurement (~> 5.1)
-    - GoogleUtilities/AppDelegateSwizzler (~> 5.2.0)
-    - GoogleUtilities/MethodSwizzler (~> 5.2.0)
+    - GoogleAppMeasurement (~> 5.2)
+    - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
+    - GoogleUtilities/MethodSwizzler (~> 5.2)
     - GoogleUtilities/Network (~> 5.2)
     - "GoogleUtilities/NSData+zlib (~> 5.2)"
     - nanopb (~> 0.3)
-  - FirebaseCore (5.1.2):
+  - FirebaseCore (5.1.4):
     - GoogleUtilities/Logger (~> 5.2)
-  - FirebaseInstanceID (3.2.1):
+  - FirebaseInstanceID (3.2.2):
     - FirebaseCore (~> 5.1)
-    - GoogleUtilities/Environment (~> 5.2)
-  - FirebaseMessaging (3.1.1):
+    - GoogleUtilities/Environment (~> 5.3)
+    - GoogleUtilities/UserDefaults (~> 5.3)
+  - FirebaseMessaging (3.1.2):
     - FirebaseCore (~> 5.0)
     - FirebaseInstanceID (~> 3.0)
     - GoogleUtilities/Reachability (~> 5.2)
     - Protobuf (~> 3.1)
   - FLAnimatedImage (1.0.12)
-  - GoogleAppMeasurement (5.1.1):
-    - GoogleUtilities/AppDelegateSwizzler (~> 5.2.0)
-    - GoogleUtilities/MethodSwizzler (~> 5.2.0)
+  - GoogleAppMeasurement (5.2.0):
+    - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
+    - GoogleUtilities/MethodSwizzler (~> 5.2)
     - GoogleUtilities/Network (~> 5.2)
     - "GoogleUtilities/NSData+zlib (~> 5.2)"
     - nanopb (~> 0.3)
-  - GoogleUtilities/AppDelegateSwizzler (5.2.3):
+  - GoogleUtilities/AppDelegateSwizzler (5.3.0):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
     - GoogleUtilities/Network
-  - GoogleUtilities/Environment (5.2.3)
-  - GoogleUtilities/Logger (5.2.3):
+  - GoogleUtilities/Environment (5.3.0)
+  - GoogleUtilities/Logger (5.3.0):
     - GoogleUtilities/Environment
-  - GoogleUtilities/MethodSwizzler (5.2.3):
+  - GoogleUtilities/MethodSwizzler (5.3.0):
     - GoogleUtilities/Logger
-  - GoogleUtilities/Network (5.2.3):
+  - GoogleUtilities/Network (5.3.0):
     - GoogleUtilities/Logger
     - "GoogleUtilities/NSData+zlib"
     - GoogleUtilities/Reachability
-  - "GoogleUtilities/NSData+zlib (5.2.3)"
-  - GoogleUtilities/Reachability (5.2.3):
+  - "GoogleUtilities/NSData+zlib (5.3.0)"
+  - GoogleUtilities/Reachability (5.3.0):
     - GoogleUtilities/Logger
-  - GrowingTextView (0.5.6)
-  - Kingfisher (4.9.0)
+  - GoogleUtilities/UserDefaults (5.3.0):
+    - GoogleUtilities/Logger
+  - GrowingTextView (0.6.1)
+  - Kingfisher (4.10.0)
   - KSPhotoBrowser (0.2.3):
     - FLAnimatedImage (~> 1.0)
     - SDWebImage (~> 4.0)
@@ -88,9 +91,9 @@ PODS:
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
-  - NVActivityIndicatorView (4.3.0):
-    - NVActivityIndicatorView/Presenter (= 4.3.0)
-  - NVActivityIndicatorView/Presenter (4.3.0)
+  - NVActivityIndicatorView (4.4.0):
+    - NVActivityIndicatorView/Presenter (= 4.4.0)
+  - NVActivityIndicatorView/Presenter (4.4.0)
   - ObjectMapper (3.3.0)
   - OpenTok (2.14.2)
   - Protobuf (3.6.1)
@@ -101,9 +104,9 @@ PODS:
   - SDWebImage/GIF (4.4.2):
     - FLAnimatedImage (~> 1.0)
     - SDWebImage/Core
-  - SendBirdSDK (3.0.111)
+  - SendBirdSDK (3.0.115)
   - SVProgressHUD (2.2.5)
-  - SwiftyJSON (4.1.0)
+  - SwiftyJSON (4.2.0)
   - TwitterCore (3.2.0)
   - TwitterKit (3.4.0):
     - TwitterCore (>= 3.1.0)
@@ -168,35 +171,35 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
-  AlamofireImage: 3b35b586853abaf94ca1250f4e94cff3c21a4c0d
+  AlamofireImage: 78d67ccbb763d87ba44b21583d2153500a195630
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
-  FacebookCore: fe93222bb70346730ef33b061d493e9e7a7cb1f5
-  FacebookLogin: a4e225974791c82836765a294582b4778baffc07
-  FacebookShare: 5319f2655d53d20c595745a68dae8476027b8bae
-  FBSDKCoreKit: 3b8e6570eedb443f9fc4af196a7bf39f18e3a3d8
-  FBSDKLoginKit: 8bccb6064708ab2f4251a7fc4e3b6d8d00ad91ba
-  FBSDKShareKit: 7090fdd55c39b03941efddb64c83a64ff6b3949f
-  Firebase: 734a4f92957aa6c40e7ae3fda3d9359e1890aa87
-  FirebaseAnalytics: 993577e91157feb40945abedd6ab346d8a4b6ac8
-  FirebaseCore: 3a97432acb324b439fbed338e642f9cbb516a63d
-  FirebaseInstanceID: ea5af6920d0a4a29b40459d055bebe4a6c1333c4
-  FirebaseMessaging: 698c94dd1e3436346c29bb9c85dcdca4c4a0c30b
+  FacebookCore: 770e57cfe250a4de4458b682191c0ff062dee247
+  FacebookLogin: eb0f2251aca835a94d70a5f7e580edc46d1e1603
+  FacebookShare: ec48492ba748f971c6a13661963f7aae38140111
+  FBSDKCoreKit: fe5f3474499a81963e11e3f3a5c753d0a95ca2b4
+  FBSDKLoginKit: 2f7249686d1e30ce8a5ef5400eedf50b3e3df332
+  FBSDKShareKit: 52e0083222c38e930eb6878007478326599195c3
+  Firebase: 383fa29aca93e371cab776b48a5c66544d3c2003
+  FirebaseAnalytics: 831f1f127f4a75698e9875a87bf7e2668730d953
+  FirebaseCore: 2a84b6b325792a4319ef71ee18819dcba08d2fd7
+  FirebaseInstanceID: 78ba376fcd5b94c001f9999b2cbd3d1f1e56e78d
+  FirebaseMessaging: d6feeb06218d2675b4149b0ada925a6b707a74cf
   FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
-  GoogleAppMeasurement: f7507b39b70ad0bd80b3d81518b2f43868974307
-  GoogleUtilities: 6f681e27050c5e130325e89fa0316dfca826f954
-  GrowingTextView: 8958f4fb7419de58dd622021b2d0696487e00e70
-  Kingfisher: 64539b51826b778206daa6ed815d12653caa69dd
+  GoogleAppMeasurement: 2b3a023a61239c8d002e6e4fcf4abce8eddce0e0
+  GoogleUtilities: 760ccb53b7c7f40f9c02d8c241f76f841a7a6162
+  GrowingTextView: 335aefa45df7df06b01edede1363414d6ee5d6bc
+  Kingfisher: 43c4b802d8b5256cf1f4379e9cd10b329be6d3e2
   KSPhotoBrowser: 222459c4158399d14b2a2e6538c4bc18ed901ba1
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
-  NVActivityIndicatorView: 963f62bf9f993fcf23218e55958e5b1761b9504c
+  NVActivityIndicatorView: ec7440a57af2450319d3a4181cca7da6fc127064
   ObjectMapper: b612bf8c8e99c4dc0bb6013a51f7c27966ed5da9
   OpenTok: 25a73c71b09bad87fc249b9a1f182f1b0306ad28
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
   RMMapper: 21122d753c736d975f6c61e674afce8db73579af
   SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
-  SendBirdSDK: 466d46642b47e877f1d52715509df6f7e8d1da5b
+  SendBirdSDK: 8ca8ab9f36c15fb838d116b8d1960c39baf27332
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
-  SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3
+  SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
   TwitterCore: 8cbc9ad34d91c63a0035ea05bfbfc0d7ca72a28c
   TwitterKit: bc7bd086b9b724a1d888745a054e1d0b1ecc4f3f
 

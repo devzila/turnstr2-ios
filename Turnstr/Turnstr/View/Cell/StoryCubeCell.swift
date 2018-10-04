@@ -44,19 +44,19 @@ class StoryCubeCell: UITableViewCell {
                 if let av1 = user["avatar_face1"] as? String {
                     userUrls.append(av1)
                 }
-                if let av2 = user["avatar_face1"] as? String {
+                if let av2 = user["avatar_face2"] as? String {
                     userUrls.append(av2)
                 }
-                if let av3 = user["avatar_face1"] as? String {
+                if let av3 = user["avatar_face3"] as? String {
                     userUrls.append(av3)
                 }
-                if let av4 = user["avatar_face1"] as? String {
+                if let av4 = user["avatar_face4"] as? String {
                     userUrls.append(av4)
                 }
-                if let av5 = user["avatar_face1"] as? String {
+                if let av5 = user["avatar_face5"] as? String {
                     userUrls.append(av5)
                 }
-                if let av6 = user["avatar_face1"] as? String {
+                if let av6 = user["avatar_face6"] as? String {
                     userUrls.append(av6)
                 }
                 cubeProfileView?.createCubewith(35)
