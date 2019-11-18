@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VideoPlayer" customModule="Turnstr" customModuleProvider="target">
+            <connections>
+                <outlet property="uvNav" destination="uxu-PH-ydA" id="lgo-yH-Vwj"/>
+                <outlet property="uvVideoView" destination="wIt-Sz-QIV" id="bD9-HX-pTE"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="499"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uxu-PH-ydA">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kvt-0z-R4q">
+                            <rect key="frame" x="0.0" y="0.0" width="70" height="50"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="70" id="l5c-kF-sNH"/>
+                            </constraints>
+                            <state key="normal" title="Cancel"/>
+                            <connections>
+                                <action selector="CancelClicked:" destination="-1" eventType="touchUpInside" id="WOH-ZB-KX1"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zrW-dv-f3d">
+                            <rect key="frame" x="305" y="0.0" width="70" height="50"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="70" id="tkp-cW-xFV"/>
+                            </constraints>
+                            <state key="normal" title="Done"/>
+                            <connections>
+                                <action selector="DoneClicked:" destination="-1" eventType="touchUpInside" id="Lkp-wy-466"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="Kvt-0z-R4q" secondAttribute="bottom" id="5uY-O4-uam"/>
+                        <constraint firstAttribute="bottom" secondItem="zrW-dv-f3d" secondAttribute="bottom" id="8Zf-nk-Mq7"/>
+                        <constraint firstItem="Kvt-0z-R4q" firstAttribute="leading" secondItem="uxu-PH-ydA" secondAttribute="leading" id="HhD-MU-9qn"/>
+                        <constraint firstItem="Kvt-0z-R4q" firstAttribute="top" secondItem="uxu-PH-ydA" secondAttribute="top" id="KVl-OM-d7z"/>
+                        <constraint firstAttribute="trailing" secondItem="zrW-dv-f3d" secondAttribute="trailing" id="SGz-95-lVs"/>
+                        <constraint firstAttribute="height" constant="50" id="nfU-4i-lOO"/>
+                        <constraint firstItem="zrW-dv-f3d" firstAttribute="top" secondItem="uxu-PH-ydA" secondAttribute="top" id="ug4-pK-ZI7"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wIt-Sz-QIV">
+                    <rect key="frame" x="0.0" y="50" width="375" height="449"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="wIt-Sz-QIV" secondAttribute="bottom" id="978-SJ-qem"/>
+                <constraint firstItem="uxu-PH-ydA" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="UG9-K1-L38"/>
+                <constraint firstAttribute="trailing" secondItem="uxu-PH-ydA" secondAttribute="trailing" id="Up3-Z0-e2P"/>
+                <constraint firstItem="wIt-Sz-QIV" firstAttribute="top" secondItem="uxu-PH-ydA" secondAttribute="bottom" id="Xe4-LE-cH8"/>
+                <constraint firstItem="wIt-Sz-QIV" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="ap6-rY-wP1"/>
+                <constraint firstAttribute="trailing" secondItem="wIt-Sz-QIV" secondAttribute="trailing" id="auY-Ut-z46"/>
+                <constraint firstItem="uxu-PH-ydA" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="qSY-A2-UHq"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="44.5" y="-27.5"/>
+        </view>
+    </objects>
+</document>

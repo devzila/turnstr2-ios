@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NavBar" customModule="Turnstr" customModuleProvider="target">
+            <connections>
+                <outlet property="btnBack" destination="uWN-Tl-nW1" id="csx-o9-zOO"/>
+                <outlet property="btnLogo" destination="YSE-Hq-9TN" id="M4e-Zp-ZFL"/>
+                <outlet property="orangeBar" destination="kYH-Lf-hke" id="TJk-3X-hh6"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="112"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uWN-Tl-nW1">
+                    <rect key="frame" x="0.0" y="12" width="64" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="64" id="DeD-Wd-Xlq"/>
+                    </constraints>
+                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <state key="normal" image="back_arrow"/>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kYH-Lf-hke">
+                    <rect key="frame" x="0.0" y="52" width="375" height="60"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YSE-Hq-9TN">
+                            <rect key="frame" x="127" y="13" width="120" height="33"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="33" id="jFd-0K-76Z"/>
+                                <constraint firstAttribute="width" constant="120" id="vrb-ma-UWY"/>
+                            </constraints>
+                            <state key="normal" image="logo_login"/>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xfl-q9-MGx">
+                            <rect key="frame" x="269" y="0.0" width="58" height="60"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ia0-e1-oQ9">
+                            <rect key="frame" x="329" y="0.0" width="38" height="60"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="1" green="0.60784313729999995" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="7NR-Eg-9Ic"/>
+                        <constraint firstItem="YSE-Hq-9TN" firstAttribute="centerY" secondItem="kYH-Lf-hke" secondAttribute="centerY" id="FG3-uT-O1O"/>
+                        <constraint firstItem="YSE-Hq-9TN" firstAttribute="centerX" secondItem="kYH-Lf-hke" secondAttribute="centerX" id="gb7-Ob-6mf"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="kYH-Lf-hke" firstAttribute="top" secondItem="uWN-Tl-nW1" secondAttribute="bottom" id="0ie-F0-kDE"/>
+                <constraint firstItem="kYH-Lf-hke" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="7qq-tf-pSW"/>
+                <constraint firstAttribute="trailing" secondItem="kYH-Lf-hke" secondAttribute="trailing" id="Sur-DN-dTI"/>
+                <constraint firstItem="uWN-Tl-nW1" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="krN-ov-uTB"/>
+                <constraint firstAttribute="bottom" secondItem="kYH-Lf-hke" secondAttribute="bottom" id="mjR-C1-f5O"/>
+                <constraint firstItem="uWN-Tl-nW1" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="12" id="w9Y-EO-4lc"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="33.5" y="-223"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="back_arrow" width="36" height="36"/>
+        <image name="logo_login" width="120" height="33"/>
+    </resources>
+</document>
