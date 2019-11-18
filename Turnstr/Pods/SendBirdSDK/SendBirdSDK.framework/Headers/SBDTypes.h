@@ -31,6 +31,11 @@ typedef NS_ENUM(NSInteger, SBDGroupChannelListOrder) {
      *  Alphabetical name order for group channel.
      */
     SBDGroupChannelListOrderChannelNameAlphabetical = 2,
+    
+    /**
+     *  Alphabetical value order of a selected key in meta data for group channel.
+     */
+    SBDGroupChannelListOrderChannelMetaDataValueAlphabetical = 3,
 };
 
 /**
@@ -45,6 +50,11 @@ typedef NS_ENUM(NSUInteger, SBDPublicGroupChannelListOrder) {
      *  Alphabetical name order for public group channel.
      */
     SBDPublicGroupChannelListOrderChannelNameAlphabetical = 2,
+    
+    /**
+     *  Alphabetical value order of a selected key in meta data for public group channel.
+     */
+    SBDPublicGroupChannelListOrderChannelMetaDataValueAlphabetical = 3,
 };
 
 /**
@@ -83,6 +93,7 @@ typedef NS_ENUM(NSInteger, SBDErrorCode) {
     SBDErrorInternalServerError = 500901,
     
     // SDK Internal Errors
+    SBDErrorUnknownError = 800000,
     SBDErrorInvalidInitialization = 800100,
     SBDErrorConnectionRequired = 800101,
     SBDErrorConnectionCanceled = 800102,
@@ -102,6 +113,8 @@ typedef NS_ENUM(NSInteger, SBDErrorCode) {
     SBDErrorFileUploadCancelFailed = 800230,
     SBDErrorFileUploadCancelled = 800240,
 	SBDErrorFileUploadTimeout = 800250,
+    SBDErrorTimerWasExpired = 800301,
+    SBDErrorTimerWasAlreadyDone = 800302,
 };
 
 /**
@@ -122,8 +135,9 @@ typedef NS_ENUM(NSUInteger, SBDWebSocketConnectionState) {
     SBDWebSocketClosed = 3,
     /**
      *  Closing
+     *  @deprecated Has been replaced by SBDWebSocketClosed
      */
-    SBDWebSocketClosing __attribute__((deprecated)) = SBDWebSocketClosed,
+    SBDWebSocketClosing DEPRECATED_ATTRIBUTE = SBDWebSocketClosed,
 };
 
 /**
@@ -465,6 +479,141 @@ typedef NS_ENUM(NSUInteger, SBDMentionType) {
 typedef NS_ENUM(NSUInteger, SBDUnreadChannelFilter) {
     SBDUnreadChannelFilterAll = 0,
     SBDUnreadChannelFilterUnreadMessage = 1,
+};
+
+typedef NS_ENUM(NSUInteger, SBDScheduledUserMessageStatus) {
+    SBDScheduledUserMessageStatusScheduled = 0,
+    SBDScheduledUserMessageStatusSent = 1,
+    SBDScheduledUserMessageStatusCanceled = 2,
+    SBDScheduledUserMessageStatusFailed = 3,
+};
+
+/**
+ The enum type for the hidden state of a group channel.
+
+ - SBDGroupChannelHiddenStateUnhidden: Shows the channel is unhidden.
+ - SBDGroupChannelHiddenStateHiddenAllowAutoUnhide: Shows the channel will be unhidden automatically when there is a new message in the channel.
+ - SBDGroupChannelHiddenStateHiddenPreventAutoUnhide: Shows the channel will not be unhidden automatically.
+ 
+ @since 3.0.122
+ */
+typedef NS_ENUM(NSUInteger, SBDGroupChannelHiddenState) {
+    SBDGroupChannelHiddenStateUnhidden = 0,
+    SBDGroupChannelHiddenStateHiddenAllowAutoUnhide   = 1,
+    SBDGroupChannelHiddenStateHiddenPreventAutoUnhide = 2,
+};
+
+/**
+ The enum type to filter my group channels with the hidden state.
+ 
+ - SBDChannelHiddenStateFilterUnhiddenOnly: Shows the unhidden channels only.
+ - SBDChannelHiddenStateFilterHiddenOnly: Shows the hidden channels only.
+ - SBDChannelHiddenStateFilterHiddenAllowAutoUnhide: Shows the channels will be unhidden automatically when there is a new message in the channel.
+ - SBDChannelHiddenStateFilterHiddenPreventAutoUnhide: Shows the channels will not be unhidden automatically.
+ 
+ @since 3.0.122
+ */
+typedef NS_ENUM(NSUInteger, SBDChannelHiddenStateFilter) {
+    SBDChannelHiddenStateFilterUnhiddenOnly = 0,
+    SBDChannelHiddenStateFilterHiddenOnly   = 1,
+    SBDChannelHiddenStateFilterHiddenAllowAutoUnhide = 2,
+    SBDChannelHiddenStateFilterHiddenPreventAutoUnhide = 3,
+};
+
+/**
+ The options to choose which push notification for the current user to receive.
+ 
+ - SBDPushTriggerOptionAll: Receive all of remote push notification.
+ - SBDPushTriggerOptionOff: Do NOT receive any remote push notification.
+ - SBDPushTriggerOptionMentionOnly: Receive only mentioned messages's notification.
+ 
+ @since 3.0.128
+ */
+typedef NS_ENUM(NSUInteger, SBDPushTriggerOption) {
+    SBDPushTriggerOptionAll = 0,
+    SBDPushTriggerOptionOff,
+    SBDPushTriggerOptionMentionOnly,
+};
+
+/**
+ The options to choose which push notification for the current user to receive in a group channel.
+ 
+ - SBDGroupChannelPushTriggerOptionDefault: Follow the push trigger of current user. See `SBDPushTriggerOption`.
+ - SBDGroupChannelPushTriggerOptionAll: Receive all of remote push notification.
+ - SBDGroupChannelPushTriggerOptionOff: Do NOT receive any remote push notification.
+ - SBDGroupChannelPushTriggerOptionMentionOnly: Receive only mentioned messages's notification.
+ 
+ @since 3.0.128
+ */
+typedef NS_ENUM(NSUInteger, SBDGroupChannelPushTriggerOption) {
+    SBDGroupChannelPushTriggerOptionDefault = 0,
+    SBDGroupChannelPushTriggerOptionAll,
+    SBDGroupChannelPushTriggerOptionOff,
+    SBDGroupChannelPushTriggerOptionMentionOnly
+};
+
+/**
+ Constants of type for device push token.
+ 
+ - SBDPushTokenTypeNone: No type.
+ - SBDPushTokenTypeGCM: Token from Android device.
+ - SBDPushTokenTypeAPNS: Normal Token from iOS device.
+ - SBDPushTokenTypeAPNSVoIP: Token used for VoIP from iOS device.
+ 
+ @since 3.0.134
+ */
+typedef NS_ENUM(NSUInteger, SBDPushTokenType) {
+    SBDPushTokenTypeNone = 0,
+    SBDPushTokenTypeGCM,
+    SBDPushTokenTypeAPNS,
+    SBDPushTokenTypeAPNSVoIP,
+};
+
+/**
+ Constants of type to describe message's request state
+ 
+ - SBDMessageRequestStateNone: MUST NOT BE. If you got a message instance from SDK, the message can't have this value.
+ - SBDMessageRequestStatePending: Indicates the state of the message returned when trying to send a message. The message with the pending state means that is not dispatched completely to the SendBird server. The pending message should be replaced with a message (failed or succeeded) from the callback.
+ - SBDMessageRequestStateFailed: Indicates the state of the message that failed to send the message.
+ - SBDMessageRequestStateSucceeded: Indicates the state of the message that success to send the message.
+ 
+ @since 3.0.141
+ */
+typedef NS_ENUM(NSUInteger, SBDMessageRequestState) {
+    SBDMessageRequestStateNone = 0,
+    SBDMessageRequestStatePending,
+    SBDMessageRequestStateFailed,
+    SBDMessageRequestStateSucceeded,
+};
+
+/**
+ Filter types to query with `SBDGroupChannelListQuery`. You can combine search fields to query.
+ @see used for -setSearchFilter:fields: of `SBDGroupChannelListQuery`
+ @since 3.0.144
+ */
+typedef NS_OPTIONS(NSUInteger, SBDGroupChannelListQuerySearchField) {
+    /* filter type to query for member nickname */
+    SBDGroupChannelListQuerySearchFieldMemberNickname   = (1 << 0),
+    /* filter type to query for member nickname */
+    SBDGroupChannelListQuerySearchFieldChannelName      = (1 << 1),
+};
+
+
+/**
+ Categories of reporting reasons
+ 
+ - SBDReportCategorySuspicious: Report suspicious content
+ - SBDReportCategoryHarassing: Report harassing content.
+ - SBDReportCategorySpam: Report spam content
+ - SBDReportCategoryInappropriate: Report inappropriate content
+ 
+ @since 3.0.154
+ */
+typedef NS_ENUM(NSUInteger, SBDReportCategory) {
+    SBDReportCategorySuspicious = 0,
+    SBDReportCategoryHarassing,
+    SBDReportCategorySpam,
+    SBDReportCategoryInappropriate,
 };
 
 #endif /* SBDTypes_h */

@@ -18,11 +18,18 @@
 
 #import <Foundation/Foundation.h>
 
-#import <FBSDKCoreKit/FBSDKCopying.h>
+#ifdef BUCK
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#else
+@import FBSDKCoreKit;
+#endif
+
+NS_ASSUME_NONNULL_BEGIN
 
 /**
   Represents a single hashtag that can be used with the share dialog.
  */
+NS_SWIFT_NAME(Hashtag)
 @interface FBSDKHashtag : NSObject <FBSDKCopying, NSSecureCoding>
 
 /**
@@ -30,7 +37,8 @@
    `stringRepresentation` property.
  @param hashtagString The hashtag string.
  */
-+ (instancetype)hashtagWithString:(NSString *)hashtagString;
++ (instancetype)hashtagWithString:(NSString *)hashtagString
+NS_SWIFT_NAME(init(_:));
 
 /**
   The hashtag string.
@@ -40,7 +48,7 @@
    `valid` property.
  @return The hashtag string.
  */
-@property (nonatomic, readwrite, copy) NSString *stringRepresentation;
+@property (nonatomic, copy) NSString *stringRepresentation;
 
 /**
   Tests if a hashtag is valid.
@@ -59,3 +67,5 @@
 - (BOOL)isEqualToHashtag:(FBSDKHashtag *)hashtag;
 
 @end
+
+NS_ASSUME_NONNULL_END

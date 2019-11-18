@@ -12,6 +12,8 @@
 #import "SBDUser.h"
 #import "SBDMember.h"
 #import "SBDTypes.h"
+#import "SBDBannedUserListQuery.h"
+#import "SBDConstants.h"
 
 @class SBDUser, SBDMember;
 @class SBDGroupChannel, SBDGroupChannelParams, SBDGroupChannelTotalUnreadMessageCountParams;
@@ -51,9 +53,26 @@
 @property (nonatomic, setter=setPublic:) BOOL isPublic;
 
 /**
+ *  Represents that the channel has access code to enter.
+ *
+ *  @since 3.0.116
+ */
+@property (atomic, readonly, getter=isAccessCodeRequired) BOOL accessCodeRequired;
+
+/**
  *  Represents the channel is distinct or not.
  */
 @property (atomic) BOOL isDistinct;
+
+/**
+ *  Represents a boolean whether the public group channel is discoverable.
+ *  It is only for a public group channel.
+ *  The default value is YES(true) if the channel is a public group channel.
+ *  If the channel is not a public group channel, the default value is NO(false).
+ *
+ *  @since 3.0.136
+ */
+@property (nonatomic, readonly, getter=isDiscoverable) BOOL discoverable;
 
 /**
  *  Unread message count of the channel.
@@ -91,8 +110,18 @@
 
 /**
  *  Represents push notification is on or off. If true, push notification is on.
+ *  @see use `myPushTriggerOption` instead.
+ *
+ *  @deprecated in v3.0.128
  */
-@property (atomic, readonly) BOOL isPushEnabled;
+@property (atomic, readonly) BOOL isPushEnabled DEPRECATED_ATTRIBUTE;
+
+/**
+ *  Represents which push notification for the current user to receive in a group channel.
+ *
+ *  @since 3.0.128
+ */
+@property (atomic, readonly) SBDGroupChannelPushTriggerOption myPushTriggerOption;
 
 /**
  *  Represents this channel is hidden or not.
@@ -128,6 +157,26 @@
  */
 @property (atomic, readonly) long long invitedAt;
 
+/**
+ The hidden state of the channel.
+ 
+ @since 3.0.122
+ */
+@property (atomic, readonly) SBDGroupChannelHiddenState hiddenState;
+
+/**
+ A last read information for the current user.
+ 
+ @since 3.0.138
+ */
+@property (nonatomic, readonly) long long myLastRead;
+
+/**
+ Message offset of a channel. User can only see messages after this offset.
+ 
+ @since 3.0.157
+ */
+@property (atomic, readonly) long long messageOffsetTimestamp;
 /**
  *  DO NOT USE this initializer. You can only get an instance type of `SBDGroupChannel` from SDK.
  */
@@ -179,7 +228,7 @@
  *  @return SBDUserListQuery The instance for the banned user list. Query only banned user list.
  *  @since 3.0.89
  */
-- (nullable SBDUserListQuery *)createBannedUserListQuery;
+- (nullable SBDBannedUserListQuery *)createBannedUserListQuery;
 
 /**
  *  Creates a group channel with user objects.
@@ -211,12 +260,15 @@
  *  @param coverUrl          The cover image url of group channel.
  *  @param data              The custom data of group channel.
  *  @param completionHandler The handler block to execute.
+ *
+ *  @deprecated in 3.0.116  Use `createChannelWithParams:completionHandler:` instead.
  */
 + (void)createChannelWithName:(NSString * _Nullable)name
                         users:(NSArray<SBDUser *> * _Nonnull)users
                      coverUrl:(NSString * _Nullable)coverUrl
                          data:(NSString * _Nullable)data
-            completionHandler:(nonnull void (^)(SBDGroupChannel * _Nullable channel, SBDError * _Nullable error))completionHandler;
+            completionHandler:(nonnull void (^)(SBDGroupChannel * _Nullable channel, SBDError * _Nullable error))completionHandler
+DEPRECATED_ATTRIBUTE;
 
 /**
  *  Creates a group channel with user objects.
@@ -228,6 +280,8 @@
  *  @param data              The custom data of group channel.
  *  @param progressHandler   The handler block to monitor progression. `bytesSent` is the number of bytes sent since the last time this method was called. `totalBytesSent` is the total number of bytes sent so far. `totalBytesExpectedToSend` is the expected length of the body <span>data</span>. These parameters are the same to the declaration of [`URLSession:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:`](https://developer.apple.com/reference/foundation/nsurlsessiontaskdelegate/1408299-urlsession?language=objc).
  *  @param completionHandler The handler block to execute.
+ *
+ *  @deprecated in 3.0.116 Use `createChannelWithParams:completionHandler:` instead.
  */
 + (void)createChannelWithName:(NSString * _Nullable)name
                         users:(NSArray<SBDUser *> * _Nonnull)users
@@ -235,7 +289,8 @@
                coverImageName:(NSString * _Nonnull)coverImageName
                          data:(NSString * _Nullable)data
               progressHandler:(nullable void (^)(int64_t bytesSent, int64_t totalBytesSent, int64_t totalBytesExpectedToSend))progressHandler
-            completionHandler:(nonnull void (^)(SBDGroupChannel * _Nullable channel, SBDError * _Nullable error))completionHandler;
+            completionHandler:(nonnull void (^)(SBDGroupChannel * _Nullable channel, SBDError * _Nullable error))completionHandler
+DEPRECATED_ATTRIBUTE;
 
 /**
  *  Create a group channel with user IDs. The group channel is distinct.
@@ -245,12 +300,15 @@
  *  @param coverUrl          The cover image url of group channel.
  *  @param data              The custom data of group channel.
  *  @param completionHandler The handler block to execute. `channel` is the group channel instance which has the `userIds` as <span>members</span>.
+ *
+ *  @deprecated in 3.0.116 Use `createChannelWithParams:completionHandler:` instead.
  */
 + (void)createChannelWithName:(NSString * _Nullable)name
                       userIds:(NSArray<NSString *> * _Nonnull)userIds
                      coverUrl:(NSString * _Nullable)coverUrl
                          data:(NSString * _Nullable)data
-            completionHandler:(nonnull void (^)(SBDGroupChannel * _Nullable channel, SBDError * _Nullable error))completionHandler;
+            completionHandler:(nonnull void (^)(SBDGroupChannel * _Nullable channel, SBDError * _Nullable error))completionHandler
+DEPRECATED_ATTRIBUTE;
 
 /**
  *  Create a group channel with user IDs. The group channel is distinct.
@@ -262,6 +320,8 @@
  *  @param data              The custom data of group channel.
  *  @param progressHandler   The handler block to monitor progression. `bytesSent` is the number of bytes sent since the last time this method was called. `totalBytesSent` is the total number of bytes sent so far. `totalBytesExpectedToSend` is the expected length of the body <span>data</span>. These parameters are the same to the declaration of [`URLSession:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:`](https://developer.apple.com/reference/foundation/nsurlsessiontaskdelegate/1408299-urlsession?language=objc).
  *  @param completionHandler The handler block to execute. `channel` is the group channel instance which has the `userIds` as <span>members</span>.
+ *
+ *  @deprecated in 3.0.116 Use `createChannelWithParams:completionHandler:` instead.
  */
 + (void)createChannelWithName:(NSString * _Nullable)name
                       userIds:(NSArray<NSString *> * _Nonnull)userIds
@@ -269,7 +329,8 @@
                coverImageName:(NSString * _Nonnull)coverImageName
                          data:(NSString * _Nullable)data
               progressHandler:(nullable void (^)(int64_t bytesSent, int64_t totalBytesSent, int64_t totalBytesExpectedToSend))progressHandler
-            completionHandler:(nonnull void (^)(SBDGroupChannel * _Nullable channel, SBDError * _Nullable error))completionHandler;
+            completionHandler:(nonnull void (^)(SBDGroupChannel * _Nullable channel, SBDError * _Nullable error))completionHandler
+DEPRECATED_ATTRIBUTE;
 
 /**
  *  Creates a group channel with user objects. The group channel is distinct.
@@ -280,13 +341,16 @@
  *  @param coverUrl          The cover image url of group channel.
  *  @param data              The custom data of group channel.
  *  @param completionHandler The handler block to execute. `channel` is the group channel instance which has the `users` as <span>members</span>.
+ *
+ *  @deprecated in 3.0.116 Use `createChannelWithParams:completionHandler:` instead.
  */
 + (void)createChannelWithName:(NSString * _Nullable)name
                    isDistinct:(BOOL)isDistinct
                         users:(NSArray<SBDUser *> * _Nonnull)users
                      coverUrl:(NSString * _Nullable)coverUrl
                          data:(NSString * _Nullable)data
-            completionHandler:(nonnull void (^)(SBDGroupChannel * _Nullable channel, SBDError * _Nullable error))completionHandler;
+            completionHandler:(nonnull void (^)(SBDGroupChannel * _Nullable channel, SBDError * _Nullable error))completionHandler
+DEPRECATED_ATTRIBUTE;
 
 /**
  *  Creates a group channel with user objects. The group channel is distinct.
@@ -299,6 +363,8 @@
  *  @param data              The custom data of group channel.
  *  @param progressHandler   The handler block to monitor progression. `bytesSent` is the number of bytes sent since the last time this method was called. `totalBytesSent` is the total number of bytes sent so far. `totalBytesExpectedToSend` is the expected length of the body <span>data</span>. These parameters are the same to the declaration of [`URLSession:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:`](https://developer.apple.com/reference/foundation/nsurlsessiontaskdelegate/1408299-urlsession?language=objc).
  *  @param completionHandler The handler block to execute. `channel` is the group channel instance which has the `users` as <span>members</span>.
+ *
+ *  @deprecated in 3.0.116 Use `createChannelWithParams:completionHandler:` instead.
  */
 + (void)createChannelWithName:(NSString * _Nullable)name
                    isDistinct:(BOOL)isDistinct
@@ -307,7 +373,8 @@
                coverImageName:(NSString * _Nonnull)coverImageName
                          data:(NSString * _Nullable)data
               progressHandler:(nullable void (^)(int64_t bytesSent, int64_t totalBytesSent, int64_t totalBytesExpectedToSend))progressHandler
-            completionHandler:(nonnull void (^)(SBDGroupChannel * _Nullable channel, SBDError * _Nullable error))completionHandler;
+            completionHandler:(nonnull void (^)(SBDGroupChannel * _Nullable channel, SBDError * _Nullable error))completionHandler
+DEPRECATED_ATTRIBUTE;
 
 /**
  *  Creates a group channel with user IDs.
@@ -318,13 +385,16 @@
  *  @param coverUrl          The cover image url of group channel.
  *  @param data              The custom data of group channel.
  *  @param completionHandler The handler block to execute. `channel` is the group channel instance which has the `userIds` as <span>members</span>.
+ *
+ *  @deprecated in 3.0.116 Use `createChannelWithParams:completionHandler:` instead.
  */
 + (void)createChannelWithName:(NSString * _Nullable)name
                    isDistinct:(BOOL)isDistinct
                       userIds:(NSArray<NSString *> * _Nonnull)userIds
                      coverUrl:(NSString * _Nullable)coverUrl
                          data:(NSString * _Nullable)data
-            completionHandler:(nonnull void (^)(SBDGroupChannel * _Nullable channel, SBDError * _Nullable error))completionHandler;
+            completionHandler:(nonnull void (^)(SBDGroupChannel * _Nullable channel, SBDError * _Nullable error))completionHandler
+DEPRECATED_ATTRIBUTE;
 
 /**
  *  Creates a group channel with user IDs.
@@ -336,6 +406,8 @@
  *  @param data              The custom data of group channel.
  *  @param customType        The custom type of group channel.
  *  @param completionHandler The handler block to execute. `channel` is the group channel instance which has the `userIds` as <span>members</span>.
+ *
+ *  @deprecated in 3.0.116 Use `createChannelWithParams:completionHandler:` instead.
  */
 + (void)createChannelWithName:(NSString * _Nullable)name
                    isDistinct:(BOOL)isDistinct
@@ -343,7 +415,8 @@
                      coverUrl:(NSString * _Nullable)coverUrl
                          data:(NSString * _Nullable)data
                    customType:(NSString * _Nullable)customType
-            completionHandler:(nonnull void (^)(SBDGroupChannel * _Nullable channel, SBDError * _Nullable error))completionHandler;
+            completionHandler:(nonnull void (^)(SBDGroupChannel * _Nullable channel, SBDError * _Nullable error))completionHandler
+DEPRECATED_ATTRIBUTE;
 
 /**
  *  Updates a group channel with user IDs.
@@ -353,12 +426,15 @@
  *  @param coverUrl          The cover image url of group channel.
  *  @param data              The custom data of group channel.
  *  @param completionHandler The handler block to execute. `channel` is the group channel instance which has the `userIds` as <span>members</span>.
+ *
+ *  @deprecated in 3.0.116 Use `updateChannelWithParams:completionHandler:` instead.
  */
 - (void)updateChannelWithName:(NSString * _Nullable)name
                    isDistinct:(BOOL)isDistinct
                      coverUrl:(NSString * _Nullable)coverUrl
                          data:(NSString * _Nullable)data
-            completionHandler:(nonnull void (^)(SBDGroupChannel * _Nullable channel, SBDError * _Nullable error))completionHandler;
+            completionHandler:(nonnull void (^)(SBDGroupChannel * _Nullable channel, SBDError * _Nullable error))completionHandler
+DEPRECATED_ATTRIBUTE;
 
 /**
  *  Updates a group channel with user IDs.
@@ -369,13 +445,16 @@
  *  @param data              The custom data of group channel.
  *  @param customType        The custom type of group channel.
  *  @param completionHandler The handler block to execute. `channel` is the group channel instance which has the `userIds` as <span>members</span>.
+ *
+ *  @deprecated in 3.0.116 Use `updateChannelWithParams:completionHandler:` instead.
  */
 - (void)updateChannelWithName:(NSString * _Nullable)name
                    isDistinct:(BOOL)isDistinct
                      coverUrl:(NSString * _Nullable)coverUrl
                          data:(NSString * _Nullable)data
                    customType:(NSString * _Nullable)customType
-            completionHandler:(nonnull void (^)(SBDGroupChannel * _Nullable channel, SBDError * _Nullable error))completionHandler;
+            completionHandler:(nonnull void (^)(SBDGroupChannel * _Nullable channel, SBDError * _Nullable error))completionHandler
+DEPRECATED_ATTRIBUTE;
 
 /**
  *  Updates a group channel with user IDs.
@@ -401,6 +480,8 @@
  *  @param data              The custom data of group channel.
  *  @param progressHandler   The handler block to monitor progression. `bytesSent` is the number of bytes sent since the last time this method was called. `totalBytesSent` is the total number of bytes sent so far. `totalBytesExpectedToSend` is the expected length of the body <span>data</span>. These parameters are the same to the declaration of [`URLSession:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:`](https://developer.apple.com/reference/foundation/nsurlsessiontaskdelegate/1408299-urlsession?language=objc).
  *  @param completionHandler The handler block to execute. `channel` is the group channel instance which has the `userIds` as <span>members</span>.
+ *
+ *  @deprecated in 3.0.116 Use `createChannelWithParams:completionHandler:` instead.
  */
 + (void)createChannelWithName:(NSString * _Nullable)name
                    isDistinct:(BOOL)isDistinct
@@ -409,7 +490,8 @@
                coverImageName:(NSString * _Nonnull)coverImageName
                          data:(NSString * _Nullable)data
               progressHandler:(nullable void (^)(int64_t bytesSent, int64_t totalBytesSent, int64_t totalBytesExpectedToSend))progressHandler
-            completionHandler:(nonnull void (^)(SBDGroupChannel * _Nullable channel, SBDError * _Nullable error))completionHandler;
+            completionHandler:(nonnull void (^)(SBDGroupChannel * _Nullable channel, SBDError * _Nullable error))completionHandler
+DEPRECATED_ATTRIBUTE;
 
 /**
  *  Creates a group channel with user IDs.
@@ -445,6 +527,8 @@
  *  @param customType        The custom type of group channel.
  *  @param progressHandler   The handler block to monitor progression. `bytesSent` is the number of bytes sent since the last time this method was called. `totalBytesSent` is the total number of bytes sent so far. `totalBytesExpectedToSend` is the expected length of the body <span>data</span>. These parameters are the same to the declaration of [`URLSession:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:`](https://developer.apple.com/reference/foundation/nsurlsessiontaskdelegate/1408299-urlsession?language=objc).
  *  @param completionHandler The handler block to execute. `channel` is the group channel instance which has the `userIds` as <span>members</span>.
+ *
+ *  @deprecated in 3.0.116 Use `createChannelWithParams:completionHandler:` instead.
  */
 + (void)createChannelWithName:(NSString * _Nullable)name
                    isDistinct:(BOOL)isDistinct
@@ -453,16 +537,27 @@
                          data:(NSString * _Nullable)data
                    customType:(NSString * _Nullable)customType
               progressHandler:(nullable void (^)(int64_t bytesSent, int64_t totalBytesSent, int64_t totalBytesExpectedToSend))progressHandler
-            completionHandler:(nonnull void (^)(SBDGroupChannel * _Nullable channel, SBDError * _Nullable error))completionHandler;
+            completionHandler:(nonnull void (^)(SBDGroupChannel * _Nullable channel, SBDError * _Nullable error))completionHandler
+DEPRECATED_ATTRIBUTE;
 
 /**
- *  Create a group channel with `SBDGroupChannelParams` class.
+ *  Creates a group channel with `SBDGroupChannelParams` class.
  *
  *  @param params               The parameter instance of SBDGroupChannelParams what has properties to create group channel.
  *  @param completionHandler    The handler block to execute. `channel` is the group channel instance which has the `userIds` as <span>members</span>.
  */
 + (void)createChannelWithParams:(nonnull SBDGroupChannelParams *)params
               completionHandler:(nonnull void(^)(SBDGroupChannel * _Nullable channel, SBDError * _Nullable error))completionHandler;
+
+/**
+ Creates a group channel with `SBDGroupChannelParams` class. The `completionHandlerWithInfo` returns `isCreated`, which notifies the `channel` instance is created now.
+
+ @param params The parameter instance of SBDGroupChannelParams what has properties to create group channel. The channel that is created by this method is always a distinct channel regardless of the `isDistinct` value of the `params`.
+ @param completionHandler The handler block to be executed. If the `channel` instance is new, then `isCreated` is YES.
+ @since 3.0.122
+ */
++ (void)createDistinctChannelIfNotExistWithParams:(nonnull SBDGroupChannelParams *)params
+      completionHandler:(nonnull void(^)(SBDGroupChannel * _Nullable channel, BOOL isCreated, SBDError * _Nullable error))completionHandler;
 
 /**
  *  Updates a group channel with user IDs.
@@ -474,6 +569,8 @@
  *  @param data              The custom data of group channel.
  *  @param progressHandler   The handler block to monitor progression. `bytesSent` is the number of bytes sent since the last time this method was called. `totalBytesSent` is the total number of bytes sent so far. `totalBytesExpectedToSend` is the expected length of the body <span>data</span>. These parameters are the same to the declaration of [`URLSession:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:`](https://developer.apple.com/reference/foundation/nsurlsessiontaskdelegate/1408299-urlsession?language=objc).
  *  @param completionHandler The handler block to execute. `channel` is the group channel instance which has the `userIds` as <span>members</span>.
+ *
+ *  @deprecated in 3.0.116 Use `updateChannelWithParams:completionHandler:` instead.
  */
 - (void)updateChannelWithName:(NSString * _Nullable)name
                    isDistinct:(BOOL)isDistinct
@@ -481,7 +578,8 @@
                coverImageName:(NSString * _Nullable)coverImageName
                          data:(NSString * _Nullable)data
               progressHandler:(nullable void (^)(int64_t bytesSent, int64_t totalBytesSent, int64_t totalBytesExpectedToSend))progressHandler
-            completionHandler:(nonnull void (^)(SBDGroupChannel * _Nullable channel, SBDError * _Nullable error))completionHandler;
+            completionHandler:(nonnull void (^)(SBDGroupChannel * _Nullable channel, SBDError * _Nullable error))completionHandler
+DEPRECATED_ATTRIBUTE;
 
 /**
  *  Updates a group channel with user IDs.
@@ -514,6 +612,8 @@
  *  @param customType        The custom type of group channel.
  *  @param progressHandler   The handler block to monitor progression. `bytesSent` is the number of bytes sent since the last time this method was called. `totalBytesSent` is the total number of bytes sent so far. `totalBytesExpectedToSend` is the expected length of the body <span>data</span>. These parameters are the same to the declaration of [`URLSession:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:`](https://developer.apple.com/reference/foundation/nsurlsessiontaskdelegate/1408299-urlsession?language=objc).
  *  @param completionHandler The handler block to execute. `channel` is the group channel instance which has the `userIds` as <span>members</span>.
+ *
+ *  @deprecated in 3.0.116 Use `updateChannelWithParams:completionHandler:` instead.
  */
 - (void)updateChannelWithName:(NSString * _Nullable)name
                    isDistinct:(BOOL)isDistinct
@@ -521,7 +621,8 @@
                          data:(NSString * _Nullable)data
                    customType:(NSString * _Nullable)customType
               progressHandler:(nullable void (^)(int64_t bytesSent, int64_t totalBytesSent, int64_t totalBytesExpectedToSend))progressHandler
-            completionHandler:(nonnull void (^)(SBDGroupChannel * _Nullable channel, SBDError * _Nullable error))completionHandler;
+            completionHandler:(nonnull void (^)(SBDGroupChannel * _Nullable channel, SBDError * _Nullable error))completionHandler
+DEPRECATED_ATTRIBUTE;
 
 /**
  *  Updates a group channel with user IDs.
@@ -532,13 +633,16 @@
  *  @param data              The custom data of group channel.
  *  @param progressHandler   The handler block to monitor progression. `bytesSent` is the number of bytes sent since the last time this method was called. `totalBytesSent` is the total number of bytes sent so far. `totalBytesExpectedToSend` is the expected length of the body <span>data</span>. These parameters are the same to the declaration of [`URLSession:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:`](https://developer.apple.com/reference/foundation/nsurlsessiontaskdelegate/1408299-urlsession?language=objc).
  *  @param completionHandler The handler block to execute. `channel` is the group channel instance which has the `userIds` as <span>members</span>.
+ *
+ *  @deprecated in 3.0.116 Use `updateChannelWithParams:completionHandler:` instead.
  */
 - (void)updateChannelWithName:(NSString * _Nullable)name
                    coverImage:(NSData * _Nullable)coverImage
                coverImageName:(NSString * _Nullable)coverImageName
                          data:(NSString * _Nullable)data
               progressHandler:(nullable void (^)(int64_t bytesSent, int64_t totalBytesSent, int64_t totalBytesExpectedToSend))progressHandler
-            completionHandler:(nonnull void (^)(SBDGroupChannel * _Nullable channel, SBDError * _Nullable error))completionHandler;
+            completionHandler:(nonnull void (^)(SBDGroupChannel * _Nullable channel, SBDError * _Nullable error))completionHandler
+DEPRECATED_ATTRIBUTE;
 
 /**
  *  Update a group channel with `SBDGroupChannelParams` class.
@@ -554,9 +658,12 @@
  *
  *  @param channelUrl        The channel URL.
  *  @param completionHandler The handler block to execute. `channel` is the group channel instance which has the `channelUrl`.
+ *
+ *  @deprecated in 3.0.116 DO NOT USE THIS METHOD.
  */
 + (void)getChannelWithoutCache:(NSString * _Nonnull)channelUrl
-             completionHandler:(nullable void (^)(SBDGroupChannel * _Nullable channel, SBDError * _Nullable error))completionHandler;
+             completionHandler:(nullable void (^)(SBDGroupChannel * _Nullable channel, SBDError * _Nullable error))completionHandler
+DEPRECATED_ATTRIBUTE;
 
 /**
  *  Gets a group channel instance from channel URL asynchronously.
@@ -619,7 +726,28 @@ DEPRECATED_ATTRIBUTE;
  *  @param hidePreviousMessages The option to hide the previous message of this channel when the channel will be appeared again.
  *  @param completionHandler The handler block to execute.
  */
-- (void)hideChannelWithHidePreviousMessages:(BOOL)hidePreviousMessages completionHandler:(nullable void (^)(SBDError *_Nullable error))completionHandler;
+- (void)hideChannelWithHidePreviousMessages:(BOOL)hidePreviousMessages
+                          completionHandler:(nullable void (^)(SBDError *_Nullable error))completionHandler;
+
+/**
+ Hides the group channel with the auto unhide option. The channel will be hid from the channel list. If the `allowAutoUnhide` is YES, the channel will be appeared again when the other user send a message in the channel. However, if the `allowAutoUnhide` is NO, the channel will be appeared by `unhideChannelWithCompletionHandler:` method.
+
+ @param hidePreviousMessages The option to hide the previous message of this channel when the channel will be appeared again.
+ @param allowAutoUnhide The auto unhide option.
+ @param completionHandler THe handle block to be executed.
+ @since 3.0.122
+ */
+- (void)hideChannelWithHidePreviousMessages:(BOOL)hidePreviousMessages
+                            allowAutoUnhide:(BOOL)allowAutoUnhide
+                          completionHandler:(nullable void (^)(SBDError * _Nullable error))completionHandler;
+
+/**
+ Unhides the group channel.
+
+ @param completionHandler THe handle block to be executed.
+ @since 3.0.122
+ */
+- (void)unhideChannelWithCompletionHandler:(nullable void (^)(SBDError *_Nullable error))completionHandler;
 
 /**
  *  Leaves the group channel. The channel will be disappeared from the channel list. If join the channel, the invitation is required.
@@ -627,6 +755,14 @@ DEPRECATED_ATTRIBUTE;
  *  @param completionHandler The handler block to execute.
  */
 - (void)leaveChannelWithCompletionHandler:(nullable void (^)(SBDError *_Nullable error))completionHandler;
+
+/**
+ Deletes the group channel. The user has to be an operator of the channel.
+
+ @param completionHandler The handler block to execute.
+ @since 3.0.137
+ */
+- (void)deleteChannelWithCompletionHandler:(nullable void (^)(SBDError *_Nullable error))completionHandler;
 
 /**
  *  Marks as read all group channels of the current user.
@@ -657,8 +793,10 @@ DEPRECATED_ATTRIBUTE;
  *  @param channelUrl channelUrl
  *  @see +getChannelWithUrl:completionHandler:
  *  @warning *Important*: DON'T use this method. This method will be unavailable.
+ *  @deprecated in 3.0.116  DO NOT USE THIS METHOD.
  */
-+ (SBDGroupChannel * _Nullable)getChannelFromCacheWithChannelUrl:(NSString * _Nonnull)channelUrl;
++ (SBDGroupChannel * _Nullable)getChannelFromCacheWithChannelUrl:(NSString * _Nonnull)channelUrl
+DEPRECATED_ATTRIBUTE;
 
 /**
  *  Returns how many <span>members</span> haven't been read the given message yet.
@@ -822,30 +960,57 @@ DEPRECATED_ATTRIBUTE;
 DEPRECATED_ATTRIBUTE;
 
 /**
+ *  Changes a setting that decides which push notification for the current user to receive in the group channel.
+ *  If a value of option is `SBDGroupChannelPushTriggerOptionDefault`, a push trigger option in this group channel follows a push trigger option of the current user.
+ *  It is related with `[SBDMain setPushTriggerOption:completionHandler:]`.
+ *
+ *  @param pushTriggerOption  The options to choose which push notification for the current user to receive.
+ *  @param completionHandler  The handler block to execute when setting a push trigger option of the current user is completed.
+ *
+ *  @since 3.0.128
+ */
+- (void)setMyPushTriggerOption:(SBDGroupChannelPushTriggerOption)pushTriggerOption
+             completionHandler:(nullable SBDErrorHandler)completionHandler;
+
+/**
+ *  Requests a setting that decides which push notification for the current user to receive in the group channel.
+ *
+ *  @param completionHandler  The handler block to execute when getting a push trigger option of the current user is completed.
+ *
+ *  @since 3.0.128
+ */
+- (void)getMyPushTriggerOptionWithCompletionHandler:(nonnull SBDGroupChannelPushTriggerOptionHandler)completionHandler;
+
+/**
  *  Gets the total unread message count of all group channels.
  *
  *  @param completionHandler The handler block to execute. The `unreadCount` is the total count of unread messages in all of group channel which the current is a member.
- *  @see  `getTotalUnreadMessageCountWithParams:completionHandler:`
+ *
+ *  @deprecated in 3.0.116  Use `[SBDMain getTotalUnreadMessageCountWithCompletionHandler:]` instead.
  */
-+ (void)getTotalUnreadMessageCountWithCompletionHandler:(nullable void (^)(NSUInteger unreadCount, SBDError * _Nullable error))completionHandler;
++ (void)getTotalUnreadMessageCountWithCompletionHandler:(nullable void (^)(NSUInteger unreadCount, SBDError * _Nullable error))completionHandler
+DEPRECATED_ATTRIBUTE;
 
 /**
  *  Gets the total unread channel count of all group channels.
  *
  *  @param completionHandler The handler block to execute. The `unreadCount` is the total count of unread channels in all of group channel which the current is a member.
- *  @see  `getTotalUnreadMessageCountWithParams:completionHandler:`
+ *
+ *  @deprecated in 3.0.116  Use `[SBDMain getTotalUnreadChannelCountWithCompletionHandler:]` instead.
  */
-+ (void)getTotalUnreadChannelCountWithCompletionHandler:(nullable void (^)(NSUInteger unreadCount, SBDError * _Nullable error))completionHandler;
++ (void)getTotalUnreadChannelCountWithCompletionHandler:(nullable void (^)(NSUInteger unreadCount, SBDError * _Nullable error))completionHandler
+DEPRECATED_ATTRIBUTE;
 
 /**
  *  Gets the total unread message count of the channels that have the specific custom types.
  *
  *  @param customTypes The array of the custom types. If the array is nil or the length of the array is zero, the total unread message count will be the same result of the `getTotalUnreadMessageCountWithCompletionHandler:`.
  *  @param completionHandler The handler block to execute. The `unreadCount` is the total unread message count of the channels that have the specific custom types. If there isn't any error, the `error` will be nil.
- *  @see  `getTotalUnreadMessageCountWithParams:completionHandler:`
+ *  @deprecated in 3.0.116  Use `[SBDMain getTotalUnreadMessageCountWithParams:completionHandler:]` instead.
  */
 + (void)getTotalUnreadMessageCountWithChannelCustomTypes:(NSArray<NSString *> * _Nullable)customTypes
-                                       completionHandler:(nullable void (^)(NSUInteger unreadCount, SBDError * _Nullable error))completionHandler;
+                                       completionHandler:(nullable void (^)(NSUInteger unreadCount, SBDError * _Nullable error))completionHandler
+DEPRECATED_ATTRIBUTE;
 
 /**
  *  Gets the total unread message count of the channels with filters of params.
@@ -854,9 +1019,11 @@ DEPRECATED_ATTRIBUTE;
  *  @param completionHandler  The handler block to be executed after getting total unread message count. This block has no return value and takes two argument, the one is the number of unread message and the other is error.
  *
  *  @since 3.0.97
+ *  @deprecated in 3.0.116  Use `[SBDMain getTotalUnreadMessageCountWithParams:completionHandler:]` instead.
  */
 + (void)getTotalUnreadMessageCountWithParams:(nonnull SBDGroupChannelTotalUnreadMessageCountParams *)params
-                           completionHandler:(nonnull void (^)(NSUInteger unreadCount, SBDError * _Nullable error))completionHandler;
+                           completionHandler:(nonnull void (^)(NSUInteger unreadCount, SBDError * _Nullable error))completionHandler
+DEPRECATED_ATTRIBUTE;
 
 /**
  Builds a group channel object from serialized <span>data</span>.
@@ -874,12 +1041,15 @@ DEPRECATED_ATTRIBUTE;
 - (nullable NSData *)serialize;
 
 /**
- Checks if there is a channel object in cache.
-
- @param channelUrl Channel URL to check.
- @return If YES, cache has the channel.
+ *  Checks if there is a channel object in cache.
+ *
+ *  @param channelUrl Channel URL to check.
+ *  @return If YES, cache has the channel.
+ *
+ *  @deprecated in 3.0.116  DO NOT USE THIS METHOD.
  */
-+ (BOOL)hasChannelInCache:(NSString * _Nonnull)channelUrl;
++ (BOOL)hasChannelInCache:(NSString * _Nonnull)channelUrl
+DEPRECATED_ATTRIBUTE;
 
 
 /**
@@ -907,6 +1077,14 @@ DEPRECATED_ATTRIBUTE;
  */
 - (void)acceptInvitationWithCompletionHandler:(nullable void (^)(SBDError * _Nullable error))completionHandler;
 
+/**
+ *  Accpets the invitation from a public group channel that has access code.
+ *
+ *  @param accessCode   The string code is used to accept invitation from a public group channel.
+ *  @param completionHandler    The handler block to be executed after accepting. This block has no return value and takes an argument that is an error made when there is something wrong to accept.
+ *  @since 3.0.116
+ */
+- (void)acceptInvitationWithAccessCode:(nullable NSString *)accessCode completionHandler:(nullable void (^)(SBDError * _Nullable error))completionHandler;
 
 /**
  Declines the invitation.
@@ -931,13 +1109,16 @@ DEPRECATED_ATTRIBUTE;
 - (void)resetMyHistoryWithCompletionHandler:(nullable void (^)(SBDError * _Nullable error))completionHandler;
 
 /**
- Gets the group channel count.
-
- @param memberStateFilter The member state of the current user in the channels that are counted.
- @param completionHandler The handler block to execute.
+ *  Gets the group channel count.
+ *
+ *  @param memberStateFilter The member state of the current user in the channels that are counted.
+ *  @param completionHandler The handler block to execute.
+ *
+ *  @deprecated in 3.0.116 Use `[SBDMain getChannelCountWithMemberStateFilter:completionHandler:]` instead.
  */
 + (void)getChannelCountWithMemberStateFilter:(SBDMemberStateFilter)memberStateFilter
-                           completionHandler:(nullable void (^)(NSUInteger groupChannelCount, SBDError * _Nullable error))completionHandler;
+                           completionHandler:(nullable void (^)(NSUInteger groupChannelCount, SBDError * _Nullable error))completionHandler
+DEPRECATED_ATTRIBUTE;
 
 /**
  *  Join a group channel
@@ -945,6 +1126,15 @@ DEPRECATED_ATTRIBUTE;
  *  @param completionHandler    The handler block to execute.
  */
 - (void)joinWithCompletionHandler:(nullable void(^)(SBDError * _Nullable error))completionHandler;
+
+/**
+ *  Join a public group channel that has access code.
+ *
+ *  @param accessCode   The string code is used to join a public group channel.
+ *  @param completionHandler    The handler block to be executed after joining. This block has no return value and takes an argument that is an error made when there is something wrong to join.
+ *  @since 3.0.116
+ */
+- (void)joinWithAccessCode:(nullable NSString *)accessCode completionHandler:(nullable void(^)(SBDError * _Nullable error))completionHandler;
 
 #pragma mark - moderation
 
@@ -1014,6 +1204,34 @@ DEPRECATED_ATTRIBUTE;
 - (void)muteUser:(nonnull SBDUser *)user completionHandler:(nullable void (^)(SBDError * _Nullable error))completionHandler;
 
 /**
+ Mute the user with additional options. Muted user cannot send any messages to the group channel.
+
+ @param user The user to be muted
+ @param seconds The user cannot send any messages for this time.
+ @param description The description that explains the reason why the user is muted.
+ @param completionHandler The handler block to be executed after mute. This block has no return value and takes an argument that is an error made when there is something wrong to mute the user.
+ @since 3.0.118
+ */
+- (void)muteUser:(nonnull SBDUser *)user
+          seconds:(NSInteger)seconds
+      description:(nullable NSString *)description
+completionHandler:(nullable void (^)(SBDError * _Nullable error))completionHandler;;
+
+/**
+ Mute the user with additional options. Muted user cannot send any messages to the group channel.
+ 
+ @param userId The user ID to be muted
+ @param seconds The user cannot send any messages for this time.
+ @param description The description that explains the reason why the user is muted.
+ @param completionHandler The handler block to be executed after mute. This block has no return value and takes an argument that is an error made when there is something wrong to mute the user.
+ @since 3.0.118
+ */
+- (void)muteUserWithUserId:(nonnull NSString *)userId
+                   seconds:(NSInteger)seconds
+               description:(nullable NSString *)description
+         completionHandler:(nullable void (^)(SBDError * _Nullable error))completionHandler;;
+
+/**
  *  Turn off mute the user.
  *
  *  @param userId            The user Id to be turned off mute.
@@ -1056,7 +1274,7 @@ DEPRECATED_ATTRIBUTE;
  *
  *  @since 3.0.101
  *  @deprecated in v3.0.103
- *  @warning DO NOT USE! use `[SBDGroupChannel getUnreadItemCountWithKey:completionHandler:]`.
+ *  @warning DO NOT USE!. Will be removed. Use `[SBDGroupChannel getUnreadItemCountWithKey:completionHandler:]`.
  *  @see `[SBDGroupChannel getUnreadItemCountWithKey:completionHandler:]`
  */
 - (void)getUnreadItemCountWithKey:(SBDUnreadItemKey)key
@@ -1069,9 +1287,12 @@ DEPRECATED_ATTRIBUTE;
  *  @param completionHandler  The handler block to be executed after getting unread item count. This block has no return value and takes two argument. the one is type of SBDUnreadItemCount that contains unsinged interger for count you requested. the other is an error made when there is something wrong to response.
  *
  *  @since 3.0.103
+ *  @deprecated in 3.0.116  Use `[SBDMain getUnreadItemCountWithKey:completionHandler:]` instead.
+ *  @see `[SBDMain getUnreadItemCountWithKey:completionHandler:]`
  */
 + (void)getUnreadItemCountWithKey:(SBDUnreadItemKey)key
-                completionHandler:(nonnull void(^)(SBDUnreadItemCount * _Nullable count, SBDError * _Nullable error))completionHandler;
+                completionHandler:(nonnull void(^)(SBDUnreadItemCount * _Nullable count, SBDError * _Nullable error))completionHandler
+DEPRECATED_ATTRIBUTE;
 
 /**
  *  Sets count preference of current user.
@@ -1082,5 +1303,15 @@ DEPRECATED_ATTRIBUTE;
  */
 - (void)setMyCountPreference:(SBDCountPreference)myCountPreference
            completionHandler:(nullable void (^)(SBDError * _Nullable error))completionHandler;
+
+/**
+ Registers a scheduled user message. The message will be sent at the specified time in `params`.
+ 
+ @param params The instance of `SBDScheduledUserMessageParams` that can has parameters related with a text message. It has also the specified time to send a user message.
+ @param completionHandler The handler block to be executed.
+ @since 3.0.119
+ */
+- (void)registerScheduledUserMessageWithParams:(nonnull SBDScheduledUserMessageParams *)params
+                             completionHandler:(nullable void (^)(SBDScheduledUserMessage * _Nullable scheduledUserMessage, SBDError * _Nullable error))completionHandler;
 
 @end

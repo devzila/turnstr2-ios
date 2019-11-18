@@ -9,11 +9,13 @@
 #import <Foundation/Foundation.h>
 #import "SBDBaseMessage.h"
 #import "SBDBaseChannel.h"
+#import "SBDSender.h"
+#import <CoreGraphics/CGGeometry.h>
 
 /**
  The `SBDThumbnailSize` class represents the thumbnail size of thumbnail.
  */
-@interface SBDThumbnailSize : NSObject
+@interface SBDThumbnailSize : NSObject <NSCopying>
 
 /**
  The max size of the thumbnail.
@@ -45,7 +47,7 @@
 /**
  The `SBDThumbnail` class represents the thumbnail in the file message.
  */
-@interface SBDThumbnail : NSObject
+@interface SBDThumbnail : NSObject <NSCopying>
 
 /**
  The url of the thumbnail.
@@ -79,9 +81,9 @@
 @interface SBDFileMessage : SBDBaseMessage
 
 /**
- *  Sender of the message.
+ *  Sender of the message. This is represented by `SBDSender` class.
  */
-@property (strong, nonatomic, nullable, getter = sender) SBDUser *sender;
+@property (strong, nonatomic, nullable, getter = sender) SBDSender *sender;
 
 /**
  *  The file URL.
@@ -104,24 +106,34 @@
 @property (strong, nonatomic, readonly, nonnull) NSString *type;
 
 /**
- *  The custom data for file.
- */
-@property (strong, nonatomic, readonly, nonnull) NSString *data;
-
-/**
  *  Request ID for ACK.
  */
 @property (strong, nonatomic, readonly, nullable) NSString *requestId;
 
 /**
- *  Custom message type.
- */
-@property (strong, nonatomic, readonly, nullable) NSString *customType;
-
-/**
  Image thumbnails.
  */
 @property (strong, nonatomic, readonly, nullable) NSArray<SBDThumbnail *> *thumbnails;
+
+/**
+ *  Represents the dispatch state of the message.
+ *  If message is not dispatched completely to the SendBird server, the value is `SBDMessageRequestStatePending`.
+ *  If failed to send the message, the value is `SBDMessageRequestStateFailed`.
+ *  And if success to send the message, the value is `SBDMessageRequestStateSucceeded`.
+ *
+ *  @since 3.0.141
+ */
+@property (assign, nonatomic, readonly) SBDMessageRequestState requestState;
+
+/**
+ Represents target user ids to mention when success to send the message.
+ This value is valid only when the message is a pending message or failed message.
+ If the message is a succeeded message, see `mentionedUserIds`
+ 
+ @since 3.0.147
+ @see see `mentionedUserIds` when the message is a succeeded message.
+ */
+@property (strong, nonatomic, readonly, nonnull) NSArray<NSString *> *requestedMentionUserIds;
 
 /**
  *  Builds file message with the information which is releated to file.
@@ -135,8 +147,9 @@
  *  @param sender     Sender of the message.
  *  @param channel    The channel which the file message is sent.
  *  @param customType Custom message type.
- *
  *  @return File message object with request ID.
+ *
+ *  @deprecated in 3.0.116 DO NOT USE THIS METHOD.
  */
 + (nullable NSMutableDictionary<NSString *, NSObject *> *)buildWithFileUrl:(NSString * _Nonnull)url
                                                                       name:(NSString * _Nullable)name
@@ -146,7 +159,8 @@
                                                                  requestId:(NSString * _Nullable)requestId
                                                                     sender:(SBDUser * _Nonnull)sender
                                                                    channel:(SBDBaseChannel * _Nonnull)channel
-                                                                customType:(NSString * _Nullable)customType;
+                                                                customType:(NSString * _Nullable)customType
+DEPRECATED_ATTRIBUTE;
 
 /**
  *  Builds file message with the information which is releated to file.
@@ -161,8 +175,9 @@
  *  @param channel    The channel which the file message is sent.
  *  @param customType Custom message type.
  *  @param thumbnailSizes Thumbnail sizes to require.
- *
  *  @return File message object with request ID.
+ *
+ *  @deprecated in 3.0.116 DO NOT USE THIS METHOD.
  */
 + (nullable NSMutableDictionary<NSString *, NSObject *> *)buildWithFileUrl:(NSString * _Nonnull)url
                                                                       name:(NSString * _Nullable)name
@@ -173,7 +188,8 @@
                                                                     sender:(SBDUser * _Nonnull)sender
                                                                    channel:(SBDBaseChannel * _Nonnull)channel
                                                                 customType:(NSString * _Nullable)customType
-                                                            thumbnailSizes:(NSArray<SBDThumbnailSize *> * _Nullable)thumbnailSizes;
+                                                            thumbnailSizes:(NSArray<SBDThumbnailSize *> * _Nullable)thumbnailSizes
+DEPRECATED_ATTRIBUTE;
 
 /**
  Returns url
@@ -194,6 +210,6 @@
  
  @return Sender of the message.
  */
-- (nonnull SBDUser *)sender;
+- (nonnull SBDSender *)sender;
 
 @end

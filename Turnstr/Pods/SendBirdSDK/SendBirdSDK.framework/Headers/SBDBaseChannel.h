@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <CoreGraphics/CoreGraphics.h>
 
 #import "SBDUser.h"
 #import "SBDUserMessage.h"
@@ -15,6 +14,9 @@
 #import "SBDFileMessage.h"
 #import "SBDError.h"
 #import "SBDMember.h"
+#import "SBDScheduledUserMessage.h"
+#import "SBDScheduledUserMessageParams.h"
+#import "SBDConstants.h"
 
 @class SBDPreviousMessageListQuery, SBDOperatorListQuery;
 @class SBDThumbnailSize;
@@ -306,7 +308,7 @@
 @property (atomic) NSUInteger createdAt;
 
 /**
- *  The custom date of the channel.
+ *  The custom data of the channel.
  */
 @property (strong, nonatomic, nullable) NSString *data;
 
@@ -339,111 +341,185 @@
 - (nullable instancetype)initWithDictionary:(NSDictionary * _Nonnull)dict;
 
 /**
- *  Sends a user message without <span>data</span>.
- *
- *  @param message           The message text.
- *  @param completionHandler The handler block to execute. `userMessage` is a user message which is returned from the SendBird server. The message has a message ID.
- *
- *  @return Returns the temporary user message with a request ID. It doesn't have a message ID.
+ Sends a user message without <span>data</span>.
+ 
+ @param message           The message text.
+ @param completionHandler The handler block to execute. `userMessage` is a user message which is returned from the SendBird server. The message has a message ID.
+ 
+ @return Returns a temporary user message being sent to the SendBird server.
+ The message has a request ID instead of a message ID.
+ The request status of the message is pending.
+ If you try to send a message with an invalid parameter, the returned message is a user message with no properties.
+ You can perform a validation of pending message by checking for the existence of the request ID.
  */
 - (nonnull SBDUserMessage *)sendUserMessage:(NSString * _Nullable)message
                           completionHandler:(nullable void (^)(SBDUserMessage * _Nullable userMessage, SBDError * _Nullable error))completionHandler;
 
 /**
- *  Sends a user message without <span>data</span>. The message will be translated into the target languages.
- *
- *  @param message           The message text.
- *  @param targetLanguages   The target languages that the message will be translated into.
- *  @param completionHandler The handler block to execute. `userMessage` is a user message which is returned from the SendBird server. The message has a message ID.
- *
- *  @return Returns the temporary user message with a request ID. It doesn't have a message ID.
+ Sends a user message without <span>data</span>. The message will be translated into the target languages.
+ 
+ @param message           The message text.
+ @param targetLanguages   The target languages that the message will be translated into.
+ @param completionHandler The handler block to execute. `userMessage` is a user message which is returned from the SendBird server. The message has a message ID.
+ 
+ @return Returns a temporary user message being sent to the SendBird server.
+ The message has a request ID instead of a message ID.
+ The request status of the message is pending.
+ If you try to send a message with an invalid parameter, the returned message is a user message with no properties.
+ You can perform a validation of pending message by checking for the existence of the request ID.
+ 
+ @deprecated in 3.0.116 Use `sendUserMessageWithParams:completionHandler:` instead.
  */
 - (nonnull SBDUserMessage *)sendUserMessage:(NSString * _Nullable)message
                             targetLanguages:(NSArray<NSString *> * _Nullable)targetLanguages
-                          completionHandler:(nullable void (^)(SBDUserMessage * _Nullable userMessage, SBDError * _Nullable error))completionHandler;
+                          completionHandler:(nullable void (^)(SBDUserMessage * _Nullable userMessage, SBDError * _Nullable error))completionHandler
+DEPRECATED_ATTRIBUTE;
 
 /**
- *  Sends a user message with <span>data</span>.
- *
- *  @param message        The message text.
- *  @param data           The message <span>data</span>.
- *  @param completionHandler The handler block to execute. `userMessage` is a user message which is returned from the SendBird server. The message has a message ID.
- *
- *  @return Returns the temporary user message with a request ID. It doesn't have a message ID.
+ Sends a user message with <span>data</span>.
+ 
+ @param message        The message text.
+ @param data           The message <span>data</span>.
+ @param completionHandler The handler block to execute. `userMessage` is a user message which is returned from the SendBird server. The message has a message ID.
+ 
+ @return Returns a temporary user message being sent to the SendBird server.
+ The message has a request ID instead of a message ID.
+ The request status of the message is pending.
+ If you try to send a message with an invalid parameter, the returned message is a user message with no properties.
+ You can perform a validation of pending message by checking for the existence of the request ID.
+ 
+ @deprecated in 3.0.116 Use `sendUserMessageWithParams:completionHandler:` instead.
  */
 - (nonnull SBDUserMessage *)sendUserMessage:(NSString * _Nullable)message
                                        data:(NSString * _Nullable)data
-                          completionHandler:(nullable void (^)(SBDUserMessage * _Nullable userMessage, SBDError * _Nullable error))completionHandler;
+                          completionHandler:(nullable void (^)(SBDUserMessage * _Nullable userMessage, SBDError * _Nullable error))completionHandler
+DEPRECATED_ATTRIBUTE;
 
 /**
- *  Sends a user message with <span>data</span>. The message will be translated into the target languages.
- *
- *  @param message        The message text.
- *  @param data           The message <span>data</span>.
- *  @param targetLanguages   The target languages that the message will be translated into.
- *  @param completionHandler The handler block to execute. `userMessage` is a user message which is returned from the SendBird server. The message has a message ID.
- *
- *  @return Returns the temporary user message with a request ID. It doesn't have a message ID.
+ Sends a user message with <span>data</span>. The message will be translated into the target languages.
+ 
+ @param message        The message text.
+ @param data           The message <span>data</span>.
+ @param targetLanguages   The target languages that the message will be translated into.
+ @param completionHandler The handler block to execute. `userMessage` is a user message which is returned from the SendBird server. The message has a message ID.
+ 
+ @return Returns a temporary user message being sent to the SendBird server.
+ The message has a request ID instead of a message ID.
+ The request status of the message is pending.
+ If you try to send a message with an invalid parameter, the returned message is a user message with no properties.
+ You can perform a validation of pending message by checking for the existence of the request ID.
+ 
+ @deprecated in 3.0.116 Use `sendUserMessageWithParams:completionHandler:` instead.
  */
 - (nonnull SBDUserMessage *)sendUserMessage:(NSString * _Nullable)message
                                        data:(NSString * _Nullable)data
                             targetLanguages:(NSArray<NSString *> * _Nullable)targetLanguages
-                          completionHandler:(nullable void (^)(SBDUserMessage * _Nullable userMessage, SBDError * _Nullable error))completionHandler;
+                          completionHandler:(nullable void (^)(SBDUserMessage * _Nullable userMessage, SBDError * _Nullable error))completionHandler
+DEPRECATED_ATTRIBUTE;
 
 /**
- *  Sends a user message with <span>data</span> and <span>custom message type</span>.
- *
- *  @param message        The message text.
- *  @param data           The message <span>data</span>.
- *  @param customType     Custom message type.
- *  @param completionHandler The handler block to execute. `userMessage` is a user message which is returned from the SendBird server. The message has a message ID.
- *
- *  @return Returns the temporary user message with a request ID. It doesn't have a message ID.
+ Sends a user message with <span>data</span> and <span>custom message type</span>.
+ 
+ @param message        The message text.
+ @param data           The message <span>data</span>.
+ @param customType     Custom message type.
+ @param completionHandler The handler block to execute. `userMessage` is a user message which is returned from the SendBird server. The message has a message ID.
+ 
+ @return Returns a temporary user message being sent to the SendBird server.
+ The message has a request ID instead of a message ID.
+ The request status of the message is pending.
+ If you try to send a message with an invalid parameter, the returned message is a user message with no properties.
+ You can perform a validation of pending message by checking for the existence of the request ID.
+ 
+ @deprecated in 3.0.116 Use `sendUserMessageWithParams:completionHandler:` instead.
  */
 - (nonnull SBDUserMessage *)sendUserMessage:(NSString * _Nullable)message
                                        data:(NSString * _Nullable)data
                                  customType:(NSString * _Nullable)customType
-                          completionHandler:(nullable void (^)(SBDUserMessage * _Nullable userMessage, SBDError * _Nullable error))completionHandler;
+                          completionHandler:(nullable void (^)(SBDUserMessage * _Nullable userMessage, SBDError * _Nullable error))completionHandler
+DEPRECATED_ATTRIBUTE;
 
 /**
- *  Sends a user message with <span>data</span> and <span>custom message type</span>. The message will be translated into the target languages.
- *
- *  @param message        The message text.
- *  @param data           The message <span>data</span>.
- *  @param customType     Custom message type.
- *  @param targetLanguages   The target languages that the message will be translated into.
- *  @param completionHandler The handler block to execute. `userMessage` is a user message which is returned from the SendBird server. The message has a message ID.
- *
- *  @return Returns the temporary user message with a request ID. It doesn't have a message ID.
+ Sends a user message with <span>data</span> and <span>custom message type</span>. The message will be translated into the target languages.
+ 
+ @param message        The message text.
+ @param data           The message <span>data</span>.
+ @param customType     Custom message type.
+ @param targetLanguages   The target languages that the message will be translated into.
+ @param completionHandler The handler block to execute. `userMessage` is a user message which is returned from the SendBird server. The message has a message ID.
+ 
+ @return Returns a temporary user message being sent to the SendBird server.
+ The message has a request ID instead of a message ID.
+ The request status of the message is pending.
+ If you try to send a message with an invalid parameter, the returned message is a user message with no properties.
+ You can perform a validation of pending message by checking for the existence of the request ID.
+ 
+ @deprecated in 3.0.116 Use `sendUserMessageWithParams:completionHandler:` instead.
  */
 - (nonnull SBDUserMessage *)sendUserMessage:(NSString * _Nullable)message
                                        data:(NSString * _Nullable)data
                                  customType:(NSString * _Nullable)customType
                             targetLanguages:(NSArray<NSString *> * _Nullable)targetLanguages
-                          completionHandler:(nullable void (^)(SBDUserMessage * _Nullable userMessage, SBDError * _Nullable error))completionHandler;
+                          completionHandler:(nullable void (^)(SBDUserMessage * _Nullable userMessage, SBDError * _Nullable error))completionHandler
+DEPRECATED_ATTRIBUTE;
 
 /**
- *  Sends a string message of params. The message is translated into the target languages.
- *
- *  @param params               The instance of SBDUserMessageParams that can has parameters related with string message.
- *  @param completionHandler    The handler block to be executed after the message was sent. This block has no return value and takes two argument, one is a file message was sent and other is an error made when there is something wrong to message.
- *
- *  @return SDBUserMessage      Returns the temporary user message instance with a request ID. It doesn't have a message ID and an URL.
+ Sends a string message of params. The message is translated into the target languages.
+ 
+ @param params               The instance of SBDUserMessageParams that can has parameters related with string message.
+ @param completionHandler    The handler block to be executed after the message was sent. This block has no return value and takes two argument, one is a file message was sent and other is an error made when there is something wrong to message.
+ 
+ @return Returns a temporary user message being sent to the SendBird server.
+ The message has a request ID instead of a message ID.
+ The request status of the message is pending.
+ If you try to send a message with an invalid parameter, the returned message is a user message with no properties.
+ You can perform a validation of pending message by checking for the existence of the request ID.
  */
 - (nonnull SBDUserMessage *)sendUserMessageWithParams:(nonnull SBDUserMessageParams *)params
                                     completionHandler:(nullable void (^)(SBDUserMessage * _Nullable userMessage, SBDError * _Nullable error))completionHandler;
 
 /**
- *  Sends a file message with binary <span>data</span>. The binary <span>data</span> is uploaded to SendBird file storage and a URL of the file will be generated.
- *
- *  @param file              File <span>data</span>.
- *  @param filename          File<span>name</span>.
- *  @param type              The mime type of file.
- *  @param size              File size.
- *  @param data              Custom <span>data</span>.
- *  @param completionHandler The handler block to execute. `fileMessage` is a user message which is returned from the SendBird server. The message has a message ID and an URL.
- *
- *  @return Returns the temporary file message with a request ID. It doesn't have a message ID and an URL.
+ Attempts to resend a failed user message received by the failure callback. Only failed message MUST be passed, not a succeeded message or a pending message
+ 
+ @param failedMessage  A message to send. A failed message is passed to the callback when fails to send a message
+ @param completionHandler  The handler block to be executed after the message is sent. This block has no return value and takes two arguments. One is a user message. If the message is successfully sent, the complete message instance is delivered. If the message fails to be sent, a failed message based on the pending message is delivered. Another factor is errors. If the message fails to be sent, a message error is dispatched
+ @since 3.0.141
+ 
+ @code
+ SBDUserMessageParams *params = [[SBDUserMessageParams alloc] initWithMessage:text_message];
+ // set some properties of params
+ 
+ [channel sendUserMessageWithParams:params completionHandler:^(SBDUserMessage * _Nullable message, SBDError * _Nullable error) {
+   if (error != nil) {
+     // handle failure of sending message
+     // if user wants to resend...
+     [channel resendUserMessageWithMessage:message completionHandler:^(SBDUserMessage * _Nullable message, SBDError * _Nullable error) {
+       // do something.
+     }];
+   } else {
+     // success to send message
+   }
+ }];
+ @endcode
+ */
+- (void)resendUserMessageWithMessage:(nonnull SBDUserMessage *)failedMessage
+                   completionHandler:(nullable SBDUserMessageHandler)completionHandler;
+
+/**
+ Sends a file message with binary <span>data</span>. The binary <span>data</span> is uploaded to SendBird file storage and a URL of the file will be generated.
+ 
+ @param file              File <span>data</span>.
+ @param filename          File<span>name</span>.
+ @param type              The mime type of file.
+ @param size              File size.
+ @param data              Custom <span>data</span>.
+ @param completionHandler The handler block to execute. `fileMessage` is a user message which is returned from the SendBird server. The message has a message ID and an URL.
+ 
+ @return Returns a temporary file message being sent to the SendBird server.
+ The message has a request ID instead of a message ID.
+ The request status of the message is pending.
+ If you try to send a message with an invalid parameter, the returned message is a user message with no properties.
+ You can perform a validation of pending message by checking for the existence of the request ID.
  */
 - (nonnull SBDFileMessage *)sendFileMessageWithBinaryData:(NSData * _Nonnull)file
                                                  filename:(NSString * _Nonnull)filename
@@ -453,17 +529,23 @@
                                         completionHandler:(nullable void (^)(SBDFileMessage * _Nullable fileMessage, SBDError * _Nullable error))completionHandler;
 
 /**
- *  Sends a file message with binary <span>data</span>. The binary <span>data</span> is uploaded to SendBird file storage and a URL of the file will be generated.
- *
- *  @param file              File <span>data</span>.
- *  @param filename          File<span>name</span>.
- *  @param type              The mime type of file.
- *  @param size              File size.
- *  @param data              Custom <span>data</span>.
- *  @param customType        Custom message type.
- *  @param completionHandler The handler block to execute. `fileMessage` is a user message which is returned from the SendBird server. The message has a message ID and an URL.
- *
- *  @return Returns the temporary file message with a request ID. It doesn't have a message ID and an URL.
+ Sends a file message with binary <span>data</span>. The binary <span>data</span> is uploaded to SendBird file storage and a URL of the file will be generated.
+ 
+ @param file              File <span>data</span>.
+ @param filename          File<span>name</span>.
+ @param type              The mime type of file.
+ @param size              File size.
+ @param data              Custom <span>data</span>.
+ @param customType        Custom message type.
+ @param completionHandler The handler block to execute. `fileMessage` is a user message which is returned from the SendBird server. The message has a message ID and an URL.
+ 
+ @return Returns a temporary file message being sent to the SendBird server.
+ The message has a request ID instead of a message ID.
+ The request status of the message is pending.
+ If you try to send a message with an invalid parameter, the returned message is a user message with no properties.
+ You can perform a validation of pending message by checking for the existence of the request ID.
+
+ @deprecated in 3.0.116 Use `sendFileMessageWithParams:completionHandler:` instead.
  */
 - (nonnull SBDFileMessage *)sendFileMessageWithBinaryData:(NSData * _Nonnull)file
                                                  filename:(NSString * _Nonnull)filename
@@ -471,20 +553,25 @@
                                                      size:(NSUInteger)size
                                                      data:(NSString * _Nullable)data
                                                customType:(NSString * _Nullable)customType
-                                        completionHandler:(nullable void (^)(SBDFileMessage * _Nullable fileMessage, SBDError * _Nullable error))completionHandler;
+                                        completionHandler:(nullable void (^)(SBDFileMessage * _Nullable fileMessage, SBDError * _Nullable error))completionHandler
+DEPRECATED_ATTRIBUTE;
 
 /**
- *  Sends a file message with file URL.
- *
- *  @param url               File URL.
- *  @param type              The type of file.
- *  @param size              File size.
- *  @param data              Custom <span>data</span>.
- *  @param completionHandler The handler block to execute. `fileMessage` is a user message which is returned from the SendBird server. The message has a message ID.
- *
- *  @return Returns the temporary file message with a request ID. It doesn't have a message ID.
- *
- *  @deprecated in 3.0.29.
+ Sends a file message with file URL.
+ 
+ @param url               File URL.
+ @param type              The type of file.
+ @param size              File size.
+ @param data              Custom <span>data</span>.
+ @param completionHandler The handler block to execute. `fileMessage` is a user message which is returned from the SendBird server. The message has a message ID.
+ 
+ @return Returns a temporary file message being sent to the SendBird server.
+ The message has a request ID instead of a message ID.
+ The request status of the message is pending.
+ If you try to send a message with an invalid parameter, the returned message is a user message with no properties.
+ You can perform a validation of pending message by checking for the existence of the request ID.
+ 
+ @deprecated in 3.0.29.
  */
 - (nonnull SBDFileMessage *)sendFileMessageWithUrl:(NSString * _Nonnull)url
                                               size:(NSUInteger)size
@@ -494,16 +581,20 @@
 DEPRECATED_ATTRIBUTE;
 
 /**
- *  Sends a file message with file URL.
- *
- *  @param url               File URL.
- *  @param filename          File<span>name</span>.
- *  @param type              The type of file.
- *  @param size              File size.
- *  @param data              Custom <span>data</span>.
- *  @param completionHandler The handler block to execute. `fileMessage` is a user message which is returned from the SendBird server. The message has a message ID.
- *
- *  @return Returns the temporary file message with a request ID. It doesn't have a message ID.
+ Sends a file message with file URL.
+ 
+ @param url               File URL.
+ @param filename          File<span>name</span>.
+ @param type              The type of file.
+ @param size              File size.
+ @param data              Custom <span>data</span>.
+ @param completionHandler The handler block to execute. `fileMessage` is a user message which is returned from the SendBird server. The message has a message ID.
+ 
+ @return Returns a temporary file message being sent to the SendBird server.
+ The message has a request ID instead of a message ID.
+ The request status of the message is pending.
+ If you try to send a message with an invalid parameter, the returned message is a user message with no properties.
+ You can perform a validation of pending message by checking for the existence of the request ID.
  */
 - (nonnull SBDFileMessage *)sendFileMessageWithUrl:(NSString * _Nonnull)url
                                           filename:(NSString * _Nullable)filename
@@ -513,18 +604,22 @@ DEPRECATED_ATTRIBUTE;
                                  completionHandler:(nullable void (^)(SBDFileMessage * _Nullable fileMessage, SBDError * _Nullable error))completionHandler;
 
 /**
- *  Sends a file message with file URL and <span>custom message type</span>.
- *
- *  @param url               File URL.
- *  @param type              The type of file.
- *  @param size              File size.
- *  @param data              Custom <span>data</span>.
- *  @param customType        Custom message type.
- *  @param completionHandler The handler block to execute. `fileMessage` is a user message which is returned from the SendBird server. The message has a message ID.
- *
- *  @return Returns the temporary file message with a request ID. It doesn't have a message ID.
- *
- *  @deprecated in 3.0.29.
+ Sends a file message with file URL and <span>custom message type</span>.
+ 
+ @param url               File URL.
+ @param type              The type of file.
+ @param size              File size.
+ @param data              Custom <span>data</span>.
+ @param customType        Custom message type.
+ @param completionHandler The handler block to execute. `fileMessage` is a user message which is returned from the SendBird server. The message has a message ID.
+ 
+ @return Returns a temporary file message being sent to the SendBird server.
+ The message has a request ID instead of a message ID.
+ The request status of the message is pending.
+ If you try to send a message with an invalid parameter, the returned message is a user message with no properties.
+ You can perform a validation of pending message by checking for the existence of the request ID.
+ 
+ @deprecated in 3.0.29.
  */
 - (nonnull SBDFileMessage *)sendFileMessageWithUrl:(NSString * _Nonnull)url
                                               size:(NSUInteger)size
@@ -535,17 +630,21 @@ DEPRECATED_ATTRIBUTE;
 DEPRECATED_ATTRIBUTE;
 
 /**
- *  Sends a file message with file URL and <span>custom message type</span>.
- *
- *  @param url               File URL.
- *  @param filename          File<span>name</span>.
- *  @param type              The type of file.
- *  @param size              File size.
- *  @param data              Custom <span>data</span>.
- *  @param customType        Custom message type.
- *  @param completionHandler The handler block to execute. `fileMessage` is a user message which is returned from the SendBird server. The message has a message ID.
- *
- *  @return Returns the temporary file message with a request ID. It doesn't have a message ID.
+ Sends a file message with file URL and <span>custom message type</span>.
+ 
+ @param url               File URL.
+ @param filename          File<span>name</span>.
+ @param type              The type of file.
+ @param size              File size.
+ @param data              Custom <span>data</span>.
+ @param customType        Custom message type.
+ @param completionHandler The handler block to execute. `fileMessage` is a user message which is returned from the SendBird server. The message has a message ID.
+ 
+ @return Returns a temporary file message being sent to the SendBird server.
+ The message has a request ID instead of a message ID.
+ The request status of the message is pending.
+ If you try to send a message with an invalid parameter, the returned message is a user message with no properties.
+ You can perform a validation of pending message by checking for the existence of the request ID.
  */
 - (nonnull SBDFileMessage *)sendFileMessageWithUrl:(NSString * _Nonnull)url
                                           filename:(NSString * _Nullable)filename
@@ -556,17 +655,23 @@ DEPRECATED_ATTRIBUTE;
                                  completionHandler:(nullable void (^)(SBDFileMessage * _Nullable fileMessage, SBDError * _Nullable error))completionHandler;
 
 /**
- *  Sends a file message with binary <span>data</span>. The binary <span>data</span> is uploaded to SendBird file storage and a URL of the file will be generated. The uploading progress callback can be implemented.
- *
- *  @param file              File <span>data</span>.
- *  @param filename          File<span>name</span>.
- *  @param type              The mime type of file.
- *  @param size              File size.
- *  @param data              Custom <span>data</span>.
- *  @param progressHandler   The handler block to monitor progression.  `bytesSent` is the number of bytes sent since the last time this method was called. `totalBytesSent` is the total number of bytes sent so far. `totalBytesExpectedToSend` is the expected length of the body <span>data</span>. These parameters are the same to the declaration of [`URLSession:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:`](https://developer.apple.com/reference/foundation/nsurlsessiontaskdelegate/1408299-urlsession?language=objc).
- *  @param completionHandler The handler block to execute. `fileMessage` is a user message which is returned from the SendBird server. The message has a message ID and an URL.
- *
- *  @return Returns the temporary file message with a request ID. It doesn't have a message ID and an URL.
+ Sends a file message with binary <span>data</span>. The binary <span>data</span> is uploaded to SendBird file storage and a URL of the file will be generated. The uploading progress callback can be implemented.
+ 
+ @param file              File <span>data</span>.
+ @param filename          File<span>name</span>.
+ @param type              The mime type of file.
+ @param size              File size.
+ @param data              Custom <span>data</span>.
+ @param progressHandler   The handler block to monitor progression.  `bytesSent` is the number of bytes sent since the last time this method was called. `totalBytesSent` is the total number of bytes sent so far. `totalBytesExpectedToSend` is the expected length of the body <span>data</span>. These parameters are the same to the declaration of [`URLSession:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:`](https://developer.apple.com/reference/foundation/nsurlsessiontaskdelegate/1408299-urlsession?language=objc).
+ @param completionHandler The handler block to execute. `fileMessage` is a user message which is returned from the SendBird server. The message has a message ID and an URL.
+ 
+ @return Returns a temporary file message being sent to the SendBird server.
+ The message has a request ID instead of a message ID.
+ The request status of the message is pending.
+ If you try to send a message with an invalid parameter, the returned message is a user message with no properties.
+ You can perform a validation of pending message by checking for the existence of the request ID.
+ 
+ @deprecated in 3.0.116 Use `sendFileMessageWithParams:completionHandler:` instead.
  */
 - (nonnull SBDFileMessage *)sendFileMessageWithBinaryData:(NSData * _Nonnull)file
                                                  filename:(NSString * _Nonnull)filename
@@ -574,21 +679,28 @@ DEPRECATED_ATTRIBUTE;
                                                      size:(NSUInteger)size
                                                      data:(NSString * _Nullable)data
                                           progressHandler:(nullable void (^)(int64_t bytesSent, int64_t totalBytesSent, int64_t totalBytesExpectedToSend))progressHandler
-                                        completionHandler:(nullable void (^)(SBDFileMessage * _Nullable fileMessage, SBDError * _Nullable error))completionHandler;
+                                        completionHandler:(nullable void (^)(SBDFileMessage * _Nullable fileMessage, SBDError * _Nullable error))completionHandler
+DEPRECATED_ATTRIBUTE;
 
 /**
- *  Sends a file message with binary <span>data</span>. The binary <span>data</span> is uploaded to SendBird file storage and a URL of the file will be generated. The uploading progress callback can be implemented.
- *
- *  @param file              File <span>data</span>.
- *  @param filename          File<span>name</span>.
- *  @param type              The mime type of file.
- *  @param size              File size.
- *  @param data              Custom <span>data</span>.
- *  @param customType        Custom message type.
- *  @param progressHandler   The handler block to monitor progression.  `bytesSent` is the number of bytes sent since the last time this method was called. `totalBytesSent` is the total number of bytes sent so far. `totalBytesExpectedToSend` is the expected length of the body <span>data</span>. These parameters are the same to the declaration of [`URLSession:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:`](https://developer.apple.com/reference/foundation/nsurlsessiontaskdelegate/1408299-urlsession?language=objc).
- *  @param completionHandler The handler block to execute. `fileMessage` is a user message which is returned from the SendBird server. The message has a message ID and an URL.
- *
- *  @return Returns the temporary file message with a request ID. It doesn't have a message ID and an URL.
+ Sends a file message with binary <span>data</span>. The binary <span>data</span> is uploaded to SendBird file storage and a URL of the file will be generated. The uploading progress callback can be implemented.
+ 
+ @param file              File <span>data</span>.
+ @param filename          File<span>name</span>.
+ @param type              The mime type of file.
+ @param size              File size.
+ @param data              Custom <span>data</span>.
+ @param customType        Custom message type.
+ @param progressHandler   The handler block to monitor progression.  `bytesSent` is the number of bytes sent since the last time this method was called. `totalBytesSent` is the total number of bytes sent so far. `totalBytesExpectedToSend` is the expected length of the body <span>data</span>. These parameters are the same to the declaration of [`URLSession:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:`](https://developer.apple.com/reference/foundation/nsurlsessiontaskdelegate/1408299-urlsession?language=objc).
+ @param completionHandler The handler block to execute. `fileMessage` is a user message which is returned from the SendBird server. The message has a message ID and an URL.
+ 
+ @return Returns a temporary file message being sent to the SendBird server.
+ The message has a request ID instead of a message ID.
+ The request status of the message is pending.
+ If you try to send a message with an invalid parameter, the returned message is a user message with no properties.
+ You can perform a validation of pending message by checking for the existence of the request ID.
+ 
+ @deprecated in 3.0.116 Use `sendFileMessageWithParams:completionHandler:` instead.
  */
 - (nonnull SBDFileMessage *)sendFileMessageWithBinaryData:(NSData * _Nonnull)file
                                                  filename:(NSString * _Nonnull)filename
@@ -597,22 +709,27 @@ DEPRECATED_ATTRIBUTE;
                                                      data:(NSString * _Nullable)data
                                                customType:(NSString * _Nullable)customType
                                           progressHandler:(nullable void (^)(int64_t bytesSent, int64_t totalBytesSent, int64_t totalBytesExpectedToSend))progressHandler
-                                        completionHandler:(nullable void (^)(SBDFileMessage * _Nullable fileMessage, SBDError * _Nullable error))completionHandler;
+                                        completionHandler:(nullable void (^)(SBDFileMessage * _Nullable fileMessage, SBDError * _Nullable error))completionHandler
+DEPRECATED_ATTRIBUTE;
 
 /**
- *  Sends a file message with binary <span>data</span>. The binary <span>data</span> is uploaded to SendBird file storage and a URL of the file will be generated. The uploading progress callback can be implemented.
- *
- *  @param file              File <span>data</span>.
- *  @param filename          File<span>name</span>.
- *  @param type              The mime type of file.
- *  @param size              File size.
- *  @param thumbnailSizes    Thumbnail sizes. This parameter is the array of `SBDThumbnailSize` object and works for image file only.
- *  @param data              Custom <span>data</span>.
- *  @param customType        Custom message type.
- *  @param progressHandler   The handler block to monitor progression.  `bytesSent` is the number of bytes sent since the last time this method was called. `totalBytesSent` is the total number of bytes sent so far. `totalBytesExpectedToSend` is the expected length of the body <span>data</span>. These parameters are the same to the declaration of [`URLSession:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:`](https://developer.apple.com/reference/foundation/nsurlsessiontaskdelegate/1408299-urlsession?language=objc).
- *  @param completionHandler The handler block to execute. `fileMessage` is a user message which is returned from the SendBird server. The message has a message ID and an URL.
- *
- *  @return Returns the temporary file message with a request ID. It doesn't have a message ID and an URL.
+ Sends a file message with binary <span>data</span>. The binary <span>data</span> is uploaded to SendBird file storage and a URL of the file will be generated. The uploading progress callback can be implemented.
+ 
+ @param file              File <span>data</span>.
+ @param filename          File<span>name</span>.
+ @param type              The mime type of file.
+ @param size              File size.
+ @param thumbnailSizes    Thumbnail sizes. This parameter is the array of `SBDThumbnailSize` object and works for image file only.
+ @param data              Custom <span>data</span>.
+ @param customType        Custom message type.
+ @param progressHandler   The handler block to monitor progression.  `bytesSent` is the number of bytes sent since the last time this method was called. `totalBytesSent` is the total number of bytes sent so far. `totalBytesExpectedToSend` is the expected length of the body <span>data</span>. These parameters are the same to the declaration of [`URLSession:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:`](https://developer.apple.com/reference/foundation/nsurlsessiontaskdelegate/1408299-urlsession?language=objc).
+ @param completionHandler The handler block to execute. `fileMessage` is a user message which is returned from the SendBird server. The message has a message ID and an URL.
+ 
+ @return Returns a temporary file message being sent to the SendBird server.
+ The message has a request ID instead of a message ID.
+ The request status of the message is pending.
+ If you try to send a message with an invalid parameter, the returned message is a user message with no properties.
+ You can perform a validation of pending message by checking for the existence of the request ID.
  */
 - (nonnull SBDFileMessage *)sendFileMessageWithBinaryData:(NSData * _Nonnull)file
                                                  filename:(NSString * _Nonnull)filename
@@ -625,17 +742,21 @@ DEPRECATED_ATTRIBUTE;
                                         completionHandler:(nullable void (^)(SBDFileMessage * _Nullable fileMessage, SBDError * _Nullable error))completionHandler;
 
 /**
- *  Sends a file message with binary <span>data</span>. The binary <span>data</span> is uploaded to SendBird file storage and a URL of the file will be generated. The uploading progress callback can be implemented.
- *
- *  @param filepath          File path to be sent.
- *  @param type              The mime type of file.
- *  @param thumbnailSizes    Thumbnail sizes. This parameter is the array of `SBDThumbnailSize` object and works for image file only.
- *  @param data              Custom <span>data</span>.
- *  @param customType        Custom message type.
- *  @param progressHandler   The handler block to monitor progression.  `bytesSent` is the number of bytes sent since the last time this method was called. `totalBytesSent` is the total number of bytes sent so far. `totalBytesExpectedToSend` is the expected length of the body <span>data</span>. These parameters are the same to the declaration of [`URLSession:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:`](https://developer.apple.com/reference/foundation/nsurlsessiontaskdelegate/1408299-urlsession?language=objc).
- *  @param completionHandler The handler block to execute. `fileMessage` is a user message which is returned from the SendBird server. The message has a message ID and an URL.
- *
- *  @return Returns the temporary file message with a request ID. It doesn't have a message ID and an URL.
+ Sends a file message with binary <span>data</span>. The binary <span>data</span> is uploaded to SendBird file storage and a URL of the file will be generated. The uploading progress callback can be implemented.
+ 
+ @param filepath          File path to be sent.
+ @param type              The mime type of file.
+ @param thumbnailSizes    Thumbnail sizes. This parameter is the array of `SBDThumbnailSize` object and works for image file only.
+ @param data              Custom <span>data</span>.
+ @param customType        Custom message type.
+ @param progressHandler   The handler block to monitor progression.  `bytesSent` is the number of bytes sent since the last time this method was called. `totalBytesSent` is the total number of bytes sent so far. `totalBytesExpectedToSend` is the expected length of the body <span>data</span>. These parameters are the same to the declaration of [`URLSession:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:`](https://developer.apple.com/reference/foundation/nsurlsessiontaskdelegate/1408299-urlsession?language=objc).
+ @param completionHandler The handler block to execute. `fileMessage` is a user message which is returned from the SendBird server. The message has a message ID and an URL.
+ 
+ @return Returns a temporary file message being sent to the SendBird server.
+ The message has a request ID instead of a message ID.
+ The request status of the message is pending.
+ If you try to send a message with an invalid parameter, the returned message is a user message with no properties.
+ You can perform a validation of pending message by checking for the existence of the request ID.
  */
 - (nonnull SBDFileMessage *)sendFileMessageWithFilePath:(NSString * _Nonnull)filepath
                                                    type:(NSString * _Nonnull)type
@@ -646,28 +767,118 @@ DEPRECATED_ATTRIBUTE;
                                       completionHandler:(nullable void (^)(SBDFileMessage * _Nullable fileMessage, SBDError * _Nullable error))completionHandler;
 
 /**
- *  Sends a file message with file or file URL of params without progress. If the params has a binary file, it will upload data to Sendbird storage. If not, the params has a file url, it will send a message with file url.
- *
- *  @param params               The instance of SBDFileMessageParams that can has parameters related with file.
- *  @param completionHandler    The handler block to be executed after the message was sent. This block has no return value and takes two argument, one is a file message was sent and other is an error made when there is something wrong to message.
- *
- *  @return SDBFileMessage      Returns the temporary file message instance with a request ID. It doesn't have a message ID and an URL.
+ Sends a file message with file or file URL of params without progress. If the params has a binary file, it will upload data to Sendbird storage. If not, the params has a file url, it will send a message with file url.
+ 
+ @param params               The instance of SBDFileMessageParams that can has parameters related with file.
+ @param completionHandler    The handler block to be executed after the message was sent. This block has no return value and takes two argument, one is a file message was sent and other is an error made when there is something wrong to message.
+ 
+ @return Returns a temporary file message being sent to the SendBird server.
+ The message has a request ID instead of a message ID.
+ The request status of the message is pending.
+ If you try to send a message with an invalid parameter, the returned message is a user message with no properties.
+ You can perform a validation of pending message by checking for the existence of the request ID.
  */
 - (nonnull SBDFileMessage *)sendFileMessageWithParams:(nonnull SBDFileMessageParams *)params
                                     completionHandler:(nullable void (^)(SBDFileMessage * _Nullable fileMessage, SBDError * _Nullable error))completionHandler;
 
 /**
- *  Sends a file message with file or file URL of params with progress. If the params has a binary file, it will upload data to Sendbird storage. If not, the params has a file url, it will send a message with file url.
- *
- *  @param params               The instance of SBDFileMessageParams that can has parameters related with file.
- *  @param progressHandler      The handler block to be used to monitor progression. `bytesSent` is the number of bytes sent since this method was called. `totalBytesSent` is the total number of bytes sent so far. `totalBytesExpectedToSend` is the expected length of the body data. These parameters are the same to the declaration of [`URLSession:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:`](https://developer.apple.com/reference/foundation/nsurlsessiontaskdelegate/1408299-urlsession?language=objc).
- *  @param completionHandler    The handler block to be executed after the message was sent. This block has no return value and takes two argument, one is a file message was sent and other is an error made when there is something wrong to message.
- *
- *  @return SDBFileMessage      Returns the temporary file message instance with a request ID. It doesn't have a message ID and an URL.
+ Sends a file message with file or file URL of params with progress. If the params has a binary file, it will upload data to Sendbird storage. If not, the params has a file url, it will send a message with file url.
+ 
+ @param params               The instance of SBDFileMessageParams that can has parameters related with file.
+ @param progressHandler      The handler block to be used to monitor progression. `bytesSent` is the number of bytes sent since this method was called. `totalBytesSent` is the total number of bytes sent so far. `totalBytesExpectedToSend` is the expected length of the body data. These parameters are the same to the declaration of [`URLSession:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:`](https://developer.apple.com/reference/foundation/nsurlsessiontaskdelegate/1408299-urlsession?language=objc).
+ @param completionHandler    The handler block to be executed after the message was sent. This block has no return value and takes two argument, one is a file message was sent and other is an error made when there is something wrong to message.
+ 
+ @return Returns a temporary file message being sent to the SendBird server.
+ The message has a request ID instead of a message ID.
+ The request status of the message is pending.
+ If you try to send a message with an invalid parameter, the returned message is a user message with no properties.
+ You can perform a validation of pending message by checking for the existence of the request ID.
  */
 - (nonnull SBDFileMessage *)sendFileMessageWithParams:(nonnull SBDFileMessageParams *)params
                                       progressHandler:(nullable void (^)(int64_t bytesSent, int64_t totalBytesSent, int64_t totalBytesExpectedToSend))progressHandler
                                     completionHandler:(nullable void (^)(SBDFileMessage * _Nullable fileMessage, SBDError * _Nullable error))completionHandler;
+
+/**
+ Sends a file message with file or file URL of params with progress. If the params has a binary file, it will upload data to Sendbird storage. If not, the params has a file url, it will send a message with file url.
+ 
+ @param params               The instance of SBDFileMessageParams that can has parameters related with file.
+ @param progressHandler      The handler block to be used to monitor progression. `bytesSent` is the number of bytes sent since this method was called. `totalBytesSent` is the total number of bytes sent so far. `totalBytesExpectedToSend` is the expected length of the body data. These parameters are the same to the declaration of [`URLSession:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:`](https://developer.apple.com/reference/foundation/nsurlsessiontaskdelegate/1408299-urlsession?language=objc).
+ @param sentMessageHandler    The handler block to be executed after each message was sent. This block has no return value and takes two argument, one is a file message was sent and other is an error made when there is something wrong to message.
+ @param completionHandler    The handler block to be executed after every message was sent. This block has no return value and takes an error. If the sending message can't start at all because of the connection issue, the error isn't nil.
+ 
+ @return Returns a temporary file message being sent to the SendBird server.
+ The message has a request ID instead of a message ID.
+ The request status of the message is pending.
+ If you try to send a message with an invalid parameter, the returned message is a user message with no properties.
+ You can perform a validation of pending message by checking for the existence of the request ID.
+ @since  3.0.116
+ */
+- (nonnull NSArray<SBDFileMessage *> *)sendFileMessagesWithParams:(nonnull NSArray<SBDFileMessageParams *> *)params
+                                                  progressHandler:(nullable void (^)(NSString * _Nullable requestId, int64_t bytesSent, int64_t totalBytesSent, int64_t totalBytesExpectedToSend))progressHandler
+                                               sentMessageHandler:(nullable void (^)(SBDFileMessage * _Nonnull message, SBDError * _Nullable error))sentMessageHandler
+                                                completionHandler:(nullable void (^)(SBDError * _Nullable error))completionHandler;
+
+/**
+ Attempts to resend a failed file message received by the failure callback. Only failed message MUST be passed, not a succeeded message or a pending message. If the failed message has a file URL, it means the failed message was created after failure of sending a file message command. So the method retries to send a file message command. If the failed message does not have a file URL, it means the failed message was created from failure of uploading a binary data. So the method retries to upload a binary data frist.
+ 
+ @param failedMessage  A message to send. A failed message is passed to the callback when fails to send a message
+ @param binaryData Data to resend. If the failed message has a file URL, the method will not send binary data. If the failed message does not have a file URL, the method will send binary data first and send a file message command with file url.
+ @param completionHandler  The handler block to be executed after the message is sent. This block has no return value and takes two arguments. One is a file message. If the message is successfully sent, the complete message instance is delivered. If the message fails to be sent, a failed message based on the pending message is delivered except invalid parameter error. If failed because of invalid parameter, message is nil. Another factor is errors. If the message fails to be sent, a message error is dispatched.
+ @since 3.0.147
+ 
+ @code
+ SBDFileMessageParams *params = [[SBDFileMessageParams alloc] initWithFile:binaryData];
+ // set some properties of params
+ [channel sendFileMessageWithParams:params completionHandler:^(SBDFileMessage * _Nullable message, SBDError * _Nullable error) {
+   if (error != nil) {
+     // handle failure of sending message
+     // if user wants to resend...
+     [channel resendFileMessageWithMessage:message binaryData:params.file completionHandler:^(SBDFileMessage * _Nullable message, SBDError * _Nullable error) {
+       // do something.
+     }];
+   }
+   else {
+     // success to send message
+   }
+ }];
+ @endcode
+ */
+- (void)resendFileMessageWithMessage:(nonnull SBDFileMessage *)failedMessage
+                          binaryData:(nullable NSData *)binaryData
+                   completionHandler:(nullable SBDFileMessageHandler)completionHandler;
+
+/**
+ Attempts to resend a failed file message received by the failure callback. Only failed message MUST be passed, not a succeeded message or a pending message. If the failed message has a file URL, it means the failed message was created after failure of sending a file message command. So the method retries to send a file message command. If the failed message does not have a file URL, it means the failed message was created from failure of uploading a binary data. So the method retries to upload a binary data frist.
+ 
+ @param failedMessage  A message to send. A failed message is passed to the callback when fails to send a message
+ @param binaryData Data to resend. If the failed message has a file URL, the method will not send binary data. If the failed message does not have a file URL, the method will send binary data first and send a file message command with file url.
+ @param progressHandler      The handler block to be used to monitor progression. `bytesSent` is the number of bytes sent since this method was called. `totalBytesSent` is the total number of bytes sent so far. `totalBytesExpectedToSend` is the expected length of the body data. These parameters are the same to the declaration of [`URLSession:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:`](https://developer.apple.com/reference/foundation/nsurlsessiontaskdelegate/1408299-urlsession?language=objc).
+ @param completionHandler  The handler block to be executed after the message is sent. This block has no return value and takes two arguments. One is a file message. If the message is successfully sent, the complete message instance is delivered. If the message fails to be sent, a failed message based on the pending message is delivered except invalid parameter error. If failed because of invalid parameter, message is nil. Another factor is errors. If the message fails to be sent, a message error is dispatched.
+ @since 3.0.147
+ 
+ @code
+ SBDFileMessageParams *params = [[SBDFileMessageParams alloc] initWithFile:binaryData];
+ // set some properties of params
+ [channel sendFileMessageWithParams:params completionHandler:^(SBDFileMessage * _Nullable message, SBDError * _Nullable error) {
+   if (error != nil) {
+     // handle failure of sending message
+     // if user wants to resend...
+     [channel resendFileMessageWithMessage:failedMessage binaryData:params.file progressHandler:^(int64_t bytesSent, int64_t totalBytesSent, int64_t totalBytesExpectedToSend) {
+        // do something in progress
+      } completionHandler:^(SBDFileMessage * _Nullable message, SBDError * _Nullable error) {
+        // do something.
+      }];
+    }
+    else {
+      // success to send message
+    }
+ }];
+ @endcode
+ */
+- (void)resendFileMessageWithMessage:(nonnull SBDFileMessage *)failedMessage
+                          binaryData:(nullable NSData *)binaryData
+                     progressHandler:(nullable SBDBinaryProgressHandler)progressHandler
+                   completionHandler:(nullable SBDFileMessageHandler)completionHandler;
 
 #pragma mark - Load message list
 /**
@@ -690,7 +901,7 @@ DEPRECATED_ATTRIBUTE;
  *  Creates `SBDOperatorListQuery` instance for getting operators in the channel.
  *
  *  @return The operator list in the channel.
- *  @since  9.0.94
+ *  @since  3.0.94
  */
 - (nullable SBDOperatorListQuery *)createOperatorListQuery;
 
@@ -814,6 +1025,7 @@ DEPRECATED_ATTRIBUTE;
  */
 - (void)deleteAllMetaDataWithCompletionHandler:(nullable void (^)(SBDError * _Nullable error))completionHandler;
 
+#pragma mark - Delete message
 /**
  *  Deletes a message. The message's sender has to be the current user.
  *
@@ -823,7 +1035,7 @@ DEPRECATED_ATTRIBUTE;
 - (void)deleteMessage:(SBDBaseMessage * _Nonnull)message
     completionHandler:(nullable void (^)(SBDError * _Nullable error))completionHandler;
 
-
+#pragma mark - Update message
 /**
  *  Updates a user message. The message text, data, and custom type can be updated.
  *
@@ -847,7 +1059,6 @@ DEPRECATED_ATTRIBUTE;
  *  @param completionHandler    The handler block to be executed after update.
  *                              This block has no return value and takes two argument.
  *                              the one is updated message type of SBDUserMessage. the other is an error made when there is something wrong to process.
- *
  *
  *  @since 3.0.110
  */
@@ -877,12 +1088,37 @@ DEPRECATED_ATTRIBUTE;
  *                              This block has no return value and takes two argument.
  *                              the one is updated message type of SBDFileMessage. the other is an error made when there is something wrong to process.
  *
- *
  *  @since 3.0.110
  */
 - (void)updateFileMessageWithMessageId:(long long)messageId
                      fileMessageParams:(nonnull SBDFileMessageParams *)params
                      completionHandler:(nullable void (^)(SBDFileMessage * _Nullable message, SBDError * _Nullable error))completionHandler;
+
+/**
+ Requests to translate the text message into the target languages. You can get a user message with the `translations` property after the request, but the request does not trigger an update event on the message and does not get the message by `getMessageChangeLogsWithToken:`. If you request a message through methods such as `getPreivousMessage:` or `getNextMessage:`, you will get a translated message.
+ A translation request can affect not only your message, but also other people's messages.
+ 
+ @param message  The string type of the message of the user message instance will be translated.
+ @param targetLanguages   The target languages that the message will be translated into. e.g. @"en", @"es", @"ch"
+ @param completionHandler  The handler block to be executed after translation. This block has no return value and takes two arguments. One is a user message. If succeeded to translate text of the message, the message instance with translations is delivered. If failed to translate, nil is delivered. Another factor is an error. If failed to request, an error is dispatched.
+ @since 3.0.148
+ 
+ @code
+ SBDUserMessage *userMessage; // received from event or get from API (`getPreviousMessages:`)
+ [channel translateUserMessage:userMessage targerLanguages:target_languages completionHandler:^(SBDUserMessage * _Nullable message, SBDError * _Nullable error) {
+    if (error != nil) {
+        // handle error
+        return;
+    }
+ 
+    NSDictionary *translations = message.translations;
+    // do somthing.
+ }];
+ @endcode
+ */
+- (void)translateUserMessage:(nonnull SBDUserMessage *)message
+             targetLanguages:(nonnull NSArray<NSString *> *)targetLanguages
+           completionHandler:(nullable SBDUserMessageHandler)completionHandler;
 
 /**
  *  Checks the channel type.
@@ -953,6 +1189,52 @@ DEPRECATED_ATTRIBUTE;
                  completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable messages, SBDError * _Nullable error))completionHandler;
 
 /**
+ Gets the next messages by the timestamp. The messages can have meta array.
+
+ @param timestamp The standard timestamp to load messages.
+ @param limit The limit for the number of messages. The returned messages could be more than this number if there are messages which have the same timestamp.
+ @param reverse If YES, the latest message is the index 0.
+ @param messageType Message type to filter messages.
+ @param customType Custom type to filter messages. If filtering isn't required, set nil.
+ @param senderUserIds Returns messages whose sender user id matches sender user ids.
+ @param includeMetaArray If YES, the `messages` has meta array.
+ @param completionHandler The handler block to execute. The `messages` is the array of `SBDBaseMessage` instances.
+ @since 3.0.116
+ */
+- (void)getNextMessagesByTimestamp:(long long)timestamp
+                             limit:(NSInteger)limit
+                           reverse:(BOOL)reverse
+                       messageType:(SBDMessageTypeFilter)messageType
+                        customType:(NSString * _Nullable)customType
+                     senderUserIds:(NSArray<NSString *> * _Nullable)senderUserIds
+                  includeMetaArray:(BOOL)includeMetaArray
+                 completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable messages, SBDError * _Nullable error))completionHandler;
+
+/**
+ *  Requests to next messages by the timestamp with filters of inclusive timestamp, limit, reverse, message type, custom type, sender user ids, include meta array.
+ *  @param timestamp The standard timestamp to load messages.
+ *  @param inclusiveTimestamp Whether the response has messages including timestamp or not. If true (YES), results contain messages that created at the timestamp. If false (NO), results have messages that created after the timestamp
+ *  @param limit The limit for the number of messages. The returned messages could be more than this number if there are messages which have the same timestamp.
+ *  @param reverse If YES, the latest message is the index 0.
+ *  @param messageType Message type to filter messages.
+ *  @param customType Custom type to filter messages. If filtering isn't required, set nil.
+ *  @param senderUserIds Returns messages whose sender user id matches sender user ids.
+ *  @param includeMetaArray If YES, the `messages` has meta array.
+ *  @param completionHandler The handler block to execute. The `messages` is the array of `SBDBaseMessage` instances.
+ *
+ *  @since 3.0.140
+ */
+- (void)getNextMessagesByTimestamp:(long long)timestamp
+                inclusiveTimestamp:(BOOL)inclusiveTimestamp
+                             limit:(NSInteger)limit
+                           reverse:(BOOL)reverse
+                       messageType:(SBDMessageTypeFilter)messageType
+                        customType:(NSString * _Nullable)customType
+                     senderUserIds:(NSArray<NSString *> * _Nullable)senderUserIds
+                  includeMetaArray:(BOOL)includeMetaArray
+                 completionHandler:(nullable SBDGetMessagesHandler)completionHandler;
+
+/**
  *  Gets the previous messages by the timestamp with a limit and ordering.
  *
  *  @param timestamp         The standard timestamp to load messages.
@@ -1004,6 +1286,53 @@ DEPRECATED_ATTRIBUTE;
                             customType:(NSString * _Nullable)customType
                          senderUserIds:(NSArray<NSString *> * _Nullable)senderUserIds
                      completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable messages, SBDError * _Nullable error))completionHandler;
+
+/**
+ Gets the previous messages by the timestamp. The messages can have meta array.
+
+ @param timestamp The standard timestamp to load messages.
+ @param limit The limit for the number of messages. The returned messages could be more than this number if there are messages which have the same timestamp.
+ @param reverse If YES, the latest message is the index 0.
+ @param messageType Message type to filter messages.
+ @param customType Custom type to filter messages. If filtering isn't required, set nil.
+ @param senderUserIds Returns messages whose sender user id matches sender user ids.
+ @param includeMetaArray If YES, the `messages` has meta array.
+ @param completionHandler The handler block to execute. The `messages` is the array of `SBDBaseMessage` instances.
+ @since 3.0.116
+ */
+- (void)getPreviousMessagesByTimestamp:(long long)timestamp
+                                 limit:(NSInteger)limit
+                               reverse:(BOOL)reverse
+                           messageType:(SBDMessageTypeFilter)messageType
+                            customType:(NSString * _Nullable)customType
+                         senderUserIds:(NSArray<NSString *> * _Nullable)senderUserIds
+                      includeMetaArray:(BOOL)includeMetaArray
+                     completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable messages, SBDError * _Nullable error))completionHandler;
+
+/**
+ *  Requests to previous messages by the timestamp with filters of inclusive timestamp, limit, reverse, message type, custom type, sender user ids, include meta array.
+ *
+ *  @param timestamp The standard timestamp to load messages.
+ *  @param inclusiveTimestamp Whether the response has messages including timestamp or not. If true (YES), results contain messages that created at the timestamp. If false (NO), results have messages that created before the timestamp
+ *  @param limit The limit for the number of messages. The returned messages could be more than this number if there are messages which have the same timestamp.
+ *  @param reverse If YES, the latest message is the index 0.
+ *  @param messageType Message type to filter messages.
+ *  @param customType Custom type to filter messages. If filtering isn't required, set nil.
+ *  @param senderUserIds Returns messages whose sender user id matches sender user ids.
+ *  @param includeMetaArray If YES, the `messages` has meta array.
+ *  @param completionHandler The handler block to execute. The `messages` is the array of `SBDBaseMessage` instances.
+ *
+ *  @since 3.0.140
+ */
+- (void)getPreviousMessagesByTimestamp:(long long)timestamp
+                    inclusiveTimestamp:(BOOL)inclusiveTimestamp
+                                 limit:(NSInteger)limit
+                               reverse:(BOOL)reverse
+                           messageType:(SBDMessageTypeFilter)messageType
+                            customType:(NSString * _Nullable)customType
+                         senderUserIds:(NSArray<NSString *> * _Nullable)senderUserIds
+                      includeMetaArray:(BOOL)includeMetaArray
+                     completionHandler:(nullable SBDGetMessagesHandler)completionHandler;
 
 /**
  *  Gets the previous and next message by the timestamp with a limit and ordering.
@@ -1063,6 +1392,31 @@ DEPRECATED_ATTRIBUTE;
                                    customType:(NSString * _Nullable)customType
                                 senderUserIds:(NSArray<NSString *> * _Nullable)senderUserIds
                             completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable messages, SBDError * _Nullable error))completionHandler;
+
+/**
+ Gets the previous and next messages by the timestamp. The messages can have meta array.
+
+ @param timestamp The standard timestamp to load messages.
+ @param prevLimit The previous limit for the number of messages. The returned messages could be more than this number if there are messages which have the same timestamp.
+ @param nextLimit The next limit for the number of messages. The returned messages could be more than this number if there are messages which have the same timestamp.
+ @param reverse If YES, the latest message is the index 0.
+ @param messageType Message type to filter messages.
+ @param customType Custom type to filter messages. If filtering isn't required, set nil.
+ @param senderUserIds Returns messages whose sender user id matches sender user ids.
+ @param includeMetaArray If YES, the `messages` has meta array.
+ @param completionHandler The handler block to execute. The `messages` is the array of `SBDBaseMessage` instances.
+ @since 3.0.116
+ */
+- (void)getPreviousAndNextMessagesByTimestamp:(long long)timestamp
+                                    prevLimit:(NSInteger)prevLimit
+                                    nextLimit:(NSInteger)nextLimit
+                                      reverse:(BOOL)reverse
+                                  messageType:(SBDMessageTypeFilter)messageType
+                                   customType:(NSString * _Nullable)customType
+                                senderUserIds:(NSArray<NSString *> * _Nullable)senderUserIds
+                             includeMetaArray:(BOOL)includeMetaArray
+                            completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable messages, SBDError * _Nullable error))completionHandler;
+
 
 #pragma mark - Get messages by message ID.
 /**
@@ -1119,6 +1473,28 @@ DEPRECATED_ATTRIBUTE;
                  completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable messages, SBDError * _Nullable error))completionHandler;
 
 /**
+ Gets the next messages by the message ID. The messages can have meta array.
+
+ @param messageId The standard message ID to load messages.
+ @param limit The limit for the number of messages. The returned messages could be more than this number if there are messages which have the same timestamp.
+ @param reverse If YES, the latest message is the index 0.
+ @param messageType Message type to filter messages.
+ @param customType Custom type to filter messages. If filtering isn't required, set nil.
+ @param senderUserIds Returns messages whose sender user id matches sender user ids.
+ @param includeMetaArray If YES, the `messages` has meta array.
+ @param completionHandler The handler block to execute. The `messages` is the array of `SBDBaseMessage` instances.
+ @since 3.0.116
+ */
+- (void)getNextMessagesByMessageId:(long long)messageId
+                             limit:(NSInteger)limit
+                           reverse:(BOOL)reverse
+                       messageType:(SBDMessageTypeFilter)messageType
+                        customType:(NSString * _Nullable)customType
+                     senderUserIds:(NSArray<NSString *> * _Nullable)senderUserIds
+                  includeMetaArray:(BOOL)includeMetaArray
+                 completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable messages, SBDError * _Nullable error))completionHandler;
+
+/**
  *  Gets the previous messages by the message ID with a limit and ordering.
  *
  *  @param messageId         The standard message ID to load messages.
@@ -1169,6 +1545,28 @@ DEPRECATED_ATTRIBUTE;
                            messageType:(SBDMessageTypeFilter)messageType
                             customType:(NSString * _Nullable)customType
                          senderUserIds:(NSArray<NSString *> * _Nullable)senderUserIds
+                     completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable messages, SBDError * _Nullable error))completionHandler;
+
+/**
+ Gets the previous messages by the message ID. The messages can have meta array.
+
+ @param messageId The standard message ID to load messages.
+ @param limit The limit for the number of messages. The returned messages could be more than this number if there are messages which have the same timestamp.
+ @param reverse If YES, the latest message is the index 0.
+ @param messageType Message type to filter messages.
+ @param customType Custom type to filter messages. If filtering isn't required, set nil.
+ @param senderUserIds Returns messages whose sender user id matches sender user ids.
+ @param includeMetaArray If YES, the `messages` has meta array.
+ @param completionHandler The handler block to execute. The `messages` is the array of `SBDBaseMessage` instances.
+ @since 3.0.116
+ */
+- (void)getPreviousMessagesByMessageId:(long long)messageId
+                                 limit:(NSInteger)limit
+                               reverse:(BOOL)reverse
+                           messageType:(SBDMessageTypeFilter)messageType
+                            customType:(NSString * _Nullable)customType
+                         senderUserIds:(NSArray<NSString *> * _Nullable)senderUserIds
+                      includeMetaArray:(BOOL)includeMetaArray
                      completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable messages, SBDError * _Nullable error))completionHandler;
 
 /**
@@ -1231,6 +1629,30 @@ DEPRECATED_ATTRIBUTE;
                             completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable messages, SBDError * _Nullable error))completionHandler;
 
 /**
+ Gets the previous and next message by the message ID with a limit and ordering.
+
+ @param messageId The standard message ID to load messages.
+ @param prevLimit The previous limit for the number of messages. The returned messages could be more than this number if there are messages which have the same timestamp.
+ @param nextLimit The next limit for the number of messages. The returned messages could be more than this number if there are messages which have the same timestamp.
+ @param reverse If YES, the latest message is the index 0.
+ @param messageType Message type to filter messages.
+ @param customType Custom type to filter messages. If filtering isn't required, set nil.
+ @param senderUserIds Returns messages whose sender user id matches sender user ids.
+ @param includeMetaArray If YES, the `messages` has meta array.
+ @param completionHandler The handler block to execute. The `messages` is the array of `SBDBaseMessage` instances.
+ @since 3.0.116
+ */
+- (void)getPreviousAndNextMessagesByMessageId:(long long)messageId
+                                    prevLimit:(NSInteger)prevLimit
+                                    nextLimit:(NSInteger)nextLimit
+                                      reverse:(BOOL)reverse
+                                  messageType:(SBDMessageTypeFilter)messageType
+                                   customType:(NSString * _Nullable)customType
+                                senderUserIds:(NSArray<NSString *> * _Nullable)senderUserIds
+                             includeMetaArray:(BOOL)includeMetaArray
+                            completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable messages, SBDError * _Nullable error))completionHandler;
+
+/**
  Builds a base channel object from serialized <span>data</span>.
  
  @param data Serialized <span>data</span>.
@@ -1263,9 +1685,9 @@ DEPRECATED_ATTRIBUTE;
  @param completionHandler The handler block to execute. The `userMessage` is a user message which is returned from the SendBird server. The message has a message ID.
  @return Returns the temporary user message with a request ID. It doesn't have a message ID.
  */
-- (SBDUserMessage * _Nullable)copyUserMessage:(SBDUserMessage * _Nonnull)message
-                              toTargetChannel:(SBDBaseChannel * _Nonnull)targetChannel
-                            completionHandler:(nullable void (^)(SBDUserMessage * _Nullable userMessage, SBDError * _Nullable error))completionHandler;
+- (nonnull SBDUserMessage *)copyUserMessage:(SBDUserMessage * _Nonnull)message
+                            toTargetChannel:(SBDBaseChannel * _Nonnull)targetChannel
+                          completionHandler:(nullable void (^)(SBDUserMessage * _Nullable userMessage, SBDError * _Nullable error))completionHandler;
 
 
 /**
@@ -1276,9 +1698,9 @@ DEPRECATED_ATTRIBUTE;
  @param completionHandler The handler block to execute. The `fileMessage` is a user message which is returned from the SendBird server. The message has a message ID.
  @return Returns the temporary file message with a request ID. It doesn't have a message ID.
  */
-- (SBDFileMessage * _Nullable)copyFileMessage:(SBDFileMessage * _Nonnull)message
-                              toTargetChannel:(SBDBaseChannel * _Nonnull)targetChannel
-                            completionHandler:(nullable void (^)(SBDFileMessage * _Nullable fileMessage,  SBDError * _Nullable error))completionHandler;
+- (nonnull SBDFileMessage *)copyFileMessage:(SBDFileMessage * _Nonnull)message
+                            toTargetChannel:(SBDBaseChannel * _Nonnull)targetChannel
+                          completionHandler:(nullable void (^)(SBDFileMessage * _Nullable fileMessage,  SBDError * _Nullable error))completionHandler;
 
 
 /**
@@ -1289,5 +1711,215 @@ DEPRECATED_ATTRIBUTE;
  */
 - (void)getMessageChangeLogsWithToken:(NSString * _Nullable)token
                     completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable updatedMessages, NSArray<NSNumber *> * _Nullable deletedMessageIds, BOOL hasMore, NSString * _Nullable token, SBDError * _Nullable error))completionHandler;
+
+/**
+ Gets the changelogs of the messages with token and meta array
+
+ @param token The token that is used to get more changelogs.
+ @param includeMetaArray If YES, the `updatedMessages` has meta array.
+ @param completionHandler The handler block to execute. The `updatedMessages` is the messages that were updated. The `deletedMessageIds` is the list of the deleted message IDs. If there are more changelogs that are not returned yet, the `hasMore` is YES. The `token` can be used to get more changedlogs.
+ @since 3.0.116
+ */
+- (void)getMessageChangeLogsWithToken:(NSString * _Nullable)token
+                     includeMetaArray:(BOOL)includeMetaArray
+                    completionHandler:(nullable void (^)(NSArray<SBDBaseMessage *> * _Nullable updatedMessages, NSArray<NSNumber *> * _Nullable deletedMessageIds, BOOL hasMore, NSString * _Nullable token, SBDError * _Nullable error))completionHandler;
+
+/**
+ *  Requests updated messages and deleted message IDs by the timestamp in this channel.
+ *
+ *  @param timestamp  The number of milli-seconds(msec). Requests changelogs by that time. This value must not be negative.
+ *  @param completionHandler  The handler block to execute. The `updatedMessages` is the messages that were updated. The `deletedMessageIds` is the list of the deleted message IDs. If there are more changelogs, but doesn't returned, then the `hasMore` is YES. The `token` can be used to get next more changedlogs.
+ *
+ *  @since 3.0.122
+ */
+- (void)getMessageChangeLogsByTimestamp:(long long)timestamp
+                      completionHandler:(nonnull void (^)(NSArray<SBDBaseMessage *> * _Nullable updatedMessages,
+                                                          NSArray<NSNumber *> * _Nullable deletedMessageIds,
+                                                          BOOL hasMore,
+                                                          NSString * _Nullable token,
+                                                          SBDError * _Nullable error))completionHandler;
+
+/**
+ *  Requests updated messages contains metaarray and deleted message IDs by the timestamp in this channel.
+ *
+ *  @param timestamp  The number of milli-seconds(msec). Requests changelogs by that time. This value must not be negative.
+ *  @param includeMetaArray If YES, the `updatedMessages` has meta array.
+ *  @param completionHandler  The handler block to execute. The `updatedMessages` is the messages that were updated. The `deletedMessageIds` is the list of the deleted message IDs. If there are more changelogs, but doesn't returned, then the `hasMore` is YES. The `token` can be used to get next more changedlogs.
+ *
+ *  @since 3.0.122
+ */
+- (void)getMessageChangeLogsByTimestamp:(long long)timestamp
+                       includeMetaArray:(BOOL)includeMetaArray
+                      completionHandler:(nonnull void (^)(NSArray<SBDBaseMessage *> * _Nullable updatedMessages,
+                                                          NSArray<NSNumber *> * _Nullable deletedMessageIds,
+                                                          BOOL hasMore,
+                                                          NSString * _Nullable token,
+                                                          SBDError * _Nullable error))completionHandler;
+
+#pragma mark - Meta Arrays
+/**
+ Creates keys of meta array for the message.
+
+ @param message The message object. This method creates `keys` in it.
+ @param keys Keys of meta array.
+ @param completionHandler The handler block to execute. The `message` is a base message object that has the keys for its meta array.
+ @since 3.0.116
+ */
+- (void)createMessageMetaArrayKeysWithMessage:(nonnull SBDBaseMessage *)message
+                                         keys:(nonnull NSArray<NSString *> *)keys
+                            completionHandler:(nullable void (^)(SBDBaseMessage * _Nullable message, SBDError * _Nullable error))completionHandler;
+
+/**
+ Deletes keys from meta array of the message.
+
+ @param message The message object. This method deletes keys of meta array of it.
+ @param keys Keys to be deleted.
+ @param completionHandler The handler block to execute.
+ @since 3.0.116
+ */
+- (void)deleteMessageMetaArrayKeysWithMessage:(nonnull SBDBaseMessage *)message
+                                         keys:(nonnull NSArray<NSString *> *)keys
+                            completionHandler:(nullable void (^)(SBDBaseMessage * _Nullable message, SBDError * _Nullable error))completionHandler;
+
+/**
+ Adds meta array to the message.
+
+ @param message The message object. This method adds pairs of key and value to this message.
+ @param keyValues Pairs of key-value to be added.
+ @param completionHandler The handler block to execute.
+ @since 3.0.116
+ @see use `addMessageMetaArrayValuesWithMessage:metaArrays:completionHandler:` as possible.
+ */
+- (void)addMessageMetaArrayValuesWithMessage:(nonnull SBDBaseMessage *)message
+                                   keyValues:(nonnull NSDictionary<NSString *, NSArray<NSString *> *> *)keyValues
+                           completionHandler:(nullable void (^)(SBDBaseMessage * _Nullable message, SBDError * _Nullable error))completionHandler;
+
+/**
+ Adds the array of meta array into the message.
+ 
+ @param message The message instance. The metaArrays will added into the message.
+ @param metaArrays An array of message meta array will be added into the message.
+ the string of the value in the metaArray MUST NOT exist with same key.
+ @param completionHandler The handler block to execute after adding message meta arrays.
+ The `message` of the handler is updated message.
+ If failed to add message meta arrays, the `error` of the handler is not nil(null).
+ @discussion The `metaArrays` are upserted into the message.
+ If a key in the metaArrays is new, the key will be inserted with the value.
+ If a key in the metaArrays is already created,
+ the value of the messageMetaArray will be inserted so strings in the value MUST be new one.
+ @since 3.0.148
+ 
+ @code
+ SBDGroupChannel *channel;
+ SBDUserMessageParams *params = [[SBDUserMessageParams alloc] initWithMessage:message];
+ params.metaArrayKeys = key_array;
+ [channel sendUserMessageWithParams:params completionHandler:^(SBDUserMessage * _Nullable message, SBDError * _Nullable error) {
+   // message has metaArrays
+ 
+   NSArray<SBDMessageMetaArray *> *metaArrays = adding_meta_arrays;
+   [channel addMessageMetaArrayValuesWithMessage:message metaArrays:metaArrays completionHandler:^(SBDBaseMessage * _Nullable message, SBDError * _Nullable error) {
+     // added metaArrays into the message.
+   }];
+ }];
+ @endcode
+ */
+- (void)addMessageMetaArrayValuesWithMessage:(nonnull SBDBaseMessage *)message
+                                  metaArrays:(nonnull NSArray<SBDMessageMetaArray *> *)metaArrays
+                           completionHandler:(nullable SBDBaseMessageHandler)completionHandler;
+
+/**
+ Removes meta array from the message.
+
+ @param message The message object. This method removes pairs of key and value from this message.
+ @param keyValues Pairs of key-value to be removed.
+ @param completionHandler The handler block to execute.
+ @since 3.0.116
+ @see use `removeMessageMetaArrayValuesWithMessage:metaArrays:completionHandler:` as possible.
+ */
+- (void)removeMessageMetaArrayValuesWithMessage:(nonnull SBDBaseMessage *)message
+                                      keyValues:(nonnull NSDictionary<NSString *, NSArray<NSString *> *> *)keyValues
+                              completionHandler:(nullable void (^)(SBDBaseMessage * _Nullable message, SBDError * _Nullable error))completionHandler;
+
+/**
+ Removes the array of meta array from the message.
+ 
+ @param message The message instance. The metaArrays will removed from the message.
+ @param metaArrays An array of message meta array will be removed from the message.
+ the string of the value in the metaArray MUST exist with same key.
+ @param completionHandler The handler block to execute after removing message meta arrays.
+ The `message` of the handler is removed message.
+ If failed to remove message meta arrays, the `error` of the handler is not nil(null).
+ @discussion The `metaArrays` are removed from the message.
+ If a key in the metaArrays has an emtpy array of the value, the key will be removed.
+ If not, the value of the messageMetaArray will be removed from the message.
+ The order of the meta array is guaranteed.
+ @since 3.0.148 
+ 
+ @code
+ SBDGroupChannel *channel;
+ SBDUserMessageParams *params = [[SBDUserMessageParams alloc] initWithMessage:message];
+ params.metaArrayKeys = key_array;
+ [channel sendUserMessageWithParams:params completionHandler:^(SBDUserMessage * _Nullable message, SBDError * _Nullable error) {
+   // message has metaArrays
+ 
+   NSArray<SBDMessageMetaArray *> *metaArrays = removing_meta_arrays;
+   [channel removeMessageMetaArrayValuesWithMessage:message metaArrays:metaArrays completionHandler:^(SBDBaseMessage * _Nullable message, SBDError * _Nullable error) {
+     // removed metaArrays into the message.
+   }];
+ }];
+ @endcode
+ */
+- (void)removeMessageMetaArrayValuesWithMessage:(nonnull SBDBaseMessage *)message
+                                     metaArrays:(nonnull NSArray<SBDMessageMetaArray *> *)metaArrays
+                              completionHandler:(nullable SBDBaseMessageHandler)completionHandler;
+
+/**
+ Gets the current user's muted information in this channel.
+
+ @param completionHandler The handler block to be executed.
+ @since 3.0.118
+ */
+- (void)getMyMutedInfoWithCompletionHandler:(nullable void (^)(BOOL isMuted, NSString * _Nonnull description, long long startAt, long long endAt, long long remainingDuration, SBDError * _Nullable error))completionHandler;
+
+# pragma mark - Report
+/**
+Reports a user in a channel of inappropriate activities.
+
+@param offendingUser The user who is being reported.
+@param reportCategory The category in which the report is being submitted. Valid choices are 'suspicious', 'harassing', 'spam', and 'inappropriate'.
+@param reportDescription An open ended description for why the report is being submitted.
+@param completionHandler The handler block to execute.
+@since 3.0.154
+*/
+- (void)reportUser:(nonnull SBDUser *)offendingUser
+    reportCategory:(SBDReportCategory)reportCategory
+ reportDescription:(nullable NSString *)reportDescription
+ completionHandler:(nullable SBDErrorHandler)completionHandler;
+
+/**
+Reports current channel instance of inappropriate activities.
+
+@param reportCategory The category in which the report is being submitted. Valid choices are 'suspicious', 'harassing', 'spam', and 'inappropriate'.
+@param reportDescription An open ended description for why the report is being submitted.
+@param completionHandler The handler block to execute.
+@since 3.0.154
+*/
+- (void)reportChannelWithCategory:(SBDReportCategory)reportCategory
+                reportDescription:(nullable NSString *)reportDescription
+                completionHandler:(nullable SBDErrorHandler)completionHandler;
+
+/**
+Reports a malicious message in the channel
+
+@param message The message object which is being reported.
+@param reportCategory The category in which the report is being submitted. Valid choices are 'suspicious', 'harassing', 'spam', and 'inappropriate'.
+@param reportDescription An open ended description for why the report is being submitted.
+@param completionHandler The handler block to execute.
+@since 3.0.154
+*/
+- (void)reportMessage:(nonnull SBDBaseMessage *)message
+       reportCategory:(SBDReportCategory)reportCategory
+    reportDescription:(nullable NSString *)reportDescription
+    completionHandler:(nullable SBDErrorHandler)completionHandler;
 
 @end

@@ -9,11 +9,12 @@
 #import "KSPhotoView.h"
 #import "KSPhotoItem.h"
 #import "KSProgressLayer.h"
-#import "KSImageManagerProtocol.h"
 #import "KSPhotoBrowser.h"
 
 const CGFloat kKSPhotoViewPadding = 10;
 const CGFloat kKSPhotoViewMaxScale = 3;
+
+static UIColor *BackgroundColor = nil;
 
 @interface KSPhotoView ()<UIScrollViewDelegate, UIGestureRecognizerDelegate>
 
@@ -38,8 +39,8 @@ const CGFloat kKSPhotoViewMaxScale = 3;
             self.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }
         
-        _imageView = [[KSPhotoBrowser.imageViewClass  alloc] init];
-        _imageView.backgroundColor = [UIColor darkGrayColor];
+        _imageView = [[[KSPhotoBrowser.imageManagerClass imageViewClass]  alloc] init];
+        _imageView.backgroundColor = KSPhotoView.backgroundColor;
         _imageView.contentMode = UIViewContentModeScaleAspectFill;
         _imageView.clipsToBounds = YES;
         [self addSubview:_imageView];
@@ -128,6 +129,7 @@ const CGFloat kKSPhotoViewMaxScale = 3;
         _imageView.center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
     }
     self.contentSize = _imageView.frame.size;
+    self.zoomScale = 1.f;
 }
 
 - (void)cancelCurrentImageLoad {
@@ -175,6 +177,16 @@ const CGFloat kKSPhotoViewMaxScale = 3;
         }
     }
     return YES;
+}
+
+#pragma mark - Setter & Getter
+
++ (void)setBackgroundColor:(UIColor *)backgroundColor {
+    BackgroundColor = backgroundColor;
+}
+
++ (UIColor *)backgroundColor {
+    return BackgroundColor ?: UIColor.darkGrayColor;
 }
 
 

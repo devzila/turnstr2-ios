@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
 #import "SBDError.h"
 #import "SBDTypes.h"
 
@@ -18,6 +17,16 @@
 @optional
 
 - (void)didDiscoverFriends:(NSArray<SBDUser *> * _Nullable)friends;
+
+/**
+ *   Invoked when total unread message count has been updated
+ *
+ *   @param totalCount New total unread count
+ *   @param totalCountByCustomType Dictionary with key of custom tyeps and value of unread count
+ *   @since 3.0.154
+ */
+- (void)didUpdateTotalUnreadMessageCount:(int32_t)totalCount
+                   totalCountByCustomType:(nullable NSDictionary<NSString *, NSNumber *> *)totalCountByCustomType;
 
 @end
 
@@ -65,6 +74,14 @@
 
 @property (strong, nullable) NSString *friendName;
 
+
+/**
+ * User's preferred language. Used for translating messages.
+ *
+ * @since 3.0.159
+ */
+@property (nonatomic, strong, nullable, readonly) NSArray<NSString *> *preferredLanguages;
+    
 /**
  *  Internal use only.
  *
@@ -82,7 +99,7 @@
 + (nullable instancetype)buildFromSerializedData:(NSData * _Nonnull)data;
 
 /**
- Serializes message object.
+ Serializes a user object.
  
  @return Serialized <span>data</span>.
  */

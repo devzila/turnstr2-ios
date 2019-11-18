@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
 #import "SBDUser.h"
 #import "SBDBaseChannel.h"
 #import "SBDGroupChannel.h"
@@ -17,6 +16,8 @@
 #import "SBDUserListQuery.h"
 #import "SBDInternalTypes.h"
 #import "SBDFriendListQuery.h"
+#import "SBDApplicationUserListQuery.h"
+#import "SBDBlockedUserListQuery.h"
 
 typedef void(^SBDBackgroundSessionBlock)(void);
 
@@ -60,10 +61,18 @@ typedef void(^SBDBackgroundSessionBlock)(void);
 /**
  Sets the authentication timeout managed by `authenticateWithAuthInfoRequestHandler:completionHandler:` of `SBDConnectionManager`. The default value is 10 seconds.
 
- @param timeout Timeout in seconds. It must be greater than 0. Otherwhise, the default value (10 seconds) will be set.
+ @param timeout Timeout in seconds. It must be greater than 0. Otherwise, the default value (10 seconds) will be set.
  @since 3.0.109
  */
 + (void)setAuthenticationTimeout:(NSTimeInterval)timeout;
+
+/**
+ Sets the timeout for file transfer. This value affects the methods that send a binary data including sending file messages, creating and updating channels.
+
+ @param timeout Timeout in seconds. It must be greater than 0. Otherwise, the default value (60 seconds) will be set.
+ @since 3.0.130
+ */
++ (void)setFileTransferTimeout:(NSInteger)timeout;
 
 @end
 
@@ -250,6 +259,15 @@ typedef void(^SBDBackgroundSessionBlock)(void);
 + (nullable SBDUser *)getCurrentUser;
 
 /**
+ *  Gets the current user's latest connection millisecond time(UTC). If the connection state is not open, returns 0.
+ *
+ *  @return  latest connected millisecond time stamp.
+ *
+ *  @since 3.0.117
+ */
++ (long long)getLastConnectedAt;
+
+/**
  *  Disconnects from SendBird. If this method is invoked, the current user will be invalidated.
  *
  *  @param completionHandler The handler block to execute.
@@ -323,7 +341,6 @@ typedef void(^SBDBackgroundSessionBlock)(void);
  *
  *  - `SBDWebSocketConnecting` - Connecting to the chat server
  *  - `SBDWebSocketOpen` - Connected to the chat server
- *  - `SBDWebSocketClosing` - Disconnecting from the chat server
  *  - `SBSWebSocketClosed` - Disconnected from the chat server
  */
 + (SBDWebSocketConnectionState)getConnectState;
@@ -340,14 +357,15 @@ typedef void(^SBDBackgroundSessionBlock)(void);
  
  @param block Block to run.
  */
-+ (void)performComletionHandlerDelegateQueueBlock:(dispatch_block_t _Nullable)block;
++ (void)performCompletionHandlerDelegateQueueBlock:(dispatch_block_t _Nullable)block;
 
 /**
  *  Creates `SBDUserListQuery` instance for getting a list of all users of this application.
  *
  *  @return `SBDUserListQuery` instance.
+ *  @deprecated in 3.0.120. Use `createApplicationUserListQuery`.
  */
-+ (nullable SBDUserListQuery *)createAllUserListQuery;
++ (nullable SBDUserListQuery *)createAllUserListQuery DEPRECATED_ATTRIBUTE;
 
 /**
  *  Creates `SBDUserListQuery` instance for gettting a list of users of this application with user IDs.
@@ -355,15 +373,24 @@ typedef void(^SBDBackgroundSessionBlock)(void);
  *  @param userIds The user IDs to get user objects.
  *
  *  @return `SBDUserListQuery` instance.
+ *  @deprecated in 3.0.120. Use `createApplicationUserListQuery` and `userIdsFilter` of `SBDApplicationUserListQuery`.
  */
-+ (nullable SBDUserListQuery *)createUserListQueryWithUserIds:(NSArray<NSString *> * _Nonnull)userIds;
++ (nullable SBDUserListQuery *)createUserListQueryWithUserIds:(NSArray<NSString *> * _Nonnull)userIds DEPRECATED_ATTRIBUTE;
 
 /**
- *  Creates `SBDUserListQuery` instance for getting a list of blocked users by the current user.
- *
- *  @return `SBDUserListQuery` instance.
+ Creates `SBDApplicationUserListQuery` instance for getting a list of all users of this application.
+
+ @return `SBDApplicationUserListQuery` instance
+ @since 3.0.120
  */
-+ (nullable SBDUserListQuery *)createBlockedUserListQuery;
++ (nullable SBDApplicationUserListQuery *)createApplicationUserListQuery;
+
+/**
+ *  Creates `SBDBlockedUserListQuery` instance for getting a list of blocked users by the current user.
+ *
+ *  @return `SBDBlockedUserListQuery` instance.
+ */
++ (nullable SBDBlockedUserListQuery *)createBlockedUserListQuery;
 
 #pragma mark - For Current User
 /**
@@ -414,6 +441,16 @@ typedef void(^SBDBackgroundSessionBlock)(void);
                           progressHandler:(nullable void (^)(int64_t bytesSent, int64_t totalBytesSent, int64_t totalBytesExpectedToSend))progressHandler
                         completionHandler:(nullable void (^)(SBDError * _Nullable error))completionHandler;
 
+/**
+ *  Updates the current user's preferred languages
+ *
+ *  @param preferredLanguages   New array of preferred languages
+ *  @param completionHandler    The handler block to execute.
+ */
++ (void)updateCurrentUserInfoWithPreferredLanguages:(nonnull NSArray<NSString *> *)preferredLanguages
+                                  completionHandler:(nullable SBDErrorHandler)completionHandler;
+
+#pragma mark - push token
 /**
  *  Gets the pending push token.
  *
@@ -471,6 +508,61 @@ typedef void(^SBDBackgroundSessionBlock)(void);
 + (void)unregisterAllPushTokenWithCompletionHandler:(nullable void (^)(NSDictionary * _Nullable response, SBDError * _Nullable error))completionHandler;
 
 /**
+ *  Gets the pending push token for PushKit.
+ *
+ *  @return Returns the pending push token for PushKit.
+ *
+ *  @since 3.0.132
+ */
++ (nullable NSData *)getPendingPushKitToken;
+
+/**
+ *  Registers the current device token for PushKit to SendBird.
+ *
+ *  @param devToken          Device token for PushKit.
+ *  @param unique            If YES, register device token after removing exsiting all device tokens of the current user. If NO, just add the device token.
+ *  @param completionHandler The handler block to execute. `status` is the status for push token registration. It is defined in `SBDPushTokenRegistrationStatus`. `SBDPushTokenRegistrationStatusSuccess` represents the `devToken` is registered. `SBDPushTokenRegistrationStatusPending` represents the `devToken` is not registered because the connection is not established, so this method has to be invoked with `getPendingPushToken` method after the connection. The `devToken` is retrived by `getPendingPushToken`. `SBDPushTokenRegistrationStatusError` represents the push token registration is failed.
+ *  @since 3.0.132
+ */
++ (void)registerDevicePushKitToken:(NSData * _Nonnull)devToken
+                            unique:(BOOL)unique
+                 completionHandler:(nullable void (^)(SBDPushTokenRegistrationStatus status, SBDError * _Nullable error))completionHandler;
+
+/**
+*  Unregisters the current device token for PushKit from SendBird.
+*
+*  @param devToken          Device token for PushKit.
+*  @param completionHandler The handler block to execute.
+*
+*  @since 3.0.132
+*/
++ (void)unregisterPushKitToken:(NSData * _Nonnull)devToken
+             completionHandler:(nullable void (^)(NSDictionary * _Nullable response, SBDError * _Nullable error))completionHandler;
+
+/**
+ *  Unregisters all device tokens for PushKit for the current user from SendBird.
+ *
+ *  @param completionHandler The handler block to execute.
+ *
+ *  @since 3.0.132
+ */
++ (void)unregisterAllPushKitTokenWithCompletionHandler:(nullable void (^)(NSDictionary * _Nullable response, SBDError * _Nullable error))completionHandler;
+
+/**
+ *  Requests device push tokens list of current user after the token.
+ *
+ *  @param token  The token used to get next pagination of deive push tokens.
+ *  @param pushTokenType  The enum type to represent the type of push token.
+ *  @param completionHandler  The handler block to be executed after requests. This block has no return value and takes 5 arguments that are device push token list, push token type you are requesting, boolean that indicates having next pagination, token to be used next pagination and error.
+ *
+ *  @since 3.0.134
+ */
++ (void)getMyPushTokensByToken:(nullable NSString *)token
+                 pushTokenType:(SBDPushTokenType)pushTokenType
+             completionHandler:(nonnull SBDGetPushTokensHandler)completionHandler;
+
+#pragma mark - block
+/**
  *  Blocks the specified user.
  *
  *  @param userId            The user ID to be blocked.
@@ -505,8 +597,11 @@ typedef void(^SBDBackgroundSessionBlock)(void);
 + (void)unblockUser:(SBDUser * _Nonnull)user
   completionHandler:(nullable void (^)(SBDError * _Nullable error))completionHandler;
 
+#pragma mark - push preference
 /**
  *  Sets Do-not-disturb.
+ *  This method make snooze(or stop snooze) repeatedly.
+ *  If you want to snooze specific period, use `setSnoozePeriodEnable:startTimestamp:endTimestamp:completionHandler:]`.
  *
  *  @param enable            Enables or not.
  *  @param startHour         Start hour.
@@ -530,6 +625,53 @@ typedef void(^SBDBackgroundSessionBlock)(void);
  *  @param completionHandler The handler block to execute.
  */
 + (void)getDoNotDisturbWithCompletionHandler:(nullable void (^)(BOOL isDoNotDisturbOn, int startHour, int startMin, int endHour, int endMin, NSString * _Nonnull timezone, SBDError * _Nullable error))completionHandler;
+
+/**
+ *  Makes a current user snooze/receive remote push notification in specific duration.
+ *  If you use `[SBDMain setDoNotDisturbWithEnable:startHour:startMin:endHour:endMin:timezone:completionHandler:]` method as well, both methods are applied together.
+ *  Keep in mind snoozing(or stop snoozing) is applied from this method *only once*, not repeatedly.
+ *  If you want to snooze(do not disturb) repeatedly, use `[SBDMain setDoNotDisturbWithEnable:startHour:startMin:endHour:endMin:timezone:completionHandler:]`.
+ *
+ *  @param enabled  Enabled means snooze remote push notification in duration. If set to disabled, current user can receive remote push notification.
+ *  @param startTimestamp Unix timestamp to start snooze.
+ *  @param endTimestamp  Unix timestamp to end snooze.
+ *  @param completionHandler  The handler block to execute when setting notification snoozed is complete.
+ *
+ *  @since 3.0.128
+ */
++ (void)setSnoozePeriodEnable:(BOOL)enabled
+               startTimestamp:(long long)startTimestamp
+                 endTimestamp:(long long)endTimestamp
+            completionHandler:(nullable SBDErrorHandler)completionHandler;
+
+/**
+ *  Requests whether the current user snooze remote push notification.
+ *
+ *  @param completionHandler  The handler block to execute when setting notification snoozed is complete.
+ *
+ *  @since 3.0.128
+ */
++ (void)getSnoozePeriod:(nonnull SBDSnoozePeriodHandler)completionHandler;
+
+/**
+ *  Changes a setting that decides which push notification for the current user to receive in all of the group channel.
+ *
+ *  @param pushTriggerOption  The options to choose which push notification for the current user to receive.
+ *  @param completionHandler  The handler block to execute when setting a push trigger option of the current user is completed.
+ *
+ *  @since 3.0.128
+ */
++ (void)setPushTriggerOption:(SBDPushTriggerOption)pushTriggerOption
+           completionHandler:(nullable SBDErrorHandler)completionHandler;
+
+/**
+ *  Requests a setting that decides which push notification for the current user to receive in all of the group channel.
+ *
+ *  @param completionHandler  The handler block to execute when getting a push trigger of the current user is completed.
+ *
+ *  @since 3.0.128
+ */
++ (void)getPushTriggerOptionWithCompletionHandler:(nonnull SBDPushTriggerOptionHandler)completionHandler;
 
 /**
  Sets push sound
@@ -655,6 +797,119 @@ typedef void(^SBDBackgroundSessionBlock)(void);
  */
 + (void)markAsReadWithChannelUrls:(NSArray <NSString *> * _Nonnull)channelUrls
                 completionHandler:(nullable void (^)(SBDError *_Nullable error))completionHandler;
+
+#pragma mark - Group Channel
+/**
+ *  Gets the number of group channel with the filter.
+ *
+ *  @param memberStateFilter The member state of the current user in the channels that are counted.
+ *  @param completionHandler The handler block to execute.
+ *
+ *  @since 3.0.116
+ */
++ (void)getChannelCountWithMemberStateFilter:(SBDMemberStateFilter)memberStateFilter
+                           completionHandler:(nonnull void (^)(NSUInteger groupChannelCount, SBDError * _Nullable error))completionHandler;
+
+/**
+ *  Gets the total unread channel count of all group channels.
+ *
+ *  @param completionHandler The handler block to execute. The `unreadCount` is the total count of unread channels in all of group channel which the current is a member.
+ *
+ *  @since 3.0.116
+ */
++ (void)getTotalUnreadChannelCountWithCompletionHandler:(nonnull void (^)(NSUInteger unreadCount, SBDError * _Nullable error))completionHandler;
+
+/**
+ *  Gets the number of unread messages in group channels.
+ *
+ *  @param completionHandler The handler block to execute. The `unreadCount` is the total count of unread messages in all of group channel which the current is a member.
+ *
+ *  @since 3.0.116
+ */
++ (void)getTotalUnreadMessageCountWithCompletionHandler:(nullable void (^)(NSUInteger unreadCount, SBDError * _Nullable error))completionHandler;
+
+/**
+ *  Gets the total unread message count of the channels with filters of params.
+ *
+ *  @param params             The instance of parameters to filter.
+ *  @param completionHandler  The handler block to be executed after getting total unread message count. This block has no return value and takes two argument, the one is the number of unread message and the other is error.
+ *
+ *  @since 3.0.116
+ */
++ (void)getTotalUnreadMessageCountWithParams:(nonnull SBDGroupChannelTotalUnreadMessageCountParams *)params
+                           completionHandler:(nonnull void (^)(NSUInteger unreadCount, SBDError * _Nullable error))completionHandler;
+
+/**
+ *  Get unread counts of message and invitation counts in super and non_super channels.
+ *
+ *  @param key  bitmask key composed of super/non_super unread message count, super/non_super invitation count.
+ *  @param completionHandler  The handler block to be executed after getting unread item count. This block has no return value and takes two argument. the one is type of SBDUnreadItemCount that contains unsinged interger for count you requested. the other is an error made when there is something wrong to response.
+ *
+ *  @since 3.0.116
+ */
++ (void)getUnreadItemCountWithKey:(SBDUnreadItemKey)key
+                completionHandler:(nonnull void(^)(SBDUnreadItemCount * _Nullable count, SBDError * _Nullable error))completionHandler;
+
++ (NSInteger)getSubscribedTotalUnreadMessageCount;
++ (NSInteger)getSubscribedCustomTypeTotalUnreadMessageCount;
++ (NSInteger)getSubscribedCustomTypeUnreadMessageCountWithCustomType:(nonnull NSString *)customType;
+
+#pragma mark - channel change logs
+/**
+ *  Requests updated channels and deleted channel URLs since a certain time. A certain time is decided by a token. And the results contain empty channels.
+ *
+ *  @param token  The token used to get next pagination of changelogs.
+ *  @param customTypes  The list of custom types to request. If not set, requests my group channels regardless of custom type.
+ *  @param completionHandler  The handler type of `SBDChannelChangeLogsHandler` block to execute. The `updatedChannels` is the channels that were updated. The `deletedChannelUrls` is the list of the deleted channel URLs. If there are more changelogs that are not returned yet, the `hasMore` is YES. The `token` can be used to get more changedlogs.
+ *
+ *  @since 3.0.123
+ */
++ (void)getMyGroupChannelChangeLogsByToken:(nullable NSString *)token
+                               customTypes:(nullable NSArray <NSString *> *)customTypes
+                         completionHandler:(nonnull SBDChannelChangeLogsHandler)completionHandler;
+
+/**
+ *  Requests updated channels and deleted channel URLs since a certain time. A certain time is decided by a token.
+ *
+ *  @param token  The token used to get next pagination of changelogs.
+ *  @param customTypes  The list of custom types to request. If not set, requests my group channels regardless of custom type.
+ *  @param includeEmptyChannel  Bool value that filters a result whether include empty channels, not contained any messages.
+ *  @param completionHandler  The handler type of `SBDChannelChangeLogsHandler` block to execute. The `updatedChannels` is the channels that were updated. The `deletedChannelUrls` is the list of the deleted channel URLs. If there are more changelogs that are not returned yet, the `hasMore` is YES. The `token` can be used to get more changedlogs.
+ *
+ *  @since 3.0.131
+ */
++ (void)getMyGroupChannelChangeLogsByToken:(nullable NSString *)token
+                               customTypes:(nullable NSArray<NSString *> *)customTypes
+                       includeEmptyChannel:(BOOL)includeEmptyChannel
+                         completionHandler:(nonnull SBDChannelChangeLogsHandler)completionHandler;
+
+/**
+ *  Requests updated channels and deleted channel URLs since the timestamp. And the results contain empty channels.
+ *
+ *  @param timestamp  The number of milli-seconds(msec). Requests changelogs from that time. This value must not be negative.
+ *  @param customTypes  The list of custom types to request. If not set, requests all of my group channels.
+ *  @param completionHandler  The handler type of `SBDChannelChangeLogsHandler` block to execute. The `updatedChannels` is the channels that were updated. The `deletedChannelUrls` is the list of the deleted channel URLs. If there are more changelogs that are not returned yet, the `hasMore` is YES. The `token` can be used to get more changedlogs.
+ *
+ *  @since 3.0.123
+ */
++ (void)getMyGroupChannelChangeLogsByTimestamp:(long long)timestamp
+                                   customTypes:(nullable NSArray <NSString *> *)customTypes
+                             completionHandler:(nonnull SBDChannelChangeLogsHandler)completionHandler;
+
+/**
+ *  Requests updated channels and deleted channel URLs since the timestamp.
+ *
+ *  @param timestamp  The number of milli-seconds(msec). Requests changelogs from that time. This value must not be negative.
+ *  @param customTypes  The list of custom types to request. If not set, requests all of my group channels.
+ *  @param includeEmptyChannel  Bool value that filters a result whether include empty channels, not contained any messages.
+ *  @param completionHandler  The handler type of `SBDChannelChangeLogsHandler` block to execute. The `updatedChannels` is the channels that were updated. The `deletedChannelUrls` is the list of the deleted channel URLs. If there are more changelogs that are not returned yet, the `hasMore` is YES. The `token` can be used to get more changedlogs.
+ *
+ *  @since 3.0.131
+ */
++ (void)getMyGroupChannelChangeLogsByTimestamp:(long long)timestamp
+                                   customTypes:(nullable NSArray <NSString *> *)customTypes
+                           includeEmptyChannel:(BOOL)includeEmptyChannel
+                             completionHandler:(nonnull SBDChannelChangeLogsHandler)completionHandler;
 
 @end
 

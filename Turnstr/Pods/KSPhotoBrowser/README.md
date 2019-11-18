@@ -7,24 +7,27 @@ KSPhotoBrowser
 
 ### A beautiful photo browser with interactive dismissal animation.
 
-![Rotation~](https://raw.github.com/skx926/KSPhotoBrowser/master/Demo/Rotation.gif)
-![Blur~](https://raw.github.com/skx926/KSPhotoBrowser/master/Demo/Blur.gif)
-![Scale~](https://raw.github.com/skx926/KSPhotoBrowser/master/Demo/Scale.gif)
-![Corner~](https://raw.github.com/skx926/KSPhotoBrowser/master/Demo/Corner.gif)
-![Index~](https://raw.github.com/skx926/KSPhotoBrowser/master/Demo/Index.png)
+![Rotation~](https://raw.github.com/skx926/KSPhotoBrowser/master/Images/Rotation.gif)
+![Blur~](https://raw.github.com/skx926/KSPhotoBrowser/master/Images/Blur.gif)
+![Scale~](https://raw.github.com/skx926/KSPhotoBrowser/master/Images/Scale.gif)
+![Corner~](https://raw.github.com/skx926/KSPhotoBrowser/master/Images/Corner.gif)
+![Orientation~](https://raw.github.com/skx926/KSPhotoBrowser/master/Images/Orientation.gif)
+![Index~](https://raw.github.com/skx926/KSPhotoBrowser/master/Images/Index.png)
 
 
 Features
 ==============
-- 4 different interactive dismissal animations(Rotation, Scale, Slide).
-- 3 different background styles(Blur Photo, Blur, Black).
-- 2 different loading styles(Determinate, Indeterminate).
-- 2 different pager styles(Dot, Text).
-- Support bounce animation.
-- Optimized for image which has a very large height.
-- Can display one or more images by providing either image urls or UIImage objects.
-- Custom image downloader library support.
-- Smooth animation with corner radius.
+- [x] 4 different interactive dismissal animations (Rotation, Scale, Slide)
+- [x] 3 different background styles (Blur Photo, Blur, Black)
+- [x] 2 different loading styles (Determinate, Indeterminate)
+- [x] 2 different pager styles (Dot, Text)
+- [x] Support bounce animation
+- [x] Optimized for image which has a very large height
+- [x] Can display one or more images by providing either image urls or UIImage objects
+- [x] Custom image downloader library support
+- [x] Smooth animation with corner radius
+- [x] Support both portrait and landscape device orientation
+- [ ] Support video browse
 
 
 Usage
