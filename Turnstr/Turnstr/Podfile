@@ -1,0 +1,47 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'Turnstr' do
+  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for Turnstr
+pod 'SwiftyJSON'
+pod 'Alamofire'
+pod 'AlamofireImage'
+pod 'RMMapper'
+pod 'NVActivityIndicatorView'
+pod 'ObjectMapper'
+pod 'Kingfisher' 
+pod 'KSPhotoBrowser'
+pod 'SVProgressHUD'
+
+# Facebook SDK
+pod 'FacebookCore'
+pod 'FacebookLogin'
+pod 'FacebookShare'
+pod 'FBSDKCoreKit'
+pod 'FBSDKLoginKit'
+pod 'FBSDKShareKit'
+
+#Firebase
+pod 'Firebase/Core'
+pod 'Firebase/Messaging'
+
+#Twitter
+pod 'TwitterKit'
+
+#SendBird
+pod 'SendBirdSDK'
+#pod 'GrowingTextView'
+pod 'GrowingTextView'
+
+#Open Tok
+pod 'OpenTok'
+
+#Filter
+#pod 'Sharaku'
+
+
+
+end
