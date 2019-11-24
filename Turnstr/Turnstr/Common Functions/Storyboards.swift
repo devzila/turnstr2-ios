@@ -38,5 +38,6 @@ enum StoryboardIds: String {
     case chatVC = "ChatVC"
     case feedScreen = "PublicProfileCollectionViewController"
     case searchVC = "ASSearchVC"
+    case listFollowingFollowersVC = "ListFollowingFollowersVC"
     
 }

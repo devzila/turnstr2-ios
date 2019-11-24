@@ -13,6 +13,7 @@ import UIKit
 enum CellIdentifiers: String{
     case channels = "ChannelCell"
     case userCell = "UserCell"
+    case userListCell = "UserListCell"
 }
 
 extension CellIdentifiers {

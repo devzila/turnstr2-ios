@@ -609,7 +609,7 @@ class EditProfileViewController: ParentViewController, UITableViewDelegate, UITa
     }
     
     private func uploadCoverPic(uploadedImage: UIImage) {
-        
+        kAppDelegate.loadingIndicationCreation()
         if kAppDelegate.checkNetworkStatus() == false {
             kAppDelegate.hideLoadingIndicator()
             return

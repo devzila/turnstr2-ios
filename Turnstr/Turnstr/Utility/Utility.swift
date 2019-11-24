@@ -356,8 +356,9 @@ class Utility: NSObject {
     
     //MARK:- ------ Show Alert ------
     func showAlert(title: String, forMsg Message: String) {
-        let alert: UIAlertView = UIAlertView(title: title, message: Message, delegate: nil, cancelButtonTitle: nil , otherButtonTitles: "OK")
-        alert.show()
+        let alert = UIAlertController(title: title, message: Message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        topVC?.present(alert, animated: true, completion: nil)
     }
     
     
@@ -603,7 +604,17 @@ class Utility: NSObject {
         return tempDict
     }
     
-    
+    public func kbActionSheet(options: [String], withCancelOption: Bool = true, selectedOption: @escaping ((_ string: String) -> ())) {
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        for option in options {
+            let action = UIAlertAction(title: option, style: .default) { (_) in
+                selectedOption(option)
+            }
+            actionSheet.addAction(action)
+        }
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        topVC?.present(actionSheet, animated: true, completion: nil)
+    }
 }
 
 public extension UIDevice {

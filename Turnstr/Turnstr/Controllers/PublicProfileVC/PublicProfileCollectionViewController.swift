@@ -341,6 +341,29 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
         
     }
     
+    //MARK: => Custom Methods
+    private func followOrUnfollow() {
+        guard let userID = self.profileDetail?.id else {
+            return
+        }
+        kAppDelegate.loadingIndicationCreation()
+        let isFollowing = (self.profileDetail?.following == true)
+        if isFollowing { //user already followed now unfollow him
+            self.profileDetail?.following = false
+            self.unFollowUser(id: userID)
+
+        } else { // user not followed , follow him
+            self.profileDetail?.following = true
+            self.followUser(id: userID)
+        }
+    }
+    
+    private func pushToFollowingFollowersList(for following: Bool) {
+        guard let vc = Storyboards.photoStoryboard.initialVC(with: .listFollowingFollowersVC) as? ListFollowingFollowersVC else { return }
+        vc.isForFollowing = following
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     //MARK:-
     // MARK: - UICollectionViewDataSource protocol
     
@@ -543,23 +566,21 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
     }
     
     @IBAction func btnTappedFamily(_ sender: UIButton) {
-        guard let userID = profileDetail?.id else {
-            return
-        }
         
-        kAppDelegate.loadingIndicationCreation()
-        if btnFamily.isSelected == true { //user already followed now unfollow him
-            self.btnFamily.isSelected = false
-            self.unFollowUser(id: userID)
-            
-        } else{ // user not followed , follow him
-            
-            self.btnFamily.isSelected = true
-            self.followUser(id: userID)
+        let followinString = (self.profileDetail?.following == true) ? "Turn off" : "Turn on"
+        let following = "Following"
+        let followers = "Followers"
+        Utility.sharedInstance.kbActionSheet(options: [followinString, following, followers]) { (response) in
+            switch response {
+            case followinString:
+                self.followOrUnfollow()
+                
+            case following, followers:
+                self.pushToFollowingFollowersList(for: (response == following))
+           
+            default: break
+            }
         }
-        //        addUserAsFamily(id: userID) { (response) in
-        //            self.updateUserData()
-        //        }
     }
     
     @IBAction func btnTappedFave5(_ sender: UIButton) {
@@ -864,7 +885,7 @@ extension PublicProfileCollectionViewController {
             if response.count > 0 {
                 DispatchQueue.main.async {
                     if let success = response["success"] as? Bool {
-                        self.btnFamily.isSelected = success
+                        self.profileDetail?.following = success
                     }
                     kAppDelegate.hideLoadingIndicator()
                 }

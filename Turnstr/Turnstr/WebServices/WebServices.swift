@@ -442,6 +442,8 @@ class WebServices: NSObject {
         else if strData["action"] == kAPIUploadBackgroundPic,
             let coverPic = arrImages.first {
             request.httpMethod = "POST"
+            let contentType: String = "image/jpeg"
+
             body.append("--\(boundaryConstant)\r\n".data(using: String.Encoding.utf8)!)
             
             body.append("Content-Disposition: form-data; name=\"user[image]\"; filename=\"photo\"\r\n".data(using: String.Encoding.utf8)!)

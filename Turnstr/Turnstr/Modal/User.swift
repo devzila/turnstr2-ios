@@ -303,3 +303,15 @@ extension User {
     
     
 }
+
+
+//MARK: => Push to user profile
+extension User {
+    public func pushToProfileDetail() {
+        if let id = id, let intId = Int(id) {
+            guard let profileVC = Storyboards.photoStoryboard.initialVC(with: .feedScreen) as? PublicProfileCollectionViewController else { return }
+            profileVC.profileId = intId
+            topVC?.navigationController?.pushViewController(profileVC, animated: true)
+        }
+    }
+}

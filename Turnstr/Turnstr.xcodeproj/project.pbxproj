@@ -56,6 +56,7 @@
 		8A1104DE1F5DC0D9009FFE0C /* UIFont+Speakerbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1104D01F5DC0D9009FFE0C /* UIFont+Speakerbox.swift */; };
 		8A1104DF1F5DC0D9009FFE0C /* URL+StartCallConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1104D11F5DC0D9009FFE0C /* URL+StartCallConvertible.swift */; };
 		8A1781E61F4A030400BE9694 /* ChatVCExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1781E51F4A030400BE9694 /* ChatVCExtension.swift */; };
+		8A1BAB7D238A69D000D34056 /* ListFollowingFollowersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1BAB7C238A69D000D34056 /* ListFollowingFollowersVC.swift */; };
 		8A2630111F30EB9800F55C2B /* ChatBudsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2630101F30EB9800F55C2B /* ChatBudsVC.swift */; };
 		8A2630131F30EBAE00F55C2B /* UsersListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2630121F30EBAE00F55C2B /* UsersListVC.swift */; };
 		8A2630161F30EBF600F55C2B /* TableViewDataSources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2630151F30EBF600F55C2B /* TableViewDataSources.swift */; };
@@ -291,6 +292,7 @@
 		8A1104D01F5DC0D9009FFE0C /* UIFont+Speakerbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Speakerbox.swift"; sourceTree = "<group>"; };
 		8A1104D11F5DC0D9009FFE0C /* URL+StartCallConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL+StartCallConvertible.swift"; sourceTree = "<group>"; };
 		8A1781E51F4A030400BE9694 /* ChatVCExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatVCExtension.swift; sourceTree = "<group>"; };
+		8A1BAB7C238A69D000D34056 /* ListFollowingFollowersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListFollowingFollowersVC.swift; sourceTree = "<group>"; };
 		8A2630101F30EB9800F55C2B /* ChatBudsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatBudsVC.swift; sourceTree = "<group>"; };
 		8A2630121F30EBAE00F55C2B /* UsersListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersListVC.swift; sourceTree = "<group>"; };
 		8A2630151F30EBF600F55C2B /* TableViewDataSources.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewDataSources.swift; sourceTree = "<group>"; };
@@ -536,6 +538,7 @@
 				D9DEF50E1FEA25CB0024E8F9 /* ASSearchVC.swift */,
 				D96018161FFFFD9F000451A3 /* ASVideoStoryVC.swift */,
 				D91F1A99202B8A03003F808B /* ASMyGoLiveVC.swift */,
+				8A1BAB7C238A69D000D34056 /* ListFollowingFollowersVC.swift */,
 			);
 			path = PublicProfileVC;
 			sourceTree = "<group>";
@@ -1510,6 +1513,7 @@
 				D9AC62D51F0191100055ED3D /* DateExtension.swift in Sources */,
 				8A1104DF1F5DC0D9009FFE0C /* URL+StartCallConvertible.swift in Sources */,
 				D9F6F626203625710059893A /* ASFileManager.swift in Sources */,
+				8A1BAB7D238A69D000D34056 /* ListFollowingFollowersVC.swift in Sources */,
 				D95181AA1F180C37008595CC /* LiveFeedsViewController.swift in Sources */,
 				D9FDE6471EC236F5009D5BE3 /* scroll.swift in Sources */,
 				D96366271F02D15D00784A58 /* MBProgressHUD.m in Sources */,

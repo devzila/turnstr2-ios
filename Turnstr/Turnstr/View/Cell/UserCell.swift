@@ -33,6 +33,18 @@ class UserCell: UITableViewCell {
         backgroundColor = .clear
     }
     
+    func configureFollowingFollowerCell(_ user: User) {
+        lblName?.text = [(user.firstname ?? ""), (user.lastname ?? "")].joined(separator: " ")
+        lblSubTitle?.text = nil
+        
+        cubeView?.backgroundColor = .clear
+        lblName?.textColor = .black
+        lblName?.font = UIFont.boldSystemFont(ofSize: 14.0)
+        backgroundColor = .clear
+        
+        createCube(user)
+    }
+    
     
     func createCube(_ user: User) {
         let w: CGFloat = cubeView?.frame.size.width ?? 48.0
