@@ -14,6 +14,9 @@ class ListFollowingFollowersVC: ParentViewController {
     
     // Parameters isForFollowing - true for following, false for followers
     var isForFollowing: Bool = true
+    var userId: Int!
+    var currentPage: Int = 1
+    var totalPages: Int = 1
     var items: [User] = [User]()
     var tableDataSource: TableViewDataSources? {
         didSet {
@@ -40,6 +43,12 @@ class ListFollowingFollowersVC: ParentViewController {
             let user = self.items[indexPath.row]
             user.pushToProfileDetail()
         }
+        tableDataSource?.reachedLastCell = { [unowned self] in
+//            self.currentPage < self.totalPages {
+//                self.currentPage += 1
+//                self.requestAPI()
+//            }
+        }
     }
     
     private func add(users: [User]) {
@@ -54,7 +63,8 @@ class ListFollowingFollowersVC: ParentViewController {
 //MARK: => API Calls
 extension ListFollowingFollowersVC {
     private func requestAPI() {
-        let apiEndPoint = isForFollowing ? "user/following" : "user/followers"
+        guard let _userId = self.userId else { return }
+        let apiEndPoint = isForFollowing ? "members/\(_userId)/following" : "members/\(_userId)/followers"
         let keyword = isForFollowing ? "following" : "followers"
         let dictResponse = WebServices.sharedInstance.GetMethodServerData(strRequest: "", GetURL: apiEndPoint, parType: "")
         
@@ -72,6 +82,12 @@ extension ListFollowingFollowersVC {
                         }
                     }
                     self.add(users: users)
+                    if let currentPage = data["current_page"] as? Int {
+                        self.currentPage = currentPage
+                    }
+                    if let totalPages = data["total_pages"] as? Int {
+                        self.totalPages = totalPages
+                    }
                 }
             } else {
                 kAppDelegate.hideLoadingIndicator()

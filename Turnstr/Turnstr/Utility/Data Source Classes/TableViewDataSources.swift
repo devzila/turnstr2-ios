@@ -18,6 +18,7 @@ class TableViewDataSources: NSObject {
     var cellAtIndex: CellForRowAtIndexPath?
     var selectAtIndex: CellSelectForRowAtIndexPath?
     var refreshControl: UIRefreshControl?
+    var reachedLastCell:(() -> ())?
     var includeRefreshControl: Bool = false {
         didSet {
             if includeRefreshControl == true {
@@ -70,6 +71,11 @@ extension TableViewDataSources: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         if let selectCell = selectAtIndex {
             selectCell(indexPath)
+        }
+    }
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row == (items.count - 1) {
+            self.reachedLastCell?()
         }
     }
 }

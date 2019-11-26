@@ -359,8 +359,10 @@ class PublicProfileCollectionViewController: ParentViewController, UICollectionV
     }
     
     private func pushToFollowingFollowersList(for following: Bool) {
-        guard let vc = Storyboards.photoStoryboard.initialVC(with: .listFollowingFollowersVC) as? ListFollowingFollowersVC else { return }
+        guard let vc = Storyboards.photoStoryboard.initialVC(with: .listFollowingFollowersVC) as? ListFollowingFollowersVC,
+            let userId = self.profileDetail?.id else { return }
         vc.isForFollowing = following
+        vc.userId = userId
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
